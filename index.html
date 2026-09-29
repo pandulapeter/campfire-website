@@ -1,7 +1,206 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Campfire — Your songbook, on every screen you own</title><meta name="description" content="Your lyrics, chords and setlists, together. Campfire is a free, open-source songbook with no ads, no tracking and no account required."><meta name="theme-color" content="#171916"><link rel="icon" href="assets/icon.png"><link rel="stylesheet" href="assets/site.css"></head>
-<body><a class="skip" href="#main">Skip to content</a><div class="wrap"><header><a class="brand" href="./"><img src="assets/icon.png" width="36" height="36" alt="">Campfire</a><nav aria-label="Main navigation"><a href="#features">Features</a><a href="support/">Support</a><a class="nav-button" href="https://pandulapeter.com/campfire/">Open the app <span aria-hidden="true">↗</span></a></nav></header>
-<main id="main"><section class="hero"><div class="hero-copy"><p class="eyebrow">LESS SETUP. MORE MUSIC.</p><h1>Your songs.<br>Your people.<br><em>Your Campfire.</em></h1><p class="intro">A home for your lyrics, chords and setlists. From a quiet practice session to one more song around the fire, keep the music close.</p><div class="actions"><a class="button" href="https://pandulapeter.com/campfire/">Open Campfire <span aria-hidden="true">↗</span></a><a class="text-link" href="#get-campfire">Get it for your device <span aria-hidden="true">↓</span></a></div><p class="small">Free & open source. No account required.</p></div><div class="hero-art"><div class="art-heading"><span class="live-dot"></span> A LITTLE MUSIC GOES A LONG WAY</div><img class="preview" src="assets/app-preview.webp" width="660" height="512" alt="Campfire songbook preview showing song collections"><div class="art-footer"><img src="assets/icon.png" alt="" width="44" height="44"><span>Your songbook,<br><strong>on every screen you own.</strong></span><span class="music" aria-hidden="true">♫</span></div></div></section>
-<section class="features" id="features" aria-labelledby="features-title"><div class="section-heading"><p class="eyebrow">MADE FOR THE MOMENT</p><h2 id="features-title">Everything you need.<br>Room to make it yours.</h2></div><div class="feature-grid"><article><span class="number">01 / YOUR LIBRARY</span><h3>A songbook that stays yours.</h3><p>Write and edit lyrics and chords, import your ChordPro files, and organize songs into setlists. Export your library whenever you like.</p></article><article><span class="number">02 / YOUR WAY TO PLAY</span><h3>Find your key. Take the stage.</h3><p>Transpose on the fly, adjust the text size, or switch to lyrics only. Performance mode keeps accidental edits out of your set.</p></article><article><span class="number">03 / YOUR OWN SPACE</span><h3>Just you and the music.</h3><p>No ads, no tracking, no Campfire account. Keep your library on your device, with optional sync through your own Dropbox.</p></article></div></section>
-<section class="download" id="get-campfire"><div><p class="eyebrow">WHEREVER YOU PLAY</p><h2>Bring your songbook along.</h2><p>Start in your browser, or make room for Campfire on your favorite device.</p></div><div class="platforms"><a href="https://play.google.com/store/apps/details?id=com.pandulapeter.campfire">Android <span>Google Play ↗</span></a><a href="https://apps.apple.com/app/id6815160850">iPhone & iPad <span>App Store ↗</span></a><a href="https://apps.microsoft.com/detail/9MSR62F288M1">Windows <span>Microsoft Store ↗</span></a><a href="https://github.com/pandulapeter/campfire/releases/latest">Linux <span>GitHub releases ↗</span></a><a href="https://pandulapeter.com/campfire/">Web <span>Open in your browser ↗</span></a><a href="https://github.com/pandulapeter/campfire#get-campfire" id="mac-link">macOS <span>Availability & downloads ↗</span></a></div></section>
-<section class="closing"><p>One more song?</p><a class="button" href="https://pandulapeter.com/campfire/">Let’s play <span aria-hidden="true">↗</span></a></section></main><footer><a class="brand" href="./"><img src="assets/icon.png" width="28" height="28" alt="">Campfire</a><p>Made by <a href="https://pandulapeter.com">Pandula Péter</a></p><nav aria-label="Footer"><a href="privacy/">Privacy</a><a href="support/">Support</a><a href="https://github.com/pandulapeter/campfire">Source code ↗</a></nav></footer></div></body></html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Campfire – Your songbook, on every screen you own</title>
+	<meta name="description" content="Campfire is a free, open-source app for song lyrics and chords, built around plain ChordPro files. Android, iOS, iPadOS, Windows, macOS, Linux and the web. No ads, no tracking, no account.">
+	<meta name="theme-color" content="#FAF8FE" media="(prefers-color-scheme: light)">
+	<meta name="theme-color" content="#15121C" media="(prefers-color-scheme: dark)">
+	<meta property="og:title" content="Campfire">
+	<meta property="og:description" content="Your songbook, on every screen you own.">
+	<meta property="og:image" content="https://cdn.jsdelivr.net/gh/pandulapeter/campfire@master/documentation/screenshots/01.png">
+	<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+	<link rel="apple-touch-icon" href="assets/icon-192.png">
+	<link rel="preload" href="assets/fonts/inter_regular.ttf" as="font" type="font/ttf" crossorigin>
+	<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+	<div class="wrap">
+		<a class="brand" href="./"><img src="assets/icon.svg" alt="">Campfire</a>
+		<nav aria-label="Main">
+			<a class="optional" href="#download">Download</a>
+			<a class="optional" href="support/">Support</a>
+			<a class="optional" href="privacy/">Privacy</a>
+			<a class="button small" href="https://pandulapeter.com/campfire/">Open the web app</a>
+		</nav>
+	</div>
+</header>
+<div class="wrap">
+
+	<main id="main">
+		<div class="hero">
+			<div>
+				<h1>Your songbook, on every screen you own.</h1>
+				<p>Campfire keeps your lyrics and chords as plain text files and turns them into pages you can play from: on your phone, your tablet, your computer or in the browser. It’s free and open source, and it doesn’t ask you to make an account.</p>
+				<div class="actions">
+					<a class="button" href="https://pandulapeter.com/campfire/">Open in your browser</a>
+					<a class="button tonal" href="#download">Download</a>
+				</div>
+			</div>
+			<picture class="shot">
+				<source srcset="https://cdn.jsdelivr.net/gh/pandulapeter/campfire@master/documentation/screenshots/06.png" media="(prefers-color-scheme: dark)">
+				<img src="https://cdn.jsdelivr.net/gh/pandulapeter/campfire@master/documentation/screenshots/01.png" width="1200" height="900" alt="Campfire's song list on a phone, grouped by artist, next to the sync settings on an iPhone.">
+			</picture>
+		</div>
+
+		<section aria-labelledby="chordpro-title">
+			<h2 id="chordpro-title">Songs are text files you can read without Campfire.</h2>
+			<p class="lead">Every song is a <a href="https://www.chordpro.org">ChordPro</a> file: the lyrics, with the chords written in brackets where they fall. Most chord sites and songbook apps can export it, so bring what you already have, or write new songs in the editor with a live preview next to it. Try the transpose buttons below.</p>
+			<div class="chordpro">
+				<div class="source">
+					<div class="label">house_of_the_rising_sun.cho</div>
+					<pre id="chordpro-source">{title: House of the Rising Sun}
+{artist: Traditional American}
+{key: Am}
+
+{start_of_verse: Verse 1}
+There [Am]is a [C]house in [D]New Or[F]leans
+You [Am]call the [C]Rising [E7]Sun
+It’s [Am]been the [C]ruin of [D]many a poor [F]soul
+And [Am]me, oh [E7]God, I’m [Am]one
+{end_of_verse}</pre>
+				</div>
+				<div class="rendered">
+					<div class="label">
+						<span>In Campfire</span>
+						<span class="transpose" hidden>
+							<button type="button" data-step="-1" aria-label="Transpose down">−</button>
+							<button type="button" class="reset" id="transpose-value" aria-label="Reset transposition" aria-live="polite">0 · Am</button>
+							<button type="button" data-step="1" aria-label="Transpose up">+</button>
+						</span>
+					</div>
+					<p class="song-title">House of the Rising Sun</p>
+					<p class="song-artist">Traditional American</p>
+					<span class="chip">Verse 1</span>
+					<div class="sheet" id="chordpro-sheet"></div>
+				</div>
+			</div>
+		</section>
+
+		<section aria-labelledby="playing-title">
+			<h2 id="playing-title">Made to be read from a music stand.</h2>
+			<p class="lead">Songs spread out into as many columns as the screen can fit, and can carry on to the right instead of downwards, so scrolling never takes you back up in the middle of a verse.</p>
+			<div class="split">
+				<dl class="features">
+					<div><dt>Transpose</dt><dd>Move a song to your key without touching the file. Campfire remembers it for the next time.</dd></div>
+					<div><dt>Text size</dt><dd>Bigger or smaller right on the song, for the phone on your knee or the tablet on a stand.</dd></div>
+					<div><dt>Lyrics only</dt><dd>Hide the chords when you hand the screen to the singers.</dd></div>
+					<div><dt>Setlists</dt><dd>Put songs in order for the evening, with a note about what the set is for.</dd></div>
+					<div><dt>Tabs and grids</dt><dd>Picking patterns and chord grids are drawn the way you wrote them.</dd></div>
+					<div><dt>Performance mode</dt><dd>Locks the app against accidental edits while you’re playing.</dd></div>
+				</dl>
+				<picture class="shot">
+					<source srcset="https://cdn.jsdelivr.net/gh/pandulapeter/campfire@master/documentation/screenshots/05.png" media="(prefers-color-scheme: dark)">
+					<img src="https://cdn.jsdelivr.net/gh/pandulapeter/campfire@master/documentation/screenshots/02.png" width="1200" height="900" loading="lazy" alt="A song laid out in three columns on a laptop, next to a setlist on a tablet.">
+				</picture>
+			</div>
+		</section>
+
+		<section aria-labelledby="private-title">
+			<h2 id="private-title">Your library stays with you.</h2>
+			<div class="split">
+				<div>
+					<p class="lead">Campfire works offline, and there’s no Campfire account or server. Your songs are kept on your device, and you can export the whole library as a zip whenever you like.</p>
+					<p class="lead">To have the same songs on your phone and your laptop, connect your own Dropbox. Campfire can only see its own folder there, and the files go straight between your devices and Dropbox. The app has no ads, analytics or tracking; the <a href="privacy/">privacy policy</a> has the details.</p>
+				</div>
+				<picture class="shot">
+					<source srcset="https://cdn.jsdelivr.net/gh/pandulapeter/campfire@master/documentation/screenshots/04.png" media="(prefers-color-scheme: dark)">
+					<img src="https://cdn.jsdelivr.net/gh/pandulapeter/campfire@master/documentation/screenshots/03.png" width="1200" height="900" loading="lazy" alt="The song editor on a laptop, with the ChordPro source on the left and the preview on the right.">
+				</picture>
+			</div>
+		</section>
+
+		<section id="download" aria-labelledby="download-title">
+			<h2 id="download-title">Get Campfire</h2>
+			<p class="lead">It’s the same app everywhere, free on every platform.</p>
+			<ul class="platforms">
+				<li><span class="platform-icon android"></span><strong>Android</strong><span></span><a class="button tonal small" href="https://play.google.com/store/apps/details?id=com.pandulapeter.campfire">Google Play</a></li>
+				<li><span class="platform-icon apple"></span><strong>iOS and iPadOS</strong><span></span><a class="button tonal small" href="https://apps.apple.com/app/id6815160850">App Store</a></li>
+				<li><span class="platform-icon windows"></span><strong>Windows</strong><span></span><a class="button tonal small" href="https://apps.microsoft.com/detail/9MSR62F288M1">Microsoft Store</a></li>
+				<li><span class="platform-icon apple"></span><strong>macOS</strong><span>Coming to the Mac App Store soon</span><a class="button tonal small" href="https://github.com/pandulapeter/campfire/releases/latest">GitHub</a></li>
+				<li><span class="platform-icon linux"></span><strong>Linux</strong><span>Download from the latest release</span><a class="button tonal small" href="https://github.com/pandulapeter/campfire/releases/latest">GitHub</a></li>
+				<li><span class="platform-icon web"></span><strong>Web</strong><span>Nothing to install</span><a class="button tonal small" href="https://pandulapeter.com/campfire/">Open</a></li>
+			</ul>
+		</section>
+	</main>
+
+	<footer class="site-footer">
+		<p>A hobby project by <a href="https://pandulapeter.com">Pandula Péter</a>. The source code is available on <a href="https://github.com/pandulapeter/campfire">GitHub</a>.</p>
+		<nav aria-label="Footer">
+			<a href="support/">Support</a>
+			<a href="privacy/">Privacy policy</a>
+			<a href="https://buymeacoffee.com/pandulapeter">Buy me a coffee</a>
+		</nav>
+	</footer>
+</div>
+<script>
+	// Renders the ChordPro example the way the app lays it out, chords above the syllables they belong to, and
+	// transposes it. The file on the left is left alone, as it is in the app.
+	(function () {
+		var names = ["C", "C#", "D", "Eb", "E", "F", "F#", "G", "Ab", "A", "Bb", "B"];
+		var indices = { "Db": 1, "D#": 3, "Gb": 6, "G#": 8, "A#": 10 };
+		names.forEach(function (name, index) { indices[name] = index; });
+		var sourceElement = document.getElementById("chordpro-source");
+		var sheet = document.getElementById("chordpro-sheet");
+		var value = document.getElementById("transpose-value");
+		var source = sourceElement.textContent;
+		var offset = 0;
+
+		function transposeNote(note) {
+			return names[(indices[note] + offset + 120) % 12];
+		}
+
+		function transposeChord(chord) {
+			return chord.replace(/^([A-G][b#]?)(.*?)(?:\/([A-G][b#]?))?$/, function (_, root, rest, bass) {
+				return transposeNote(root) + rest + (bass ? "/" + transposeNote(bass) : "");
+			});
+		}
+
+		function escape(text) {
+			return text.replace(/&/g, "&amp;").replace(/</g, "&lt;");
+		}
+
+		function render() {
+			var html = "";
+			source.split("\n").forEach(function (line) {
+				if (line.charAt(0) === "{" || line.trim() === "") return;
+				html += '<div class="line">';
+				line.split("[").forEach(function (part, index) {
+					var chord = "", text = part;
+					if (index > 0) {
+						var end = part.indexOf("]");
+						chord = transposeChord(part.slice(0, end));
+						text = part.slice(end + 1);
+					}
+					if (chord || text) html += '<span class="segment"><b>' + escape(chord) + "</b>" + escape(text || " ") + "</span>";
+				});
+				html += "</div>";
+			});
+			sheet.innerHTML = html;
+			value.textContent = (offset > 0 ? "+" : "") + offset + " · " + transposeChord("Am");
+		}
+
+		sourceElement.innerHTML = escape(source)
+			.replace(/\{[^}]*\}/g, '<span class="directive">$&</span>')
+			.replace(/\[[^\]]*\]/g, '<span class="chord">$&</span>');
+		document.querySelector(".transpose").hidden = false;
+		value.addEventListener("click", function () {
+			offset = 0;
+			render();
+		});
+		document.querySelectorAll(".transpose button[data-step]").forEach(function (button) {
+			button.addEventListener("click", function () {
+				// Twelve steps bring a song back to its own key, so the offset goes around a circle, from -5 to +6
+				// (+6 and -6 being the same key): past either end it carries on from the other one.
+				offset = ((offset + Number(button.dataset.step) + 5) % 12 + 12) % 12 - 5;
+				render();
+			});
+		});
+		render();
+	})();
+</script>
+</body>
+</html>
