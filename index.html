@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Campfire – Your songbook, on every screen you own</title>
-	<meta name="description" content="Campfire is a free, open-source app for song lyrics and chords, built around plain ChordPro files. Android, iOS, iPadOS, Windows, macOS, Linux and the web. No ads, no tracking, no account.">
+	<meta name="description" content="Campfire is a free, open-source songbook app for lyrics and chords that lays every song out to fit your screen. Android, iOS, iPadOS, Windows, macOS, Linux and the web. No ads, no tracking, no account.">
 	<meta name="theme-color" content="#FAF8FE" media="(prefers-color-scheme: light)">
 	<meta name="theme-color" content="#15121C" media="(prefers-color-scheme: dark)">
 	<meta property="og:title" content="Campfire">
@@ -13,7 +13,7 @@
 	<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
 	<link rel="apple-touch-icon" href="assets/icon-192.png">
 	<link rel="preload" href="assets/fonts/inter_regular.ttf" as="font" type="font/ttf" crossorigin>
-	<link rel="stylesheet" href="assets/site.css?v=3">
+	<link rel="stylesheet" href="assets/site.css?v=6">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -34,21 +34,50 @@
 		<div class="hero">
 			<div>
 				<h1>Your songbook, on every screen you own.</h1>
-				<p>Campfire keeps your lyrics and chords as plain text files and turns them into pages you can play from: on your phone, your tablet, your computer or in the browser. It’s free and open source, and it doesn’t ask you to make an account.</p>
+				<p>Campfire keeps your lyrics and chords in one place and arranges each song to fit the screen it’s on, whether that’s the phone in your pocket, the tablet on your music stand or the laptop at rehearsal.</p>
 				<div class="actions">
 					<a class="button" href="app/" target="_blank" rel="noopener">Open in your browser</a>
 					<a class="button tonal" href="#download">Download</a>
 				</div>
 			</div>
-			<picture class="shot">
-				<source srcset="assets/screenshots/hero-dark.webp" media="(prefers-color-scheme: dark)">
-				<img src="assets/screenshots/hero-light.webp" width="1200" height="900" alt="Campfire running on a few devices.">
-			</picture>
+			<div class="stage">
+				<div class="tablet"><div class="frame"><picture class="screen">
+					<source srcset="assets/screenshots/tablet-song-dark.webp" media="(prefers-color-scheme: dark)">
+					<img src="assets/screenshots/tablet-song-light.webp" width="1400" height="1050" fetchpriority="high" alt="A song with its picking pattern and verses in columns, on an iPad.">
+				</picture></div></div>
+				<div class="phone"><div class="frame"><picture class="screen">
+					<source srcset="assets/screenshots/phone-songs-dark.webp" media="(prefers-color-scheme: dark)">
+					<img src="assets/screenshots/phone-songs-light.webp" width="600" height="1304" alt="The song list on an iPhone, grouped by artist, with tags on every song.">
+				</picture></div></div>
+			</div>
 		</div>
 
+		<ul class="highlights">
+			<li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="14" height="10" rx="1.5"/><path d="M1 18.5h15"/><rect x="18" y="9" width="5" height="10" rx="1.2"/></svg><h2>On all your devices</h2><p>Phones, tablets, computers and the browser, all sharing one library.</p></li>
+			<li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 8.5a15 15 0 0 1 20 0M5.5 12a10 10 0 0 1 13 0M9 15.5a5 5 0 0 1 6 0M3 3l18 18"/><circle cx="12" cy="19.5" r="1"/></svg><h2>Works offline</h2><p>Songs are stored on your device, so no signal is needed to play.</p></li>
+			<li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18c.9 0 1.5-.7 1.5-1.5 0-.9-.8-1.3-.8-2.2 0-.9.8-1.6 1.7-1.6H17a4 4 0 0 0 4-4C21 6.8 17 3 12 3Z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10.5" cy="7" r="1"/><circle cx="15" cy="7.5" r="1"/></svg><h2>Clean and modern</h2><p>An uncluttered interface in light or dark, in the color you pick.</p></li>
+			<li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7.5-4.5-7.5-10.2A4.2 4.2 0 0 1 12 7.2a4.2 4.2 0 0 1 7.5 2.6C19.5 15.5 12 20 12 20Z"/></svg><h2>Free and open source</h2><p>No ads, tracking or account, and the source code is on GitHub.</p></li>
+		</ul>
+
+		<section class="split reverse" aria-labelledby="playing-title">
+			<div>
+				<h2 id="playing-title">Made to be read from a music stand.</h2>
+				<p class="lead">The number of columns follows your screen and text size: one on a phone, several on a tablet or a laptop.</p>
+				<p class="lead">Longer songs carry on to the right instead of downwards, so scrolling never takes you back up in the middle of a verse.</p>
+				<p class="lead">And when you hand the screen to the singers, the chords can stay hidden.</p>
+			</div>
+			<div class="laptop">
+				<div class="lid"><picture class="screen">
+					<source srcset="assets/screenshots/laptop-song-dark.webp" media="(prefers-color-scheme: dark)">
+					<img src="assets/screenshots/laptop-song-light.webp" width="2000" height="1255" loading="lazy" alt="A song laid out in two columns on a MacBook, with its chorus highlighted.">
+				</picture></div>
+				<div class="base"></div>
+			</div>
+		</section>
+
 		<section aria-labelledby="chordpro-title">
-			<h2 id="chordpro-title">Songs are text files you can read without Campfire.</h2>
-			<p class="lead">Every song is a <a href="https://www.chordpro.org" target="_blank" rel="noopener">ChordPro</a> file: the lyrics, with the chords written in brackets where they fall. Most chord sites and songbook apps can export it, so bring what you already have, or write new songs in the editor with a live preview next to it. Try the transpose buttons below.</p>
+			<h2 id="chordpro-title">Bring the songs you already have.</h2>
+			<p class="lead">Campfire uses <a href="https://www.chordpro.org" target="_blank" rel="noopener">ChordPro</a>, the format most chord sites and songbook apps can export: the lyrics, with the chords in brackets where they fall.</p>
 			<div class="chordpro">
 				<div class="source">
 					<div class="label">house_of_the_rising_sun.cho</div>
@@ -80,74 +109,70 @@ And [Am]me, oh [E7]God, I’m [Am]one
 			</div>
 		</section>
 
-		<section aria-labelledby="playing-title">
-			<h2 id="playing-title">Made to be read from a music stand.</h2>
-			<p class="lead">Songs spread out into as many columns as the screen can fit, and can carry on to the right instead of downwards, so scrolling never takes you back up in the middle of a verse.</p>
-			<div class="split">
-				<picture class="shot">
-					<source srcset="assets/screenshots/playing-dark.webp" media="(prefers-color-scheme: dark)">
-					<img src="assets/screenshots/playing-light.webp" width="1200" height="900" loading="lazy" alt="A song and a setlist in Campfire.">
-				</picture>
-				<dl class="features">
-					<div><dt>Transpose</dt><dd>Move a song to your key without touching the file. Campfire remembers it for the next time.</dd></div>
-					<div><dt>Text size</dt><dd>Bigger or smaller right on the song, for the phone on your knee or the tablet on a stand.</dd></div>
-					<div><dt>Lyrics only</dt><dd>Hide the chords when you hand the screen to the singers.</dd></div>
-					<div><dt>Setlists</dt><dd>Put songs in order for the evening, with a note about what the set is for.</dd></div>
-					<div><dt>Tabs and grids</dt><dd>Picking patterns and chord grids are drawn the way you wrote them.</dd></div>
-					<div><dt>Performance mode</dt><dd>Locks the app against accidental edits while you’re playing.</dd></div>
-				</dl>
-			</div>
-		</section>
-
-		<section aria-labelledby="private-title">
-			<h2 id="private-title">Your library stays with you.</h2>
-			<div class="split">
-				<div>
-					<p class="lead">Campfire works offline, and there’s no Campfire account or server. Your songs are kept on your device, and you can export the whole library as a zip whenever you like.</p>
-					<p class="lead">To have the same songs on your phone and your laptop, connect your own Dropbox. Campfire can only see its own folder there, and the files go straight between your devices and Dropbox. The app has no ads, analytics or tracking; the <a href="privacy/">privacy policy</a> has the details.</p>
-				</div>
-				<picture class="shot">
-					<source srcset="assets/screenshots/library-dark.webp" media="(prefers-color-scheme: dark)">
-					<img src="assets/screenshots/library-light.webp" width="1200" height="900" loading="lazy" alt="The song list and the library settings in Campfire.">
-				</picture>
+		<section aria-labelledby="tour-title">
+			<h2 id="tour-title">A look around.</h2>
+			<p class="lead">Campfire works just as well on a phone. Here’s the rest of the app, from finding a song to playing it on stage.</p>
+			<div class="tour">
+				<figure>
+					<div class="phone"><div class="frame"><picture class="screen">
+						<source srcset="assets/screenshots/phone-library-dark.webp" media="(prefers-color-scheme: dark)">
+						<img src="assets/screenshots/phone-library-light.webp" width="600" height="1304" loading="lazy" alt="The song list, grouped by artist, with its tags under every song.">
+					</picture></div></div>
+					<figcaption><strong>Library</strong>Search and sort your songs, and filter them by tag or language.</figcaption>
+				</figure>
+				<figure>
+					<div class="phone"><div class="frame"><picture class="screen">
+						<source srcset="assets/screenshots/phone-setlists-dark.webp" media="(prefers-color-scheme: dark)">
+						<img src="assets/screenshots/phone-setlists-light.webp" width="600" height="1304" loading="lazy" alt="Two setlists, each with a note and its songs in order.">
+					</picture></div></div>
+					<figcaption><strong>Setlists</strong>Songs in order for the evening, with a note for each set.</figcaption>
+				</figure>
+				<figure>
+					<div class="phone"><div class="frame"><picture class="screen">
+						<source srcset="assets/screenshots/phone-editor-dark.webp" media="(prefers-color-scheme: dark)">
+						<img src="assets/screenshots/phone-editor-light.webp" width="600" height="1304" loading="lazy" alt="The song editor, with shortcut buttons above the text.">
+					</picture></div></div>
+					<figcaption><strong>Editor</strong>Write new songs or fix old ones, with a preview a tap away.</figcaption>
+				</figure>
+				<figure>
+					<div class="phone"><div class="frame"><picture class="screen">
+						<source srcset="assets/screenshots/phone-settings-dark.webp" media="(prefers-color-scheme: dark)">
+						<img src="assets/screenshots/phone-settings-light.webp" width="600" height="1304" loading="lazy" alt="The settings, with performance mode at the top.">
+					</picture></div></div>
+					<figcaption><strong>Performance mode</strong>Locks the app so nothing changes by accident mid-song.</figcaption>
+				</figure>
 			</div>
 		</section>
 
 		<section id="download" aria-labelledby="download-title">
 			<h2 id="download-title">Get Campfire</h2>
-			<p class="lead">It’s the same app everywhere, free on every platform, and your library can follow you from one to the other.</p>
-			<div class="stores">
-				<div class="store-group">
-					<div>
-						<h3>Phone and tablet</h3>
-						<p>Android, iPhone and iPad.</p>
-					</div>
-					<div class="badges">
-						<a href="https://play.google.com/store/apps/details?id=com.pandulapeter.campfire" target="_blank" rel="noopener"><img src="assets/badges/android.png" width="468" height="113" alt="Get it on Google Play"></a>
-						<a href="https://apps.apple.com/app/id6815160850" target="_blank" rel="noopener"><img src="assets/badges/ios.png" width="468" height="114" alt="Download on the App Store"></a>
-					</div>
+			<p class="lead">Campfire is a lightweight app and a quick download on every platform. Or skip the install and open it in your browser.</p>
+			<div class="platforms">
+				<a href="https://play.google.com/store/apps/details?id=com.pandulapeter.campfire" target="_blank" rel="noopener">
+					<svg viewBox="0 0 24 24" aria-hidden="true"><defs><clipPath id="google-play"><path d="M4 5.5Q4 2.5 6.6 4l11.3 6.5q2.6 1.5 0 3L6.6 20Q4 21.5 4 18.5Z"/></clipPath></defs><g clip-path="url(#google-play)"><path fill="#4285F4" d="M4 2.5 12.6 12 4 21.5Z"/><path fill="#34A853" d="M4 2.5 14.2 8.4 12.6 12Z"/><path fill="#EA4335" d="M4 21.5 12.6 12l1.6 3.6Z"/><path fill="#FBBC04" d="m14.2 8.4 6.3 3.6-6.3 3.6-1.6-3.6Z"/></g></svg>
+					<span><strong>Android</strong>Google Play</span>
+				</a>
+				<a href="https://apps.apple.com/app/id6815160850" target="_blank" rel="noopener">
+					<svg viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="app-store" x2="0" y2="1"><stop offset="0" stop-color="#1AC4FC"/><stop offset="1" stop-color="#1D6FF2"/></linearGradient></defs><rect width="24" height="24" rx="5.4" fill="url(#app-store)"/><path fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" d="M10.9 6l6.5 11.3M13.1 6l-4.8 8.4m-1.1 2-.7 1.2M6 14.4h7.9m2 0H18"/></svg>
+					<span><strong>iPhone and iPad</strong>App Store</span>
+				</a>
+				<a href="app/" target="_blank" rel="noopener">
+					<img src="assets/icon.svg" width="40" height="40" alt="">
+					<span><strong>Browser</strong>Nothing to install</span>
+				</a>
+				<a href="https://apps.microsoft.com/detail/9MSR62F288M1" target="_blank" rel="noopener">
+					<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="#8A8886" stroke-width="1.6" d="M8.5 7.5V6a3.5 3.5 0 0 1 7 0v1.5"/><rect x="2.8" y="7" width="18.4" height="15" rx="2.4" fill="#F3F2F1" stroke="#C8C6C4" stroke-width=".8"/><path fill="#F25022" d="M7.6 10.2h4v4h-4z"/><path fill="#7FBA00" d="M12.4 10.2h4v4h-4z"/><path fill="#00A4EF" d="M7.6 15h4v4h-4z"/><path fill="#FFB900" d="M12.4 15h4v4h-4z"/></svg>
+					<span><strong>Windows</strong>Microsoft Store</span>
+				</a>
+				<div class="soon">
+					<svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="5.4" fill="url(#app-store)"/><path fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" d="M10.9 6l6.5 11.3M13.1 6l-4.8 8.4m-1.1 2-.7 1.2M6 14.4h7.9m2 0H18"/></svg>
+					<span><strong>macOS</strong>Mac App Store</span>
+					<span class="chip">Coming soon</span>
 				</div>
-				<div class="store-group">
-					<div>
-						<h3>Computer</h3>
-						<p>Windows, macOS and Linux.</p>
-						<p class="note">The Mac App Store version is in its final review and will be available soon.</p>
-					</div>
-					<div class="badges">
-						<a href="https://apps.microsoft.com/detail/9MSR62F288M1" target="_blank" rel="noopener"><img src="assets/badges/windows.png" width="468" height="114" alt="Download from the Microsoft Store"></a>
-						<img class="soon" src="assets/badges/macos.png" width="468" height="113" alt="Download on the Mac App Store (coming soon)">
-						<a href="https://github.com/pandulapeter/campfire/releases/latest" target="_blank" rel="noopener"><img src="assets/badges/linux.png" width="468" height="113" alt="Download for Linux"></a>
-					</div>
-				</div>
-				<div class="store-group">
-					<div>
-						<h3>Browser</h3>
-						<p>Nothing to install: Campfire runs right in the page.</p>
-					</div>
-					<div class="badges">
-						<a href="app/" target="_blank" rel="noopener"><img src="assets/badges/web.png" width="468" height="114" alt="Try it in your browser"></a>
-					</div>
-				</div>
+				<a href="https://github.com/pandulapeter/campfire/releases/latest" target="_blank" rel="noopener">
+					<svg class="github" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>
+					<span><strong>Linux</strong>GitHub</span>
+				</a>
 			</div>
 		</section>
 	</main>
@@ -156,13 +181,17 @@ And [Am]me, oh [E7]God, I’m [Am]one
 		<div class="coffee">
 			<div>
 				<h2>Keep the campfire burning</h2>
-				<p>Campfire is made by an independent developer. It’s free on every platform, with no ads, subscriptions or paid features, and it will stay that way. If it has earned a place on your music stand, you can support its development by buying me a coffee.</p>
+				<p>Hi, I’m Péter, and I make Campfire on my own. It’s free on every platform, with no subscriptions or paid features, and it will stay that way. If it has earned a place on your music stand, you can support its development by buying me a coffee.</p>
 			</div>
 			<a class="button" href="https://buymeacoffee.com/pandulapeter" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h13v5a6 6 0 0 1-6 6h-1a6 6 0 0 1-6-6V8Zm13 1h1.5a2.5 2.5 0 0 1 0 5H17M8 2.5v2.5M11 2.5v2.5M14 2.5v2.5"/></svg>Buy me a coffee</a>
 		</div>
 		<div class="legal">
 			<p>© 2017–2026 · <a href="https://pandulapeter.com" target="_blank" rel="noopener">Péter Pandula</a></p>
-			<a class="source" href="https://github.com/pandulapeter/campfire" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>Source code</a>
+			<nav aria-label="Footer">
+				<a href="support/">Support</a>
+				<a href="privacy/">Privacy</a>
+				<a class="source" href="https://github.com/pandulapeter/campfire" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>Source code</a>
+			</nav>
 		</div>
 	</footer>
 </div>

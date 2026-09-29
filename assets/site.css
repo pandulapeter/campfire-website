@@ -41,8 +41,9 @@
 		--outline-variant: #494456;
 		--chord: #FE851E;
 	}
-	/* The store badges are black, which would disappear into the night background without an outline around them. */
-	.badges img { filter: drop-shadow(1px 0 0 var(--outline)) drop-shadow(-1px 0 0 var(--outline)) drop-shadow(0 1px 0 var(--outline)) drop-shadow(0 -1px 0 var(--outline)); }
+	/* The dark bezels need a lighter rim to stand out from the night background. */
+	.tablet, .phone, .laptop { --rim: #4A4655; --shadow: rgb(0 0 0 / 0.6); }
+	.stage::before { opacity: 0.32; }
 }
 
 * { box-sizing: border-box; }
@@ -81,6 +82,7 @@ html { scroll-padding-top: 73px; }
 .coffee .button svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .legal { display: flex; flex-wrap: wrap; gap: 8px 32px; justify-content: space-between; margin-top: 32px; color: var(--muted); font-size: 14px; }
 .legal p { margin: 0; }
+.legal nav { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px; }
 .legal .source { display: inline-flex; align-items: center; gap: 8px; }
 .legal .source svg { width: 16px; height: 16px; fill: currentColor; }
 .legal a { color: inherit; }
@@ -96,33 +98,76 @@ html { scroll-padding-top: 73px; }
 
 /* Home page */
 
-.hero { display: grid; grid-template-columns: 5fr 6fr; gap: 48px; align-items: center; padding: 64px 0 32px; }
+.hero { display: grid; grid-template-columns: 5fr 6fr; gap: 48px; align-items: center; padding: 64px 0 56px; }
 .hero h1 { font-size: clamp(36px, 5vw, 52px); margin: 0 0 20px; }
-.hero p { font-size: 18px; color: var(--muted); margin: 0 0 28px; max-width: 34em; }
+.hero p { font-size: 18px; color: var(--muted); margin: 0 0 28px; max-width: 30em; }
 .hero .actions { display: flex; flex-wrap: wrap; gap: 12px; }
-.shot { border-radius: 20px; overflow: hidden; background: var(--container); }
-.shot img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+
+/* The screenshots sit in device frames drawn in CSS. Every measurement of a frame is a share of its width (cqw), so
+   that a frame keeps its proportions at any size. The bezels are dark in both color schemes, as the devices are. */
+.tablet, .phone, .laptop { container-type: inline-size; --bezel: #1D1B20; --rim: #3A3740; --shadow: rgb(29 26 35 / 0.4); }
+.frame, .laptop .lid { position: relative; background: var(--bezel); box-shadow: 0 0 0 1px var(--rim), inset 0 0 0 1px rgb(255 255 255 / 0.06), 0 28px 48px -24px var(--shadow); }
+.screen { display: block; overflow: hidden; background: var(--background); }
+.screen img { width: 100%; }
+.tablet .frame { padding: 2.4cqw; border-radius: 4cqw; }
+.tablet .screen { border-radius: 1.6cqw; }
+/* The front camera, in the middle of the long edge as it is on an iPad held sideways */
+.tablet .frame::before { content: ""; position: absolute; top: 0.85cqw; left: 50%; width: 0.7cqw; height: 0.7cqw; margin-left: -0.35cqw; border-radius: 50%; background: #34323A; }
+.phone .frame { padding: 3cqw; border-radius: 14.75cqw; }
+.phone .screen { position: relative; container-type: inline-size; border-radius: 11.75cqw; }
+/* The Dynamic Island, where the iPhone draws it: the screenshots leave its place empty (all but one, which it covers). */
+.phone .screen::after { content: ""; position: absolute; top: 3.2cqw; left: 35.8cqw; width: 28.4cqw; height: 8.3cqw; border-radius: 4.2cqw; background: #000; }
+/* The side button on the right and the volume buttons on the left */
+.phone .frame::before, .phone .frame::after { content: ""; position: absolute; width: 1.2cqw; background: var(--rim); }
+.phone .frame::before { right: -1.2cqw; top: 26%; height: 11%; border-radius: 0 1cqw 1cqw 0; }
+.phone .frame::after { left: -1.2cqw; top: 20%; height: 14%; border-radius: 1cqw 0 0 1cqw; }
+.laptop { min-width: 0; }
+.laptop .lid { width: 86%; margin: 0 auto; padding: 1.2cqw 1.2cqw 1.8cqw; border-radius: 2.4cqw 2.4cqw 0 0; }
+.laptop .screen { border-radius: 0.8cqw 0.8cqw 0 0; }
+.laptop .base { position: relative; height: 1.8cqw; border-radius: 0 0 2cqw 2cqw / 0 0 1.4cqw 1.4cqw; background: linear-gradient(#4A474F, #2A282E 45%, #18171B); box-shadow: 0 0 0 1px var(--rim), 0 24px 32px -20px var(--shadow); }
+/* The groove that lifts the lid */
+.laptop .base::before { content: ""; position: absolute; top: 0; left: 43%; width: 14%; height: 40%; border-radius: 0 0 1cqw 1cqw; background: #1D1B20; }
+
+/* A tablet and a phone, tilted towards each other, over a glow in the colors of the app icon */
+.stage { position: relative; aspect-ratio: 1.1; isolation: isolate; }
+.stage::before { content: ""; position: absolute; inset: 8% 4% 4% 10%; z-index: -1; border-radius: 50%; background: linear-gradient(135deg, #5A49CA, #F57C00); opacity: 0.28; filter: blur(56px); }
+.stage .tablet { position: absolute; top: 12%; left: 0; width: 86%; transform: rotate(-6deg); }
+.stage .phone { position: absolute; top: 28%; right: 1%; width: 27%; transform: rotate(6deg); }
 
 section { padding-top: 96px; scroll-margin-top: -64px; }
-section > h2 { font-size: clamp(28px, 3.4vw, 36px); margin: 0 0 16px; max-width: 22em; }
+section > h2, .split h2 { font-size: clamp(28px, 3.4vw, 36px); margin: 0 0 16px; max-width: 22em; }
+
+/* Text next to a picture rather than above it. The sections take turns: the text is on the left in one and on the
+   right in the next, while it always comes first for screen readers and on phones. */
+.split { display: grid; grid-template-columns: 2fr 3fr; gap: 48px; align-items: center; }
+.split.reverse { grid-template-columns: 3fr 2fr; }
+.split.reverse > :first-child { order: 1; }
+.split .lead { margin-bottom: 16px; }
+.split .lead:last-child { margin-bottom: 0; }
 .lead { font-size: 18px; color: var(--muted); max-width: 40em; margin: 0 0 40px; }
 
-.split { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+/* What Campfire is about, right under the hero */
+
+.highlights { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px 32px; margin: 0; padding: 32px 0 0; list-style: none; border-top: 1px solid var(--outline-variant); }
+.highlights svg { display: block; width: 28px; height: 28px; margin-bottom: 12px; color: var(--primary); fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+.highlights circle { fill: currentColor; stroke: none; }
+.highlights h2 { font-size: 18px; margin: 0 0 4px; }
+.highlights p { color: var(--muted); margin: 0; }
 
 /* The ChordPro example: the file on one side, the page Campfire makes of it on the other */
 
 .chordpro { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--outline-variant); border-radius: 20px; overflow: hidden; }
-.chordpro > div { padding: 20px 24px 24px; min-width: 0; }
+.chordpro > div { padding: 16px 24px 20px; min-width: 0; }
 .chordpro .source { background: var(--container-low); border-right: 1px solid var(--outline-variant); }
-.chordpro .label { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 36px; margin-bottom: 16px; font-size: 13px; font-weight: 700; color: var(--muted); }
+.chordpro .label { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 36px; margin-bottom: 12px; font-size: 13px; font-weight: 700; color: var(--muted); }
 .chordpro pre { margin: 0; font: 14px/1.7 var(--mono); white-space: pre-wrap; overflow-wrap: anywhere; }
 .chordpro pre .directive { color: var(--primary); }
 .chordpro pre .chord { color: var(--chord); }
-.song-title { font-weight: 700; font-size: 18px; margin: 0; }
-.song-artist { color: var(--muted); font-size: 14px; margin: 0 0 16px; }
-.chip { display: inline-block; padding: 2px 12px; border-radius: 8px; background: var(--container-high); font-size: 13px; margin-bottom: 12px; }
+.song-title { font-weight: 700; font-size: 16px; margin: 0; }
+.song-artist { color: var(--muted); font-size: 14px; margin: 0 0 12px; }
+.chip { display: inline-block; padding: 2px 12px; border-radius: 8px; background: var(--container-high); font-size: 13px; margin-bottom: 8px; }
 .sheet { font-size: 15px; }
-.sheet .line { display: flex; flex-wrap: wrap; margin-bottom: 6px; }
+.sheet .line { display: flex; flex-wrap: wrap; margin-bottom: 4px; }
 .sheet .segment { display: inline-flex; flex-direction: column; white-space: pre; }
 .sheet .segment b { color: var(--chord); font-weight: 700; padding-right: 0.6ch; }
 /* A zero-width space gives an empty chord a line of its own, so the words under it line up with the rest. */
@@ -133,31 +178,30 @@ section > h2 { font-size: clamp(28px, 3.4vw, 36px); margin: 0 0 16px; max-width:
 .transpose button:active { background: color-mix(in srgb, var(--on-background) 12%, transparent); }
 .transpose button.reset { width: auto; min-width: 7ch; padding: 0 6px; font-size: inherit; font-variant-numeric: tabular-nums; }
 
-/* Feature list */
+/* A row of phones, each with a caption. On narrow screens it scrolls sideways instead of wrapping. */
 
-.features { display: grid; grid-template-columns: 1fr 1fr; gap: 24px 40px; margin: 0; }
-.features div { border-top: 1px solid var(--outline-variant); padding-top: 16px; }
-.features dt { font-weight: 700; margin-bottom: 4px; }
-.features dd { margin: 0; color: var(--muted); }
+.tour { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
+.tour figure { margin: 0; min-width: 0; }
+.tour .phone { width: 88%; max-width: 240px; margin: 0 auto 24px; }
+.tour figcaption { max-width: 240px; margin: 0 auto; color: var(--muted); font-size: 15px; }
+.tour strong { display: block; color: var(--on-background); font-size: 16px; margin-bottom: 2px; }
 
-/* Download badges, grouped by the kind of device they are for */
+/* Download links, one card per platform with the logo of its store: phones and tablets in the first row, computers in the
+   second */
 
-/* One card with a row per group: what it is for on the left, its badges side by side on the right. */
-.stores { border-radius: 20px; background: var(--container-low); border: 1px solid var(--outline-variant); }
-.store-group { display: flex; align-items: center; justify-content: space-between; gap: 16px 32px; padding: 24px 28px; }
-.store-group + .store-group { border-top: 1px solid var(--outline-variant); }
-.store-group h3 { font-size: 18px; margin: 0 0 2px; }
-.store-group p { color: var(--muted); margin: 0; }
-.store-group .note { font-size: 14px; margin-top: 8px; max-width: 26em; }
-.badges { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px; flex-shrink: 0; }
-/* The radius follows the badges' own rounded corners, so that the shadow hugs them. */
-.badges a { display: block; border-radius: 9px; transition: transform 0.15s, box-shadow 0.15s; }
-.badges a:hover { transform: translateY(-2px); box-shadow: 0 6px 16px -4px color-mix(in srgb, var(--primary) 60%, transparent); }
-.badges a:active { transform: translateY(0); box-shadow: none; }
-.badges a:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
-.badges img { width: auto; height: 44px; }
-/* Not out yet: shown so the platform isn't missing, but faded and without a link. */
-.badges img.soon { opacity: 0.45; }
+.platforms { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.platforms > * { display: flex; align-items: center; gap: 16px; min-height: 80px; padding: 16px 20px; border-radius: 16px; background: var(--container-low); border: 1px solid var(--outline-variant); color: var(--on-background); text-decoration: none; font-size: 14px; line-height: 1.4; transition: background-color 0.15s, border-color 0.15s; }
+.platforms svg, .platforms img { flex-shrink: 0; width: 40px; height: 40px; }
+.platforms .github { fill: currentColor; }
+.platforms span { color: var(--muted); }
+.platforms strong { display: block; color: var(--on-background); font-size: 16px; }
+.platforms a::after { content: "↗"; content: "↗" / ""; margin-left: auto; color: var(--muted); font-size: 18px; }
+.platforms a:hover { background: color-mix(in srgb, var(--primary) 8%, var(--container-low)); border-color: var(--outline); }
+.platforms a:focus-visible { outline-offset: 3px; border-radius: 16px; }
+/* Not out yet: shown so the platform isn't missing, but without a link. */
+.platforms .soon { background: none; border-style: dashed; }
+.platforms .soon svg { opacity: 0.6; }
+.platforms .soon .chip { flex-shrink: 0; margin: 0 0 0 auto; color: var(--on-background); }
 
 /* Privacy policy, support and the 404 page */
 
@@ -174,13 +218,18 @@ section > h2 { font-size: clamp(28px, 3.4vw, 36px); margin: 0 0 16px; max-width:
 .document .contact p:last-child { margin-bottom: 0; }
 
 @media (max-width: 860px) {
-	.hero, .split { grid-template-columns: 1fr; gap: 32px; }
-	.hero { padding-top: 24px; }
-	section { padding-top: 72px; scroll-margin-top: -40px; }
+	.hero, .split, .split.reverse { grid-template-columns: 1fr; gap: 32px; }
+	.split.reverse > :first-child { order: 0; }
 	.chordpro { grid-template-columns: 1fr; }
 	.chordpro .source { border-right: 0; border-bottom: 1px solid var(--outline-variant); }
-	.store-group { flex-direction: column; align-items: flex-start; }
-	.badges { justify-content: flex-start; }
+	.hero { padding-top: 24px; }
+	.stage { width: 100%; max-width: 560px; margin: 0 auto; }
+	section { padding-top: 72px; scroll-margin-top: -40px; }
+	.highlights { grid-template-columns: 1fr 1fr; }
+	.platforms { grid-template-columns: 1fr 1fr; }
+	.tour { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 42%; gap: 24px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin: 0 -24px; padding: 0 24px; scroll-padding: 0 24px; }
+	.tour::-webkit-scrollbar { display: none; }
+	.tour figure { scroll-snap-align: start; }
 	.coffee { flex-direction: column; align-items: flex-start; padding: 28px; }
 }
 
@@ -188,8 +237,11 @@ section > h2 { font-size: clamp(28px, 3.4vw, 36px); margin: 0 0 16px; max-width:
 	.wrap { padding: 0 16px; }
 	.site-header nav a.optional { display: none; }
 	.hero p, .lead { font-size: 17px; }
-	.features { grid-template-columns: 1fr; }
-	.store-group { padding: 20px; }
+	.platforms { grid-template-columns: 1fr; }
+	.highlights { gap: 24px 16px; }
+	.highlights h2 { font-size: 16px; }
+	.highlights p { font-size: 15px; }
+	.tour { grid-auto-columns: 62%; margin: 0 -16px; padding: 0 16px; scroll-padding: 0 16px; }
 	.coffee { padding: 24px; }
 	.chordpro > div { padding: 16px; }
 	.chordpro pre { font-size: 13px; }

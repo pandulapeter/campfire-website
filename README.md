@@ -17,17 +17,19 @@ privacy/index.html    the privacy policy
 404.html              the page GitHub Pages serves for an address that does not exist
 assets/site.css       the one stylesheet every page shares
 assets/fonts/         Inter and JetBrains Mono, the fonts the app itself uses, with their licenses
-assets/badges/        the store badges of the download section
 assets/screenshots/   the screenshots of the home page, in a light and a dark version
-assets/icon.svg       the app icon
+assets/icon.svg       the app icon, for the header and the browser tab
+assets/icon-192.png   the Play Store icon (`app/android/appIcon.png` in the app's repository), for home screens
 CNAME                 the custom domain, managed by GitHub Pages
 ```
 
 The design follows the app: the colors are those of its default theme (`CampfireColorScheme.kt` in the app's repository),
 in a light and a dark version that follow the visitor's system setting, as the app does.
 
-The screenshots are made in Screenshot Bro, in the Campfire project's "Website" rows: each row renders the light
-version as its first image and the dark version as its second. They are exported at 2400×1800 and saved as WebP.
+The home page draws the device frames around its screenshots in CSS, so the screenshots are taken without frames. Each
+is saved as WebP at quality 85, in a light and a dark version: 2000 wide for the laptop (with the black menu bar strip
+cropped off the top of the Mac screenshot), 1400 for the tablet and 600 for the phones. `hero-light.webp` is the preview
+image for links shared on social media.
 
 ## Running it locally
 
