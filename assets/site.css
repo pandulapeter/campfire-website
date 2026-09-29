@@ -73,7 +73,7 @@ html { scroll-padding-top: 73px; }
 .site-header nav a:not(.button):hover { background: var(--container); color: var(--on-background); }
 .site-header nav a[aria-current] { color: var(--on-background); font-weight: 700; }
 
-.site-footer { margin-top: 96px; padding-bottom: 48px; }
+.site-footer { margin-top: 72px; padding-bottom: 32px; }
 .coffee { display: flex; align-items: center; justify-content: space-between; gap: 24px 48px; padding: 32px 40px; border-radius: 20px; background: var(--primary-container); color: var(--on-primary-container); }
 .coffee h2 { font-size: 24px; margin: 0 0 8px; }
 .coffee p { margin: 0; max-width: 40em; }
@@ -83,6 +83,8 @@ html { scroll-padding-top: 73px; }
 .legal p { margin: 0; }
 .legal nav { display: flex; flex-wrap: wrap; gap: 8px 20px; }
 .legal a { color: inherit; }
+/* Without the coffee box above it (on the privacy policy and support pages), a line separates it from the page. */
+.legal:first-child { margin-top: 0; padding-top: 32px; border-top: 1px solid var(--outline-variant); }
 
 /* Buttons, shaped like the app's Material 3 ones */
 
@@ -138,19 +140,20 @@ section > h2 { font-size: clamp(28px, 3.4vw, 36px); margin: 0 0 16px; max-width:
 
 /* Download badges, grouped by the kind of device they are for */
 
-/* Phone and browser share the left column, so that the computer's three badges have the right one to themselves. */
-.stores { display: grid; grid-template-columns: 1fr 1fr; grid-template-areas: "phone computer" "browser computer"; gap: 20px; }
-.store-group:nth-child(1) { grid-area: phone; }
-.store-group:nth-child(2) { grid-area: computer; }
-.store-group:nth-child(3) { grid-area: browser; }
-.store-group { padding: 28px; border-radius: 20px; background: var(--container-low); border: 1px solid var(--outline-variant); }
-.store-group h3 { font-size: 20px; margin: 0 0 4px; }
-.store-group p { color: var(--muted); margin: 0 0 20px; }
-.store-group .note { font-size: 14px; margin: 16px 0 0; }
-.badges { display: flex; flex-wrap: wrap; gap: 12px; }
-.badges a { display: block; border-radius: 12px; transition: transform 0.15s; }
-.badges a:hover { transform: translateY(-2px); }
-.badges img { width: auto; height: 56px; }
+/* One card with a row per group: what it is for on the left, its badges side by side on the right. */
+.stores { border-radius: 20px; background: var(--container-low); border: 1px solid var(--outline-variant); }
+.store-group { display: flex; align-items: center; justify-content: space-between; gap: 16px 32px; padding: 24px 28px; }
+.store-group + .store-group { border-top: 1px solid var(--outline-variant); }
+.store-group h3 { font-size: 18px; margin: 0 0 2px; }
+.store-group p { color: var(--muted); margin: 0; }
+.store-group .note { font-size: 14px; margin-top: 8px; max-width: 26em; }
+.badges { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px; flex-shrink: 0; }
+/* The radius follows the badges' own rounded corners, so that the shadow hugs them. */
+.badges a { display: block; border-radius: 9px; transition: transform 0.15s, box-shadow 0.15s; }
+.badges a:hover { transform: translateY(-2px); box-shadow: 0 6px 16px -4px color-mix(in srgb, var(--primary) 60%, transparent); }
+.badges a:active { transform: translateY(0); box-shadow: none; }
+.badges a:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
+.badges img { width: auto; height: 44px; }
 /* Not out yet: shown so the platform isn't missing, but faded and without a link. */
 .badges img.soon { opacity: 0.45; }
 
@@ -174,7 +177,8 @@ section > h2 { font-size: clamp(28px, 3.4vw, 36px); margin: 0 0 16px; max-width:
 	section { padding-top: 72px; scroll-margin-top: -40px; }
 	.chordpro { grid-template-columns: 1fr; }
 	.chordpro .source { border-right: 0; border-bottom: 1px solid var(--outline-variant); }
-	.stores { grid-template-columns: 1fr; grid-template-areas: "phone" "computer" "browser"; }
+	.store-group { flex-direction: column; align-items: flex-start; }
+	.badges { justify-content: flex-start; }
 	.coffee { flex-direction: column; align-items: flex-start; padding: 28px; }
 }
 
@@ -183,8 +187,7 @@ section > h2 { font-size: clamp(28px, 3.4vw, 36px); margin: 0 0 16px; max-width:
 	.site-header nav a.optional { display: none; }
 	.hero p, .lead { font-size: 17px; }
 	.features { grid-template-columns: 1fr; }
-	.store-group { padding: 24px; }
-	.badges img { height: 52px; }
+	.store-group { padding: 20px; }
 	.coffee { padding: 24px; }
 	.chordpro > div { padding: 16px; }
 	.chordpro pre { font-size: 13px; }
