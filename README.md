@@ -18,6 +18,7 @@ privacy/index.html    the privacy policy
 assets/site.css       the one stylesheet every page shares
 assets/fonts/         Inter and JetBrains Mono, the fonts the app itself uses, with their licenses
 assets/badges/        the store badges of the download section
+assets/screenshots/   the screenshots of the home page, in a light and a dark version
 assets/icon.svg       the app icon
 CNAME                 the custom domain, managed by GitHub Pages
 ```
@@ -25,10 +26,8 @@ CNAME                 the custom domain, managed by GitHub Pages
 The design follows the app: the colors are those of its default theme (`CampfireColorScheme.kt` in the app's repository),
 in a light and a dark version that follow the visitor's system setting, as the app does.
 
-The screenshots are not copied here. They are loaded from `documentation/screenshots` in the
-[app's repository](https://github.com/pandulapeter/campfire) through [jsDelivr](https://www.jsdelivr.com), so replacing
-them there updates the website too. jsDelivr caches them for up to 12 hours; to publish a new one sooner, open its
-address with `purge.jsdelivr.net` in place of `cdn.jsdelivr.net`.
+The screenshots are made in Screenshot Bro, in the Campfire project's "Website" rows: each row renders the light
+version as its first image and the dark version as its second. They are exported at 2400×1800 and saved as WebP.
 
 ## Running it locally
 
