@@ -41,6 +41,8 @@
 		--outline-variant: #494456;
 		--chord: #FE851E;
 	}
+	/* The store badges are black, which would disappear into the night background without an outline around them. */
+	.badges img { filter: drop-shadow(1px 0 0 var(--outline)) drop-shadow(-1px 0 0 var(--outline)) drop-shadow(0 1px 0 var(--outline)) drop-shadow(0 -1px 0 var(--outline)); }
 }
 
 * { box-sizing: border-box; }
@@ -71,10 +73,16 @@ html { scroll-padding-top: 73px; }
 .site-header nav a:not(.button):hover { background: var(--container); color: var(--on-background); }
 .site-header nav a[aria-current] { color: var(--on-background); font-weight: 700; }
 
-.site-footer { margin-top: 96px; padding: 32px 0 48px; border-top: 1px solid var(--outline-variant); color: var(--muted); font-size: 14px; display: flex; flex-wrap: wrap; gap: 8px 32px; justify-content: space-between; }
-.site-footer p { margin: 0; max-width: 40em; }
-.site-footer nav { display: flex; flex-wrap: wrap; gap: 8px 20px; }
-.site-footer a { color: inherit; }
+.site-footer { margin-top: 96px; padding-bottom: 48px; }
+.coffee { display: flex; align-items: center; justify-content: space-between; gap: 24px 48px; padding: 32px 40px; border-radius: 20px; background: var(--primary-container); color: var(--on-primary-container); }
+.coffee h2 { font-size: 24px; margin: 0 0 8px; }
+.coffee p { margin: 0; max-width: 40em; }
+.coffee .button { gap: 10px; min-height: 48px; padding: 0 28px; font-size: 16px; }
+.coffee .button svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.legal { display: flex; flex-wrap: wrap; gap: 8px 32px; justify-content: space-between; margin-top: 32px; color: var(--muted); font-size: 14px; }
+.legal p { margin: 0; }
+.legal nav { display: flex; flex-wrap: wrap; gap: 8px 20px; }
+.legal a { color: inherit; }
 
 /* Buttons, shaped like the app's Material 3 ones */
 
@@ -128,18 +136,23 @@ section > h2 { font-size: clamp(28px, 3.4vw, 36px); margin: 0 0 16px; max-width:
 .features dt { font-weight: 700; margin-bottom: 4px; }
 .features dd { margin: 0; color: var(--muted); }
 
-/* Download list */
+/* Download badges, grouped by the kind of device they are for */
 
-.platforms { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--outline-variant); }
-.platforms li { display: grid; grid-template-columns: 24px 160px 1fr auto; gap: 4px 20px; align-items: center; padding: 16px 0; border-bottom: 1px solid var(--outline-variant); }
-.platforms strong { font-size: 17px; }
-.platforms span { color: var(--muted); }
-.platforms .platform-icon { width: 24px; height: 24px; background: var(--on-background); -webkit-mask: var(--icon) center / contain no-repeat; mask: var(--icon) center / contain no-repeat; }
-.platform-icon.android { --icon: url("platforms/android.svg"); }
-.platform-icon.apple { --icon: url("platforms/apple.svg"); }
-.platform-icon.windows { --icon: url("platforms/windows.svg"); }
-.platform-icon.linux { --icon: url("platforms/linux.svg"); }
-.platform-icon.web { --icon: url("platforms/web.svg"); }
+/* Phone and browser share the left column, so that the computer's three badges have the right one to themselves. */
+.stores { display: grid; grid-template-columns: 1fr 1fr; grid-template-areas: "phone computer" "browser computer"; gap: 20px; }
+.store-group:nth-child(1) { grid-area: phone; }
+.store-group:nth-child(2) { grid-area: computer; }
+.store-group:nth-child(3) { grid-area: browser; }
+.store-group { padding: 28px; border-radius: 20px; background: var(--container-low); border: 1px solid var(--outline-variant); }
+.store-group h3 { font-size: 20px; margin: 0 0 4px; }
+.store-group p { color: var(--muted); margin: 0 0 20px; }
+.store-group .note { font-size: 14px; margin: 16px 0 0; }
+.badges { display: flex; flex-wrap: wrap; gap: 12px; }
+.badges a { display: block; border-radius: 12px; transition: transform 0.15s; }
+.badges a:hover { transform: translateY(-2px); }
+.badges img { width: auto; height: 56px; }
+/* Not out yet: shown so the platform isn't missing, but faded and without a link. */
+.badges img.soon { opacity: 0.45; }
 
 /* Privacy policy, support and the 404 page */
 
@@ -161,6 +174,8 @@ section > h2 { font-size: clamp(28px, 3.4vw, 36px); margin: 0 0 16px; max-width:
 	section { padding-top: 72px; scroll-margin-top: -40px; }
 	.chordpro { grid-template-columns: 1fr; }
 	.chordpro .source { border-right: 0; border-bottom: 1px solid var(--outline-variant); }
+	.stores { grid-template-columns: 1fr; grid-template-areas: "phone" "computer" "browser"; }
+	.coffee { flex-direction: column; align-items: flex-start; padding: 28px; }
 }
 
 @media (max-width: 600px) {
@@ -168,12 +183,9 @@ section > h2 { font-size: clamp(28px, 3.4vw, 36px); margin: 0 0 16px; max-width:
 	.site-header nav a.optional { display: none; }
 	.hero p, .lead { font-size: 17px; }
 	.features { grid-template-columns: 1fr; }
-	.platforms li { grid-template-columns: 24px 1fr auto; gap: 2px 16px; }
-	.platforms .platform-icon { grid-row: 1 / span 2; }
-	.platforms span:not(.platform-icon) { grid-column: 2; grid-row: 2; font-size: 14px; }
-	.platforms span:empty:not(.platform-icon) { display: none; }
-	.platforms strong { grid-column: 2; }
-	.platforms .button { grid-row: 1 / span 2; grid-column: 3; }
+	.store-group { padding: 24px; }
+	.badges img { height: 52px; }
+	.coffee { padding: 24px; }
 	.chordpro > div { padding: 16px; }
 	.chordpro pre { font-size: 13px; }
 	.sheet { font-size: 14px; }

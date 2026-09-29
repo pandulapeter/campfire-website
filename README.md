@@ -17,7 +17,7 @@ privacy/index.html    the privacy policy
 404.html              the page GitHub Pages serves for an address that does not exist
 assets/site.css       the one stylesheet every page shares
 assets/fonts/         Inter and JetBrains Mono, the fonts the app itself uses, with their licenses
-assets/platforms/     the platform icons of the download list
+assets/badges/        the store badges of the download section
 assets/icon.svg       the app icon
 CNAME                 the custom domain, managed by GitHub Pages
 ```
@@ -44,6 +44,6 @@ Every push to `main` is published by GitHub Pages within a minute or two.
 
 ## Credits
 
-The platform icons are from [Simple Icons](https://simpleicons.org) (CC0). Inter and JetBrains Mono are licensed under
+The store badges are copies of the ones in `documentation/images` in the app's repository. Inter and JetBrains Mono are licensed under
 the SIL Open Font License 1.1, included next to them. The name Campfire and the app icon belong to
-[Pandula Péter](https://pandulapeter.com), as described in the app's repository.
+[Péter Pandula](https://pandulapeter.com), as described in the app's repository.

@@ -24,7 +24,7 @@
 			<a class="optional" href="#download">Download</a>
 			<a class="optional" href="support/">Support</a>
 			<a class="optional" href="privacy/">Privacy</a>
-			<a class="button small" href="https://pandulapeter.com/campfire/">Open the web app</a>
+			<a class="button small" href="app/">Open the web app</a>
 		</nav>
 	</div>
 </header>
@@ -36,7 +36,7 @@
 				<h1>Your songbook, on every screen you own.</h1>
 				<p>Campfire keeps your lyrics and chords as plain text files and turns them into pages you can play from: on your phone, your tablet, your computer or in the browser. It’s free and open source, and it doesn’t ask you to make an account.</p>
 				<div class="actions">
-					<a class="button" href="https://pandulapeter.com/campfire/">Open in your browser</a>
+					<a class="button" href="app/">Open in your browser</a>
 					<a class="button tonal" href="#download">Download</a>
 				</div>
 			</div>
@@ -48,7 +48,7 @@
 
 		<section aria-labelledby="chordpro-title">
 			<h2 id="chordpro-title">Songs are text files you can read without Campfire.</h2>
-			<p class="lead">Every song is a <a href="https://www.chordpro.org">ChordPro</a> file: the lyrics, with the chords written in brackets where they fall. Most chord sites and songbook apps can export it, so bring what you already have, or write new songs in the editor with a live preview next to it. Try the transpose buttons below.</p>
+			<p class="lead">Every song is a <a href="https://www.chordpro.org" target="_blank" rel="noopener">ChordPro</a> file: the lyrics, with the chords written in brackets where they fall. Most chord sites and songbook apps can export it, so bring what you already have, or write new songs in the editor with a live preview next to it. Try the transpose buttons below.</p>
 			<div class="chordpro">
 				<div class="source">
 					<div class="label">house_of_the_rising_sun.cho</div>
@@ -115,25 +115,53 @@ And [Am]me, oh [E7]God, I’m [Am]one
 
 		<section id="download" aria-labelledby="download-title">
 			<h2 id="download-title">Get Campfire</h2>
-			<p class="lead">It’s the same app everywhere, free on every platform.</p>
-			<ul class="platforms">
-				<li><span class="platform-icon android"></span><strong>Android</strong><span></span><a class="button tonal small" href="https://play.google.com/store/apps/details?id=com.pandulapeter.campfire">Google Play</a></li>
-				<li><span class="platform-icon apple"></span><strong>iOS and iPadOS</strong><span></span><a class="button tonal small" href="https://apps.apple.com/app/id6815160850">App Store</a></li>
-				<li><span class="platform-icon windows"></span><strong>Windows</strong><span></span><a class="button tonal small" href="https://apps.microsoft.com/detail/9MSR62F288M1">Microsoft Store</a></li>
-				<li><span class="platform-icon apple"></span><strong>macOS</strong><span>Coming to the Mac App Store soon</span><a class="button tonal small" href="https://github.com/pandulapeter/campfire/releases/latest">GitHub</a></li>
-				<li><span class="platform-icon linux"></span><strong>Linux</strong><span>Download from the latest release</span><a class="button tonal small" href="https://github.com/pandulapeter/campfire/releases/latest">GitHub</a></li>
-				<li><span class="platform-icon web"></span><strong>Web</strong><span>Nothing to install</span><a class="button tonal small" href="https://pandulapeter.com/campfire/">Open</a></li>
-			</ul>
+			<p class="lead">It’s the same app everywhere, free on every platform, and your library can follow you from one to the other.</p>
+			<div class="stores">
+				<div class="store-group">
+					<h3>Phone and tablet</h3>
+					<p>Android, iPhone and iPad.</p>
+					<div class="badges">
+						<a href="https://play.google.com/store/apps/details?id=com.pandulapeter.campfire" target="_blank" rel="noopener"><img src="assets/badges/android.png" width="468" height="113" alt="Get it on Google Play"></a>
+						<a href="https://apps.apple.com/app/id6815160850" target="_blank" rel="noopener"><img src="assets/badges/ios.png" width="468" height="114" alt="Download on the App Store"></a>
+					</div>
+				</div>
+				<div class="store-group">
+					<h3>Computer</h3>
+					<p>Windows, macOS and Linux.</p>
+					<div class="badges">
+						<a href="https://apps.microsoft.com/detail/9MSR62F288M1" target="_blank" rel="noopener"><img src="assets/badges/windows.png" width="468" height="114" alt="Download from the Microsoft Store"></a>
+						<img class="soon" src="assets/badges/macos.png" width="468" height="113" alt="Download on the Mac App Store (coming soon)">
+						<a href="https://github.com/pandulapeter/campfire/releases/latest" target="_blank" rel="noopener"><img src="assets/badges/linux.png" width="468" height="113" alt="Download for Linux"></a>
+					</div>
+					<p class="note">The Mac App Store version is in its final review and will be available soon.</p>
+				</div>
+				<div class="store-group">
+					<h3>Browser</h3>
+					<p>Nothing to install: Campfire runs right in the page.</p>
+					<div class="badges">
+						<a href="app/"><img src="assets/badges/web.png" width="468" height="114" alt="Try it in your browser"></a>
+					</div>
+				</div>
+			</div>
 		</section>
 	</main>
 
 	<footer class="site-footer">
-		<p>A hobby project by <a href="https://pandulapeter.com">Pandula Péter</a>. The source code is available on <a href="https://github.com/pandulapeter/campfire">GitHub</a>.</p>
-		<nav aria-label="Footer">
-			<a href="support/">Support</a>
-			<a href="privacy/">Privacy policy</a>
-			<a href="https://buymeacoffee.com/pandulapeter">Buy me a coffee</a>
-		</nav>
+		<div class="coffee">
+			<div>
+				<h2>Keep the campfire burning</h2>
+				<p>Campfire is made by an independent developer. It’s free on every platform, with no ads, subscriptions or paid features, and it will stay that way. If it has earned a place on your music stand, you can support its development by buying me a coffee.</p>
+			</div>
+			<a class="button" href="https://buymeacoffee.com/pandulapeter" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h13v5a6 6 0 0 1-6 6h-1a6 6 0 0 1-6-6V8Zm13 1h1.5a2.5 2.5 0 0 1 0 5H17M8 2.5v2.5M11 2.5v2.5M14 2.5v2.5"/></svg>Buy me a coffee</a>
+		</div>
+		<div class="legal">
+			<p>© 2017–2026 <a href="https://pandulapeter.com" target="_blank" rel="noopener">Péter Pandula</a></p>
+			<nav aria-label="Footer">
+				<a href="support/">Support</a>
+				<a href="privacy/">Privacy policy</a>
+				<a href="https://github.com/pandulapeter/campfire" target="_blank" rel="noopener">Source code</a>
+			</nav>
+		</div>
 	</footer>
 </div>
 <script>
