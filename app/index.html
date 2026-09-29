@@ -1,0 +1,595 @@
+<!--
+ This file is part of Campfire.
+ Copyright (c) Pandula Péter 2017-2026.
+ https://github.com/pandulapeter/campfire
+
+ This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+ If a copy of the MPL was not distributed with this file, You can obtain one at
+ https://mozilla.org/MPL/2.0/.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- Every screen of the app has an address of its own (…/app/song/…), and this page is only ever loaded as
+         the folder it lives in: a deeper address is not a file, so the host's 404 page sends it here with the path in
+         the query string (…/app/?/song/…, see 404.html in the site's repository), and the development server
+         redirects the same way. This runs before anything on the page is fetched, and does two things with it:
+
+         - It writes that folder into a <base>, which is what every relative address on the page and in the app is
+           resolved against from then on - the icon and the fonts below, campfire.js, the binaries, the resources
+           Compose fetches as it needs them and the storage worker the first write starts - so they keep working
+           once the app has put a deeper address into the address bar.
+         - It puts the address the query string carries back into the address bar, where the app reads it as the
+           screen to open on. The history entry's state is kept, although a page loaded again starts at the bottom
+           of its own history either way.
+
+         A query string that does not start with a slash is not touched: that is an authorization answer, which the
+         app takes out itself once it has read it. -->
+    <script type="application/javascript">
+        (function (l) {
+            var folder = l.pathname.replace(/[^\/]*$/, '');
+            var base = document.createElement('base');
+            base.href = folder;
+            document.head.appendChild(base);
+            if (l.search[1] === '/') {
+                var decoded = l.search.slice(2).split('&').map(function (s) {
+                    return s.replace(/~and~/g, '&');
+                }).join('?');
+                window.history.replaceState(window.history.state, '', folder + decoded + l.hash);
+            }
+        }(window.location));
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+    <!-- The two schemes of the app's own color: the dark background, and the light surfaceContainerHigh, since Chrome
+         ignores a theme-color as light as the light background. Once the preferences are read the app writes the
+         palette it is drawn in over both (see BrowserThemeColorEffect in CampfireWebApp.kt). -->
+    <meta name="theme-color" content="#E9E7F0" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#15121C" media="(prefers-color-scheme: dark)">
+    <meta name="description" content="Song lyrics and chords, in a library of plain ChordPro files that stays yours.">
+    <title>Campfire</title>
+    <link rel="icon" type="image/png" sizes="192x192" href="favicon-campfire.png">
+    <!-- The icon of the theme color the user chose, which the app leaves in local storage whenever it shows one (see
+         FaviconEffect in CampfireWebApp.kt), so that the tab and the loading screen are in that color before the app
+         that knows it has been downloaded. Only a name the app writes is taken: this is a URL on the page. -->
+    <script type="application/javascript">
+        (function () {
+            try {
+                var icon = window.localStorage.getItem('campfire-icon');
+                if (/^favicon-[a-z]+\.png$/.test(icon || '')) {
+                    document.querySelector('link[rel="icon"]').setAttribute('href', icon);
+                    document.documentElement.style.setProperty('--splash-icon', 'url("' + icon + '")');
+                }
+            } catch (e) {
+            }
+        })();
+    </script>
+    <!-- Every file of a distribution is asked for with its own version in the query string, this page aside, which
+         is the one address that has to stay put. The host lets a browser keep any file for ten minutes by its address
+         and a deployment replaces the files one address at a time, so without it a page could start with a campfire.js
+         whose binaries were already deleted, or a binary with the resources of another release. With it every release
+         is a set of addresses of its own, which only the page that belongs to it knows, while a file a release left as
+         it was keeps its address and stays cached. The versions are written by the build together with the rest of
+         the manifest (see build.gradle.kts): a hash of each file's content, so a build of the same sources asks for the
+         same addresses. A file the manifest does not name is asked for as it is.
+
+         Everything the app fetches goes through fetch(), which is wrapped here for good, before campfire.js is loaded;
+         campfire.js itself and the storage worker are asked for by name through campfireVersioned. Only addresses inside
+         this page's folder are touched, so a request to the sync service is not. On the development server there is no
+         manifest and nothing is changed.
+
+         The fonts the interface (see InterfaceTypography.wasmJs.kt) and the tabs (see MonospaceFontFamily.wasmJs.kt) are
+         set in are preloaded from here as well, since the address a preload answers has to be the versioned one: they
+         are fetched alongside the binaries rather than after them, so they are in by the time the app asks for them.
+         "fetch" and "crossorigin" are what make the Compose resource reader's own fetch() the request this answers;
+         as="font" would be downloaded twice. -->
+    <script type="application/javascript">
+        (function () {
+            var build = {"binaryCount":2,"binaryBytes":16972719,"files":{"bdba7f044508b959acc1.wasm":"83551aec57114359","bfa5198fb2fe683c613a.wasm":"089052ba37e2a6e8","campfire.js":"19e0789ac5d58d9e","campfire.js.LICENSE.txt":"85a703daf937b69e","composeResources/com.pandulapeter.campfire.presentation.resources/drawable/ic_add.xml":"93c6cb62c7673c92","composeResources/com.pandulapeter.campfire.presentation.resources/drawable/ic_album.xml":"e13abf4149010fe8","composeResources/com.pandulapeter.campfire.presentation.resources/drawable/ic_archive.xml":"f99f1f6a3a17ae2e","composeResources/com.pandulapeter.campfire.presentation.resources/drawable/ic_back.xml":"cda8a4070bca3714","composeResources/com.pandulapeter.campfire.presentation.resources/drawable/ic_bug.xml":"b0d1c96bd5913c5d","composeResources/com.pandulapeter.campfire.presentation.resources/drawable/ic_calendar.xml":"29423c04e9beea61","composeResources/com.pandulapeter.campfire.presentation.resources/drawable/ic_campfire.xml":"de3f653a62accd92","composeResources/com.pandulapeter.campfire.presentation.resources/drawable/ic_check.xml":"73861f2f457496d4","composeResources/com.pandulapeter.campfire.presentation.resources/drawable/ic_clear.xml":"1626b5ab1e236054","composeResources/com.pandulapeter.campfire.presentation.resources/drawable/ic_cloud.xml":"049bf241d96a3101","composeResources/com.pandulapeter.campfire.presentation.resources/drawable/ic_cloud_off.xml":"4d9690b225bd9562","composeResources/com.pandulapeter.campfire.presentation.resources/drawable/ic_coffee.xml":"3c026ac94c83d03f","composeResources/com.pandulapeter.campfire.presentation.resources/drawable/ic_delete.xml":"de82ba1147d364a2","composeResources/com.pandulapeter.campfire.presentation.resources/drawable/ic_dot.xml":"36d4664c851c2a2a","composeResources/com.pandulapeter.campfire.presentation.resources/drawable/ic_drag_handle.xml":"bf0f705c528ce11a","composeResources/com.pandulapeter.campfire.presentation.resources/drawable/ic_duplicate.xml":"447d950a304e7ef7","composeResources/com.pandulapeter.campfire.presentation.resources/drawable/ic_edit.xml":"080255083df48271","composeResources/com.pandulapeter.campfire.presentation.resources/drawable/ic_error.xml":"881ce9a8f9d28c07","composeResources/com.pandulapeter.campfire.presentation.resources/drawable/ic_expand.xml":"48d3b89b851f9331","composeResources/com.pandulapeter.campfire.presentation.resources/drawable/ic_export.xml":"418b334685bb8e51","composeResources/com.pandulapeter.campfire.presentation.resources/drawable/ic_filter.xml":"b2970f5fc3f57663","composeResources/com.pandulapeter.campfire.presentation.resources/drawable/ic_filter_outline.xml":"8c0b6822890778c2","composeResources/com.pandulapeter.campfire.presentation.resources/drawable/ic_git_hub.xml":"0ada5073beaaa87e","composeResources/com.pandulapeter.campfire.presentation.resources/drawable/ic_import.xml":"c1491a07720fd833","composeResources/com.pandulapeter.campfire.presentation.resources/drawable/ic_language.xml":"27180a42a30af6ca","composeResources/com.pandulapeter.campfire.presentation.resources/drawable/ic_link.xml":"7e342e9487be2a1b","composeResources/com.pandulapeter.campfire.presentation.resources/drawable/ic_more.xml":"2259e454d1e0f82d","composeResources/com.pandulapeter.campfire.presentation.resources/drawable/ic_move_down.xml":"4b82457d4759cd54","composeResources/com.pandulapeter.campfire.presentation.resources/drawable/ic_move_up.xml":"894d76e118805c3e","composeResources/com.pandulapeter.campfire.presentation.resources/drawable/ic_next.xml":"68f383338036623d","composeResources/com.pandulapeter.campfire.presentation.resources/drawable/ic_open_in_new.xml":"8786ed5dc181510e","composeResources/com.pandulapeter.campfire.presentation.resources/drawable/ic_phone.xml":"29de466a69171ca3","composeResources/com.pandulapeter.campfire.presentation.resources/drawable/ic_previous.xml":"dbbf6947c6d6f18c","composeResources/com.pandulapeter.campfire.presentation.resources/drawable/ic_privacy_policy.xml":"4a6dc968c1f1a7d9","composeResources/com.pandulapeter.campfire.presentation.resources/drawable/ic_redo.xml":"5ed680a974de7083","composeResources/com.pandulapeter.campfire.presentation.resources/drawable/ic_refresh.xml":"00f74ad956bb8820","composeResources/com.pandulapeter.campfire.presentation.resources/drawable/ic_rename.xml":"3d3dea17682b562e","composeResources/com.pandulapeter.campfire.presentation.resources/drawable/ic_save.xml":"754bfc589ae47cbf","composeResources/com.pandulapeter.campfire.presentation.resources/drawable/ic_search.xml":"9081358862ee8129","composeResources/com.pandulapeter.campfire.presentation.resources/drawable/ic_setlists.xml":"84da63e29bbb99f6","composeResources/com.pandulapeter.campfire.presentation.resources/drawable/ic_setlists_outline.xml":"224f5b014f37121f","composeResources/com.pandulapeter.campfire.presentation.resources/drawable/ic_setlists_remove.xml":"fe33d188243db585","composeResources/com.pandulapeter.campfire.presentation.resources/drawable/ic_settings.xml":"07d1a4a426036086","composeResources/com.pandulapeter.campfire.presentation.resources/drawable/ic_share.xml":"052568b5a64c94a7","composeResources/com.pandulapeter.campfire.presentation.resources/drawable/ic_songs.xml":"54c5d8f81d93bf60","composeResources/com.pandulapeter.campfire.presentation.resources/drawable/ic_sort.xml":"9c9ec762b41680a8","composeResources/com.pandulapeter.campfire.presentation.resources/drawable/ic_star.xml":"3473c103404a0587","composeResources/com.pandulapeter.campfire.presentation.resources/drawable/ic_subtract.xml":"3e9b1560a9ae09cd","composeResources/com.pandulapeter.campfire.presentation.resources/drawable/ic_sync.xml":"93341cf593932ce7","composeResources/com.pandulapeter.campfire.presentation.resources/drawable/ic_text_decrease.xml":"5a9a54263b4c0eb0","composeResources/com.pandulapeter.campfire.presentation.resources/drawable/ic_text_increase.xml":"749856cc42e8c594","composeResources/com.pandulapeter.campfire.presentation.resources/drawable/ic_tune.xml":"118c029ecc5b5f0c","composeResources/com.pandulapeter.campfire.presentation.resources/drawable/ic_unarchive.xml":"79c21ef7ecd35c6a","composeResources/com.pandulapeter.campfire.presentation.resources/drawable/ic_undo.xml":"a025bcda75db384c","composeResources/com.pandulapeter.campfire.presentation.resources/drawable/ic_update.xml":"4ea39b3d1af20846","composeResources/com.pandulapeter.campfire.presentation.resources/files/demo/getting_started.setlist.json":"3543d0dc6e127916","composeResources/com.pandulapeter.campfire.presentation.resources/files/demo/traditional_american-home_on_the_range_my_western_home.cho":"a61ae807321af65f","composeResources/com.pandulapeter.campfire.presentation.resources/files/demo/traditional_american-house_of_the_rising_sun.cho":"3ff87fcc7c10dca4","composeResources/com.pandulapeter.campfire.presentation.resources/files/licenses/inter_ofl.txt":"262481e844521b32","composeResources/com.pandulapeter.campfire.presentation.resources/files/licenses/jetbrains_mono_ofl.txt":"30f0c136e3c88e42","composeResources/com.pandulapeter.campfire.presentation.resources/font/inter_bold.ttf":"63274bb464ed0527","composeResources/com.pandulapeter.campfire.presentation.resources/font/inter_medium.ttf":"14f30845290063e8","composeResources/com.pandulapeter.campfire.presentation.resources/font/inter_regular.ttf":"e06dfcb8aece7f56","composeResources/com.pandulapeter.campfire.presentation.resources/font/jetbrains_mono_bold.ttf":"84e6bad5bc5b8959","composeResources/com.pandulapeter.campfire.presentation.resources/font/jetbrains_mono_regular.ttf":"729ef5ab46304413","composeResources/com.pandulapeter.campfire.presentation.resources/values-hu/strings.commonMain.cvr":"0a7eee316f4f4483","composeResources/com.pandulapeter.campfire.presentation.resources/values/strings.commonMain.cvr":"49ad470a90525da4","favicon-blue.png":"a3fe42f40d273fb6","favicon-campfire.png":"e11e384ca1eefb65","favicon-gray.png":"fc4d9387208e8e46","favicon-green.png":"ce2aab3b4e2303af","favicon-orange.png":"198adb920dc63c7a","favicon-pink.png":"6b7aed1456886025","favicon-purple.png":"9ea56f28ac21550f","favicon-red.png":"369a8672b42861b7","favicon-teal.png":"dda5e751eb08034e","favicon-yellow.png":"304a22b65b7d7889","opfs-writer.js":"6cbcc01485beadcd"}};
+            var folder = new URL('.', document.baseURI).href;
+
+            function versioned(url) {
+                var resolved = new URL(url, document.baseURI);
+                if (!build || resolved.href.indexOf(folder) !== 0) {
+                    return url;
+                }
+                var path = decodeURIComponent(resolved.pathname.substring(new URL(folder).pathname.length));
+                var hash = build.files[path];
+                if (!hash) {
+                    return url;
+                }
+                resolved.searchParams.set('v', hash);
+                return resolved.href;
+            }
+
+            window.campfireBuild = build;
+            window.campfireVersioned = versioned;
+            if (build) {
+                var nativeFetch = window.fetch;
+                window.fetch = function (input, init) {
+                    var isAddress = typeof input === 'string' || input instanceof URL;
+                    return nativeFetch.call(window, isAddress ? versioned(String(input)) : input, init);
+                };
+            }
+            [
+                'inter_regular',
+                'inter_medium',
+                'inter_bold',
+                'jetbrains_mono_regular',
+                'jetbrains_mono_bold'
+            ].forEach(function (font) {
+                var link = document.createElement('link');
+                link.rel = 'preload';
+                link.as = 'fetch';
+                link.crossOrigin = 'anonymous';
+                link.href = versioned('composeResources/com.pandulapeter.campfire.presentation.resources/font/' + font + '.ttf');
+                document.head.appendChild(link);
+            });
+        })();
+    </script>
+    <style>
+        /* The palette is CampfireColorScheme's, so the splash screen and the first
+           composed frame paint the same background and the handover is invisible. */
+        :root {
+            color-scheme: light dark;
+            --background: #FAF8FE;
+            --on-background: #1D1A23;
+            --track: #E5DFF5;
+            --indicator: #5A49CA;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --background: #15121C;
+                --on-background: #E3E1EA;
+                --track: #494456;
+                --indicator: #D0BCFF;
+            }
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: var(--background);
+        }
+
+        /* The Compose canvas replaces the contents of this element, so it must be a container of its
+           own rather than <body>: the splash screen is a sibling that outlives the handover. */
+        #app {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Compose gives its canvas "pan-x pan-y", so that a page it is nested in can still be scrolled, and hands a
+           touch gesture to the browser whenever it reported a scroll by the first touchmove but moved nothing with it.
+           A drag that sets off while a scroll is still settling reports an empty one as the finger lands, and the
+           browser then cancels the whole gesture for a page that cannot scroll at all, so the drag is lost: the first
+           touch at the top of a song. This page is the app and nothing else, so every gesture is the app's.
+           Important, since Compose writes its value into the canvas' own style. */
+        #app canvas {
+            touch-action: none !important;
+        }
+
+        #splash {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            background-color: var(--background);
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+            transition: opacity 300ms ease-out;
+        }
+
+        #splash.is-done {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        #splash-icon {
+            width: 96px;
+            height: 96px;
+            background-image: var(--splash-icon, url("favicon-campfire.png"));
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+
+        #splash-name {
+            color: var(--on-background);
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: 0.4px;
+        }
+
+        #splash-track {
+            width: 200px;
+            max-width: 60vw;
+            height: 4px;
+            border-radius: 2px;
+            background-color: var(--track);
+            overflow: hidden;
+        }
+
+        #splash-bar {
+            width: 100%;
+            height: 100%;
+            border-radius: 2px;
+            background-color: var(--indicator);
+            transform: scaleX(0);
+            transform-origin: left center;
+        }
+
+        #splash-message {
+            max-width: 280px;
+            margin: 0 24px;
+            color: var(--on-background);
+            font-size: 14px;
+            line-height: 20px;
+            text-align: center;
+        }
+
+        #splash-retry {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 20px;
+            background-color: var(--indicator);
+            color: var(--background);
+            font: inherit;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            #splash {
+                transition: none;
+            }
+        }
+    </style>
+</head>
+<body>
+<div id="app"></div>
+<div id="splash">
+    <div id="splash-icon"></div>
+    <div id="splash-name">Campfire</div>
+    <div id="splash-track" role="progressbar" aria-label="Campfire" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <div id="splash-bar"></div>
+    </div>
+    <!-- Only shown when the app could not be started. In the browser's language where that is one the app speaks:
+         the app's own choice is in storage this page does not read, and follows the browser unless it was changed. -->
+    <p id="splash-message" role="alert" hidden></p>
+    <button id="splash-retry" type="button" hidden></button>
+</div>
+<script type="application/javascript">
+    (function () {
+        'use strict';
+
+        // Written by the build (see build.gradle.kts and the head of this page): how many .wasm binaries
+        // this distribution has and what they weigh together, uncompressed. They are the only part of a
+        // cold start worth measuring - about 96% of it - and the only part that arrives through fetch(),
+        // which is what can be watched from here; campfire.js is loaded by a <script> tag, which reports
+        // nothing.
+        //
+        // It stays null on the development server, where there is no distribution to describe, and the
+        // bar falls back to the sizes the server advertises.
+        var BUILD = window.campfireBuild;
+
+        var splash = document.getElementById('splash');
+        var track = document.getElementById('splash-track');
+        var bar = document.getElementById('splash-bar');
+        var message = document.getElementById('splash-message');
+        var retry = document.getElementById('splash-retry');
+        var TEXTS = {
+            en: {
+                loadFailed: 'Campfire could not be loaded. Check the connection and try again.',
+                unsupported: 'This browser cannot run Campfire. It needs Chrome or Edge 119, Firefox 120, Safari 18.2 (iOS 18.2), or a later version.',
+                alreadyOpen: 'Campfire is already open in another tab. Close that tab first, or carry on there.',
+                retry: 'Try again'
+            },
+            hu: {
+                loadFailed: 'A Campfire betöltése nem sikerült. Ellenőrizd a kapcsolatot, és próbáld újra.',
+                unsupported: 'Ez a böngésző nem tudja futtatni a Campfire-t. Chrome vagy Edge 119, Firefox 120, Safari 18.2 (iOS 18.2) vagy ezeknél újabb verzió kell hozzá.',
+                alreadyOpen: 'A Campfire már meg van nyitva egy másik lapon. Előbb zárd be azt a lapot, vagy folytasd ott.',
+                retry: 'Újra'
+            }
+        };
+        var text = /^hu\b/i.test(navigator.language || '') ? TEXTS.hu : TEXTS.en;
+        if (text === TEXTS.hu) {
+            document.documentElement.lang = 'hu';
+        }
+        retry.textContent = text.retry;
+
+        var expected = BUILD ? BUILD.binaryBytes : 0;
+        var binaries = BUILD ? BUILD.binaryCount : 0;
+        var received = 0;
+        var completed = 0;
+        var pending = 0;
+        var startedAt = 0;
+        var isReady = false;
+        var isFailed = false;
+        var shown = 0;
+
+        // Downloading is the part whose length is known; compiling and instantiating the module is
+        // not. So the download owns the first 92% of the bar and the rest is a decay that approaches
+        // but never reaches the end, until the first composed frame reports back.
+        var DOWNLOAD_SHARE = 0.92;
+
+        function isStarting() {
+            return binaries > 0 ? completed >= binaries : (completed > 0 && pending === 0);
+        }
+
+        function target() {
+            if (isReady) {
+                return 1;
+            }
+            if (isStarting()) {
+                if (!startedAt) {
+                    startedAt = Date.now();
+                }
+                return DOWNLOAD_SHARE + 0.07 * (1 - Math.exp((startedAt - Date.now()) / 2500));
+            }
+            return expected > 0 ? Math.min(1, received / expected) * DOWNLOAD_SHARE : 0;
+        }
+
+        var isDrawScheduled = false;
+        var postDownloadTimer = null;
+        var lastTransform = null;
+        var lastPercent = -1;
+
+        function draw() {
+            isDrawScheduled = false;
+            if (isFailed) {
+                return;
+            }
+            // Eased rather than snapped to the target: the byte counts arrive in bursts of whatever
+            // size the network hands over, and following those exactly makes the bar stutter. Never
+            // backwards either - a target that drops (a download that turned out to be longer than
+            // the server said) is a correction the bar waits out rather than shows.
+            var destination = target();
+            shown = Math.max(shown, shown + (destination - shown) * 0.15);
+            var transform = 'scaleX(' + shown.toFixed(4) + ')';
+            if (transform !== lastTransform) {
+                bar.style.transform = transform;
+                lastTransform = transform;
+            }
+            // Nothing on the screen says how far along it is, so the bar has to say it out loud.
+            var percent = Math.round(shown * 100);
+            if (percent !== lastPercent) {
+                track.setAttribute('aria-valuenow', String(percent));
+                lastPercent = percent;
+            }
+            if (isReady && shown > 0.999) {
+                splash.classList.add('is-done');
+                setTimeout(function () {
+                    if (splash.parentNode) {
+                        splash.parentNode.removeChild(splash);
+                    }
+                }, 300);
+                return;
+            }
+            if (isReady || !isStarting() && destination - shown > 0.00005) {
+                schedule();
+            } else if (isStarting() && !isReady && postDownloadTimer === null) {
+                // The post-download target changes with time; 30 updates per second are enough for the decay.
+                postDownloadTimer = setTimeout(function () {
+                    postDownloadTimer = null;
+                    schedule();
+                }, 34);
+            }
+        }
+
+        function schedule() {
+            if (!isDrawScheduled && !isFailed) {
+                isDrawScheduled = true;
+                requestAnimationFrame(draw);
+            }
+        }
+
+        /**
+         * Counts the bytes of the .wasm downloads by reading a clone of each response. The response
+         * itself is handed back untouched, with its URL and its place in the HTTP cache: that is what
+         * lets WebAssembly.instantiateStreaming compile as it downloads, and what lets the browser keep
+         * the compiled code for the next visit.
+         */
+        /**
+         * Stops the bar where it is and says so. A download that failed, or a script that threw before
+         * the app was up, would otherwise leave a bar that never moves again and nothing to do about it.
+         */
+        function showFailure() {
+            if (isReady || isFailed) {
+                return;
+            }
+            isFailed = true;
+            message.textContent = text.loadFailed;
+            message.hidden = false;
+            retry.onclick = function () {
+                location.reload();
+            };
+            retry.hidden = false;
+        }
+
+        /**
+         * Whether the browser can compile what Kotlin/Wasm produces. Each probe is the smallest module that uses the
+         * feature, and validating one compiles and downloads nothing, so this costs well under a millisecond.
+         *
+         * Garbage collected types: "\0asm", version 1, then a type section (id 1, 5 bytes) declaring 1 type - a
+         * struct (0x5f = 95) with 1 field, an i8 (0x78 = 120) that is immutable (0).
+         *
+         * Exception handling, in the original try / catch form the binary uses: a type section with the function
+         * type () -> () (0x60 = 96), a function section with one function of that type, and a code section (id 10)
+         * whose one body is: no locals, try (0x06) with no result (0x40 = 64), catch_all (0x19 = 25), end, end (11).
+         */
+        function isBrowserSupported() {
+            try {
+                return typeof WebAssembly === 'object'
+                    && WebAssembly.validate(new Uint8Array([0, 97, 115, 109, 1, 0, 0, 0, 1, 5, 1, 95, 1, 120, 0]))
+                    && WebAssembly.validate(new Uint8Array([0, 97, 115, 109, 1, 0, 0, 0, 1, 4, 1, 96, 0, 0, 3, 2, 1, 0,
+                        10, 8, 1, 6, 0, 6, 64, 25, 11, 11]));
+            } catch (error) {
+                return false;
+            }
+        }
+
+        /** No retry button: trying again is what cannot help here, and it costs the whole download each time. */
+        function showUnsupported() {
+            isFailed = true;
+            track.hidden = true;
+            message.textContent = text.unsupported;
+            message.hidden = false;
+        }
+
+        function onError() {
+            showFailure();
+        }
+
+        window.addEventListener('error', onError);
+        window.addEventListener('unhandledrejection', onError);
+        // The versioning fetch() of the head of the page, which this one is put over and which stays.
+        var versionedFetch = window.fetch;
+        window.fetch = function (input, init) {
+            var url = typeof input === 'string' ? input : (input && input.url) || '';
+            var response = versionedFetch.apply(this, arguments);
+            if (!/\.wasm([?#]|$)/.test(url)) {
+                return response;
+            }
+            pending++;
+            return response.then(function (result) {
+                if (!result.ok || !result.body) {
+                    pending--;
+                    completed++;
+                    schedule();
+                    return result;
+                }
+                if (!BUILD) {
+                    // No manifest: the server's own answer is the only estimate there is. It is the
+                    // size on the wire, so it is short of the truth whenever the server compresses -
+                    // hence the clamp in target().
+                    expected += parseInt(result.headers.get('content-length'), 10) || 0;
+                }
+                // Counted on a copy: the response itself goes to instantiateStreaming as the network handed it
+                // over, with its URL and its place in the HTTP cache, which is what lets the browser keep the
+                // compiled code for next time.
+                var reader = result.clone().body.getReader();
+                (function pump() {
+                    reader.read().then(function (chunk) {
+                        if (chunk.done) {
+                            pending--;
+                            completed++;
+                        } else {
+                            received += chunk.value.byteLength;
+                            pump();
+                        }
+                        schedule();
+                    }, function () {
+                        pending--;
+                        schedule();
+                    });
+                })();
+                return result;
+            }, function (error) {
+                pending--;
+                showFailure();
+                throw error;
+            });
+        };
+
+        /**
+         * Called from Kotlin once the first frames are on the canvas. Everything below the splash
+         * screen is already painted by then, so the fade reveals the app rather than an empty page.
+         */
+        window.campfireReady = function () {
+            window.fetch = versionedFetch;
+            // The app's own errors are the app's business from here on, not the loading screen's. An error
+            // that was taken for a failed start is taken back too, since the app did start after all.
+            window.removeEventListener('error', onError);
+            window.removeEventListener('unhandledrejection', onError);
+            isReady = true;
+            isFailed = false;
+            schedule();
+        };
+
+        // One library, one page: the app reads its files once and writes them whole from what it remembers, so a
+        // second tab would take back what the first one saved. The Web Lock is asked for before anything of the
+        // app is downloaded, which is why campfire.js is added from here rather than by a tag of its own - a tab
+        // that is turned away has fetched this page and its icon, and nothing else.
+        var LOCK_NAME = 'campfire-library';
+        var hasStarted = false;
+
+        function startApp() {
+            if (hasStarted) {
+                return;
+            }
+            hasStarted = true;
+            message.hidden = true;
+            retry.hidden = true;
+            track.hidden = false;
+            var script = document.createElement('script');
+            script.src = window.campfireVersioned('campfire.js');
+            // A script that fails to download reports it to its own tag only, never to the window.
+            script.onerror = showFailure;
+            document.body.appendChild(script);
+            schedule();
+        }
+
+        function showAlreadyOpen() {
+            track.hidden = true;
+            message.textContent = text.alreadyOpen;
+            message.hidden = false;
+            // Asks again in place rather than reloading: a tab that came back from a consent page still has the
+            // answer in its address bar, and the app has to be the one that takes it out.
+            retry.onclick = function () {
+                claimLibrary(startApp, showAlreadyOpen);
+            };
+            retry.hidden = false;
+        }
+
+        /**
+         * A lock is held for as long as the promise its callback returns is pending, and this one never settles:
+         * the library is this page's until the page is closed or navigates away, which is when the browser lets
+         * go of it. A browser without Web Locks, or one that refuses them here, starts the app as it always has.
+         */
+        function claimLibrary(onGranted, onRefused) {
+            if (!navigator.locks || !navigator.locks.request) {
+                onGranted();
+                return;
+            }
+            navigator.locks.request(LOCK_NAME, { ifAvailable: true }, function (lock) {
+                if (!lock) {
+                    onRefused();
+                    return undefined;
+                }
+                onGranted();
+                return new Promise(function () {});
+            }).catch(onGranted);
+        }
+
+        // A page that is put into the back/forward cache loses its locks, and gets none back when it is restored -
+        // pressing Back on the consent page is how that happens. It asks again, and if another tab has taken the
+        // library in the meantime it reloads, which lands on the page above.
+        window.addEventListener('pageshow', function (event) {
+            if (event.persisted && hasStarted) {
+                claimLibrary(function () {}, function () {
+                    location.reload();
+                });
+            }
+        });
+
+        // Asked before the library is claimed and before anything of the app is fetched: a browser that cannot run
+        // it would otherwise download sixteen megabytes to find that out, and be told to check its connection.
+        if (isBrowserSupported()) {
+            claimLibrary(startApp, showAlreadyOpen);
+        } else {
+            showUnsupported();
+        }
+    })();
+</script>
+</body>
+</html>
