@@ -59,7 +59,9 @@ code, kbd { font-family: var(--mono); font-size: 0.9em; }
 
 /* Header and footer */
 
-html { scroll-padding-top: 88px; }
+/* A link to a section stops with the section's heading 32px under the sticky header (72px and its 1px border),
+   rather than with the empty space that separates it from the previous section. */
+html { scroll-padding-top: 73px; }
 .site-header { position: sticky; top: 0; z-index: 1; background: color-mix(in srgb, var(--background) 88%, transparent); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border-bottom: 1px solid color-mix(in srgb, var(--outline-variant) 50%, transparent); }
 .site-header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 72px; }
 .brand { display: inline-flex; align-items: center; gap: 10px; color: inherit; text-decoration: none; font-weight: 700; font-size: 20px; letter-spacing: -0.01em; }
@@ -90,7 +92,7 @@ html { scroll-padding-top: 88px; }
 .shot { border-radius: 20px; overflow: hidden; background: var(--container); }
 .shot img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
 
-section { padding-top: 96px; }
+section { padding-top: 96px; scroll-margin-top: -64px; }
 section > h2 { font-size: clamp(28px, 3.4vw, 36px); margin: 0 0 16px; max-width: 22em; }
 .lead { font-size: 18px; color: var(--muted); max-width: 40em; margin: 0 0 40px; }
 
@@ -156,7 +158,7 @@ section > h2 { font-size: clamp(28px, 3.4vw, 36px); margin: 0 0 16px; max-width:
 @media (max-width: 860px) {
 	.hero, .split { grid-template-columns: 1fr; gap: 32px; }
 	.hero { padding-top: 24px; }
-	section { padding-top: 72px; }
+	section { padding-top: 72px; scroll-margin-top: -40px; }
 	.chordpro { grid-template-columns: 1fr; }
 	.chordpro .source { border-right: 0; border-bottom: 1px solid var(--outline-variant); }
 }
