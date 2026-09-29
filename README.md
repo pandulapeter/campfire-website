@@ -42,6 +42,10 @@ Then open http://localhost:8000. Any other static file server works too.
 
 Every push to `main` is published by GitHub Pages within a minute or two.
 
+Browsers keep `assets/site.css` for up to 4 hours (Cloudflare's browser cache setting), but the pages for only 10 minutes,
+so a changed stylesheet could reach visitors long after the pages that need it. Every page links it as `site.css?v=N`:
+when the stylesheet changes, raise `N` in all four pages (`index.html`, `support/`, `privacy/` and `404.html`) in the same commit.
+
 ## Credits
 
 The store badges are copies of the ones in `documentation/images` in the app's repository. Inter and JetBrains Mono are licensed under
