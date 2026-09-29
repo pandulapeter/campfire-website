@@ -81,7 +81,8 @@ html { scroll-padding-top: 73px; }
 .coffee .button svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .legal { display: flex; flex-wrap: wrap; gap: 8px 32px; justify-content: space-between; margin-top: 32px; color: var(--muted); font-size: 14px; }
 .legal p { margin: 0; }
-.legal nav { display: flex; flex-wrap: wrap; gap: 8px 20px; }
+.legal .source { display: inline-flex; align-items: center; gap: 8px; }
+.legal .source svg { width: 16px; height: 16px; fill: currentColor; }
 .legal a { color: inherit; }
 /* Without the coffee box above it (on the privacy policy and support pages), a line separates it from the page. */
 .legal:first-child { margin-top: 0; padding-top: 32px; border-top: 1px solid var(--outline-variant); }
