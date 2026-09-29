@@ -1,31 +1,49 @@
 # Campfire website
 
-Static welcome, privacy and support pages for Campfire, hosted on GitHub Pages.
+The source of [campfire-songbook.com](https://campfire-songbook.com), the website of
+[Campfire](https://github.com/pandulapeter/campfire), a free and open-source songbook app for lyrics and chords.
 
-## Local preview
+The site introduces the app, links to it on every platform, and hosts its [support](https://campfire-songbook.com/support/)
+page and [privacy policy](https://campfire-songbook.com/privacy/).
 
-Run `python3 -m http.server 8000` from this directory, then open http://localhost:8000.
+## How it's built
+
+Plain HTML and CSS served by GitHub Pages straight from the root of `main`, with no build step and no dependencies.
+
+```
+index.html            the home page, including the small script behind the interactive ChordPro example
+support/index.html    support and frequently asked questions
+privacy/index.html    the privacy policy
+404.html              the page GitHub Pages serves for an address that does not exist
+assets/site.css       the one stylesheet every page shares
+assets/fonts/         Inter and JetBrains Mono, the fonts the app itself uses, with their licenses
+assets/platforms/     the platform icons of the download list
+assets/icon.svg       the app icon
+CNAME                 the custom domain, managed by GitHub Pages
+```
+
+The design follows the app: the colors are those of its default theme (`CampfireColorScheme.kt` in the app's repository),
+in a light and a dark version that follow the visitor's system setting, as the app does.
+
+The screenshots are not copied here. They are loaded from `documentation/screenshots` in the
+[app's repository](https://github.com/pandulapeter/campfire) through [jsDelivr](https://www.jsdelivr.com), so replacing
+them there updates the website too. jsDelivr caches them for up to 12 hours; to publish a new one sooner, open its
+address with `purge.jsdelivr.net` in place of `cdn.jsdelivr.net`.
+
+## Running it locally
+
+```
+python3 -m http.server 8000
+```
+
+Then open http://localhost:8000. Any other static file server works too.
 
 ## Publishing
 
-GitHub Pages publishes the root of `main`. No build step or dependencies are required.
-The app buttons intentionally link to https://pandulapeter.com/campfire/ during migration.
-The app itself has not been moved yet.
+Every push to `main` is published by GitHub Pages within a minute or two.
 
-## Connect campfire-songbook.com
+## Credits
 
-1. In GitHub account Settings → Pages, add and verify the domain using the provided TXT record in GoDaddy DNS.
-2. In this repository's Settings → Pages, set the custom domain to `campfire-songbook.com`. GitHub will create the CNAME file; pull that commit before further edits.
-3. In GoDaddy DNS, replace parking A records for `@` with these four A records: `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`.
-4. Point the `www` CNAME to `pandulapeter.github.io`. Preserve unrelated email and verification records.
-5. Wait for DNS and the certificate, then enable Enforce HTTPS in repository Settings → Pages.
-
-## App migration checklist
-
-- Publish the app under `/app/`, update its base-path configuration and deploy process, and adapt its SPA 404 routing.
-- Check Dropbox OAuth redirect URLs and any absolute links or song-source URLs.
-- Browser storage does not transfer across origins. Keep the original app available while users export/import or sync their libraries.
-- Only then change the welcome-page app links and introduce redirects for old addresses, preserving paths, query strings and fragments.
-- Update published app-store privacy and support URLs as appropriate.
-
-Privacy and support content was copied from the existing personal website, with shared styling and local navigation added. macOS availability is linked to the app README because its store release was pending when this site was created.
+The platform icons are from [Simple Icons](https://simpleicons.org) (CC0). Inter and JetBrains Mono are licensed under
+the SIL Open Font License 1.1, included next to them. The name Campfire and the app icon belong to
+[Pandula Péter](https://pandulapeter.com), as described in the app's repository.
