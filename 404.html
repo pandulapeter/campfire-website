@@ -4,6 +4,23 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Page not found – Campfire</title>
+	<script>
+		// Every screen of the web app in app/ has an address of its own (/app/song/…), which is not a file, so GitHub
+		// Pages answers it with this page. It is sent on to the app's own page with the whole path in the query string
+		// (/app/?/song/…), and the app's index.html puts it back into the address bar. The ampersands of a query string
+		// the address already had are escaped, so that index.html can tell them from the one this adds. Any other
+		// address is simply missing, and gets the page below.
+		(function (l) {
+			var segments = l.pathname.split("/").filter(Boolean);
+			if (segments[0] === "app" && segments.length > 1) {
+				l.replace(
+					"/app/?/" + segments.slice(1).join("/") +
+					(l.search ? "&" + l.search.slice(1).replace(/&/g, "~and~") : "") +
+					l.hash
+				);
+			}
+		}(window.location));
+	</script>
 	<meta name="theme-color" content="#FAF8FE" media="(prefers-color-scheme: light)">
 	<meta name="theme-color" content="#15121C" media="(prefers-color-scheme: dark)">
 	<link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
