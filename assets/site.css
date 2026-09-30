@@ -61,7 +61,8 @@ a, button { transition: opacity 0.2s, background-color 0.2s, color 0.2s, border-
 	a:not(.button, .platforms a, .site-header nav a):active { opacity: 0.55; }
 }
 a:focus-visible, button:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; border-radius: 4px; }
-h1, h2, h3 { line-height: 1.2; letter-spacing: -0.02em; }
+h1, h2, h3 { line-height: 1.2; letter-spacing: -0.02em; text-wrap: balance; }
+p, figcaption { text-wrap: pretty; }
 code, kbd { font-family: var(--mono); font-size: 0.9em; }
 
 .skip { position: absolute; left: 16px; top: -60px; padding: 8px 14px; background: var(--primary); color: var(--on-primary); border-radius: 8px; z-index: 2; }
@@ -90,7 +91,7 @@ html { scroll-padding-top: 73px; }
 .coffee p { margin: 0; max-width: 40em; }
 .coffee .button { gap: 10px; min-height: 48px; padding: 0 28px; font-size: 16px; }
 .coffee .button svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-.legal { display: flex; flex-wrap: wrap; gap: 8px 32px; justify-content: space-between; margin-top: 32px; color: var(--muted); font-size: 14px; }
+.legal { display: flex; flex-wrap: wrap; gap: 8px 32px; justify-content: space-between; margin-top: 48px; color: var(--muted); font-size: 14px; }
 .legal p { margin: 0; }
 .legal nav { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px; }
 .legal .source { display: inline-flex; align-items: center; gap: 8px; }
@@ -184,7 +185,7 @@ section > h2, .split h2 { font-size: clamp(28px, 3.4vw, 36px); margin: 0 0 16px;
 .chordpro pre .directive { color: var(--primary); }
 .chordpro pre .chord { color: var(--chord); }
 .song-heading { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
-.song-heading > div { flex: 1 1 180px; }
+.song-heading > div { flex: 1 1 140px; }
 .song-title { font-weight: 700; font-size: 16px; margin: 0; }
 .song-artist { color: var(--muted); font-size: 14px; margin: 4px 0 0; }
 .sheet { font-size: 15px; }
@@ -201,8 +202,6 @@ section > h2, .split h2 { font-size: clamp(28px, 3.4vw, 36px); margin: 0 0 16px;
 .transpose button:active { background: color-mix(in srgb, var(--on-background) 12%, transparent); }
 @media (hover: none) { .transpose button:active { background: color-mix(in srgb, var(--on-background) 18%, transparent); } }
 .file-note { color: var(--muted); max-width: 48em; margin: 16px 0 0; }
-
-.chip { display: inline-block; padding: 2px 12px; border-radius: 8px; background: var(--container-high); font-size: 13px; margin-bottom: 8px; }
 
 /* A row of phones, each with a caption. On narrow screens it scrolls sideways instead of wrapping. */
 
@@ -228,7 +227,6 @@ section > h2, .split h2 { font-size: clamp(28px, 3.4vw, 36px); margin: 0 0 16px;
 /* Not out yet: shown so the platform isn't missing, but without a link. */
 .platforms .soon { background: none; border-style: dashed; }
 .platforms .soon svg { opacity: 0.6; }
-.platforms .soon .chip { flex-shrink: 0; margin: 0 0 0 auto; color: var(--on-background); }
 
 /* Privacy policy, support and the 404 page */
 
@@ -262,9 +260,13 @@ section > h2, .split h2 { font-size: clamp(28px, 3.4vw, 36px); margin: 0 0 16px;
 	.coffee { flex-direction: column; align-items: flex-start; padding: 28px; }
 }
 
+/* Below this the header links and the brand would run into each other. */
+@media (max-width: 640px) {
+	.site-header nav a.optional { display: none; }
+}
+
 @media (max-width: 600px) {
 	.wrap { padding: 0 16px; }
-	.site-header nav a.optional { display: none; }
 	.hero p, .lead { font-size: 17px; }
 	.platforms { grid-template-columns: 1fr; }
 	.highlights { gap: 24px 16px; }
