@@ -11,7 +11,7 @@ page and [privacy policy](https://campfire-songbook.com/privacy/).
 Plain HTML and CSS served by GitHub Pages straight from the root of `main`, with no build step and no dependencies.
 
 ```
-index.html            the home page, including the small script behind the interactive ChordPro example
+index.html            the home page, with the feature overview, screenshots and interactive ChordPro example
 support/index.html    support and frequently asked questions
 privacy/index.html    the privacy policy
 404.html              the page GitHub Pages serves for an address that does not exist

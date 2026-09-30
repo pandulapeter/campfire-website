@@ -4,14 +4,14 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Campfire – Your songbook, on every screen you own</title>
-	<meta name="description" content="Free, open-source songbook for lyrics and chords that fits every song to your screen. Android, iOS, Windows, macOS, Linux and the web. No ads, no tracking.">
+	<meta name="description" content="Find, organize, edit and transpose your lyrics and chords. A free, open-source songbook with offline access and optional Dropbox sync, on every device.">
 	<meta name="theme-color" content="#FAF8FE" media="(prefers-color-scheme: light)">
 	<meta name="theme-color" content="#15121C" media="(prefers-color-scheme: dark)">
 	<meta property="og:type" content="website">
 	<meta property="og:site_name" content="Campfire">
 	<meta property="og:url" content="https://campfire-songbook.com/">
 	<meta property="og:title" content="Campfire">
-	<meta property="og:description" content="A free songbook for lyrics and chords that fits every song to your screen, on your phone, tablet, computer or the web.">
+	<meta property="og:description" content="Find your songs, make them your own and take them on stage. A free songbook with editing, transposition and optional Dropbox sync, on every device.">
 	<meta property="og:image" content="https://campfire-songbook.com/assets/og-image.jpg?v=2">
 	<meta property="og:image:width" content="1200">
 	<meta property="og:image:height" content="630">
@@ -20,7 +20,7 @@
 	<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
 	<link rel="apple-touch-icon" href="assets/icon-192.png">
 	<link rel="preload" href="assets/fonts/inter_regular.ttf" as="font" type="font/ttf" crossorigin>
-	<link rel="stylesheet" href="assets/site.css?v=6">
+	<link rel="stylesheet" href="assets/site.css?v=10">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -41,7 +41,7 @@
 		<div class="hero">
 			<div>
 				<h1>Your songbook, on every screen you own.</h1>
-				<p>Campfire keeps your lyrics and chords in one place and arranges each song to fit the screen it’s on, whether that’s the phone in your pocket, the tablet on your music stand or the laptop at rehearsal.</p>
+				<p>Keep your lyrics and chords in one place. Find the right song, fine-tune your arrangement and take your setlist from rehearsal to the stage, on your phone, tablet or computer.</p>
 				<div class="actions">
 					<a class="button" href="app/" target="_blank" rel="noopener">Open in your browser</a>
 					<a class="button tonal" href="#download">Download</a>
@@ -60,7 +60,7 @@
 		</div>
 
 		<ul class="highlights">
-			<li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="14" height="10" rx="1.5"/><path d="M1 18.5h15"/><rect x="18" y="9" width="5" height="10" rx="1.2"/></svg><h2>On all your devices</h2><p>Phones, tablets, computers and the browser, all sharing one library.</p></li>
+			<li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="14" height="10" rx="1.5"/><path d="M1 18.5h15"/><rect x="18" y="9" width="5" height="10" rx="1.2"/></svg><h2>On all your devices</h2><p>Phones, tablets, computers and the browser, with optional sync.</p></li>
 			<li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 8.5a15 15 0 0 1 20 0M5.5 12a10 10 0 0 1 13 0M9 15.5a5 5 0 0 1 6 0M3 3l18 18"/><circle cx="12" cy="19.5" r="1"/></svg><h2>Works offline</h2><p>Songs are stored on your device, so no signal is needed to play.</p></li>
 			<li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18c.9 0 1.5-.7 1.5-1.5 0-.9-.8-1.3-.8-2.2 0-.9.8-1.6 1.7-1.6H17a4 4 0 0 0 4-4C21 6.8 17 3 12 3Z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10.5" cy="7" r="1"/><circle cx="15" cy="7.5" r="1"/></svg><h2>Clean and modern</h2><p>An uncluttered interface in light or dark, in the color you pick.</p></li>
 			<li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7.5-4.5-7.5-10.2A4.2 4.2 0 0 1 12 7.2a4.2 4.2 0 0 1 7.5 2.6C19.5 15.5 12 20 12 20Z"/></svg><h2>Free and open source</h2><p>No ads, tracking or account, and the source code is on GitHub.</p></li>
@@ -68,10 +68,9 @@
 
 		<section class="split reverse" aria-labelledby="playing-title">
 			<div>
-				<h2 id="playing-title">Made to be read from a music stand.</h2>
-				<p class="lead">The number of columns follows your screen and text size: one on a phone, several on a tablet or a laptop.</p>
-				<p class="lead">Longer songs carry on to the right instead of downwards, so scrolling never takes you back up in the middle of a verse.</p>
-				<p class="lead">And when you hand the screen to the singers, the chords can stay hidden.</p>
+				<h2 id="playing-title">Easy to read. Ready to play.</h2>
+				<p class="lead">Adjust the text size and Campfire fits the columns to your screen. Long songs flow sideways, keeping each verse easy to follow.</p>
+				<p class="lead">Switch to lyrics only for the singers, or arrange sections to match the way you play.</p>
 			</div>
 			<div class="laptop">
 				<div class="lid"><picture class="screen">
@@ -82,72 +81,105 @@
 			</div>
 		</section>
 
-		<section aria-labelledby="chordpro-title">
-			<h2 id="chordpro-title">Bring the songs you already have.</h2>
-			<p class="lead">Campfire uses <a href="https://www.chordpro.org" target="_blank" rel="noopener">ChordPro</a>, the format most chord sites and songbook apps can export: the lyrics, with the chords in brackets where they fall.</p>
-			<div class="chordpro">
-				<div class="source">
-					<div class="label">house_of_the_rising_sun.cho</div>
-					<pre id="chordpro-source">{title: House of the Rising Sun}
-{artist: Traditional American}
-{key: Am}
-
-{start_of_verse: Verse 1}
-There [Am]is a [C]house in [D]New Or[F]leans
-You [Am]call the [C]Rising [E7]Sun
-It’s [Am]been the [C]ruin of [D]many a poor [F]soul
-And [Am]me, oh [E7]God, I’m [Am]one
-{end_of_verse}</pre>
-				</div>
-				<div class="rendered">
-					<div class="label">
-						<span>In Campfire</span>
-						<span class="transpose" hidden>
-							<button type="button" data-step="-1" aria-label="Transpose down">−</button>
-							<button type="button" class="reset" id="transpose-value" aria-label="Reset transposition" aria-live="polite">0 · Am</button>
-							<button type="button" data-step="1" aria-label="Transpose up">+</button>
-						</span>
-					</div>
-					<p class="song-title">House of the Rising Sun</p>
-					<p class="song-artist">Traditional American</p>
-					<span class="chip">Verse 1</span>
-					<div class="sheet" id="chordpro-sheet"></div>
-				</div>
-			</div>
+		<section id="features" aria-labelledby="features-title">
+			<h2 id="features-title">From the first idea to the encore.</h2>
+			<p class="lead">Everything you need to organize your songs, make them your own and play them anywhere.</p>
+			<ul class="features">
+				<li>
+					<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5M7.5 10.5h6M10.5 7.5v6"/></svg>
+					<h3>Search and filter</h3>
+					<p>Search titles, artists and tags, with the best matches first. Combine tag and language filters, matching any or all of your selections.</p>
+				</li>
+				<li>
+					<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h8l10 10-8 8L3 11Z"/><circle cx="7.5" cy="7.5" r="1"/></svg>
+					<h3>Local tags</h3>
+					<p>Create your own labels for genres, moods or songs to practice. Add them to your songs and use them to narrow your library.</p>
+				</li>
+				<li>
+					<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 5 5 5M4 15 15.5 3.5a2.1 2.1 0 0 1 3 3L7 18l-4 1ZM3 22h18"/></svg>
+					<h3>A fully featured editor</h3>
+					<p>Write and refine songs with chord and section shortcuts, undo and redo, and a preview. Use split view to edit alongside the result.</p>
+				</li>
+				<li>
+					<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 9a8 8 0 0 0-14-3L3 9m0-5v5h5M4 15a8 8 0 0 0 14 3l3-3m0 5v-5h-5"/></svg>
+					<h3>Sync across devices</h3>
+					<p>Connect your own Dropbox to keep songs and setlists in sync. Your library stays on your device, ready to use offline.</p>
+				</li>
+				<li>
+					<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 20V4m-4 4 4-4 4 4M17 4v16m-4-4 4 4 4-4"/></svg>
+					<h3>Play in your key</h3>
+					<p>Transpose chords up or down as you play, without rewriting the song. Campfire remembers your chosen key for next time.</p>
+				</li>
+				<li>
+					<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5h12M9 12h12M9 19h12M3 4h1v3M3 11h2l-2 3h2M3 18h2l-1 1 1 1H3"/></svg>
+					<h3>Setlists for every occasion</h3>
+					<p>Arrange songs and add a note, then play the whole set in one continuous view. Step through sections and songs with a foot pedal.</p>
+				</li>
+			</ul>
 		</section>
 
 		<section aria-labelledby="tour-title">
-			<h2 id="tour-title">A look around.</h2>
-			<p class="lead">Campfire works just as well on a phone. Here’s the rest of the app, from finding a song to playing it on stage.</p>
+			<h2 id="tour-title">Your songs, from library to stage.</h2>
+			<p class="lead">Find, edit, organize and perform. The same familiar tools, on every screen.</p>
 			<div class="tour">
 				<figure>
 					<div class="phone"><div class="frame"><picture class="screen">
 						<source srcset="assets/screenshots/phone-library-dark.webp" media="(prefers-color-scheme: dark)">
 						<img src="assets/screenshots/phone-library-light.webp" width="600" height="1304" loading="lazy" alt="The song list, grouped by artist, with its tags under every song.">
 					</picture></div></div>
-					<figcaption><strong>Library</strong>Search and sort your songs, and filter them by tag or language.</figcaption>
-				</figure>
-				<figure>
-					<div class="phone"><div class="frame"><picture class="screen">
-						<source srcset="assets/screenshots/phone-setlists-dark.webp" media="(prefers-color-scheme: dark)">
-						<img src="assets/screenshots/phone-setlists-light.webp" width="600" height="1304" loading="lazy" alt="Two setlists, each with a note and its songs in order.">
-					</picture></div></div>
-					<figcaption><strong>Setlists</strong>Songs in order for the evening, with a note for each set.</figcaption>
+					<figcaption><strong>Find your next song</strong>A searchable library, sorted by artist or title.</figcaption>
 				</figure>
 				<figure>
 					<div class="phone"><div class="frame"><picture class="screen">
 						<source srcset="assets/screenshots/phone-editor-dark.webp" media="(prefers-color-scheme: dark)">
 						<img src="assets/screenshots/phone-editor-light.webp" width="600" height="1304" loading="lazy" alt="The song editor, with shortcut buttons above the text.">
 					</picture></div></div>
-					<figcaption><strong>Editor</strong>Write new songs or fix old ones, with a preview a tap away.</figcaption>
+					<figcaption><strong>Shape your arrangement</strong>Lyrics, chords, tabs and song details in one editor.</figcaption>
+				</figure>
+				<figure>
+					<div class="phone"><div class="frame"><picture class="screen">
+						<source srcset="assets/screenshots/phone-setlists-dark.webp" media="(prefers-color-scheme: dark)">
+						<img src="assets/screenshots/phone-setlists-light.webp" width="600" height="1304" loading="lazy" alt="Two setlists, each with a note and its songs in order.">
+					</picture></div></div>
+					<figcaption><strong>Play your set</strong>Move through the whole set hands free with a foot pedal.</figcaption>
 				</figure>
 				<figure>
 					<div class="phone"><div class="frame"><picture class="screen">
 						<source srcset="assets/screenshots/phone-settings-dark.webp" media="(prefers-color-scheme: dark)">
 						<img src="assets/screenshots/phone-settings-light.webp" width="600" height="1304" loading="lazy" alt="The settings, with performance mode at the top.">
 					</picture></div></div>
-					<figcaption><strong>Performance mode</strong>Locks the app so nothing changes by accident mid-song.</figcaption>
+					<figcaption><strong>Stay focused on stage</strong>Performance mode prevents accidental edits mid-song.</figcaption>
 				</figure>
+			</div>
+		</section>
+
+		<section aria-labelledby="files-title">
+			<h2 id="files-title">Bring your songs. Keep them yours.</h2>
+			<p class="lead">Import <a href="https://www.chordpro.org" target="_blank" rel="noopener">ChordPro</a> files or a zip of your collection. Simple text, with chords in brackets, becomes a song ready to play.</p>
+			<div class="chordpro">
+				<div class="source">
+					<pre id="chordpro-source"># Raw .cho file
+{title: House of the Rising Sun}
+{artist: Traditional American}
+
+There [Am]is a [C]house in [D]New Or[F]leans
+They [Am]call the [C]Rising [E7]Sun</pre>
+				</div>
+				<span class="conversion-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h16m-6-6 6 6-6 6"/></svg></span>
+				<div class="rendered">
+					<div class="song-heading">
+						<div>
+							<p class="song-title">House of the Rising Sun</p>
+							<p class="song-artist">Traditional American</p>
+						</div>
+						<span class="transpose" role="group" aria-label="Transpose the example" hidden>
+							<button type="button" data-step="-1" aria-label="Transpose down">−</button>
+							<button type="button" class="reset" id="transpose-value" aria-label="Reset transposition" aria-live="polite">0 · Am</button>
+							<button type="button" data-step="1" aria-label="Transpose up">+</button>
+						</span>
+					</div>
+					<div class="sheet" id="chordpro-sheet"><div class="line"><span class="segment"><b></b>There </span><span class="segment"><b>Am</b>is a </span><span class="segment"><b>C</b>house in </span><span class="segment"><b>D</b>New Or</span><span class="segment"><b>F</b>leans</span></div><div class="line"><span class="segment"><b></b>They </span><span class="segment"><b>Am</b>call the </span><span class="segment"><b>C</b>Rising </span><span class="segment"><b>E7</b>Sun</span></div></div>
+				</div>
 			</div>
 		</section>
 
@@ -232,7 +264,7 @@ And [Am]me, oh [E7]God, I’m [Am]one
 		function render() {
 			var html = "";
 			source.split("\n").forEach(function (line) {
-				if (line.charAt(0) === "{" || line.trim() === "") return;
+				if (line.charAt(0) === "{" || line.charAt(0) === "#" || line.trim() === "") return;
 				html += '<div class="line">';
 				line.split("[").forEach(function (part, index) {
 					var chord = "", text = part;
