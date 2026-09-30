@@ -47,7 +47,9 @@
 }
 
 * { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
+/* Touch screens get the same feedback as a mouse, shown while pressed, instead of the browser's gray tap overlay. Hover
+   effects only apply to precise pointers, as a tap would otherwise leave them stuck on until the next tap elsewhere. */
+html { -webkit-text-size-adjust: 100%; -webkit-tap-highlight-color: transparent; }
 body { margin: 0; background: var(--background); color: var(--on-background); font: 16px/1.6 var(--sans); }
 img { max-width: 100%; height: auto; display: block; }
 a { color: var(--primary); text-underline-offset: 3px; }
@@ -70,8 +72,9 @@ html { scroll-padding-top: 73px; }
 .brand { display: inline-flex; align-items: center; gap: 10px; color: inherit; text-decoration: none; font-weight: 700; font-size: 20px; letter-spacing: -0.01em; }
 .brand img { width: 32px; height: 32px; }
 .site-header nav { display: flex; align-items: center; gap: 4px; }
-.site-header nav a:not(.button) { color: var(--muted); text-decoration: none; font-size: 15px; padding: 8px 12px; border-radius: 20px; }
-.site-header nav a:not(.button):hover { background: var(--container); color: var(--on-background); }
+.site-header nav a:not(.button) { color: var(--muted); text-decoration: none; font-size: 15px; padding: 8px 12px; border-radius: 20px; transition: background-color 0.15s, color 0.15s; }
+@media (hover: hover) and (pointer: fine) { .site-header nav a:not(.button):hover { background: var(--container); color: var(--on-background); } }
+@media (hover: none) { .site-header nav a:not(.button):active { background: var(--container); color: var(--on-background); } }
 .site-header nav a[aria-current] { color: var(--on-background); font-weight: 700; }
 
 .site-footer { margin-top: 72px; padding-bottom: 32px; }
@@ -91,8 +94,9 @@ html { scroll-padding-top: 73px; }
 
 /* Buttons, shaped like the app's Material 3 ones */
 
-.button { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; padding: 0 24px; border-radius: 20px; font-weight: 700; font-size: 15px; text-decoration: none; background: var(--primary); color: var(--on-primary); white-space: nowrap; }
-.button:hover { filter: brightness(1.08); }
+.button { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; padding: 0 24px; border-radius: 20px; font-weight: 700; font-size: 15px; text-decoration: none; background: var(--primary); color: var(--on-primary); white-space: nowrap; transition: filter 0.15s; }
+@media (hover: hover) and (pointer: fine) { .button:hover { filter: brightness(1.08); } }
+@media (hover: none) { .button:active { filter: brightness(1.12); } }
 .button.tonal { background: var(--primary-container); color: var(--on-primary-container); }
 .button.small { min-height: 36px; padding: 0 16px; font-size: 14px; }
 
@@ -174,7 +178,7 @@ section > h2, .split h2 { font-size: clamp(28px, 3.4vw, 36px); margin: 0 0 16px;
 .sheet .segment b:empty::before { content: "\200B"; }
 .transpose { display: inline-flex; align-items: center; background: var(--container-high); border-radius: 18px; font-weight: 400; color: var(--on-background); }
 .transpose button { width: 36px; height: 36px; border: 0; border-radius: 18px; background: none; color: inherit; font: inherit; font-size: 18px; cursor: pointer; }
-.transpose button:hover { background: color-mix(in srgb, var(--on-background) 8%, transparent); }
+@media (hover: hover) and (pointer: fine) { .transpose button:hover { background: color-mix(in srgb, var(--on-background) 8%, transparent); } }
 .transpose button:active { background: color-mix(in srgb, var(--on-background) 12%, transparent); }
 .transpose button.reset { width: auto; min-width: 7ch; padding: 0 6px; font-size: inherit; font-variant-numeric: tabular-nums; }
 
@@ -196,7 +200,8 @@ section > h2, .split h2 { font-size: clamp(28px, 3.4vw, 36px); margin: 0 0 16px;
 .platforms span { color: var(--muted); }
 .platforms strong { display: block; color: var(--on-background); font-size: 16px; }
 .platforms a::after { content: "↗"; content: "↗" / ""; margin-left: auto; color: var(--muted); font-size: 18px; }
-.platforms a:hover { background: color-mix(in srgb, var(--primary) 8%, var(--container-low)); border-color: var(--outline); }
+@media (hover: hover) and (pointer: fine) { .platforms a:hover { background: color-mix(in srgb, var(--primary) 8%, var(--container-low)); border-color: var(--outline); } }
+@media (hover: none) { .platforms a:active { background: color-mix(in srgb, var(--primary) 12%, var(--container-low)); border-color: var(--outline); } }
 .platforms a:focus-visible { outline-offset: 3px; border-radius: 16px; }
 /* Not out yet: shown so the platform isn't missing, but without a link. */
 .platforms .soon { background: none; border-style: dashed; }
