@@ -47,12 +47,19 @@
 }
 
 * { box-sizing: border-box; }
-/* Touch screens get the same feedback as a mouse, shown while pressed, instead of the browser's gray tap overlay. Hover
-   effects only apply to precise pointers, as a tap would otherwise leave them stuck on until the next tap elsewhere. */
+/* Touch screens get feedback of their own while pressed instead of the browser's gray tap overlay. Hover effects only
+   apply to precise pointers, as a tap would otherwise leave them stuck on until the next tap elsewhere. A press shows
+   at once, as a quick tap would be over before a transition got anywhere, and fades out on release. */
 html { -webkit-text-size-adjust: 100%; -webkit-tap-highlight-color: transparent; }
 body { margin: 0; background: var(--background); color: var(--on-background); font: 16px/1.6 var(--sans); }
 img { max-width: 100%; height: auto; display: block; }
 a { color: var(--primary); text-underline-offset: 3px; }
+a, button { transition: opacity 0.2s, background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s, filter 0.2s, transform 0.2s; }
+@media (hover: none) {
+	a:active, button:active { transition-duration: 0s; }
+	/* Plain links, the brand among them, fade while pressed. */
+	a:not(.button, .platforms a, .site-header nav a):active { opacity: 0.55; }
+}
 a:focus-visible, button:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; border-radius: 4px; }
 h1, h2, h3 { line-height: 1.2; letter-spacing: -0.02em; }
 code, kbd { font-family: var(--mono); font-size: 0.9em; }
@@ -72,9 +79,9 @@ html { scroll-padding-top: 73px; }
 .brand { display: inline-flex; align-items: center; gap: 10px; color: inherit; text-decoration: none; font-weight: 700; font-size: 20px; letter-spacing: -0.01em; }
 .brand img { width: 32px; height: 32px; }
 .site-header nav { display: flex; align-items: center; gap: 4px; }
-.site-header nav a:not(.button) { color: var(--muted); text-decoration: none; font-size: 15px; padding: 8px 12px; border-radius: 20px; transition: background-color 0.15s, color 0.15s; }
+.site-header nav a:not(.button) { color: var(--muted); text-decoration: none; font-size: 15px; padding: 8px 12px; border-radius: 20px; }
 @media (hover: hover) and (pointer: fine) { .site-header nav a:not(.button):hover { background: var(--container); color: var(--on-background); } }
-@media (hover: none) { .site-header nav a:not(.button):active { background: var(--container); color: var(--on-background); } }
+@media (hover: none) { .site-header nav a:not(.button):active { background: color-mix(in srgb, var(--on-background) 12%, transparent); color: var(--on-background); } }
 .site-header nav a[aria-current] { color: var(--on-background); font-weight: 700; }
 
 .site-footer { margin-top: 72px; padding-bottom: 32px; }
@@ -94,9 +101,10 @@ html { scroll-padding-top: 73px; }
 
 /* Buttons, shaped like the app's Material 3 ones */
 
-.button { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; padding: 0 24px; border-radius: 20px; font-weight: 700; font-size: 15px; text-decoration: none; background: var(--primary); color: var(--on-primary); white-space: nowrap; transition: filter 0.15s; }
+.button { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; padding: 0 24px; border-radius: 20px; font-weight: 700; font-size: 15px; text-decoration: none; background: var(--primary); color: var(--on-primary); white-space: nowrap; }
 @media (hover: hover) and (pointer: fine) { .button:hover { filter: brightness(1.08); } }
-@media (hover: none) { .button:active { filter: brightness(1.12); } }
+/* Pressed, a button shrinks a little under a layer of its own text color, as the app's Material 3 buttons get one. */
+@media (hover: none) { .button:active { box-shadow: inset 0 0 0 100vmax color-mix(in srgb, currentColor 18%, transparent); transform: scale(0.96); } }
 .button.tonal { background: var(--primary-container); color: var(--on-primary-container); }
 .button.small { min-height: 36px; padding: 0 16px; font-size: 14px; }
 
@@ -180,6 +188,7 @@ section > h2, .split h2 { font-size: clamp(28px, 3.4vw, 36px); margin: 0 0 16px;
 .transpose button { width: 36px; height: 36px; border: 0; border-radius: 18px; background: none; color: inherit; font: inherit; font-size: 18px; cursor: pointer; }
 @media (hover: hover) and (pointer: fine) { .transpose button:hover { background: color-mix(in srgb, var(--on-background) 8%, transparent); } }
 .transpose button:active { background: color-mix(in srgb, var(--on-background) 12%, transparent); }
+@media (hover: none) { .transpose button:active { background: color-mix(in srgb, var(--on-background) 18%, transparent); } }
 .transpose button.reset { width: auto; min-width: 7ch; padding: 0 6px; font-size: inherit; font-variant-numeric: tabular-nums; }
 
 /* A row of phones, each with a caption. On narrow screens it scrolls sideways instead of wrapping. */
@@ -194,14 +203,14 @@ section > h2, .split h2 { font-size: clamp(28px, 3.4vw, 36px); margin: 0 0 16px;
    second */
 
 .platforms { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-.platforms > * { display: flex; align-items: center; gap: 16px; min-height: 80px; padding: 16px 20px; border-radius: 16px; background: var(--container-low); border: 1px solid var(--outline-variant); color: var(--on-background); text-decoration: none; font-size: 14px; line-height: 1.4; transition: background-color 0.15s, border-color 0.15s; }
+.platforms > * { display: flex; align-items: center; gap: 16px; min-height: 80px; padding: 16px 20px; border-radius: 16px; background: var(--container-low); border: 1px solid var(--outline-variant); color: var(--on-background); text-decoration: none; font-size: 14px; line-height: 1.4; }
 .platforms svg, .platforms img { flex-shrink: 0; width: 40px; height: 40px; }
 .platforms .github { fill: currentColor; }
 .platforms span { color: var(--muted); }
 .platforms strong { display: block; color: var(--on-background); font-size: 16px; }
 .platforms a::after { content: "↗"; content: "↗" / ""; margin-left: auto; color: var(--muted); font-size: 18px; }
 @media (hover: hover) and (pointer: fine) { .platforms a:hover { background: color-mix(in srgb, var(--primary) 8%, var(--container-low)); border-color: var(--outline); } }
-@media (hover: none) { .platforms a:active { background: color-mix(in srgb, var(--primary) 12%, var(--container-low)); border-color: var(--outline); } }
+@media (hover: none) { .platforms a:active { background: color-mix(in srgb, var(--primary) 18%, var(--container-low)); border-color: var(--primary); transform: scale(0.98); } }
 .platforms a:focus-visible { outline-offset: 3px; border-radius: 16px; }
 /* Not out yet: shown so the platform isn't missing, but without a link. */
 .platforms .soon { background: none; border-style: dashed; }
