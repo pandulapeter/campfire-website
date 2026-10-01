@@ -162,8 +162,10 @@
 {title: House of the Rising Sun}
 {artist: Traditional American}
 
+{start_of_verse}
 There [Am]is a [C]house in [D]New Or[F]leans
-They [Am]call the [C]Rising [E7]Sun</pre>
+They [Am]call the [C]Rising [E7]Sun
+{end_of_verse}</pre>
 				</div>
 				<span class="conversion-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h16m-6-6 6 6-6 6"/></svg></span>
 				<div class="rendered">
@@ -178,7 +180,7 @@ They [Am]call the [C]Rising [E7]Sun</pre>
 							<button type="button" data-step="1" aria-label="Transpose up">+</button>
 						</span>
 					</div>
-					<div class="sheet" id="chordpro-sheet"><div class="line"><span class="segment"><b></b>There </span><span class="segment"><b>Am</b>is a </span><span class="segment"><b>C</b>house in </span><span class="segment"><b>D</b>New Or</span><span class="segment"><b>F</b>leans</span></div><div class="line"><span class="segment"><b></b>They </span><span class="segment"><b>Am</b>call the </span><span class="segment"><b>C</b>Rising </span><span class="segment"><b>E7</b>Sun</span></div></div>
+					<div class="sheet" id="chordpro-sheet"><p class="section-label">Verse</p><div class="line"><span class="segment"><b></b>There </span><span class="segment"><b>Am</b>is a </span><span class="segment"><b>C</b>house in </span><span class="segment"><b>D</b>New Or</span><span class="segment"><b>F</b>leans</span></div><div class="line"><span class="segment"><b></b>They </span><span class="segment"><b>Am</b>call the </span><span class="segment"><b>C</b>Rising </span><span class="segment"><b>E7</b>Sun</span></div></div>
 				</div>
 			</div>
 		</section>
@@ -263,6 +265,11 @@ They [Am]call the [C]Rising [E7]Sun</pre>
 		function render() {
 			var html = "";
 			source.split("\n").forEach(function (line) {
+				var section = line.match(/^\{(?:start_of_verse|sov)(?::\s*(.*?))?\}$/);
+				if (section) {
+					html += '<p class="section-label">' + escape(section[1] || "Verse") + "</p>";
+					return;
+				}
 				if (line.charAt(0) === "{" || line.charAt(0) === "#" || line.trim() === "") return;
 				html += '<div class="line">';
 				line.split("[").forEach(function (part, index) {

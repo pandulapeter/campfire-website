@@ -189,6 +189,7 @@ section > h2, .split h2 { font-size: clamp(28px, 3.4vw, 36px); margin: 0 0 16px;
 .song-title { font-weight: 700; font-size: 16px; margin: 0; }
 .song-artist { color: var(--muted); font-size: 14px; margin: 4px 0 0; }
 .sheet { font-size: 15px; }
+.sheet .section-label { color: var(--primary); font-size: 13px; font-weight: 700; margin: 0 0 4px; }
 .sheet .line { display: flex; flex-wrap: wrap; margin-bottom: 4px; }
 .sheet .segment { display: inline-flex; flex-direction: column; white-space: pre; }
 .sheet .segment b { color: var(--chord); font-weight: 700; padding-right: 0.6ch; }
