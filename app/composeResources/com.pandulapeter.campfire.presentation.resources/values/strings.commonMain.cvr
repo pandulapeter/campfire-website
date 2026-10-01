@@ -71,7 +71,6 @@ string|print_columns|Q29sdW1ucw==
 string|print_comments|Q29tbWVudHM=
 string|print_export|RXhwb3J0IHRvIFBERg==
 string|print_font_size|JTEkZCBwdA==
-string|print_key_hint|U29uZ3MgdXNlIHRoZWlyIGN1cnJlbnQga2V5IGFuZCBjaG9yZCBub3RhdGlvbi4gRXhwb3J0IG9wdGlvbnMgYXJlIHNhdmVkIGZvciBuZXh0IHRpbWUu
 string|print_landscape|TGFuZHNjYXBl
 string|print_letter|TGV0dGVy
 string|print_load_failed|Q291bGQgbm90IHByZXBhcmUgdGhlIFBERi4=
@@ -99,8 +98,6 @@ string|print_share|U2hhcmUgUERG
 string|print_song_sheets|U29uZyBzaGVldHM=
 string|print_songs|U29uZ3MgdG8gZXhwb3J0
 string|print_time|VGltZQ==
-string|print_zoom_in|Wm9vbSBpbg==
-string|print_zoom_out|Wm9vbSBvdXQ=
 string|retry|UmV0cnk=
 string|save|U2F2ZQ==
 string|setlists_actions|U2V0bGlzdCBhY3Rpb25z
