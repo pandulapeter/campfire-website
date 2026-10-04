@@ -225,9 +225,6 @@ section > h2, .split h2 { font-size: clamp(28px, 3.4vw, 36px); margin: 0 0 16px;
 @media (hover: hover) and (pointer: fine) { .platforms a:hover { background: color-mix(in srgb, var(--primary) 8%, var(--container-low)); border-color: var(--outline); } }
 @media (hover: none) { .platforms a:active { background: color-mix(in srgb, var(--primary) 18%, var(--container-low)); border-color: var(--primary); transform: scale(0.98); } }
 .platforms a:focus-visible { outline-offset: 3px; border-radius: 16px; }
-/* Not out yet: shown so the platform isn't missing, but without a link. */
-.platforms .soon { background: none; border-style: dashed; }
-.platforms .soon svg { opacity: 0.6; }
 
 /* Privacy policy, support and the 404 page */
 
