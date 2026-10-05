@@ -19,6 +19,7 @@ assets/site.css       the one stylesheet every page shares
 assets/fonts/         Inter and JetBrains Mono, the fonts the app itself uses, with their licenses
 assets/screenshots/   the screenshots of the home page, in a light and a dark version
 assets/icon.svg       the app icon, for the header and the browser tab
+assets/peter.webp     the photo of the author in the donation card, cropped square to 640 × 640
 assets/icon-192.png   the Play Store icon (`app/android/appIcon.png` in the app's repository), for home screens
 CNAME                 the custom domain, managed by GitHub Pages
 ```

@@ -89,6 +89,8 @@ html { scroll-padding-top: 73px; }
 .coffee { display: flex; align-items: center; justify-content: space-between; gap: 24px 48px; padding: 32px 40px; border-radius: 20px; background: var(--primary-container); color: var(--on-primary-container); }
 .coffee h2 { font-size: 24px; margin: 0 0 8px; }
 .coffee p { margin: 0; max-width: 40em; }
+.coffee img { flex-shrink: 0; width: 144px; height: 144px; border-radius: 16px; object-fit: cover; }
+.coffee > div { flex: 1; }
 .coffee .button { gap: 10px; min-height: 48px; padding: 0 28px; font-size: 16px; }
 .coffee .button svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .legal { display: flex; flex-wrap: wrap; gap: 8px 32px; justify-content: space-between; margin-top: 48px; color: var(--muted); font-size: 14px; }
@@ -256,6 +258,7 @@ section > h2, .split h2 { font-size: clamp(28px, 3.4vw, 36px); margin: 0 0 16px;
 	.tour::-webkit-scrollbar { display: none; }
 	.tour figure { scroll-snap-align: start; }
 	.coffee { flex-direction: column; align-items: flex-start; padding: 28px; }
+	.coffee img { width: 120px; height: 120px; }
 }
 
 /* Below this the header links and the brand would run into each other. */
