@@ -113,10 +113,15 @@ html { scroll-padding-top: 73px; }
 
 /* Home page */
 
-.hero { display: grid; grid-template-columns: 5fr 6fr; gap: 48px; align-items: center; padding: 64px 0 56px; }
-.hero h1 { font-size: clamp(36px, 5vw, 52px); margin: 0 0 20px; }
-.hero p { font-size: 18px; color: var(--muted); margin: 0 0 28px; max-width: 30em; }
+/* A cue: the mono, chord colored label the headline opens with */
+.cue { display: flex; align-items: baseline; gap: 10px; margin: 0 0 14px; font: 700 13px/1.4 var(--mono); letter-spacing: 0.04em; text-transform: uppercase; color: var(--chord); }
+.cue span { color: var(--muted); font-weight: 400; }
+
+.hero { display: grid; grid-template-columns: 11fr 10fr; gap: 40px; align-items: center; padding: 64px 0 56px; }
+.hero h1 { font-size: clamp(36px, 5.2vw, 58px); line-height: 1.02; letter-spacing: -0.035em; margin: 0 0 24px; }
+.hero .lede { font-size: 19px; color: var(--muted); margin: 0 0 28px; max-width: 30em; }
 .hero .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.hero .button { min-height: 48px; padding: 0 28px; font-size: 16px; }
 
 /* The screenshots sit in device frames drawn in CSS. Every measurement of a frame is a share of its width (cqw), so
    that a frame keeps its proportions at any size. The bezels are dark in both color schemes, as the devices are. */
@@ -268,7 +273,7 @@ section > h2, .split h2 { font-size: clamp(28px, 3.4vw, 36px); margin: 0 0 16px;
 
 @media (max-width: 600px) {
 	.wrap { padding: 0 16px; }
-	.hero p, .lead { font-size: 17px; }
+	.hero .lede, .lead { font-size: 17px; }
 	.platforms { grid-template-columns: 1fr; }
 	.highlights { gap: 24px 16px; }
 	.highlights h2 { font-size: 16px; }
