@@ -103,6 +103,7 @@ string|import_status_unknown_failure|VGhlIGltcG9ydCBjb3VsZCBub3QgZmluaXNoLiBDaGV
 string|import_status_unprocessed|RmlsZXMgbm90IHByb2Nlc3NlZA==
 string|import_status_unreadable|RG9jdW1lbnRzIHdpdGhvdXQgcmVhZGFibGUgdGV4dA==
 string|metronome_accent_hint|VGFwIGEgYmVhdCBpbiB0aGUgYmFyIGFib3ZlIHRvIGFjY2VudCBvciBtdXRlIGl0Lg==
+string|metronome_animate|QW5pbWF0ZSBvbiB0aGUgYmVhdA==
 string|metronome_audio_unavailable|VGhlcmUgaXMgbm8gc291bmQgb3V0cHV0LCBzbyB0aGUgYmVhdCBpcyBvbmx5IHNob3duLg==
 string|metronome_audio_waiting|VGFwIGFueXdoZXJlIHRvIGxldCB0aGUgYnJvd3NlciBwbGF5IHRoZSBzb3VuZC4=
 string|metronome_beat_description|QmVhdCAlMSRkLCAlMiRz
@@ -110,7 +111,6 @@ string|metronome_beat_unit_decrease|TG9uZ2VyIG5vdGU=
 string|metronome_beat_unit_increase|U2hvcnRlciBub3Rl
 string|metronome_beats_decrease|RmV3ZXIgYmVhdHM=
 string|metronome_beats_increase|TW9yZSBiZWF0cw==
-string|metronome_flash|Rmxhc2ggb24gdGhlIGJlYXQ=
 string|metronome_level_accent|YWNjZW50
 string|metronome_level_muted|bXV0ZWQ=
 string|metronome_level_normal|cGxhaW4=
@@ -225,6 +225,7 @@ string|setlists_sorting_mode_by_date|RGF0ZQ==
 string|setlists_sorting_mode_by_title|VGl0bGU=
 string|setlists_sort|U29ydCBzZXRsaXN0cw==
 string|setlists_total_duration_minimum|JTEkcys=
+string|setlists_total_duration|JTEkcyBydW5uaW5nIHRpbWU=
 string|setlists_unarchive|VW5hcmNoaXZlIHNldGxpc3Q=
 string|setlists|U2V0bGlzdHM=
 string|settings_about|QWJvdXQ=
@@ -372,6 +373,7 @@ string|song_details_empty|VGhpcyBmaWxlIGhhcyBubyBjb250ZW50IHlldC4=
 string|song_details_grid_collapse|SGlkZSB0aGUgZ3JpZA==
 string|song_details_grid_expand|U2hvdyB0aGUgZ3JpZA==
 string|song_details_info_defaults|U29uZyBkZWZhdWx0cw==
+string|song_details_key_change|S2V5OiAlMSRz
 string|song_details_language_no_search_results|Tm8gbGFuZ3VhZ2UgbWF0Y2hlcyB0aGlzIHNlYXJjaC4gSXRzIHR3byBvciB0aHJlZSBsZXR0ZXIgY29kZSB3aWxsIGZpbmQgaXQgZXZlbiB3aGVyZSB0aGVyZSBpcyBubyBuYW1lIGZvciBpdC4=
 string|song_details_language_search|U2VhcmNoIGZvciBhIGxhbmd1YWdl
 string|song_details_languages_edit|TWFuYWdlIGxhbmd1YWdlcw==
@@ -388,7 +390,7 @@ string|song_details_lyricist|THlyaWNpc3Q=
 string|song_details_metadata_edit|RWRpdCBzb25nIGRldGFpbHM=
 string|song_details_metronome_hide|SGlkZSBtZXRyb25vbWU=
 string|song_details_metronome_show|U2hvdyBtZXRyb25vbWU=
-string|song_details_next_row|TmV4dCByb3c=
+string|song_details_next_page|TmV4dCBwYWdl
 string|song_details_next_section|TmV4dCBzZWN0aW9u
 string|song_details_next_song|TmV4dCBzb25n
 string|song_details_no_data_hint|VGhlIGZpbGUgY291bGQgbm90IGJlIHJlYWQu
@@ -402,7 +404,7 @@ string|song_details_playing_override_setlist|QWRqdXN0ZWQgZm9yIHRoaXMgc2V0bGlzdA=
 string|song_details_playing_override_transposition|VHJhbnNwb3NpdGlvbiAlMSRz
 string|song_details_playing_range|JTEkZCB0byAlMiRk
 string|song_details_playing_tempo|VGVtcG8gKEJQTSk=
-string|song_details_previous_row|UHJldmlvdXMgcm93
+string|song_details_previous_page|UHJldmlvdXMgcGFnZQ==
 string|song_details_previous_section|UHJldmlvdXMgc2VjdGlvbg==
 string|song_details_previous_song|UHJldmlvdXMgc29uZw==
 string|song_details_remove_cover_art_confirmation|UmVtb3ZlIHRoZSBjb3ZlciBhcnQgZnJvbSAlMSRzPw==
@@ -420,7 +422,7 @@ string|song_details_section_tab|VGFi
 string|song_details_set_cover_art|U2V0IGNvdmVyIGFydA==
 string|song_details_song_info|QWJvdXQgdGhlIHNvbmc=
 string|song_details_song_position|JTEkZCAvICUyJGQ=
-string|song_details_step_progress_row|Um93ICUxJGQgb2YgJTIkZA==
+string|song_details_step_progress_page|UGFnZSAlMSRkIG9mICUyJGQ=
 string|song_details_step_progress_section|U2VjdGlvbiAlMSRkIG9mICUyJGQ=
 string|song_details_tab_collapse|SGlkZSB0aGUgdGFi
 string|song_details_tab_expand|U2hvdyB0aGUgdGFi
@@ -436,6 +438,7 @@ string|song_details_text_size_increase|SW5jcmVhc2UgdGV4dCBzaXpl
 string|song_details_text_size_reset|UmVzZXQgdGV4dCBzaXpl
 string|song_details_text_size|VGV4dCBzaXpl
 string|song_details_time|JTEkcw==
+string|song_details_timing|RnJvbSBoZXJlOiAlMSRz
 string|song_details_transpose_down|VHJhbnNwb3NlIGRvd24=
 string|song_details_transpose_reset|UmVzZXQgdHJhbnNwb3NpdGlvbg==
 string|song_details_transpose_up|VHJhbnNwb3NlIHVw
@@ -459,6 +462,7 @@ string|song_editor_insert_comment|Q29tbWVudA==
 string|song_editor_insert_composer|Q29tcG9zZXI=
 string|song_editor_insert_cover_art|Q292ZXIgYXJ0
 string|song_editor_insert_duration|RHVyYXRpb24=
+string|song_editor_insert_key_change|S2V5IGNoYW5nZQ==
 string|song_editor_insert_key|S2V5
 string|song_editor_insert_language|TGFuZ3VhZ2U=
 string|song_editor_insert_link|TGluaw==
