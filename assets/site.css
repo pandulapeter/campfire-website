@@ -1,10 +1,11 @@
 /* The colors are the app's own (CampfireColorScheme.kt in the app's repository): a lavender paper in the light scheme,
    a violet night in the dark one, purple for the interface and orange for the chords. */
 
-@font-face { font-family: Inter; src: url("fonts/inter_regular.ttf") format("truetype"); font-weight: 400; font-display: swap; }
-@font-face { font-family: Inter; src: url("fonts/inter_bold.ttf") format("truetype"); font-weight: 700; font-display: swap; }
-@font-face { font-family: "JetBrains Mono"; src: url("fonts/jetbrains_mono_regular.ttf") format("truetype"); font-weight: 400; font-display: swap; }
-@font-face { font-family: "JetBrains Mono"; src: url("fonts/jetbrains_mono_bold.ttf") format("truetype"); font-weight: 700; font-display: swap; }
+/* The fonts are cut down to the Latin letters, punctuation and arrows, and compressed as WOFF2. */
+@font-face { font-family: Inter; src: url("fonts/inter_regular.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: Inter; src: url("fonts/inter_bold.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+@font-face { font-family: "JetBrains Mono"; src: url("fonts/jetbrains_mono_regular.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "JetBrains Mono"; src: url("fonts/jetbrains_mono_bold.woff2") format("woff2"); font-weight: 700; font-display: swap; }
 
 :root {
 	color-scheme: light dark;
@@ -41,7 +42,7 @@
 		--outline-variant: #494456;
 		--chord: #FE851E;
 	}
-	/* The dark bezels need a lighter rim to stand out from the night background. */
+	/* The dark bezels need a lighter rim to stand out from the night background, and the glow a little more. */
 	.tablet, .phone, .laptop { --rim: #4A4655; --shadow: rgb(0 0 0 / 0.6); }
 	.stage::before { opacity: 0.32; }
 }
@@ -89,7 +90,9 @@ html { scroll-padding-top: 73px; }
 .coffee { display: flex; align-items: center; justify-content: space-between; gap: 24px 48px; padding: 32px 40px; border-radius: 20px; background: var(--primary-container); color: var(--on-primary-container); }
 .coffee h2 { font-size: 24px; margin: 0 0 8px; }
 .coffee p { margin: 0; max-width: 40em; }
-.coffee img { flex-shrink: 0; width: 144px; height: 144px; border-radius: 16px; object-fit: cover; }
+/* The photo is a link to the author's own site. */
+.coffee > a:first-child { flex-shrink: 0; border-radius: 16px; }
+.coffee img { width: 144px; height: 144px; border-radius: 16px; object-fit: cover; }
 .coffee > div { flex: 1; }
 .coffee .button { gap: 10px; min-height: 48px; padding: 0 28px; font-size: 16px; }
 .coffee .button svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
@@ -110,6 +113,8 @@ html { scroll-padding-top: 73px; }
 @media (hover: none) { .button:active { box-shadow: inset 0 0 0 100vmax color-mix(in srgb, currentColor 18%, transparent); transform: scale(0.96); } }
 .button.tonal { background: var(--primary-container); color: var(--on-primary-container); }
 .button.small { min-height: 36px; padding: 0 16px; font-size: 14px; }
+/* Phones and tablets (marked by the script in each page's head) get their app store instead of the web app. */
+html:not([data-platform]) .for-mobile, html[data-platform] .for-desktop { display: none; }
 
 /* Home page */
 
@@ -124,19 +129,23 @@ html { scroll-padding-top: 73px; }
 .hero .button { min-height: 48px; padding: 0 28px; font-size: 16px; }
 
 /* The screenshots sit in device frames drawn in CSS. Every measurement of a frame is a share of its width (cqw), so
-   that a frame keeps its proportions at any size. The bezels are dark in both color schemes, as the devices are. */
+   that a frame keeps its proportions at any size. The bezels are dark in both color schemes, as the devices are. A
+   screen holds its device's proportions by itself, so that a screenshot that is not there yet still takes its place. */
 .tablet, .phone, .laptop { container-type: inline-size; --bezel: #1D1B20; --rim: #3A3740; --shadow: rgb(29 26 35 / 0.4); }
 .frame, .laptop .lid { position: relative; background: var(--bezel); box-shadow: 0 0 0 1px var(--rim), inset 0 0 0 1px rgb(255 255 255 / 0.06), 0 28px 48px -24px var(--shadow); }
-.screen { display: block; overflow: hidden; background: var(--background); }
-.screen img { width: 100%; }
+.screen { position: relative; display: block; overflow: hidden; background: var(--background); }
+.screen img { width: 100%; height: 100%; object-fit: cover; }
+.phone .screen { aspect-ratio: 600 / 1304; }
+.tablet .screen { aspect-ratio: 1400 / 1050; }
+.laptop .screen { aspect-ratio: 2000 / 1255; }
 .tablet .frame { padding: 2.4cqw; border-radius: 4cqw; }
 .tablet .screen { border-radius: 1.6cqw; }
 /* The front camera, in the middle of the long edge as it is on an iPad held sideways */
 .tablet .frame::before { content: ""; position: absolute; top: 0.85cqw; left: 50%; width: 0.7cqw; height: 0.7cqw; margin-left: -0.35cqw; border-radius: 50%; background: #34323A; }
 .phone .frame { padding: 3cqw; border-radius: 14.75cqw; }
-.phone .screen { position: relative; container-type: inline-size; border-radius: 11.75cqw; }
-/* The Dynamic Island, where the iPhone draws it: the screenshots leave its place empty (all but one, which it covers). */
-.phone .screen::after { content: ""; position: absolute; top: 3.2cqw; left: 35.8cqw; width: 28.4cqw; height: 8.3cqw; border-radius: 4.2cqw; background: #000; }
+.phone .screen { container-type: inline-size; border-radius: 11.75cqw; }
+/* The Dynamic Island, where the iPhone draws it: the screenshots leave its place empty. */
+.phone .screen::after { content: ""; position: absolute; z-index: 1; top: 3.2cqw; left: 35.8cqw; width: 28.4cqw; height: 8.3cqw; border-radius: 4.2cqw; background: #000; }
 /* The side button on the right and the volume buttons on the left */
 .phone .frame::before, .phone .frame::after { content: ""; position: absolute; width: 1.2cqw; background: var(--rim); }
 .phone .frame::before { right: -1.2cqw; top: 26%; height: 11%; border-radius: 0 1cqw 1cqw 0; }
@@ -148,41 +157,52 @@ html { scroll-padding-top: 73px; }
 /* The groove that lifts the lid */
 .laptop .base::before { content: ""; position: absolute; top: 0; left: 43%; width: 14%; height: 40%; border-radius: 0 0 1cqw 1cqw; background: #1D1B20; }
 
+/* A screenshot that has not been taken yet: its place, striped, and the name of the file it waits for. */
+.screen.missing { background: repeating-linear-gradient(-45deg, var(--container) 0 10px, var(--container-high) 10px 20px); }
+.screen.missing img { visibility: hidden; }
+.screen.missing::before { content: attr(data-file); position: absolute; inset: 0; display: grid; place-items: center; padding: 8%; font: 700 12px/1.4 var(--mono); color: var(--muted); text-align: center; overflow-wrap: anywhere; }
+
 /* A tablet and a phone, tilted towards each other, over a glow in the colors of the app icon */
 .stage { position: relative; aspect-ratio: 1.1; isolation: isolate; }
 .stage::before { content: ""; position: absolute; inset: 8% 4% 4% 10%; z-index: -1; border-radius: 50%; background: linear-gradient(135deg, #5A49CA, #F57C00); opacity: 0.28; filter: blur(56px); }
 .stage .tablet { position: absolute; top: 12%; left: 0; width: 86%; transform: rotate(-6deg); }
 .stage .phone { position: absolute; top: 28%; right: 1%; width: 27%; transform: rotate(6deg); }
 
-section { padding-top: 96px; scroll-margin-top: -64px; }
-section > h2, .split h2 { font-size: clamp(28px, 3.4vw, 36px); margin: 0 0 16px; max-width: 22em; }
-
-/* Text next to a picture rather than above it. The sections take turns: the text is on the left in one and on the
-   right in the next, while it always comes first for screen readers and on phones. */
-.split { display: grid; grid-template-columns: 2fr 3fr; gap: 48px; align-items: center; }
-.split.reverse { grid-template-columns: 3fr 2fr; }
-.split.reverse > :first-child { order: 1; }
-.split .lead { margin-bottom: 16px; }
-.split .lead:last-child { margin-bottom: 0; }
-.lead { font-size: 18px; color: var(--muted); max-width: 40em; margin: 0 0 40px; }
-
 /* What Campfire is about, right under the hero */
-
 .highlights { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px 32px; margin: 0; padding: 32px 0 0; list-style: none; border-top: 1px solid var(--outline-variant); }
-.highlights svg { display: block; width: 28px; height: 28px; margin-bottom: 12px; color: var(--primary); fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+.highlights svg, .features svg { display: block; width: 28px; height: 28px; margin-bottom: 12px; color: var(--primary); fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
 .highlights circle { fill: currentColor; stroke: none; }
+/* The icons, headings and texts of a row line up, even when only one of its headings takes two lines. */
+.highlights li { display: grid; grid-row: span 3; grid-template-rows: subgrid; row-gap: 0; }
 .highlights h2 { font-size: 18px; margin: 0 0 4px; }
 .highlights p { color: var(--muted); margin: 0; }
 
-/* The feature overview uses the same open layout and line icons as the highlights. */
+/* Sections */
+section { padding-top: 104px; scroll-margin-top: -64px; }
+section h2 { font-size: clamp(30px, 3.8vw, 42px); letter-spacing: -0.03em; margin: 0 0 18px; max-width: 18em; }
+.lead { font-size: 18px; color: var(--muted); max-width: 36em; margin: 0 0 20px; }
+section > .lead { margin-bottom: 40px; }
+section > .lead:has(+ .lead) { margin-bottom: 20px; }
+.split .lead:last-child { margin-bottom: 0; }
 
-.features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px 40px; list-style: none; margin: 0; padding: 0; }
-.features svg { display: block; width: 28px; height: 28px; margin-bottom: 12px; color: var(--primary); fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
-.features h3 { font-size: 18px; margin: 0 0 8px; }
-.features p { color: var(--muted); margin: 0; }
+/* Text next to a picture. The sections take turns, while the text always comes first for screen readers and phones. */
+.split { display: grid; grid-template-columns: 6fr 5fr; gap: 56px; align-items: center; }
+.split.reverse { grid-template-columns: 5fr 6fr; }
+.split.reverse > :first-child { order: 1; }
+.split .phone { width: min(300px, 100%); margin: 0 auto; }
+.split.media-wide { grid-template-columns: 5fr 7fr; }
+.split.reverse.media-wide { grid-template-columns: 7fr 5fr; }
+
+/* A tablet or laptop with a phone standing in front of its corner, flipped to the left corner when the picture is on the
+   left, so the phone stays on the outer edge */
+.pair { position: relative; padding-bottom: 10%; }
+.pair .tablet { width: 86%; }
+.pair .laptop { width: 90%; }
+.pair.flipped > :first-child { margin-left: auto; }
+.split .pair .phone { position: absolute; right: 0; bottom: 0; width: 25%; margin: 0; }
+.split .pair.flipped .phone { right: auto; left: 0; }
 
 /* A short ChordPro excerpt keeps the source and transposable result easy to compare. */
-
 .chordpro { display: grid; grid-template-columns: minmax(0, 1fr) 48px minmax(0, 1fr); }
 .chordpro > div { padding: 16px 24px 20px; min-width: 0; border: 1px solid var(--outline-variant); border-radius: 20px; }
 .chordpro .source { background: var(--container-low); }
@@ -199,28 +219,29 @@ section > h2, .split h2 { font-size: clamp(28px, 3.4vw, 36px); margin: 0 0 16px;
 .sheet .section-label { color: var(--primary); font-size: 13px; font-weight: 700; margin: 0 0 4px; }
 .sheet .line { display: flex; flex-wrap: wrap; margin-bottom: 4px; }
 .sheet .segment { display: inline-flex; flex-direction: column; white-space: pre; }
-.sheet .segment b { color: var(--chord); font-weight: 700; padding-right: 0.6ch; }
+.sheet .segment b { color: var(--chord); font-weight: 700; padding-right: 1ch; }
 /* Keep unchorded words aligned with the lyrics under the chords. */
 .sheet .segment b:empty::before { content: "\200B"; }
-.transpose { display: inline-flex; flex-shrink: 0; align-items: center; margin-left: auto; background: var(--container-high); border-radius: 20px; font-size: 13px; font-weight: 400; color: var(--on-background); }
-.transpose[hidden] { display: none; }
+.transpose, .notation { display: inline-flex; flex-shrink: 0; align-items: center; background: var(--container-high); border-radius: 20px; font-size: 13px; font-weight: 400; color: var(--on-background); }
+.transpose { margin-left: auto; }
+.notation { flex-basis: 100%; flex-wrap: wrap; }
+.transpose[hidden], .notation[hidden] { display: none; }
+.notation button { flex: 1 1 auto; height: 40px; padding: 0 8px; border: 0; border-radius: 20px; background: none; color: inherit; font: inherit; font-weight: 700; cursor: pointer; }
+.notation button[aria-pressed="true"] { background: var(--primary-container); color: var(--on-primary-container); }
 .transpose button { width: 40px; height: 40px; border: 0; border-radius: 20px; background: none; color: inherit; font: inherit; font-size: 18px; cursor: pointer; }
 .transpose button.reset { width: auto; min-width: 7ch; padding: 0 6px; font-size: inherit; font-variant-numeric: tabular-nums; }
-@media (hover: hover) and (pointer: fine) { .transpose button:hover { background: color-mix(in srgb, var(--on-background) 8%, transparent); } }
-.transpose button:active { background: color-mix(in srgb, var(--on-background) 12%, transparent); }
-@media (hover: none) { .transpose button:active { background: color-mix(in srgb, var(--on-background) 18%, transparent); } }
+@media (hover: hover) and (pointer: fine) { .transpose button:hover, .notation button[aria-pressed="false"]:hover { background: color-mix(in srgb, var(--on-background) 8%, transparent); } }
+.transpose button:active, .notation button[aria-pressed="false"]:active { background: color-mix(in srgb, var(--on-background) 12%, transparent); }
+@media (hover: none) { .transpose button:active, .notation button[aria-pressed="false"]:active { background: color-mix(in srgb, var(--on-background) 18%, transparent); } }
 .file-note { color: var(--muted); max-width: 48em; margin: 16px 0 0; }
 
-/* A row of phones, each with a caption. On narrow screens it scrolls sideways instead of wrapping. */
+/* The rest of the features, in the same open layout and line icons as the highlights */
+.features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px 40px; list-style: none; margin: 0; padding: 0; }
+.features h3 { font-size: 18px; margin: 0 0 8px; }
+.features p { color: var(--muted); margin: 0; }
 
-.tour { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
-.tour figure { margin: 0; min-width: 0; }
-.tour .phone { width: 88%; max-width: 240px; margin: 0 auto 24px; }
-.tour figcaption { max-width: 240px; margin: 0 auto; color: var(--muted); font-size: 15px; }
-.tour strong { display: block; color: var(--on-background); font-size: 16px; margin-bottom: 2px; }
-
-/* Download links, one card per platform with the logo of its store: phones and tablets in the first row, computers in the
-   second */
+/* Download links, one card per platform with the logo of its store: phones, tablets and the browser in the first row,
+   computers in the second */
 
 .platforms { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
 .platforms > * { display: flex; align-items: center; gap: 16px; min-height: 80px; padding: 16px 20px; border-radius: 16px; background: var(--container-low); border: 1px solid var(--outline-variant); color: var(--on-background); text-decoration: none; font-size: 14px; line-height: 1.4; }
@@ -232,6 +253,7 @@ section > h2, .split h2 { font-size: clamp(28px, 3.4vw, 36px); margin: 0 0 16px;
 @media (hover: hover) and (pointer: fine) { .platforms a:hover { background: color-mix(in srgb, var(--primary) 8%, var(--container-low)); border-color: var(--outline); } }
 @media (hover: none) { .platforms a:active { background: color-mix(in srgb, var(--primary) 18%, var(--container-low)); border-color: var(--primary); transform: scale(0.98); } }
 .platforms a:focus-visible { outline-offset: 3px; border-radius: 16px; }
+.release-note { margin: 20px 0 0; color: var(--muted); font-size: 14px; }
 
 /* Privacy policy, support and the 404 page */
 
@@ -248,22 +270,20 @@ section > h2, .split h2 { font-size: clamp(28px, 3.4vw, 36px); margin: 0 0 16px;
 .document .contact p:last-child { margin-bottom: 0; }
 
 @media (max-width: 860px) {
-	.hero, .split, .split.reverse { grid-template-columns: 1fr; gap: 32px; }
+	.hero, .split, .split.reverse, .split.media-wide, .split.reverse.media-wide { grid-template-columns: 1fr; gap: 40px; }
 	.split.reverse > :first-child { order: 0; }
+	.hero { padding-top: 32px; }
+	.stage { width: 100%; max-width: 520px; margin: 0 auto; }
+	section { padding-top: 88px; scroll-margin-top: -48px; }
+	.highlights { grid-template-columns: 1fr 1fr; }
 	.features { grid-template-columns: 1fr 1fr; gap: 28px 32px; }
 	.chordpro { grid-template-columns: 1fr; }
 	.conversion-arrow { height: 40px; }
 	.conversion-arrow svg { transform: rotate(90deg); }
-	.hero { padding-top: 24px; }
-	.stage { width: 100%; max-width: 560px; margin: 0 auto; }
-	section { padding-top: 72px; scroll-margin-top: -40px; }
-	.highlights { grid-template-columns: 1fr 1fr; }
 	.platforms { grid-template-columns: 1fr 1fr; }
-	.tour { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 42%; gap: 24px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin: 0 -24px; padding: 0 24px; scroll-padding: 0 24px; }
-	.tour::-webkit-scrollbar { display: none; }
-	.tour figure { scroll-snap-align: start; }
 	.coffee { flex-direction: column; align-items: flex-start; padding: 28px; }
 	.coffee img { width: 120px; height: 120px; }
+	.split > div > .phone { width: min(260px, 70%); }
 }
 
 /* Below this the header links and the brand would run into each other. */
@@ -273,13 +293,14 @@ section > h2, .split h2 { font-size: clamp(28px, 3.4vw, 36px); margin: 0 0 16px;
 
 @media (max-width: 600px) {
 	.wrap { padding: 0 16px; }
+	/* The two buttons share the row when they fit and take a row each, at full width, when they don't. */
+	.hero .button { flex: 1 1 auto; padding: 0 20px; }
 	.hero .lede, .lead { font-size: 17px; }
 	.platforms { grid-template-columns: 1fr; }
+	.coffee { padding: 24px; }
 	.highlights { gap: 24px 16px; }
 	.highlights h2 { font-size: 16px; }
 	.highlights p { font-size: 15px; }
-	.tour { grid-auto-columns: 62%; margin: 0 -16px; padding: 0 16px; scroll-padding: 0 16px; }
-	.coffee { padding: 24px; }
 	.features { grid-template-columns: 1fr; gap: 24px; }
 	.features svg { float: left; margin: 0; }
 	.features h3, .features p { margin-left: 44px; }
@@ -287,4 +308,10 @@ section > h2, .split h2 { font-size: clamp(28px, 3.4vw, 36px); margin: 0 0 16px;
 	.chordpro > div { padding: 16px; }
 	.sheet { font-size: 14px; }
 	.file-note { font-size: 15px; }
+}
+
+/* The four notations still fit on one row on the narrowest phones. */
+@media (max-width: 400px) {
+	.notation { font-size: 12px; }
+	.notation button { padding: 0 4px; }
 }
