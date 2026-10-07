@@ -168,7 +168,7 @@ html:not([data-platform]) .for-mobile, html[data-platform] .for-desktop { displa
 .stage::before { content: ""; position: absolute; inset: 8% 4% 4% 10%; z-index: -1; border-radius: 50%; background: linear-gradient(135deg, #5A49CA, #F57C00); opacity: 0.28; filter: blur(56px); }
 .stage .laptop { position: absolute; top: 0; right: 0; width: 86%; }
 .stage .tablet { position: absolute; bottom: 8%; left: 0; width: 60%; }
-.stage .phone { position: absolute; bottom: 1%; left: 53%; width: 21%; }
+.stage .phone { position: absolute; bottom: 1%; left: 52%; width: 21%; }
 
 /* What Campfire is about, right under the hero */
 .highlights { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px 32px; margin: 0; padding: 32px 0 0; list-style: none; border-top: 1px solid var(--outline-variant); }
