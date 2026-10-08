@@ -128,8 +128,9 @@ html:not([data-mobile]) .for-mobile, html[data-mobile] .for-desktop { display: n
 .hero .actions { display: flex; flex-wrap: wrap; gap: 12px; }
 .hero .button { min-height: 48px; padding: 0 28px; font-size: 16px; }
 .all-platforms { margin: 16px 0 0; font-size: 15px; }
-.all-platforms a { color: var(--muted); }
-.all-platforms a::after { content: " ↓"; content: " ↓" / ""; }
+.all-platforms a { display: inline-flex; align-items: center; column-gap: 0.35em; color: var(--muted); text-decoration: none; }
+.all-platforms a span { text-decoration: underline; }
+.all-platforms a::after { content: "↓"; content: "↓" / ""; text-decoration: none; transform: translateY(2px); }
 /* Without a version of its own, the second button already leads to every platform. */
 html:not([data-os]) .all-platforms { display: none; }
 
@@ -205,6 +206,8 @@ section > .lead:has(+ .lead) { margin-bottom: 20px; }
 .pair .tablet { width: 86%; }
 .pair .laptop { width: 90%; }
 .split .pair .phone { position: absolute; right: 0; bottom: 0; width: 25%; margin: 0; }
+.split .pair.phone-left .tablet { margin-left: auto; }
+.split .pair.phone-left .phone { right: auto; left: 0; }
 
 /* A short ChordPro excerpt keeps the source and transposable result easy to compare. */
 .chordpro { display: grid; grid-template-columns: minmax(0, 1fr) 48px minmax(0, 1fr); }
