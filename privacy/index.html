@@ -12,26 +12,39 @@
 	<meta property="og:url" content="https://campfire-songbook.com/privacy/">
 	<meta property="og:title" content="Privacy policy – Campfire">
 	<meta property="og:description" content="How Campfire handles your data: no account, no server, no ads or tracking.">
-	<meta property="og:image" content="https://campfire-songbook.com/assets/og-image.jpg?v=4">
+	<meta property="og:image" content="https://campfire-songbook.com/assets/og-image.jpg?v=c365f824">
 	<meta property="og:image:width" content="1200">
 	<meta property="og:image:height" content="630">
 	<meta property="og:image:alt" content="Campfire running on a laptop and a phone">
 	<meta name="twitter:card" content="summary_large_image">
-	<link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
-	<link rel="apple-touch-icon" href="../assets/icon-192.png">
-	<link rel="stylesheet" href="../assets/site.css?v=25">
+	<link rel="icon" href="../assets/icon.svg?v=8ba29e56" type="image/svg+xml">
+	<link rel="apple-touch-icon" href="../assets/icon-192.png?v=0f2be8ac">
+	<link rel="stylesheet" href="../assets/site.css?v=0c648670">
 	<script>
-		// Phones and tablets are offered their own app store instead of the web app: the stylesheet shows the elements
-		// marked for-mobile instead of for-desktop, and every link marked data-store goes to the store. iPadOS presents
-		// itself as a Mac, so an iPad is told apart by its touch screen.
+		// Every visitor is offered two versions: a phone or a tablet the app from its store first and the web app second,
+		// a computer the other way around. The script names the system: the stylesheet shows the elements marked
+		// for-mobile instead of for-desktop on a phone or a tablet, every link marked data-native goes to the system's own
+		// version, and one marked data-native-label is also named after it. iPadOS presents itself as a Mac, so an iPad is
+		// told apart by its touch screen. Without a match, the links lead to the list of every platform.
 		(function (d) {
 			var agent = navigator.userAgent;
-			var platform = /Android/.test(agent) ? "android" : /iPhone|iPad|iPod/.test(agent) || (/Macintosh/.test(agent) && navigator.maxTouchPoints > 1) ? "ios" : "";
-			if (!platform) return;
-			d.documentElement.dataset.platform = platform;
+			var os = /Android/.test(agent) ? "android" : /iPhone|iPad|iPod/.test(agent) || (/Macintosh/.test(agent) && navigator.maxTouchPoints > 1) ? "ios" : /Windows/.test(agent) ? "windows" : /Macintosh/.test(agent) ? "macos" : /Linux/.test(agent) ? "linux" : "";
+			var native = {
+				android: ["https://play.google.com/store/apps/details?id=com.pandulapeter.campfire", "Get it on Google Play"],
+				ios: ["https://apps.apple.com/app/id6815160850", "Get it on the App Store"],
+				windows: ["https://apps.microsoft.com/detail/9MSR62F288M1", "Download for Windows"],
+				macos: ["https://apps.apple.com/app/id6815160850", "Download for Mac"],
+				linux: ["https://github.com/pandulapeter/campfire/releases/latest", "Download for Linux"]
+			}[os];
+			if (!native) return;
+			d.documentElement.dataset.os = os;
+			if (os === "android" || os === "ios") d.documentElement.dataset.mobile = "";
 			d.addEventListener("DOMContentLoaded", function () {
-				d.querySelectorAll("[data-store]").forEach(function (link) {
-					link.href = platform === "android" ? "https://play.google.com/store/apps/details?id=com.pandulapeter.campfire" : "https://apps.apple.com/app/id6815160850";
+				d.querySelectorAll("[data-native]").forEach(function (link) {
+					link.href = native[0];
+					link.target = "_blank";
+					link.rel = "noopener";
+					if (link.hasAttribute("data-native-label")) link.textContent = native[1];
 				});
 			});
 		}(document));
@@ -41,13 +54,13 @@
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-header">
 	<div class="wrap">
-		<a class="brand" href="../"><img src="../assets/icon.svg" alt="">Campfire</a>
+		<a class="brand" href="../"><img src="../assets/icon.svg?v=8ba29e56" alt="">Campfire</a>
 		<nav aria-label="Main">
 			<a class="optional" href="../#download">Download</a>
 			<a class="optional" href="../support/">Support</a>
 			<a class="optional" href="../privacy/" aria-current="page">Privacy</a>
 			<a class="button small for-desktop" href="../app/" target="_blank" rel="noopener">Open the web app</a>
-			<a class="button small for-mobile" href="../#download" data-store>Download the app</a>
+			<a class="button small for-mobile" href="../#download" data-native>Download the app</a>
 		</nav>
 	</div>
 </header>

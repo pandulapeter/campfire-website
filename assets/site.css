@@ -2,10 +2,10 @@
    a violet night in the dark one, purple for the interface and orange for the chords. */
 
 /* The fonts are cut down to the Latin letters, punctuation and arrows, and compressed as WOFF2. */
-@font-face { font-family: Inter; src: url("fonts/inter_regular.woff2") format("woff2"); font-weight: 400; font-display: swap; }
-@font-face { font-family: Inter; src: url("fonts/inter_bold.woff2") format("woff2"); font-weight: 700; font-display: swap; }
-@font-face { font-family: "JetBrains Mono"; src: url("fonts/jetbrains_mono_regular.woff2") format("woff2"); font-weight: 400; font-display: swap; }
-@font-face { font-family: "JetBrains Mono"; src: url("fonts/jetbrains_mono_bold.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+@font-face { font-family: Inter; src: url("fonts/inter_regular.woff2?v=ccc3392c") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: Inter; src: url("fonts/inter_bold.woff2?v=0b30f706") format("woff2"); font-weight: 700; font-display: swap; }
+@font-face { font-family: "JetBrains Mono"; src: url("fonts/jetbrains_mono_regular.woff2?v=07a3bc84") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "JetBrains Mono"; src: url("fonts/jetbrains_mono_bold.woff2?v=ecde6ef7") format("woff2"); font-weight: 700; font-display: swap; }
 
 :root {
 	color-scheme: light dark;
@@ -113,8 +113,8 @@ html { scroll-padding-top: 73px; }
 @media (hover: none) { .button:active { box-shadow: inset 0 0 0 100vmax color-mix(in srgb, currentColor 18%, transparent); transform: scale(0.96); } }
 .button.tonal { background: var(--primary-container); color: var(--on-primary-container); }
 .button.small { min-height: 36px; padding: 0 16px; font-size: 14px; }
-/* Phones and tablets (marked by the script in each page's head) get their app store instead of the web app. */
-html:not([data-platform]) .for-mobile, html[data-platform] .for-desktop { display: none; }
+/* Phones and tablets (marked by the script in each page's head) get their app store first, computers the web app. */
+html:not([data-mobile]) .for-mobile, html[data-mobile] .for-desktop { display: none; }
 
 /* Home page */
 
@@ -127,6 +127,11 @@ html:not([data-platform]) .for-mobile, html[data-platform] .for-desktop { displa
 .hero .lede { font-size: 19px; color: var(--muted); margin: 0 0 28px; max-width: 30em; }
 .hero .actions { display: flex; flex-wrap: wrap; gap: 12px; }
 .hero .button { min-height: 48px; padding: 0 28px; font-size: 16px; }
+.all-platforms { margin: 16px 0 0; font-size: 15px; }
+.all-platforms a { color: var(--muted); }
+.all-platforms a::after { content: " ↓"; content: " ↓" / ""; }
+/* Without a version of its own, the second button already leads to every platform. */
+html:not([data-os]) .all-platforms { display: none; }
 
 /* The screenshots sit in device frames drawn in CSS. Every measurement of a frame is a share of its width (cqw), so
    that a frame keeps its proportions at any size. The bezels are dark in both color schemes, as the devices are. A

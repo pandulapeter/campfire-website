@@ -1,0 +1,17 @@
+#!/bin/sh
+# Runs stamp.py before every commit and stages what it changes, so a changed asset never goes out under its old link. A
+# page that also has changes left unstaged is not staged for you: the commit stops so that you can stage it yourself.
+cd "$(git rev-parse --show-toplevel)" || exit 1
+pages="assets/site.css index.html support/index.html privacy/index.html 404.html"
+unstaged=$(git diff --name-only -- $pages)
+before=$(for page in $pages; do echo "$page $(git hash-object "$page")"; done)
+python3 stamp.py > /dev/null || exit 1
+blocked=""
+for page in $pages; do
+	printf '%s\n' "$before" | grep -qxF "$page $(git hash-object "$page")" && continue
+	if printf '%s\n' "$unstaged" | grep -qxF "$page"; then blocked="$blocked $page"; else git add "$page"; fi
+done
+if [ -n "$blocked" ]; then
+	echo "stamp.py updated the links in$blocked, which also has unstaged changes. Stage it and commit again."
+	exit 1
+fi

@@ -12,28 +12,41 @@
 	<meta property="og:url" content="https://campfire-songbook.com/">
 	<meta property="og:title" content="Campfire: Songbook &amp; Metronome">
 	<meta property="og:description" content="A free songbook for your lyrics and chords, with setlists and a metronome that already knows each song’s tempo. Works offline on phones, tablets and computers, with optional Dropbox sync.">
-	<meta property="og:image" content="https://campfire-songbook.com/assets/og-image.jpg?v=4">
+	<meta property="og:image" content="https://campfire-songbook.com/assets/og-image.jpg?v=c365f824">
 	<meta property="og:image:width" content="1200">
 	<meta property="og:image:height" content="630">
 	<meta property="og:image:alt" content="Campfire running on a laptop and a phone">
 	<meta name="twitter:card" content="summary_large_image">
-	<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
-	<link rel="apple-touch-icon" href="assets/icon-192.png">
-	<link rel="preload" href="assets/fonts/inter_bold.woff2" as="font" type="font/woff2" crossorigin>
-	<link rel="preload" href="assets/fonts/inter_regular.woff2" as="font" type="font/woff2" crossorigin>
-	<link rel="stylesheet" href="assets/site.css?v=26">
+	<link rel="icon" href="assets/icon.svg?v=8ba29e56" type="image/svg+xml">
+	<link rel="apple-touch-icon" href="assets/icon-192.png?v=0f2be8ac">
+	<link rel="preload" href="assets/fonts/inter_bold.woff2?v=0b30f706" as="font" type="font/woff2" crossorigin>
+	<link rel="preload" href="assets/fonts/inter_regular.woff2?v=ccc3392c" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" href="assets/site.css?v=0c648670">
 	<script>
-		// Phones and tablets are offered their own app store instead of the web app: the stylesheet shows the elements
-		// marked for-mobile instead of for-desktop, and every link marked data-store goes to the store. iPadOS presents
-		// itself as a Mac, so an iPad is told apart by its touch screen.
+		// Every visitor is offered two versions: a phone or a tablet the app from its store first and the web app second,
+		// a computer the other way around. The script names the system: the stylesheet shows the elements marked
+		// for-mobile instead of for-desktop on a phone or a tablet, every link marked data-native goes to the system's own
+		// version, and one marked data-native-label is also named after it. iPadOS presents itself as a Mac, so an iPad is
+		// told apart by its touch screen. Without a match, the links lead to the list of every platform.
 		(function (d) {
 			var agent = navigator.userAgent;
-			var platform = /Android/.test(agent) ? "android" : /iPhone|iPad|iPod/.test(agent) || (/Macintosh/.test(agent) && navigator.maxTouchPoints > 1) ? "ios" : "";
-			if (!platform) return;
-			d.documentElement.dataset.platform = platform;
+			var os = /Android/.test(agent) ? "android" : /iPhone|iPad|iPod/.test(agent) || (/Macintosh/.test(agent) && navigator.maxTouchPoints > 1) ? "ios" : /Windows/.test(agent) ? "windows" : /Macintosh/.test(agent) ? "macos" : /Linux/.test(agent) ? "linux" : "";
+			var native = {
+				android: ["https://play.google.com/store/apps/details?id=com.pandulapeter.campfire", "Get it on Google Play"],
+				ios: ["https://apps.apple.com/app/id6815160850", "Get it on the App Store"],
+				windows: ["https://apps.microsoft.com/detail/9MSR62F288M1", "Download for Windows"],
+				macos: ["https://apps.apple.com/app/id6815160850", "Download for Mac"],
+				linux: ["https://github.com/pandulapeter/campfire/releases/latest", "Download for Linux"]
+			}[os];
+			if (!native) return;
+			d.documentElement.dataset.os = os;
+			if (os === "android" || os === "ios") d.documentElement.dataset.mobile = "";
 			d.addEventListener("DOMContentLoaded", function () {
-				d.querySelectorAll("[data-store]").forEach(function (link) {
-					link.href = platform === "android" ? "https://play.google.com/store/apps/details?id=com.pandulapeter.campfire" : "https://apps.apple.com/app/id6815160850";
+				d.querySelectorAll("[data-native]").forEach(function (link) {
+					link.href = native[0];
+					link.target = "_blank";
+					link.rel = "noopener";
+					if (link.hasAttribute("data-native-label")) link.textContent = native[1];
 				});
 			});
 		}(document));
@@ -43,13 +56,13 @@
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-header">
 	<div class="wrap">
-		<a class="brand" href="./"><img src="assets/icon.svg" alt="">Campfire</a>
+		<a class="brand" href="./"><img src="assets/icon.svg?v=8ba29e56" alt="">Campfire</a>
 		<nav aria-label="Main">
 			<a class="optional" href="#download">Download</a>
 			<a class="optional" href="support/">Support</a>
 			<a class="optional" href="privacy/">Privacy</a>
 			<a class="button small for-desktop" href="app/" target="_blank" rel="noopener">Open the web app</a>
-			<a class="button small for-mobile" href="#download" data-store>Download the app</a>
+			<a class="button small for-mobile" href="#download" data-native>Download the app</a>
 		</nav>
 	</div>
 </header>
@@ -63,23 +76,24 @@
 				<p class="lede">Campfire organizes your songs, fits them to any screen, and counts you in at each song’s own tempo – all for free.</p>
 				<div class="actions">
 					<a class="button for-desktop" href="app/" target="_blank" rel="noopener">Open in your browser</a>
-					<a class="button tonal for-desktop" href="#download">Download</a>
-					<a class="button for-mobile" href="#download" data-store>Download the app</a>
-					<a class="button tonal for-mobile" href="#download">Other platforms</a>
+					<a class="button tonal for-desktop" href="#download" data-native data-native-label>Download</a>
+					<a class="button for-mobile" href="#download" data-native data-native-label>Get the app</a>
+					<a class="button tonal for-mobile" href="app/" target="_blank" rel="noopener">Open in your browser</a>
 				</div>
+				<p class="all-platforms"><a href="#download">All platforms</a></p>
 			</div>
 			<div class="stage">
 				<div class="laptop"><div class="lid"><picture class="screen">
-					<source srcset="assets/screenshots/laptop-setlists-dark.webp" media="(prefers-color-scheme: dark)">
-					<img src="assets/screenshots/laptop-setlists-light.webp" width="2000" height="1255" fetchpriority="high" alt="Setlists on a MacBook, each with its songs, their key, tempo and length, and the running time of the set.">
+					<source srcset="assets/screenshots/laptop-setlists-dark.webp?v=a6512fc7" media="(prefers-color-scheme: dark)">
+					<img src="assets/screenshots/laptop-setlists-light.webp?v=558bf1b7" width="2000" height="1255" fetchpriority="high" alt="Setlists on a MacBook, each with its songs, their key, tempo and length, and the running time of the set.">
 				</picture></div><div class="base"></div></div>
 				<div class="tablet"><div class="frame"><picture class="screen">
-					<source srcset="assets/screenshots/tablet-song-dark.webp" media="(prefers-color-scheme: dark)">
-					<img src="assets/screenshots/tablet-song-light.webp" width="1400" height="1050" alt="A song on an iPad, its chord diagrams and verses in columns.">
+					<source srcset="assets/screenshots/tablet-song-dark.webp?v=ec258cf9" media="(prefers-color-scheme: dark)">
+					<img src="assets/screenshots/tablet-song-light.webp?v=de26f53e" width="1400" height="1050" alt="A song on an iPad, its chord diagrams and verses in columns.">
 				</picture></div></div>
 				<div class="phone"><div class="frame"><picture class="screen">
-					<source srcset="assets/screenshots/phone-songs-dark.webp" media="(prefers-color-scheme: dark)">
-					<img src="assets/screenshots/phone-songs-light.webp" width="600" height="1304" alt="The song list on an iPhone, grouped by artist, with tags on every song.">
+					<source srcset="assets/screenshots/phone-songs-dark.webp?v=8775ff34" media="(prefers-color-scheme: dark)">
+					<img src="assets/screenshots/phone-songs-light.webp?v=deaca31d" width="600" height="1304" alt="The song list on an iPhone, grouped by artist, with tags on every song.">
 				</picture></div></div>
 			</div>
 		</div>
@@ -100,8 +114,8 @@
 			</div>
 			<div>
 				<div class="laptop"><div class="lid"><picture class="screen">
-					<source srcset="assets/screenshots/laptop-song-dark.webp" media="(prefers-color-scheme: dark)">
-					<img src="assets/screenshots/laptop-song-light.webp" width="2000" height="1255" loading="lazy" alt="A song laid out in columns on a MacBook, under the diagrams of its chords.">
+					<source srcset="assets/screenshots/laptop-song-dark.webp?v=f855897a" media="(prefers-color-scheme: dark)">
+					<img src="assets/screenshots/laptop-song-light.webp?v=7205eb63" width="2000" height="1255" loading="lazy" alt="A song laid out in columns on a MacBook, under the diagrams of its chords.">
 				</picture></div><div class="base"></div></div>
 			</div>
 		</section>
@@ -114,12 +128,12 @@
 			</div>
 			<div class="pair">
 				<div class="tablet"><div class="frame"><picture class="screen">
-					<source srcset="assets/screenshots/tablet-song-metronome-dark.webp" media="(prefers-color-scheme: dark)">
-					<img src="assets/screenshots/tablet-song-metronome-light.webp" width="1400" height="1050" loading="lazy" alt="A song on an iPad with the metronome panel open under its title.">
+					<source srcset="assets/screenshots/tablet-song-metronome-dark.webp?v=bc43fc5d" media="(prefers-color-scheme: dark)">
+					<img src="assets/screenshots/tablet-song-metronome-light.webp?v=8cdc0271" width="1400" height="1050" loading="lazy" alt="A song on an iPad with the metronome panel open under its title.">
 				</picture></div></div>
 				<div class="phone"><div class="frame"><picture class="screen">
-					<source srcset="assets/screenshots/phone-metronome-dark.webp" media="(prefers-color-scheme: dark)">
-					<img src="assets/screenshots/phone-metronome-light.webp" width="600" height="1304" loading="lazy" alt="The Metronome tab on an iPhone, with the tempo, the beats of the bar and its settings.">
+					<source srcset="assets/screenshots/phone-metronome-dark.webp?v=b1316364" media="(prefers-color-scheme: dark)">
+					<img src="assets/screenshots/phone-metronome-light.webp?v=571250a5" width="600" height="1304" loading="lazy" alt="The Metronome tab on an iPhone, with the tempo, the beats of the bar and its settings.">
 				</picture></div></div>
 			</div>
 		</section>
@@ -132,12 +146,12 @@
 			</div>
 			<div class="pair">
 				<div class="tablet"><div class="frame"><picture class="screen">
-					<source srcset="assets/screenshots/tablet-export-dark.webp" media="(prefers-color-scheme: dark)">
-					<img src="assets/screenshots/tablet-export-light.webp" width="1400" height="1050" loading="lazy" alt="A song exported as a PDF on an iPad, its page previewed beside the options.">
+					<source srcset="assets/screenshots/tablet-export-dark.webp?v=ae282da6" media="(prefers-color-scheme: dark)">
+					<img src="assets/screenshots/tablet-export-light.webp?v=359928c8" width="1400" height="1050" loading="lazy" alt="A song exported as a PDF on an iPad, its page previewed beside the options.">
 				</picture></div></div>
 				<div class="phone"><div class="frame"><picture class="screen">
-					<source srcset="assets/screenshots/phone-setlist-dark.webp" media="(prefers-color-scheme: dark)">
-					<img src="assets/screenshots/phone-setlist-light.webp" width="600" height="1304" loading="lazy" alt="A setlist on an iPhone, with the key, tempo and length of each song, its running time and the days left until the gig.">
+					<source srcset="assets/screenshots/phone-setlist-dark.webp?v=609505b4" media="(prefers-color-scheme: dark)">
+					<img src="assets/screenshots/phone-setlist-light.webp?v=ea519138" width="600" height="1304" loading="lazy" alt="A setlist on an iPhone, with the key, tempo and length of each song, its running time and the days left until the gig.">
 				</picture></div></div>
 			</div>
 		</section>
@@ -150,15 +164,15 @@
 			</div>
 			<div>
 				<div class="laptop"><div class="lid"><picture class="screen">
-					<source srcset="assets/screenshots/laptop-import-dark.webp" media="(prefers-color-scheme: dark)">
-					<img src="assets/screenshots/laptop-import-light.webp" width="2000" height="1255" loading="lazy" alt="An imported song in the editor on a MacBook, with a mistake flagged and its live preview beside it.">
+					<source srcset="assets/screenshots/laptop-import-dark.webp?v=69bdcf3d" media="(prefers-color-scheme: dark)">
+					<img src="assets/screenshots/laptop-import-light.webp?v=021a13f9" width="2000" height="1255" loading="lazy" alt="An imported song in the editor on a MacBook, with a mistake flagged and its live preview beside it.">
 				</picture></div><div class="base"></div></div>
 			</div>
 		</section>
 
 		<section aria-labelledby="chords-title">
 			<h2 id="chords-title">Chords the way you read them.</h2>
-			<p class="lead">Letters, German, Latin, Nashville numbers, or Roman numerals, in any key. Underneath, every song is a plain <a href="https://www.chordpro.org" target="_blank" rel="noopener">ChordPro</a> text file, so nothing is locked in.</p>
+			<p class="lead">Letters, German, Latin, Nashville numbers, or Roman numerals, in any key, and tabs transpose right along with the chords. Underneath, every song is a plain <a href="https://www.chordpro.org" target="_blank" rel="noopener">ChordPro</a> text file, so nothing is locked in.</p>
 			<div class="chordpro">
 				<div class="source">
 					<pre id="chordpro-source"># Raw .cho file
@@ -245,7 +259,7 @@ They [Am]call the [C]Rising [E7]Sun
 					<span><strong>iPhone and iPad</strong>App Store</span>
 				</a>
 				<a href="app/" target="_blank" rel="noopener">
-					<img src="assets/icon.svg" width="40" height="40" alt="">
+					<img src="assets/icon.svg?v=8ba29e56" width="40" height="40" alt="">
 					<span><strong>Browser</strong>Nothing to install</span>
 				</a>
 				<a href="https://apps.microsoft.com/detail/9MSR62F288M1" target="_blank" rel="noopener">
@@ -267,7 +281,7 @@ They [Am]call the [C]Rising [E7]Sun
 
 	<footer class="site-footer">
 		<div class="coffee">
-			<a href="https://pandulapeter.com" target="_blank" rel="noopener" aria-label="Péter Pandula’s website"><img src="assets/peter.webp?v=2" width="480" height="480" loading="lazy" alt="Péter playing an electric guitar on stage."></a>
+			<a href="https://pandulapeter.com" target="_blank" rel="noopener" aria-label="Péter Pandula’s website"><img src="assets/peter.webp?v=70634f3d" width="480" height="480" loading="lazy" alt="Péter playing an electric guitar on stage."></a>
 			<div>
 				<h2>Keep the campfire burning</h2>
 				<p>Hi, I’m Péter. Campfire is the app I wanted on my own music stand, so I made it. It’s free and <a href="https://github.com/pandulapeter/campfire" target="_blank" rel="noopener">open source</a>, and it will stay that way. If it has earned a place on yours too, a coffee helps me keep going.</p>
@@ -284,6 +298,6 @@ They [Am]call the [C]Rising [E7]Sun
 		</div>
 	</footer>
 </div>
-<script src="assets/home.js?v=6"></script>
+<script src="assets/home.js?v=2905c673"></script>
 </body>
 </html>

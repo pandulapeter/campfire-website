@@ -120,7 +120,7 @@ function watchScreenshot(img) {
 	var screen = img.closest(".screen");
 	function missing() {
 		screen.classList.add("missing");
-		screen.dataset.file = (img.currentSrc || img.src).split("/").pop();
+		screen.dataset.file = (img.currentSrc || img.src).split("?")[0].split("/").pop();
 	}
 	img.addEventListener("error", missing);
 	img.addEventListener("load", function () { screen.classList.remove("missing"); });
