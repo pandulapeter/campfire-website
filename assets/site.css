@@ -61,7 +61,8 @@ a, button { transition: opacity 0.2s, background-color 0.2s, color 0.2s, border-
 	/* Plain links, the brand among them, fade while pressed. */
 	a:not(.button, .platforms a, .site-header nav a):active { opacity: 0.55; }
 }
-a:focus-visible, button:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; border-radius: 4px; }
+/* Without any weight of its own, so buttons, cards, and pill links keep their own shape around the focus ring. */
+:where(a, button):focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; border-radius: 4px; }
 h1, h2, h3 { line-height: 1.2; letter-spacing: -0.02em; text-wrap: balance; }
 p, figcaption { text-wrap: pretty; }
 code, kbd { font-family: var(--mono); font-size: 0.9em; }
@@ -76,7 +77,7 @@ code, kbd { font-family: var(--mono); font-size: 0.9em; }
 /* A link to a section stops with the section's heading 32px under the sticky header (72px and its 1px border),
    rather than with the empty space that separates it from the previous section. */
 html { scroll-padding-top: 73px; }
-.site-header { position: sticky; top: 0; z-index: 1; background: color-mix(in srgb, var(--background) 88%, transparent); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border-bottom: 1px solid color-mix(in srgb, var(--outline-variant) 50%, transparent); }
+.site-header { position: sticky; top: 0; z-index: 1; background: var(--background); border-bottom: 1px solid color-mix(in srgb, var(--outline-variant) 50%, transparent); }
 .site-header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 72px; }
 .brand { display: inline-flex; align-items: center; gap: 10px; color: inherit; text-decoration: none; font-weight: 700; font-size: 20px; letter-spacing: -0.01em; }
 .brand img { width: 32px; height: 32px; }
@@ -151,7 +152,7 @@ html:not([data-os]) .all-platforms { display: none; }
 .phone .frame { padding: 3cqw; border-radius: 14.75cqw; }
 .phone .screen { container-type: inline-size; border-radius: 11.75cqw; }
 /* The Dynamic Island, where the iPhone draws it: the screenshots leave its place empty. */
-.phone .screen::after { content: ""; position: absolute; z-index: 1; top: 3.2cqw; left: 35.8cqw; width: 28.4cqw; height: 8.3cqw; border-radius: 4.2cqw; background: #000; }
+.phone .screen::after { content: ""; position: absolute; top: 3.2cqw; left: 35.8cqw; width: 28.4cqw; height: 8.3cqw; border-radius: 4.2cqw; background: #000; }
 /* The side button on the right and the volume buttons on the left */
 .phone .frame::before, .phone .frame::after { content: ""; position: absolute; width: 1.2cqw; background: var(--rim); }
 .phone .frame::before { right: -1.2cqw; top: 26%; height: 11%; border-radius: 0 1cqw 1cqw 0; }
@@ -259,7 +260,6 @@ section > .lead:has(+ .lead) { margin-bottom: 20px; }
 .platforms a::after { content: "↗"; content: "↗" / ""; margin-left: auto; color: var(--muted); font-size: 18px; }
 @media (hover: hover) and (pointer: fine) { .platforms a:hover { background: color-mix(in srgb, var(--primary) 8%, var(--container-low)); border-color: var(--outline); } }
 @media (hover: none) { .platforms a:active { background: color-mix(in srgb, var(--primary) 18%, var(--container-low)); border-color: var(--primary); transform: scale(0.98); } }
-.platforms a:focus-visible { outline-offset: 3px; border-radius: 16px; }
 .release-note { margin: 20px 0 0; color: var(--muted); font-size: 14px; }
 
 /* Privacy policy, support and the 404 page */
