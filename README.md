@@ -31,15 +31,15 @@ The design follows the app: the colors are those of its default theme (`Campfire
 in a light and a dark version that follow the visitor's system setting, as the app does.
 
 The fonts are made from the app's TTF files (in `composeResources/font` of its repository) with
-[fontTools](https://github.com/fonttools/fonttools) (`pip install fonttools brotli`), keeping Latin, punctuation and arrows:
+[fontTools](https://github.com/fonttools/fonttools) (`pip install fonttools brotli`), keeping Latin, punctuation, and arrows:
 
 ```
 pyftsubset inter_regular.ttf --unicodes="U+0000-017F,U+2000-206F,U+20AC,U+2122,U+2190-21FF,U+2212" \
     --layout-features='*' --flavor=woff2 --output-file=inter_regular.woff2
 ```
 
-Every visitor is offered two versions first: on Android, iPhone and iPad the app from the store, then the web app; on
-Windows, Mac and Linux the web app, then the app for that system. A short script in the head of `index.html`, `support/`
+Every visitor is offered two versions first: on Android, iPhone, and iPad the app from the store, then the web app; on
+Windows, Mac, and Linux the web app, then the app for that system. A short script in the head of `index.html`, `support/`,
 and `privacy/` names the system, the stylesheet swaps the buttons marked `for-desktop` for those marked `for-mobile`, and
 every link marked `data-native` is pointed at the system's own version (and renamed after it when also marked
 `data-native-label`); the store links appear in all three scripts. The list of every platform follows in the download
@@ -47,7 +47,7 @@ section.
 
 The home page draws the device frames around its screenshots in CSS, so the screenshots are taken without frames. Each
 is saved as WebP at quality 85 and named `<device>-<screen>-<theme>.webp`: the device is `laptop` (2000 × 1255,
-with the black menu bar strip cropped off the top of the Mac screenshot), `tablet` (1400 × 1050, an iPad held sideways)
+with the black menu bar strip cropped off the top of the Mac screenshot), `tablet` (1400 × 1050, an iPad held sideways),
 or `phone` (600 × 1304, an iPhone), and the theme `light` or `dark`. A screenshot that is missing keeps its place,
 striped and named after the file it waits for. `og-image.jpg` (1200 × 630) is the preview image for links shared on
 social media.
