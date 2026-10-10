@@ -38,8 +38,8 @@ pyftsubset inter_regular.ttf --unicodes="U+0000-017F,U+2000-206F,U+20AC,U+2122,U
     --layout-features='*' --flavor=woff2 --output-file=inter_regular.woff2
 ```
 
-Every visitor is offered two versions first: on Android, iPhone, and iPad the app from the store, then the web app; on
-Windows, Mac, and Linux the web app, then the app for that system. A short script in the head of `index.html`, `support/`,
+Every visitor is offered two versions first: on Android, iOS, and iPadOS the app from the store, then the web app; on
+Windows, macOS, and Linux the web app, then the app for that system. A short script in the head of `index.html`, `support/`,
 and `privacy/` names the system, the stylesheet swaps the buttons marked `for-desktop` for those marked `for-mobile`, and
 every link marked `data-native` is pointed at the system's own version (and renamed after it when also marked
 `data-native-label`); the store links appear in all three scripts. The list of every platform follows in the download
