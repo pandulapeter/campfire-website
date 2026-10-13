@@ -166,10 +166,11 @@ html:not([data-os]) .all-platforms { display: none; }
 
 /* A screen that shows several screenshots in turn: they lie on top of each other and crossfade, every few seconds while
    the screen is in view, and the pills under the frame name them and jump to one. The first is shown before the script
-   runs, as the others start out hidden in the page. */
+   runs, as the others start out hidden in the page. The one coming in fades in on top of the one going out, which stays
+   until it is covered, so that the dark lid never shows through the two halfway. */
 .slides { display: grid; }
-.slides > .screen { grid-area: 1 / 1; transition: opacity 0.9s; }
-.slides > .screen[aria-hidden="true"] { opacity: 0; }
+.slides > .screen { grid-area: 1 / 1; z-index: 1; transition: opacity 0.9s; }
+.slides > .screen[aria-hidden="true"] { z-index: 0; opacity: 0; transition: opacity 0s 0.9s; }
 .slides-nav { display: flex; justify-content: center; margin-top: 24px; }
 .slides-nav > span { display: inline-flex; flex-wrap: wrap; justify-content: center; background: var(--container-high); border-radius: 20px; font-size: 13px; }
 .slides-nav button { height: 40px; padding: 0 16px; border: 0; border-radius: 20px; background: none; color: var(--on-background); font: inherit; font-weight: 700; cursor: pointer; }
