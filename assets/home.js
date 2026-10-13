@@ -17,8 +17,9 @@
 	var sheet = document.getElementById("chordpro-sheet");
 	var value = document.getElementById("transpose-value");
 	var source = sourceElement.textContent;
-	var key = "Am";
-	var offset = 0;
+	var key = "G";
+	// The example opens transposed to E, a key whose fifth, B, is spelled differently in every notation (H in German).
+	var offset = -3;
 	var notation = "standard";
 
 	function noteName(index, notation) {
