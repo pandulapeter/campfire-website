@@ -114,6 +114,43 @@
 	render();
 })();
 
+// A slideshow of screenshots shows them in turn, crossfading to the next every few seconds while it is on screen and the
+// page is in view, and its pills jump to one. A visitor who asked for less motion sees the first until they pick another.
+document.querySelectorAll(".slides").forEach(function (slides) {
+	var frames = Array.prototype.slice.call(slides.children);
+	var buttons = Array.prototype.slice.call(document.querySelectorAll('.slides-nav button[aria-controls="' + slides.id + '"]'));
+	var still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+	var current = 0, visible = false, timer;
+
+	function show(index) {
+		current = index;
+		frames.forEach(function (frame, i) { frame.setAttribute("aria-hidden", i !== index); });
+		buttons.forEach(function (button, i) { button.setAttribute("aria-pressed", i === index); });
+	}
+
+	function schedule() {
+		clearTimeout(timer);
+		if (still || !visible || document.hidden) return;
+		timer = setTimeout(function () {
+			show((current + 1) % frames.length);
+			schedule();
+		}, 4000);
+	}
+
+	buttons.forEach(function (button, index) {
+		button.addEventListener("click", function () {
+			show(index);
+			schedule();
+		});
+	});
+	new IntersectionObserver(function (entries) {
+		visible = entries[0].isIntersecting;
+		schedule();
+	}, { threshold: 0.5 }).observe(slides);
+	document.addEventListener("visibilitychange", schedule);
+	show(0);
+});
+
 // A screenshot that is not there yet keeps its place, striped and named after the file it waits for, so the page can
 // be laid out before the screenshots are taken.
 function watchScreenshot(img) {

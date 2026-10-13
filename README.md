@@ -16,7 +16,7 @@ support/index.html    support and frequently asked questions
 privacy/index.html    the privacy policy
 404.html              the page GitHub Pages serves for an address that does not exist
 assets/site.css       the one stylesheet every page shares
-assets/home.js        the home page's ChordPro example, and the placeholder of a screenshot that is missing
+assets/home.js        the home page's ChordPro example, its slideshow of screenshots, and the placeholder of a screenshot that is missing
 assets/fonts/         Inter and JetBrains Mono, the fonts the app itself uses, as WOFF2 cut down to Latin, with their licenses
 assets/screenshots/   the screenshots of the home page, in a light and a dark version
 assets/icon.svg       the app icon, for the header and the browser tab

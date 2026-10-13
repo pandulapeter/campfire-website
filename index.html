@@ -4,14 +4,14 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Campfire: Songbook &amp; Metronome</title>
-	<meta name="description" content="A free songbook for your lyrics and chords, with setlists, a metronome that already knows each song’s tempo, and a tuner. Works offline on phones, tablets, and computers, with optional Dropbox sync.">
+	<meta name="description" content="A free songbook for your lyrics and chords, with setlists, a metronome set to each song’s tempo, and a tuner. Works offline on phones, tablets, and computers, with optional Dropbox sync.">
 	<meta name="theme-color" content="#FAF8FE" media="(prefers-color-scheme: light)">
 	<meta name="theme-color" content="#15121C" media="(prefers-color-scheme: dark)">
 	<meta property="og:type" content="website">
 	<meta property="og:site_name" content="Campfire">
 	<meta property="og:url" content="https://campfire-songbook.com/">
 	<meta property="og:title" content="Campfire: Songbook &amp; Metronome">
-	<meta property="og:description" content="A free songbook for your lyrics and chords, with setlists, a metronome that already knows each song’s tempo, and a tuner. Works offline on phones, tablets, and computers, with optional Dropbox sync.">
+	<meta property="og:description" content="A free songbook for your lyrics and chords, with setlists, a metronome set to each song’s tempo, and a tuner. Works offline on phones, tablets, and computers, with optional Dropbox sync.">
 	<meta property="og:image" content="https://campfire-songbook.com/assets/og-image.jpg?v=004fbdc5">
 	<meta property="og:image:width" content="1200">
 	<meta property="og:image:height" content="630">
@@ -21,7 +21,7 @@
 	<link rel="apple-touch-icon" href="assets/icon-192.png?v=0f2be8ac">
 	<link rel="preload" href="assets/fonts/inter_bold.woff2?v=0b30f706" as="font" type="font/woff2" crossorigin>
 	<link rel="preload" href="assets/fonts/inter_regular.woff2?v=ccc3392c" as="font" type="font/woff2" crossorigin>
-	<link rel="stylesheet" href="assets/site.css?v=f97aa293">
+	<link rel="stylesheet" href="assets/site.css?v=42067bda">
 	<script>
 		// Every visitor is offered two versions: a phone or a tablet the app from its store first and the web app second,
 		// a computer the other way around. The script names the system: the stylesheet shows the elements marked
@@ -72,8 +72,8 @@
 		<div class="hero">
 			<div>
 				<p class="cue">Songbook <span>·</span> Setlists <span>·</span> Metronome <span>·</span> Tuner</p>
-				<h1>Lyrics, chords, and the click. Wherever you play.</h1>
-				<p class="lede">Campfire organizes and fits your songs to any screen, with count-ins at the right tempo and a tuner for every string, all for free.</p>
+				<h1>A free songbook for lyrics and chords.</h1>
+				<p class="lede">Campfire helps you organize your repertoire and keeps it ready for rehearsal and the stage, on whatever screen you play from.</p>
 				<div class="actions">
 					<a class="button for-desktop" href="app/" target="_blank" rel="noopener">Open in your browser</a>
 					<a class="button tonal for-desktop" href="#download" data-native data-native-label>Download</a>
@@ -100,30 +100,45 @@
 
 		<ul class="highlights">
 			<li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="14" height="10" rx="1.5"/><path d="M1 18.5h15"/><rect x="18" y="9" width="5" height="10" rx="1.2"/></svg><h2>Every platform</h2><p>Android, iOS, iPadOS, Windows, macOS, Linux, and the browser.</p></li>
-			<li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 8.5a15 15 0 0 1 20 0M5.5 12a10 10 0 0 1 13 0M9 15.5a5 5 0 0 1 6 0M3 3l18 18"/><circle cx="12" cy="19.5" r="1"/></svg><h2>Works offline</h2><p>Songs are stored on your device, so no signal is needed to play.</p></li>
-			<li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18c.9 0 1.5-.7 1.5-1.5 0-.9-.8-1.3-.8-2.2 0-.9.8-1.6 1.7-1.6H17a4 4 0 0 0 4-4C21 6.8 17 3 12 3Z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10.5" cy="7" r="1"/><circle cx="15" cy="7.5" r="1"/></svg><h2>Clean and customizable</h2><p>An uncluttered interface, light, dark, or sepia, in whichever color you like.</p></li>
+			<li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 8.5a15 15 0 0 1 20 0M5.5 12a10 10 0 0 1 13 0M9 15.5a5 5 0 0 1 6 0M3 3l18 18"/><circle cx="12" cy="19.5" r="1"/></svg><h2>Works offline</h2><p>Songs are stored on your device, so a venue without signal is no problem.</p></li>
+			<li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18c.9 0 1.5-.7 1.5-1.5 0-.9-.8-1.3-.8-2.2 0-.9.8-1.6 1.7-1.6H17a4 4 0 0 0 4-4C21 6.8 17 3 12 3Z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10.5" cy="7" r="1"/><circle cx="15" cy="7.5" r="1"/></svg><h2>Uncluttered interface</h2><p>Nothing on screen but the song. Light, dark, or sepia, in the accent color you pick.</p></li>
 			<li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 5 6v5.5c0 4.3 3 8 7 9.5 4-1.5 7-5.2 7-9.5V6Z"/><path d="m9 12 2 2 4-4"/></svg><h2>No ads, no account</h2><p>No tracking, subscription, in-app purchases, or song limits either.</p></li>
 		</ul>
 
 		<section class="split reverse media-wide" aria-labelledby="playing-title">
 			<div>
-				<h2 id="playing-title">Laid out for the way you play.</h2>
-				<p class="lead">Campfire fits each song into as many columns as your screen has room for. Turn the page with a tap, or hands-free with a page-turner pedal. Chord diagrams sit at the top, for guitar, ukulele, or keyboard, in the shapes you play.</p>
-				<p class="lead">Switch to lyrics only for the singers, with your links to the original recording right there with the song.</p>
+				<h2 id="playing-title">Columns that follow your text size</h2>
+				<p class="lead">Set the text as large as you need to read it from the stand, and the song is laid out in as many columns as fit at that size. Bigger text means fewer columns and more pages to turn, while smaller text can fit a whole song on one screen.</p>
+				<p class="lead">Turn pages with a tap or a page-turner pedal. Chord diagrams for guitar, ukulele, or keyboard sit at the top, with a choice of shape for any chord, and a lyrics-only mode hides them all for singers.</p>
 			</div>
 			<div>
-				<div class="laptop"><div class="lid"><picture class="screen">
-					<source srcset="assets/screenshots/laptop-song-dark.webp?v=e68cff3a" media="(prefers-color-scheme: dark)">
-					<img src="assets/screenshots/laptop-song-light.webp?v=5f443364" width="2000" height="1255" loading="lazy" alt="A song laid out in columns on a MacBook, under the diagrams of its chords.">
-				</picture></div><div class="base"></div></div>
+				<div class="laptop"><div class="lid"><div class="slides" id="text-size-slides">
+					<picture class="screen">
+						<source srcset="assets/screenshots/laptop-song-small-dark.webp?v=ff2933ce" media="(prefers-color-scheme: dark)">
+						<img src="assets/screenshots/laptop-song-small-light.webp?v=e9bf2b16" width="2000" height="1255" loading="lazy" alt="A song on a MacBook at the default text size, laid out in four columns under the diagrams of its chords.">
+					</picture>
+					<picture class="screen" aria-hidden="true">
+						<source srcset="assets/screenshots/laptop-song-medium-dark.webp?v=cefb9889" media="(prefers-color-scheme: dark)">
+						<img src="assets/screenshots/laptop-song-medium-light.webp?v=f1bd47cf" width="2000" height="1255" loading="lazy" alt="The same song with the text at 140%, in three columns.">
+					</picture>
+					<picture class="screen" aria-hidden="true">
+						<source srcset="assets/screenshots/laptop-song-large-dark.webp?v=a60abe8b" media="(prefers-color-scheme: dark)">
+						<img src="assets/screenshots/laptop-song-large-light.webp?v=238d6478" width="2000" height="1255" loading="lazy" alt="The same song with the text at 230%, in two columns.">
+					</picture>
+				</div></div><div class="base"></div></div>
+				<div class="slides-nav" role="group" aria-label="Text size"><span>
+					<button type="button" aria-controls="text-size-slides" aria-pressed="true">100%</button>
+					<button type="button" aria-controls="text-size-slides" aria-pressed="false">140%</button>
+					<button type="button" aria-controls="text-size-slides" aria-pressed="false">230%</button>
+				</span></div>
 			</div>
 		</section>
 
 		<section class="split media-wide" aria-labelledby="setlists-title">
 			<div>
-				<h2 id="setlists-title">Setlists, on screen or on paper.</h2>
-				<p class="lead">Put songs in order and play through the whole set without stopping. A setlist remembers the key, capo, and tempo of each of its songs, counts down to the date of the gig, and adds up its running time.</p>
-				<p class="lead">Export a song or the whole set as a PDF to print a copy for your music stand. Effortlessly share entire setlists with other Campfire users.</p>
+				<h2 id="setlists-title">Setlists and export</h2>
+				<p class="lead">Play through a set in order, with the next song one tap away. A setlist stores the key, capo, and tempo of each of its songs, counts down to the date of the gig, and adds up its running time.</p>
+				<p class="lead">Export a song or the whole set as a PDF, with the running order, for a printed copy on the stand. Create zip files that can easily be shared with other Campfire users.</p>
 			</div>
 			<div class="pair">
 				<div class="tablet"><div class="frame"><picture class="screen">
@@ -139,9 +154,9 @@
 
 		<section class="split reverse media-wide" aria-labelledby="metronome-title">
 			<div>
-				<h2 id="metronome-title">A metronome that knows each song.</h2>
-				<p class="lead">Every song keeps its own tempo and time signature, so one tap starts the click right where the song needs it. The app seamlessly transitions from one BPM to another, whether across the setlist or within the same song.</p>
-				<p class="lead">The metronome has tap tempo, accents, subdivisions, five sounds to choose from, and it keeps going with the screen locked.</p>
+				<h2 id="metronome-title">Metronome</h2>
+				<p class="lead">Each song stores its tempo, time signature, and accented beats, so the click starts from the song’s screen with one tap. In a set, the tempo switches to the next song’s on the next bar, and tempo changes written inside a song are followed too.</p>
+				<p class="lead">It has tap tempo, subdivisions, and five sounds, and keeps running with the screen locked.</p>
 			</div>
 			<div class="pair phone-left">
 				<div class="tablet"><div class="frame"><picture class="screen">
@@ -157,8 +172,8 @@
 
 		<section class="split media-wide" aria-labelledby="tuner-title">
 			<div>
-				<h2 id="tuner-title">In tune before the count-in.</h2>
-				<p class="lead">The tuner listens through your microphone and shows how far each string is off, ticking it off once it’s in tune. It knows guitars with six to eight strings, four- and five-string basses, ukulele, banjo, violin, and mandolin, with drop, open, and lowered tunings, or reads any note chromatically.</p>
+				<h2 id="tuner-title">Tuner</h2>
+				<p class="lead">The tuner listens through your microphone and shows how far each string is off, ticking it off once it’s in tune. It covers guitars with six to eight strings, four- and five-string basses, ukulele, banjo, violin, and mandolin, in standard, drop, open, and lowered tunings, and a chromatic mode reads any note for everything else. The reference pitch can be set anywhere from 415 to 466 Hz.</p>
 				<p class="lead">Open it right over the song you’re about to play, or tap a string to hear its note. The sound is analyzed on your device and never recorded, and the microphone is only on while the tuner is on screen.</p>
 			</div>
 			<div class="pair">
@@ -175,9 +190,9 @@
 
 		<section class="split reverse media-wide" aria-labelledby="editor-title">
 			<div>
-				<h2 id="editor-title">Bring your songs, or write them from scratch.</h2>
-				<p class="lead">Import text files, PDFs, Word documents, a whole zip, or a backup from another app. Campfire will do its best to create songs you can transpose.</p>
-				<p class="lead">Writing your own is just as easy, with an editor that catches mistakes and shows the result as you type.</p>
+				<h2 id="editor-title">Import and editor</h2>
+				<p class="lead">Import text files, PDFs, Word documents, zip archives, or a backup from another app. Campfire lines the chords up over the lyrics and picks out the verses and choruses, so an imported song transposes like any other. Anything it wasn’t sure about is flagged for a quick check in the editor.</p>
+				<p class="lead">The editor points out mistakes and shows a live preview as you type.</p>
 			</div>
 			<div>
 				<div class="laptop"><div class="lid"><picture class="screen">
@@ -188,8 +203,8 @@
 		</section>
 
 		<section aria-labelledby="chords-title">
-			<h2 id="chords-title">Chords the way you read them.</h2>
-			<p class="lead">Letters, German, Latin, Nashville numbers, or Roman numerals, in any key, and tabs transpose right along with the chords. Underneath, every song is a plain <a href="https://www.chordpro.org" target="_blank" rel="noopener">ChordPro</a> text file, so nothing is locked in.</p>
+			<h2 id="chords-title">Chord notation</h2>
+			<p class="lead">Letters, German, Latin, Nashville numbers, or Roman numerals, in any key, and tabs transpose right along with the chords. Underneath, every song is a plain <a href="https://www.chordpro.org" target="_blank" rel="noopener">ChordPro</a> text file, so nothing is locked in. Try it on the example below.</p>
 			<div class="chordpro">
 				<div class="source">
 					<pre id="chordpro-source"># Raw .cho file
@@ -243,7 +258,7 @@ They [Am]call the [C]Rising [E7]Sun
 				<li>
 					<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 9a8 8 0 0 0-14-3L3 9m0-5v5h5M4 15a8 8 0 0 0 14 3l3-3m0 5v-5h-5"/></svg>
 					<h3>Dropbox sync</h3>
-					<p>Connect your own Dropbox and your songs and setlists stay the same on every device. Your files never pass through me.</p>
+					<p>Connect your own Dropbox and your songs and setlists stay the same on every device. They go straight from your device to your Dropbox, never through a server of mine.</p>
 				</li>
 				<li>
 					<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h18m-4-4 4 4-4 4M21 17H3m4-4-4 4 4 4"/></svg>
@@ -252,20 +267,20 @@ They [Am]call the [C]Rising [E7]Sun
 				</li>
 				<li>
 					<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
-					<h3>Read only mode</h3>
+					<h3>Read-only mode</h3>
 					<p>Locks editing while you’re on stage, so a stray tap can’t change a song or a setlist in the middle of a set.</p>
 				</li>
 				<li>
 					<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="7" width="20" height="10" rx="5"/><circle cx="16" cy="12" r="2"/></svg>
-					<h3>Only what you use</h3>
-					<p>Switch off the metronome, the tuner, setlists, chords, or cover art if you don’t need them, and the app gets simpler still.</p>
+					<h3>Hide what you don’t use</h3>
+					<p>Switch off the metronome, the tuner, setlists, chords, or cover art. Nothing is deleted, and it all comes back when you switch it on.</p>
 				</li>
 			</ul>
 		</section>
 
 		<section id="download" aria-labelledby="download-title">
 			<h2 id="download-title">Get Campfire</h2>
-			<p class="lead">The same app with the same features everywhere, even in your browser with nothing to install.</p>
+			<p class="lead">The same app on every platform, and in the browser with nothing to install.</p>
 			<div class="platforms">
 				<a href="https://play.google.com/store/apps/details?id=com.pandulapeter.campfire" target="_blank" rel="noopener">
 					<svg viewBox="0 0 24 24" aria-hidden="true"><defs><clipPath id="google-play"><path d="M4 5.5Q4 2.5 6.6 4l11.3 6.5q2.6 1.5 0 3L6.6 20Q4 21.5 4 18.5Z"/></clipPath></defs><g clip-path="url(#google-play)"><path fill="#4285F4" d="M4 2.5 12.6 12 4 21.5Z"/><path fill="#34A853" d="M4 2.5 14.2 8.4 12.6 12Z"/><path fill="#EA4335" d="M4 21.5 12.6 12l1.6 3.6Z"/><path fill="#FBBC04" d="m14.2 8.4 6.3 3.6-6.3 3.6-1.6-3.6Z"/></g></svg>
@@ -315,6 +330,6 @@ They [Am]call the [C]Rising [E7]Sun
 		</div>
 	</footer>
 </div>
-<script src="assets/home.js?v=2905c673"></script>
+<script src="assets/home.js?v=f15c2557"></script>
 </body>
 </html>
