@@ -31,10 +31,11 @@ The design follows the app: the colors are those of its default theme (`Campfire
 in a light and a dark version that follow the visitor's system setting, as the app does.
 
 The fonts are made from the app's TTF files (in `composeResources/font` of its repository) with
-[fontTools](https://github.com/fonttools/fonttools) (`pip install fonttools brotli`), keeping Latin, punctuation, and arrows:
+[fontTools](https://github.com/fonttools/fonttools) (`pip install fonttools brotli`), keeping Latin, punctuation, arrows,
+and the ♭ ♮ ♯ signs chords are shown with:
 
 ```
-pyftsubset inter_regular.ttf --unicodes="U+0000-017F,U+2000-206F,U+20AC,U+2122,U+2190-21FF,U+2212" \
+pyftsubset inter_regular.ttf --unicodes="U+0000-017F,U+2000-206F,U+20AC,U+2122,U+2190-21FF,U+2212,U+266D-266F" \
     --layout-features='*' --flavor=woff2 --output-file=inter_regular.woff2
 ```
 

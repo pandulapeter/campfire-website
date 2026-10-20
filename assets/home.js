@@ -58,6 +58,12 @@
 		});
 	}
 
+	// The sheet draws its accidentals as the app does, as signs: no quality, note, or Latin name holds a lowercase b, so
+	// every b in a shown chord is a flat. The file on the left keeps the # and b every program reads.
+	function signs(chord) {
+		return chord.replace(/#/g, "\u266F").replace(/b/g, "\u266D");
+	}
+
 	function escape(text) {
 		return text.replace(/&/g, "&amp;").replace(/</g, "&lt;");
 	}
@@ -76,7 +82,7 @@
 				var chord = "", text = part;
 				if (index > 0) {
 					var end = part.indexOf("]");
-					chord = transposeChord(part.slice(0, end), notation);
+					chord = signs(transposeChord(part.slice(0, end), notation));
 					text = part.slice(end + 1);
 				}
 				if (chord || text) html += '<span class="segment"><b>' + chord + "</b>" + escape(text || " ") + "</span>";
@@ -85,7 +91,7 @@
 		});
 		sheet.innerHTML = html;
 		// Keys stay in letters under Nashville numbers and Roman numerals, which mean nothing without one.
-		value.textContent = (offset > 0 ? "+" : "") + offset + " · " + transposeChord(key, notation === "nashville" || notation === "roman" ? "standard" : notation);
+		value.textContent = (offset > 0 ? "+" : "") + offset + " · " + signs(transposeChord(key, notation === "nashville" || notation === "roman" ? "standard" : notation));
 	}
 
 	sourceElement.innerHTML = escape(source)

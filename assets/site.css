@@ -2,10 +2,10 @@
    a violet night in the dark one, purple for the interface and orange for the chords. */
 
 /* The fonts are cut down to the Latin letters, punctuation and arrows, and compressed as WOFF2. */
-@font-face { font-family: Inter; src: url("fonts/inter_regular.woff2?v=ccc3392c") format("woff2"); font-weight: 400; font-display: swap; }
-@font-face { font-family: Inter; src: url("fonts/inter_bold.woff2?v=0b30f706") format("woff2"); font-weight: 700; font-display: swap; }
-@font-face { font-family: "JetBrains Mono"; src: url("fonts/jetbrains_mono_regular.woff2?v=07a3bc84") format("woff2"); font-weight: 400; font-display: swap; }
-@font-face { font-family: "JetBrains Mono"; src: url("fonts/jetbrains_mono_bold.woff2?v=ecde6ef7") format("woff2"); font-weight: 700; font-display: swap; }
+@font-face { font-family: Inter; src: url("fonts/inter_regular.woff2?v=8982fd4c") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: Inter; src: url("fonts/inter_bold.woff2?v=821f5d7f") format("woff2"); font-weight: 700; font-display: swap; }
+@font-face { font-family: "JetBrains Mono"; src: url("fonts/jetbrains_mono_regular.woff2?v=dd310140") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "JetBrains Mono"; src: url("fonts/jetbrains_mono_bold.woff2?v=3de607e6") format("woff2"); font-weight: 700; font-display: swap; }
 
 :root {
 	color-scheme: light dark;
@@ -42,9 +42,6 @@
 		--outline-variant: #494456;
 		--chord: #FE851E;
 	}
-	/* The dark bezels need a lighter rim to stand out from the night background, and the glow a little more. */
-	.tablet, .phone, .laptop { --rim: #4A4655; --shadow: rgb(0 0 0 / 0.6); }
-	.stage::before { opacity: 0.32; }
 }
 
 * { box-sizing: border-box; }
@@ -67,7 +64,7 @@ h1, h2, h3 { line-height: 1.2; letter-spacing: -0.02em; text-wrap: balance; }
 p, figcaption { text-wrap: pretty; }
 code, kbd { font-family: var(--mono); font-size: 0.9em; }
 
-.skip { position: absolute; left: 16px; top: -60px; padding: 8px 14px; background: var(--primary); color: var(--on-primary); border-radius: 8px; z-index: 2; }
+.skip { position: absolute; left: 16px; top: -60px; padding: 8px 14px; background: var(--primary); color: var(--on-primary); border-radius: 8px; z-index: 101; }
 .skip:focus { top: 12px; }
 
 .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
@@ -77,7 +74,7 @@ code, kbd { font-family: var(--mono); font-size: 0.9em; }
 /* A link to a section stops with the section's heading 32px under the sticky header (72px and its 1px border),
    rather than with the empty space that separates it from the previous section. */
 html { scroll-padding-top: 73px; }
-.site-header { position: sticky; top: 0; z-index: 1; background: var(--background); border-bottom: 1px solid color-mix(in srgb, var(--outline-variant) 50%, transparent); }
+.site-header { position: sticky; top: 0; z-index: 100; background: var(--background); border-bottom: 1px solid color-mix(in srgb, var(--outline-variant) 50%, transparent); }
 .site-header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 72px; }
 .brand { display: inline-flex; align-items: center; gap: 10px; color: inherit; text-decoration: none; font-weight: 700; font-size: 20px; letter-spacing: -0.01em; }
 .brand img { width: 32px; height: 32px; }
@@ -120,10 +117,10 @@ html:not([data-mobile]) .for-mobile, html[data-mobile] .for-desktop { display: n
 /* Home page */
 
 /* A cue: the mono, chord colored label the headline opens with */
-.cue { display: flex; align-items: baseline; gap: 10px; margin: 0 0 14px; font: 700 13px/1.4 var(--mono); letter-spacing: 0.04em; text-transform: uppercase; color: var(--chord); }
+.cue { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 10px; margin: 0 0 14px; font: 700 13px/1.4 var(--mono); letter-spacing: 0.04em; text-transform: uppercase; color: var(--chord); }
 .cue span { color: var(--muted); font-weight: 400; }
 
-.hero { display: grid; grid-template-columns: 11fr 10fr; gap: 40px; align-items: center; padding: 64px 0 56px; }
+.hero { display: grid; grid-template-columns: 9fr 10fr; gap: 32px; align-items: center; padding: 64px 0 56px; }
 .hero h1 { font-size: clamp(36px, 5.2vw, 58px); line-height: 1.02; letter-spacing: -0.035em; margin: 0 0 24px; }
 .hero .lede { font-size: 19px; color: var(--muted); margin: 0 0 28px; max-width: 30em; }
 .hero .actions { display: flex; flex-wrap: wrap; gap: 12px; }
@@ -136,9 +133,12 @@ html:not([data-mobile]) .for-mobile, html[data-mobile] .for-desktop { display: n
 html:not([data-os]) .all-platforms { display: none; }
 
 /* The screenshots sit in device frames drawn in CSS. Every measurement of a frame is a share of its width (cqw), so
-   that a frame keeps its proportions at any size. The bezels are dark in both color schemes, as the devices are. A
+   that a frame keeps its proportions at any size. The bezels are gray in the light scheme, where dark ones would contrast too much with the paper, and dark in the dark one. A
    screen holds its device's proportions by itself, so that a screenshot that is not there yet still takes its place. */
-.tablet, .phone, .laptop { container-type: inline-size; --bezel: #1D1B20; --rim: #3A3740; --shadow: rgb(29 26 35 / 0.4); }
+.tablet, .phone, .laptop { container-type: inline-size; --bezel: #9C9AA3; --rim: #858389; --shadow: rgb(29 26 35 / 0.3); --camera: #7E7C84; --groove: #85838B; --base: linear-gradient(#B8B6BE, #9E9CA5 45%, #86848C); }
+@media (prefers-color-scheme: dark) {
+	.tablet, .phone, .laptop { --bezel: #1D1B20; --rim: #3A3740; --shadow: rgb(29 26 35 / 0.4); --camera: #34323A; --groove: #1D1B20; --base: linear-gradient(#4A474F, #2A282E 45%, #18171B); }
+}
 .frame, .laptop .lid { position: relative; background: var(--bezel); box-shadow: 0 0 0 1px var(--rim), inset 0 0 0 1px rgb(255 255 255 / 0.06), 0 28px 48px -24px var(--shadow); }
 .screen { position: relative; display: block; overflow: hidden; background: var(--background); }
 .screen img { width: 100%; height: 100%; object-fit: cover; }
@@ -148,7 +148,7 @@ html:not([data-os]) .all-platforms { display: none; }
 .tablet .frame { padding: 2.4cqw; border-radius: 4cqw; }
 .tablet .screen { border-radius: 1.6cqw; }
 /* The front camera, in the middle of the long edge as it is on an iPad held sideways */
-.tablet .frame::before { content: ""; position: absolute; top: 0.85cqw; left: 50%; width: 0.7cqw; height: 0.7cqw; margin-left: -0.35cqw; border-radius: 50%; background: #34323A; }
+.tablet .frame::before { content: ""; position: absolute; top: 0.85cqw; left: 50%; width: 0.7cqw; height: 0.7cqw; margin-left: -0.35cqw; border-radius: 50%; background: var(--camera); }
 .phone .frame { padding: 3cqw; border-radius: 14.75cqw; }
 .phone .screen { container-type: inline-size; border-radius: 11.75cqw; }
 /* The Dynamic Island, where the iPhone draws it: the screenshots leave its place empty. */
@@ -160,20 +160,26 @@ html:not([data-os]) .all-platforms { display: none; }
 .laptop { min-width: 0; }
 .laptop .lid { width: 86%; margin: 0 auto; padding: 1.2cqw 1.2cqw 1.8cqw; border-radius: 2.4cqw 2.4cqw 0 0; }
 .laptop .screen { border-radius: 0.8cqw 0.8cqw 0 0; }
-.laptop .base { position: relative; height: 1.8cqw; border-radius: 0 0 2cqw 2cqw / 0 0 1.4cqw 1.4cqw; background: linear-gradient(#4A474F, #2A282E 45%, #18171B); box-shadow: 0 0 0 1px var(--rim), 0 24px 32px -20px var(--shadow); }
+.laptop .base { position: relative; height: 1.8cqw; border-radius: 0 0 2cqw 2cqw / 0 0 1.4cqw 1.4cqw; background: var(--base); box-shadow: 0 0 0 1px var(--rim), 0 24px 32px -20px var(--shadow); }
 /* The groove that lifts the lid */
-.laptop .base::before { content: ""; position: absolute; top: 0; left: 43%; width: 14%; height: 40%; border-radius: 0 0 1cqw 1cqw; background: #1D1B20; }
+.laptop .base::before { content: ""; position: absolute; top: 0; left: 43%; width: 14%; height: 40%; border-radius: 0 0 1cqw 1cqw; background: var(--groove); }
 
-/* A screen that shows several screenshots in turn: they lie on top of each other and crossfade, every few seconds while
-   the screen is in view, and the pills under the frame name them and jump to one. The first is shown before the script
-   runs, as the others start out hidden in the page. The one coming in fades in on top of the one going out, which stays
-   until it is covered, so that the dark lid never shows through the two halfway. */
+/* A screen, or a pair of devices, that shows several screenshots in turn: they lie on top of each other and crossfade,
+   every few seconds while they are in view, and the pills under them name them and jump to one. The first is shown
+   before the script runs, as the others start out hidden in the page. The one coming in fades in on top of the one going
+   out, which stays until it is covered, so that the dark lid never shows through the two halfway. */
 .slides { display: grid; }
-.slides > .screen { grid-area: 1 / 1; z-index: 1; transition: opacity 0.3s; }
-.slides > .screen[aria-hidden="true"] { z-index: 0; opacity: 0; transition: opacity 0s 0.3s; }
+.slides > * { grid-area: 1 / 1; z-index: 1; transition: opacity 0.3s; }
+.slides > [aria-hidden="true"] { z-index: 0; opacity: 0; transition: opacity 0s 0.3s; }
 .slides-nav { display: flex; justify-content: center; margin-top: 24px; }
 .slides-nav > span { display: inline-flex; flex-wrap: wrap; justify-content: center; background: var(--container-high); border-radius: 20px; font-size: 13px; }
 .slides-nav button { height: 40px; padding: 0 16px; border: 0; border-radius: 20px; background: none; color: var(--on-background); font: inherit; font-weight: 700; cursor: pointer; }
+/* Under a pair, the pills move up into the room the phone leaves under the tablet, the same 24px below it as under any
+   other device, and center under the tablet. They stand over the pairs, which reach down there, while the phone beside
+   them stays clear of their row. */
+.slides:has(> .pair) + .slides-nav { position: relative; z-index: 2; margin-top: calc(24px - 10%); padding-right: 14%; pointer-events: none; }
+.slides:has(> .pair) + .slides-nav > span { pointer-events: auto; }
+.slides:has(> .pair.flip) + .slides-nav { padding-right: 0; padding-left: 14%; }
 .slides-nav button[aria-pressed="true"] { background: var(--primary-container); color: var(--on-primary-container); }
 
 /* A screenshot that has not been taken yet: its place, striped, and the name of the file it waits for. */
@@ -183,11 +189,10 @@ html:not([data-os]) .all-platforms { display: none; }
 
 /* Three devices in layers over a glow in the colors of the app icon, each nearer one smaller and standing lower: the
    laptop at the back, the tablet in front of its lower left, and the phone at the front, across them both */
-.stage { position: relative; aspect-ratio: 1.5; isolation: isolate; }
-.stage::before { content: ""; position: absolute; inset: 8% 4% 4% 10%; z-index: -1; border-radius: 50%; background: linear-gradient(135deg, #5A49CA, #F57C00); opacity: 0.28; filter: blur(56px); }
-.stage .laptop { position: absolute; top: 0; right: 0; width: 86%; }
-.stage .tablet { position: absolute; bottom: 8%; left: 0; width: 60%; }
-.stage .phone { position: absolute; bottom: 1%; left: 52%; width: 21%; }
+.stage { position: relative; aspect-ratio: 1.35; isolation: isolate; }
+.stage .laptop { position: absolute; top: 0; right: 0; width: 92%; }
+.stage .tablet { position: absolute; bottom: 6%; left: 0; width: 64%; }
+.stage .phone { position: absolute; bottom: 0; left: 55%; width: 22%; }
 
 /* What Campfire is about, right under the hero */
 .highlights { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px 32px; margin: 0; padding: 32px 0 0; list-style: none; border-top: 1px solid var(--outline-variant); }
@@ -214,13 +219,20 @@ section > .lead:has(+ .lead) { margin-bottom: 20px; }
 .split.media-wide { grid-template-columns: 5fr 7fr; }
 .split.reverse.media-wide { grid-template-columns: 7fr 5fr; }
 
-/* A tablet or laptop with a phone standing in front of its right corner */
+/* A tablet or laptop with a phone standing in front of its right corner, or its left one in a .flip pair */
 .pair { position: relative; padding-bottom: 10%; }
 .pair .tablet { width: 86%; }
 .pair .laptop { width: 90%; }
 .split .pair .phone { position: absolute; right: 0; bottom: 0; width: 25%; margin: 0; }
-.split .pair.phone-left .tablet { margin-left: auto; }
-.split .pair.phone-left .phone { right: auto; left: 0; }
+.pair.flip .tablet, .pair.flip .laptop { margin-left: auto; }
+.split .pair.flip .phone { right: auto; left: 0; }
+/* With the text beside it, the phone of every pair stands on the middle of the page, so that the phones of the sections
+   line up one under the other. In a 7fr column next to a 5fr one, 56px apart, the middle is 1.786% of the column, less
+   half the gap, past where the phone's center would be. */
+@media (min-width: 861px) {
+	.split.media-wide .pair .phone { right: calc(1.786% - 28px); }
+	.split.media-wide .pair.flip .phone { right: auto; left: calc(1.786% - 28px); }
+}
 
 /* A short ChordPro excerpt keeps the source and transposable result easy to compare. */
 .chordpro { display: grid; grid-template-columns: minmax(0, 1fr) 48px minmax(0, 1fr); }
@@ -333,4 +345,7 @@ section > .lead:has(+ .lead) { margin-bottom: 20px; }
 @media (max-width: 400px) {
 	.notation { font-size: 12px; }
 	.notation button { padding: 0 4px; }
+	/* The pills under a pair keep clear of its phone. */
+	.slides:has(> .pair) + .slides-nav { padding-right: 20%; }
+	.slides:has(> .pair.flip) + .slides-nav { padding-right: 0; padding-left: 20%; }
 }
