@@ -11,14 +11,14 @@ page and [privacy policy](https://campfire-songbook.com/privacy/).
 Plain HTML and CSS served by GitHub Pages straight from the root of `main`, with no build step and no dependencies.
 
 ```
-index.html            the home page, with the main features next to their screenshots and an interactive ChordPro example
+index.html            the home page, with the main features next to their screenshots, the text size demo, and an interactive ChordPro example
 support/index.html    support and frequently asked questions
 privacy/index.html    the privacy policy
 404.html              the page GitHub Pages serves for an address that does not exist
 s/index.html          the landing page of a shared song or setlist link, see Shared links
 .well-known/          assetlinks.json and apple-app-site-association, which let the Android and iOS apps open those links
 assets/site.css       the one stylesheet every page shares
-assets/home.js        the home page's ChordPro example, its slideshow of screenshots, and the placeholder of a screenshot that is missing
+assets/home.js        the home page's ChordPro example, its slideshows of screenshots and the text size demo, and the placeholder of a screenshot that is missing
 assets/fonts/         Inter and JetBrains Mono, the fonts the app itself uses, as WOFF2 cut down to Latin, with their licenses
 assets/screenshots/   the screenshots of the home page, in a light and a dark version
 assets/icon.svg       the app icon, for the header and the browser tab
@@ -49,10 +49,12 @@ every link marked `data-native` is pointed at the system's own version (and rena
 section.
 
 The home page draws the device frames around its screenshots in CSS, so the screenshots are taken without frames. Each
-is saved as WebP at quality 85 and named `<device>-<screen>-<theme>.webp`: the device is `laptop` (2000 × 1255,
-with the black menu bar strip cropped off the top of the Mac screenshot), `tablet` (1400 × 1050, an iPad held sideways),
-or `phone` (600 × 1304, an iPhone), and the theme `light` or `dark`. A screenshot that is missing keeps its place,
-striped and named after the file it waits for. `og-image.jpg` (1200 × 630) is the preview image for links shared on
+is saved as WebP at quality 85 and named `<device>-<screen>-<theme>.webp`: the device is `laptop` (1200 × 753,
+with the black menu bar strip cropped off the top of the Mac screenshot), `tablet` (1200 × 900, an iPad held sideways),
+or `phone` (450 × 978, an iPhone), about as wide as the page ever draws them on a 2x screen, and the theme `light` or `dark`. A screenshot that is missing keeps its place,
+striped and named after the file it waits for. The two metronome screenshots show the click playing with no beat lit; `<name>-beats-<theme>.webp` holds
+each beat lit, side by side on a transparent strip, and the stylesheet fades them in over the screenshot in turn at its
+120 BPM. `og-image.jpg` (1200 × 630) is the preview image for links shared on
 social media.
 
 ## Shared links

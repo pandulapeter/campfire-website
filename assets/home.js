@@ -121,42 +121,65 @@
 	render();
 })();
 
-// A slideshow of screenshots shows them in turn, crossfading to the next every few seconds while it is on screen and the
-// page is in view, and its pills jump to one. A visitor who asked for less motion sees the first until they pick another.
-document.querySelectorAll(".slides").forEach(function (slides) {
+// A screen, or a pair of devices, under a row of pills that name its screenshots and jump to one.
+document.querySelectorAll(".slides:not(.demo)").forEach(function (slides) {
 	var frames = Array.prototype.slice.call(slides.children);
 	var buttons = Array.prototype.slice.call(document.querySelectorAll('.slides-nav button[aria-controls="' + slides.id + '"]'));
-	var still = matchMedia("(prefers-reduced-motion: reduce)").matches;
-	var current = 0, visible = false, timer;
-
-	function show(index) {
-		current = index;
-		frames.forEach(function (frame, i) { frame.setAttribute("aria-hidden", i !== index); });
-		buttons.forEach(function (button, i) { button.setAttribute("aria-pressed", i === index); });
-	}
-
-	function schedule() {
-		clearTimeout(timer);
-		if (still || !visible || document.hidden) return;
-		timer = setTimeout(function () {
-			show((current + 1) % frames.length);
-			schedule();
-		}, 4000);
-	}
-
 	buttons.forEach(function (button, index) {
 		button.addEventListener("click", function () {
-			show(index);
-			schedule();
+			frames.forEach(function (frame, i) { frame.setAttribute("aria-hidden", i !== index); });
+			buttons.forEach(function (button, i) { button.setAttribute("aria-pressed", i === index); });
 		});
 	});
-	new IntersectionObserver(function (entries) {
-		visible = entries[0].isIntersecting;
-		schedule();
-	}, { threshold: 0.5 }).observe(slides);
-	document.addEventListener("visibilitychange", schedule);
-	show(0);
 });
+
+// The text size demo: one song at every size the slider stops at, which the slider picks, named for screen readers by
+// its data-values. The page shows the first; the others wait in data-src and data-srcset, since a lazy image the browser
+// lays out under the first would be fetched as early as a visible one, and are fetched together once a quarter of the
+// demo is in view, so that a visitor who never scrolls to it never downloads them. The slider stays disabled until
+// every one of them is there, so that a drag never lands on a screenshot still loading.
+// It starts at the first whatever position the browser kept from an earlier visit.
+(function () {
+	var slides = document.querySelector(".slides.demo");
+	if (!slides) return;
+	var frames = Array.prototype.slice.call(slides.children);
+	var range = document.querySelector('input[type="range"][aria-controls="' + slides.id + '"]');
+	var values = range.dataset.values.split(",");
+	var images = frames.map(function (frame) { return frame.querySelector("img"); });
+
+	function start() {
+		range.disabled = false;
+		range.value = 0;
+		range.addEventListener("input", function () {
+			var index = Number(range.value);
+			frames.forEach(function (frame, i) { frame.setAttribute("aria-hidden", i !== index); });
+			range.setAttribute("aria-valuetext", values[index]);
+			range.style.setProperty("--fill", index / (frames.length - 1) * 100 + "%");
+		});
+	}
+
+	range.disabled = true;
+	new IntersectionObserver(function (entries, observer) {
+		if (!entries[0].isIntersecting) return;
+		observer.disconnect();
+		frames.forEach(function (frame) {
+			frame.querySelectorAll("[data-srcset]").forEach(function (source) { source.srcset = source.dataset.srcset; });
+			frame.querySelectorAll("[data-src]").forEach(function (image) { image.src = image.dataset.src; });
+		});
+		images.forEach(function (image) { image.loading = "eager"; });
+		// A screenshot that fails to load counts as arrived, so that a missing one never locks the demo.
+		var pending = images.filter(function (image) { return !image.complete; });
+		if (pending.length === 0) start();
+		pending.forEach(function (image) {
+			function arrived() {
+				pending.splice(pending.indexOf(image), 1);
+				if (pending.length === 0) start();
+			}
+			image.addEventListener("load", arrived, { once: true });
+			image.addEventListener("error", arrived, { once: true });
+		});
+	}, { threshold: 0.25 }).observe(slides);
+})();
 
 // A screenshot that is not there yet keeps its place, striped and named after the file it waits for, so the page can
 // be laid out before the screenshots are taken.

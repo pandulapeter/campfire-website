@@ -142,9 +142,9 @@ html:not([data-os]) .all-platforms { display: none; }
 .frame, .laptop .lid { position: relative; background: var(--bezel); box-shadow: 0 0 0 1px var(--rim), inset 0 0 0 1px rgb(255 255 255 / 0.06), 0 28px 48px -24px var(--shadow); }
 .screen { position: relative; display: block; overflow: hidden; background: var(--background); }
 .screen img { width: 100%; height: 100%; object-fit: cover; }
-.phone .screen { aspect-ratio: 600 / 1304; }
-.tablet .screen { aspect-ratio: 1400 / 1050; }
-.laptop .screen { aspect-ratio: 2000 / 1255; }
+.phone .screen { aspect-ratio: 450 / 978; }
+.tablet .screen { aspect-ratio: 1200 / 900; }
+.laptop .screen { aspect-ratio: 1200 / 753; }
 .tablet .frame { padding: 2.4cqw; border-radius: 4cqw; }
 .tablet .screen { border-radius: 1.6cqw; }
 /* The front camera, in the middle of the long edge as it is on an iPad held sideways */
@@ -164,10 +164,28 @@ html:not([data-os]) .all-platforms { display: none; }
 /* The groove that lifts the lid */
 .laptop .base::before { content: ""; position: absolute; top: 0; left: 43%; width: 14%; height: 40%; border-radius: 0 0 1cqw 1cqw; background: var(--groove); }
 
-/* A screen, or a pair of devices, that shows several screenshots in turn: they lie on top of each other and crossfade,
-   every few seconds while they are in view, and the pills under them name them and jump to one. The first is shown
-   before the script runs, as the others start out hidden in the page. The one coming in fades in on top of the one going
-   out, which stays until it is covered, so that the dark lid never shows through the two halfway. */
+/* A metronome that plays: its beats, lit one after another over the screenshot, which shows none lit. Each layer is
+   one beat at its brightest, from a strip of the four side by side, and fades as the app's flash does, quickly, at the
+   screenshots' 120 BPM. */
+.beats { position: absolute; inset: 2.4cqw; pointer-events: none; }
+.phone .beats { inset: 3cqw; }
+.beats i { position: absolute; inset: 0; background-size: 400% 100%; opacity: 0; animation: beat 2s infinite; }
+.beats i:nth-child(2) { background-position-x: 33.333%; animation-delay: 0.5s; }
+.beats i:nth-child(3) { background-position-x: 66.667%; animation-delay: 1s; }
+.beats i:nth-child(4) { background-position-x: 100%; animation-delay: 1.5s; }
+.beats.tablet-song-metronome i { background-image: url("screenshots/tablet-song-metronome-beats-light.webp?v=049b3dc6"); }
+.beats.phone-metronome i { background-image: url("screenshots/phone-metronome-beats-light.webp?v=aacb0c66"); }
+@media (prefers-color-scheme: dark) {
+	.beats.tablet-song-metronome i { background-image: url("screenshots/tablet-song-metronome-beats-dark.webp?v=c1477bb3"); }
+	.beats.phone-metronome i { background-image: url("screenshots/phone-metronome-beats-dark.webp?v=bd02799b"); }
+}
+@keyframes beat { 0% { opacity: 1; } 1.25% { opacity: 0.75; } 2.5% { opacity: 0.42; } 3.75% { opacity: 0.2; } 5% { opacity: 0.1; } 7.5%, 100% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .beats { display: none; } }
+
+/* A screen, or a pair of devices, that shows one of several screenshots: they lie on top of each other and crossfade
+   when one of the pills under them, which name them, is picked. The first is shown before the script runs, as the
+   others start out hidden in the page. The one coming in fades in on top of the one going out, which stays until it is
+   covered, so that the dark lid never shows through the two halfway. */
 .slides { display: grid; }
 .slides > * { grid-area: 1 / 1; z-index: 1; transition: opacity 0.3s; }
 .slides > [aria-hidden="true"] { z-index: 0; opacity: 0; transition: opacity 0s 0.3s; }
@@ -182,6 +200,22 @@ html:not([data-os]) .all-platforms { display: none; }
 .slides:has(> .pair.flip) + .slides-nav { padding-right: 0; padding-left: 14%; }
 .slides-nav button[aria-pressed="true"] { background: var(--primary-container); color: var(--on-primary-container); }
 
+/* The text size demo under its laptop: a slider for a setting that has a slider in the app. Dragging it shows the
+   screenshot taken at that size, which the app bar in it names. */
+/* Its screenshots swap at once, as a slider's steps would in the app, rather than crossfading. */
+.slides.demo > * { transition: none; }
+.slider { display: flex; flex-direction: column; align-items: center; margin-top: 24px; }
+.slider-label { font-size: 13px; font-weight: 700; }
+/* The slider is drawn like the app's Material 3 one: a track filled up to a round thumb. The script fills the track by
+   setting --fill, as the browsers draw the part behind the thumb in the track's own color. */
+.slider input { -webkit-appearance: none; appearance: none; width: min(320px, 100%); height: 40px; margin: 0; background: none; cursor: pointer; --fill: 0%; }
+.slider input::-webkit-slider-runnable-track { height: 6px; border-radius: 3px; background: linear-gradient(to right, var(--primary) var(--fill), var(--container-high) var(--fill)); }
+.slider input::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; margin-top: -7px; border: 0; border-radius: 50%; background: var(--primary); box-shadow: 0 0 0 4px var(--background); }
+.slider input::-moz-range-track { height: 6px; border-radius: 3px; background: linear-gradient(to right, var(--primary) var(--fill), var(--container-high) var(--fill)); }
+.slider input::-moz-range-thumb { width: 20px; height: 20px; border: 0; border-radius: 50%; background: var(--primary); box-shadow: 0 0 0 4px var(--background); }
+.slider input:focus-visible { outline-offset: -2px; }
+/* Until every screenshot of the demo has arrived, the slider waits, dimmed. */
+.slider input:disabled { opacity: 0.38; cursor: wait; }
 /* A screenshot that has not been taken yet: its place, striped, and the name of the file it waits for. */
 .screen.missing { background: repeating-linear-gradient(-45deg, var(--container) 0 10px, var(--container-high) 10px 20px); }
 .screen.missing img { visibility: hidden; }
@@ -210,6 +244,12 @@ section h2 { font-size: clamp(30px, 3.8vw, 42px); letter-spacing: -0.03em; margi
 section > .lead { margin-bottom: 40px; }
 section > .lead:has(+ .lead) { margin-bottom: 20px; }
 .split .lead:last-child { margin-bottom: 0; }
+
+/* The points of a feature under its lead, one line each where they fit, each marked with a dot in the app's accent */
+.points { list-style: none; margin: 0; padding: 0; font-size: 17px; color: var(--muted); }
+.points li { position: relative; padding-left: 22px; }
+.points li + li { margin-top: 8px; }
+.points li::before { content: ""; position: absolute; left: 1px; top: 0.72em; width: 7px; height: 7px; border-radius: 50%; background: var(--primary); }
 
 /* Text next to a picture. The sections take turns, while the text always comes first for screen readers and phones. */
 .split { display: grid; grid-template-columns: 6fr 5fr; gap: 56px; align-items: center; }
@@ -327,6 +367,7 @@ section > .lead:has(+ .lead) { margin-bottom: 20px; }
 	/* The two buttons share the row when they fit and take a row each, at full width, when they don't. */
 	.hero .button { flex: 1 1 auto; padding: 0 20px; }
 	.hero .lede, .lead { font-size: 17px; }
+	.points { font-size: 16px; }
 	.platforms { grid-template-columns: 1fr; }
 	.coffee { padding: 24px; }
 	.highlights { gap: 24px 16px; }

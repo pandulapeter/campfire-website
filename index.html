@@ -12,7 +12,7 @@
 	<meta property="og:url" content="https://campfire-songbook.com/">
 	<meta property="og:title" content="Campfire: Songbook &amp; Chords">
 	<meta property="og:description" content="A free songbook for your lyrics and chords, with chord diagrams and scales for your instrument, setlists, a metronome set to each song’s tempo, and a tuner. Works offline on phones, tablets, and computers, with optional real-time Dropbox sync.">
-	<meta property="og:image" content="https://campfire-songbook.com/assets/og-image.jpg?v=b83c530d">
+	<meta property="og:image" content="https://campfire-songbook.com/assets/og-image.jpg?v=d380d8dc">
 	<meta property="og:image:width" content="1200">
 	<meta property="og:image:height" content="630">
 	<meta property="og:image:alt" content="Campfire running on a laptop and a phone">
@@ -21,7 +21,7 @@
 	<link rel="apple-touch-icon" href="assets/icon-192.png?v=0f2be8ac">
 	<link rel="preload" href="assets/fonts/inter_bold.woff2?v=821f5d7f" as="font" type="font/woff2" crossorigin>
 	<link rel="preload" href="assets/fonts/inter_regular.woff2?v=8982fd4c" as="font" type="font/woff2" crossorigin>
-	<link rel="stylesheet" href="assets/site.css?v=62b99fc7">
+	<link rel="stylesheet" href="assets/site.css?v=aee7955d">
 	<script>
 		// Every visitor is offered two versions: a phone or a tablet the app from its store first and the web app second,
 		// a computer the other way around. The script names the system: the stylesheet shows the elements marked
@@ -84,16 +84,16 @@
 			</div>
 			<div class="stage">
 				<div class="laptop"><div class="lid"><picture class="screen">
-					<source srcset="assets/screenshots/laptop-setlists-dark.webp?v=71356b01" media="(prefers-color-scheme: dark)">
-					<img src="assets/screenshots/laptop-setlists-light.webp?v=cc35a657" width="2000" height="1255" fetchpriority="high" alt="Setlists on a MacBook, each with its songs, their key, tempo, and length, and the running time of the set.">
+					<source srcset="assets/screenshots/laptop-setlists-dark.webp?v=3860c26d" media="(prefers-color-scheme: dark)">
+					<img src="assets/screenshots/laptop-setlists-light.webp?v=da7db5e0" width="1200" height="753" fetchpriority="high" alt="Setlists on a MacBook, each with its songs, their key, tempo, and length, and the running time of the set.">
 				</picture></div><div class="base"></div></div>
 				<div class="tablet"><div class="frame"><picture class="screen">
-					<source srcset="assets/screenshots/tablet-song-dark.webp?v=ff67cf61" media="(prefers-color-scheme: dark)">
-					<img src="assets/screenshots/tablet-song-light.webp?v=4fc08447" width="1400" height="1050" alt="A song on an iPad, its chord diagrams and verses in columns.">
+					<source srcset="assets/screenshots/tablet-song-dark.webp?v=bc8833b7" media="(prefers-color-scheme: dark)">
+					<img src="assets/screenshots/tablet-song-light.webp?v=d11549c6" width="1200" height="900" alt="A song on an iPad, its chord diagrams and verses in columns.">
 				</picture></div></div>
 				<div class="phone"><div class="frame"><picture class="screen">
-					<source srcset="assets/screenshots/phone-songs-dark.webp?v=41f97685" media="(prefers-color-scheme: dark)">
-					<img src="assets/screenshots/phone-songs-light.webp?v=3086d59f" width="600" height="1304" alt="The song list on an iPhone, grouped by artist, with tags on every song.">
+					<source srcset="assets/screenshots/phone-songs-dark.webp?v=9c7e28b0" media="(prefers-color-scheme: dark)">
+					<img src="assets/screenshots/phone-songs-light.webp?v=733f21fb" width="450" height="978" alt="The song list on an iPhone, grouped by artist, with tags on every song.">
 				</picture></div></div>
 			</div>
 		</div>
@@ -109,41 +109,93 @@
 			<div>
 				<h2 id="playing-title">Columns that follow your text size</h2>
 				<p class="lead">Set the text as large as you need to read it from the stand, and the song is laid out in as many columns as fit at that size.</p>
-				<p class="lead">Turn pages with a tap or a page-turner pedal. Chord diagrams sit at the top, and a lyrics-only mode hides them for singers. Campfire also recommends scales and modes for improvisation.</p>
+				<ul class="points">
+					<li>Turn pages with a tap or a page-turner pedal.</li>
+					<li>Chord diagrams sit at the top of the song.</li>
+					<li>Recommended scales for improvisation.</li>
+					<li>A lyrics-only mode hides the chords for singers.</li>
+				</ul>
 			</div>
 			<div>
-				<div class="laptop"><div class="lid"><div class="slides" id="text-size-slides">
+				<div class="laptop"><div class="lid"><div class="slides demo" id="text-size-slides">
 					<picture class="screen">
-						<source srcset="assets/screenshots/laptop-song-small-dark.webp?v=fa8cf154" media="(prefers-color-scheme: dark)">
-						<img src="assets/screenshots/laptop-song-small-light.webp?v=45b10a59" width="2000" height="1255" loading="lazy" alt="A song on a MacBook at the default text size, laid out in four columns under the diagrams of its chords.">
+						<source srcset="assets/screenshots/laptop-song-100-dark.webp?v=c10186c5" media="(prefers-color-scheme: dark)">
+						<img src="assets/screenshots/laptop-song-100-light.webp?v=71325ff4" width="1200" height="753" loading="lazy" alt="A song on a MacBook at the default text size, laid out in four columns under the diagrams of its chords.">
 					</picture>
 					<picture class="screen" aria-hidden="true">
-						<source srcset="assets/screenshots/laptop-song-medium-dark.webp?v=0ea99c7b" media="(prefers-color-scheme: dark)">
-						<img src="assets/screenshots/laptop-song-medium-light.webp?v=ea2415a0" width="2000" height="1255" loading="lazy" alt="The same song with the text at 140%, in three columns.">
+						<source data-srcset="assets/screenshots/laptop-song-110-dark.webp?v=39357bb7" media="(prefers-color-scheme: dark)">
+						<img data-src="assets/screenshots/laptop-song-110-light.webp?v=ee6ace2c" width="1200" height="753" loading="lazy" alt="The same song with the text at 110%, in four columns.">
 					</picture>
 					<picture class="screen" aria-hidden="true">
-						<source srcset="assets/screenshots/laptop-song-large-dark.webp?v=a933e409" media="(prefers-color-scheme: dark)">
-						<img src="assets/screenshots/laptop-song-large-light.webp?v=ffc33a3a" width="2000" height="1255" loading="lazy" alt="The same song with the text at 230%, in two columns.">
+						<source data-srcset="assets/screenshots/laptop-song-120-dark.webp?v=7291d9d0" media="(prefers-color-scheme: dark)">
+						<img data-src="assets/screenshots/laptop-song-120-light.webp?v=2edecaa6" width="1200" height="753" loading="lazy" alt="The same song with the text at 120%, in three columns.">
+					</picture>
+					<picture class="screen" aria-hidden="true">
+						<source data-srcset="assets/screenshots/laptop-song-130-dark.webp?v=d66ce372" media="(prefers-color-scheme: dark)">
+						<img data-src="assets/screenshots/laptop-song-130-light.webp?v=f0db5b3a" width="1200" height="753" loading="lazy" alt="The same song with the text at 130%, in three columns.">
+					</picture>
+					<picture class="screen" aria-hidden="true">
+						<source data-srcset="assets/screenshots/laptop-song-140-dark.webp?v=33328ce7" media="(prefers-color-scheme: dark)">
+						<img data-src="assets/screenshots/laptop-song-140-light.webp?v=00d984eb" width="1200" height="753" loading="lazy" alt="The same song with the text at 140%, in three columns.">
+					</picture>
+					<picture class="screen" aria-hidden="true">
+						<source data-srcset="assets/screenshots/laptop-song-150-dark.webp?v=a077d9f0" media="(prefers-color-scheme: dark)">
+						<img data-src="assets/screenshots/laptop-song-150-light.webp?v=839b2aa6" width="1200" height="753" loading="lazy" alt="The same song with the text at 150%, in three columns.">
+					</picture>
+					<picture class="screen" aria-hidden="true">
+						<source data-srcset="assets/screenshots/laptop-song-160-dark.webp?v=b58d5241" media="(prefers-color-scheme: dark)">
+						<img data-src="assets/screenshots/laptop-song-160-light.webp?v=ebf3303f" width="1200" height="753" loading="lazy" alt="The same song with the text at 160%, in three columns.">
+					</picture>
+					<picture class="screen" aria-hidden="true">
+						<source data-srcset="assets/screenshots/laptop-song-170-dark.webp?v=cd906fa4" media="(prefers-color-scheme: dark)">
+						<img data-src="assets/screenshots/laptop-song-170-light.webp?v=92d61b8c" width="1200" height="753" loading="lazy" alt="The same song with the text at 170%, in three columns.">
+					</picture>
+					<picture class="screen" aria-hidden="true">
+						<source data-srcset="assets/screenshots/laptop-song-180-dark.webp?v=5520e32a" media="(prefers-color-scheme: dark)">
+						<img data-src="assets/screenshots/laptop-song-180-light.webp?v=36fed53e" width="1200" height="753" loading="lazy" alt="The same song with the text at 180%, in three columns.">
+					</picture>
+					<picture class="screen" aria-hidden="true">
+						<source data-srcset="assets/screenshots/laptop-song-190-dark.webp?v=35430608" media="(prefers-color-scheme: dark)">
+						<img data-src="assets/screenshots/laptop-song-190-light.webp?v=2d443a68" width="1200" height="753" loading="lazy" alt="The same song with the text at 190%, in three columns.">
+					</picture>
+					<picture class="screen" aria-hidden="true">
+						<source data-srcset="assets/screenshots/laptop-song-200-dark.webp?v=5055e0b8" media="(prefers-color-scheme: dark)">
+						<img data-src="assets/screenshots/laptop-song-200-light.webp?v=bfb97da8" width="1200" height="753" loading="lazy" alt="The same song with the text at 200%, in two columns.">
+					</picture>
+					<picture class="screen" aria-hidden="true">
+						<source data-srcset="assets/screenshots/laptop-song-210-dark.webp?v=bddedf5f" media="(prefers-color-scheme: dark)">
+						<img data-src="assets/screenshots/laptop-song-210-light.webp?v=ea1c0453" width="1200" height="753" loading="lazy" alt="The same song with the text at 210%, in two columns.">
+					</picture>
+					<picture class="screen" aria-hidden="true">
+						<source data-srcset="assets/screenshots/laptop-song-220-dark.webp?v=1137538c" media="(prefers-color-scheme: dark)">
+						<img data-src="assets/screenshots/laptop-song-220-light.webp?v=7955d32c" width="1200" height="753" loading="lazy" alt="The same song with the text at 220%, in two columns.">
+					</picture>
+					<picture class="screen" aria-hidden="true">
+						<source data-srcset="assets/screenshots/laptop-song-230-dark.webp?v=0a3b850d" media="(prefers-color-scheme: dark)">
+						<img data-src="assets/screenshots/laptop-song-230-light.webp?v=3a97502f" width="1200" height="753" loading="lazy" alt="The same song with the text at 230%, in two columns.">
 					</picture>
 				</div></div><div class="base"></div></div>
-				<div class="slides-nav" role="group" aria-label="Text size"><span>
-					<button type="button" aria-controls="text-size-slides" aria-pressed="true">100%</button>
-					<button type="button" aria-controls="text-size-slides" aria-pressed="false">140%</button>
-					<button type="button" aria-controls="text-size-slides" aria-pressed="false">230%</button>
-				</span></div>
+				<div class="slider" role="group" aria-label="Text size">
+					<span class="slider-label" id="text-size-label">Use the slider to change the text size</span>
+					<input type="range" min="0" max="13" step="1" value="0" aria-labelledby="text-size-label" aria-controls="text-size-slides" aria-valuetext="100%" data-values="100%,110%,120%,130%,140%,150%,160%,170%,180%,190%,200%,210%,220%,230%">
+				</div>
 			</div>
 		</section>
 
 		<section class="split media-wide" aria-labelledby="editor-title">
 			<div>
 				<h2 id="editor-title">Import and edit</h2>
-				<p class="lead">Copy a song from any website, however messy, and paste it into Campfire. The app lines the chords up over the lyrics, picks out the verses and choruses, and opens the song in the editor, ready to save.</p>
-				<p class="lead">Text files, PDFs, Word documents, zip archives, and backups from other apps import too, with a review before anything is saved. The editor points out mistakes, shows a live preview as you type, and looks up a song’s album, year, and songwriters online.</p>
+				<p class="lead">Paste a song copied from any website, however messy, and it opens in the editor with the chords lined up over the lyrics and the verses and choruses picked out.</p>
+				<ul class="points">
+					<li>Import text files, PDFs, Word documents, zip archives, and backups from other apps.</li>
+					<li>The editor points out mistakes and shows a live preview as you type.</li>
+					<li>Look up a song’s album, year, songwriters, and cover art online.</li>
+				</ul>
 			</div>
 			<div>
 				<div class="laptop"><div class="lid"><picture class="screen">
-					<source srcset="assets/screenshots/laptop-import-dark.webp?v=bf55a72b" media="(prefers-color-scheme: dark)">
-					<img src="assets/screenshots/laptop-import-light.webp?v=bbfaeb90" width="2000" height="1255" loading="lazy" alt="An imported song in the editor on a MacBook, with a mistake flagged and its live preview beside it.">
+					<source srcset="assets/screenshots/laptop-import-dark.webp?v=8ece6c60" media="(prefers-color-scheme: dark)">
+					<img src="assets/screenshots/laptop-import-light.webp?v=06712fcc" width="1200" height="753" loading="lazy" alt="An imported song in the editor on a MacBook, with a mistake flagged and its live preview beside it.">
 				</picture></div><div class="base"></div></div>
 			</div>
 		</section>
@@ -151,17 +203,22 @@
 		<section class="split reverse media-wide" aria-labelledby="setlists-title">
 			<div>
 				<h2 id="setlists-title">Setlists and export</h2>
-				<p class="lead">Play through a set in order, with the next song one tap away. A setlist stores the key, capo, and tempo of each of its songs, counts down to the date of the gig, and adds up its running time.</p>
-				<p class="lead">Export songs or the whole set as a PDF, with the running order, for a printed copy on the stand. Alternatively, share it as a .zip file with other musicians using Campfire, or simply create a link that they can scan to download.</p>
+				<p class="lead">Play through a set in order, with the next song always one tap away.</p>
+				<ul class="points">
+					<li>A setlist stores the key, capo, and tempo of each of its songs.</li>
+					<li>The app counts down to the date of the gig and adds up the running time.</li>
+					<li>Export songs or the whole set as a PDF, with the running order, for a printed copy.</li>
+					<li>Share a set with other Campfire users as a zip file, or as a QR code they scan to download.</li>
+				</ul>
 			</div>
 			<div class="pair">
 				<div class="tablet"><div class="frame"><picture class="screen">
-					<source srcset="assets/screenshots/tablet-export-dark.webp?v=c5d86991" media="(prefers-color-scheme: dark)">
-					<img src="assets/screenshots/tablet-export-light.webp?v=a987fd9d" width="1400" height="1050" loading="lazy" alt="A song exported as a PDF on an iPad, its page previewed beside the options.">
+					<source srcset="assets/screenshots/tablet-export-dark.webp?v=60868eed" media="(prefers-color-scheme: dark)">
+					<img src="assets/screenshots/tablet-export-light.webp?v=70be11c8" width="1200" height="900" loading="lazy" alt="A song exported as a PDF on an iPad, its page previewed beside the options.">
 				</picture></div></div>
 				<div class="phone"><div class="frame"><picture class="screen">
-					<source srcset="assets/screenshots/phone-setlist-dark.webp?v=f1849185" media="(prefers-color-scheme: dark)">
-					<img src="assets/screenshots/phone-setlist-light.webp?v=598c2ea7" width="600" height="1304" loading="lazy" alt="A setlist on an iPhone, with the key, tempo, and length of each song, its running time, and the days left until the gig.">
+					<source srcset="assets/screenshots/phone-setlist-dark.webp?v=26094b42" media="(prefers-color-scheme: dark)">
+					<img src="assets/screenshots/phone-setlist-light.webp?v=ef78d155" width="450" height="978" loading="lazy" alt="A setlist on an iPhone, with the key, tempo, and length of each song, its running time, and the days left until the gig.">
 				</picture></div></div>
 			</div>
 		</section>
@@ -169,29 +226,34 @@
 		<section class="split media-wide" aria-labelledby="metronome-title">
 			<div>
 				<h2 id="metronome-title">Metronome and tuner</h2>
-				<p class="lead">Each song stores its tempo, time signature, and accented beats, so the click starts from the song’s screen with one tap. In a set, the tempo switches to the next song’s on the next bar, and tempo changes written inside a song are followed too.</p>
-				<p class="lead">The tuner opens right over the song you’re about to play and ticks off each string once it’s in tune. The sound is analyzed on your device and never recorded.</p>
+				<p class="lead">Each song stores its tempo, time signature, and accented beats, so the click starts from the song’s screen with one tap.</p>
+				<ul class="points">
+					<li>In a set, the tempo switches to the next song’s on the next bar.</li>
+					<li>Tempo changes written inside a song are followed too.</li>
+					<li>The tuner opens over the song you’re about to play and ticks off each string once it’s in tune.</li>
+					<li>The sound is analyzed on your device and never recorded.</li>
+				</ul>
 			</div>
 			<div>
 				<div class="slides" id="practice-slides">
 					<div class="pair flip">
 						<div class="tablet"><div class="frame"><picture class="screen">
-							<source srcset="assets/screenshots/tablet-song-metronome-dark.webp?v=150fd5fa" media="(prefers-color-scheme: dark)">
-							<img src="assets/screenshots/tablet-song-metronome-light.webp?v=a6cf0302" width="1400" height="1050" loading="lazy" alt="A song on an iPad with the metronome panel open under its title.">
-						</picture></div></div>
+							<source srcset="assets/screenshots/tablet-song-metronome-dark.webp?v=a8d9906e" media="(prefers-color-scheme: dark)">
+							<img src="assets/screenshots/tablet-song-metronome-light.webp?v=ac6b6bb2" width="1200" height="900" loading="lazy" alt="A song on an iPad with the metronome panel open under its title.">
+						</picture><span class="beats tablet-song-metronome" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div></div>
 						<div class="phone"><div class="frame"><picture class="screen">
-							<source srcset="assets/screenshots/phone-metronome-dark.webp?v=fde52dc7" media="(prefers-color-scheme: dark)">
-							<img src="assets/screenshots/phone-metronome-light.webp?v=1e68bb4b" width="600" height="1304" loading="lazy" alt="The Metronome tab on an iPhone, with the tempo, the beats of the bar, and its settings.">
-						</picture></div></div>
+							<source srcset="assets/screenshots/phone-metronome-dark.webp?v=328440d2" media="(prefers-color-scheme: dark)">
+							<img src="assets/screenshots/phone-metronome-light.webp?v=85907599" width="450" height="978" loading="lazy" alt="The Metronome tab on an iPhone, with the tempo, the beats of the bar, and its settings.">
+						</picture><span class="beats phone-metronome" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div></div>
 					</div>
 					<div class="pair flip" aria-hidden="true">
 						<div class="tablet"><div class="frame"><picture class="screen">
-							<source srcset="assets/screenshots/tablet-song-tuner-dark.webp?v=57f8ef45" media="(prefers-color-scheme: dark)">
-							<img src="assets/screenshots/tablet-song-tuner-light.webp?v=6409db72" width="1400" height="1050" loading="lazy" alt="A song on an iPad with the tuner open over it, its G string in tune.">
+							<source srcset="assets/screenshots/tablet-song-tuner-dark.webp?v=555f24da" media="(prefers-color-scheme: dark)">
+							<img src="assets/screenshots/tablet-song-tuner-light.webp?v=ea2d3a7d" width="1200" height="900" loading="lazy" alt="A song on an iPad with the tuner open over it, the low E string of a guitar heard 9 cents sharp.">
 						</picture></div></div>
 						<div class="phone"><div class="frame"><picture class="screen">
-							<source srcset="assets/screenshots/phone-tuner-dark.webp?v=aac6c364" media="(prefers-color-scheme: dark)">
-							<img src="assets/screenshots/phone-tuner-light.webp?v=b2f5be6c" width="600" height="1304" loading="lazy" alt="The Tuner tab on an iPhone, the A string of a guitar heard 14 cents flat and the low E already in tune.">
+							<source srcset="assets/screenshots/phone-tuner-dark.webp?v=854a1d23" media="(prefers-color-scheme: dark)">
+							<img src="assets/screenshots/phone-tuner-light.webp?v=7d38bb4a" width="450" height="978" loading="lazy" alt="The Tuner tab on an iPhone, the A string of a guitar heard 14 cents flat and the low E already in tune.">
 						</picture></div></div>
 					</div>
 				</div>
@@ -205,29 +267,33 @@
 		<section class="split reverse media-wide" aria-labelledby="instrument-title">
 			<div>
 				<h2 id="instrument-title">Chords and scales</h2>
-				<p class="lead">Pick your instrument once, and every song’s chord diagrams are drawn for it: guitar, ukulele, mandolin, banjo, or keyboard. They follow the tuning you play in, from drop D to open G, and so do tabs written into a song. The Chords tab lists every chord by key and name, and the shape you pick there is the one every song uses.</p>
-				<p class="lead">The Scales tab draws every scale and mode in any key, from the major, minor, and pentatonic scales and the blues to the bebop, symmetric, and world scales, on any fretboard from bass to violin or on the keyboard. Each song suggests the scales that fit its chords, part by part, and every chord lists the scales to play over it.</p>
+				<p class="lead">Pick your instrument once, and every song’s chord diagrams are drawn for it: guitar, ukulele, mandolin, banjo, or keyboard.</p>
+				<ul class="points">
+					<li>Diagrams and tabs follow the tuning you play in, from drop D to open G.</li>
+					<li>Search the chord database by key or name, and see recommended scales for each chord.</li>
+					<li>The Scales tab draws every scale and mode in any key, from pentatonic and blues to bebop, symmetric, and world scales, on any fretboard with any tuning, or on the keyboard.</li>
+				</ul>
 			</div>
 			<div>
 				<div class="slides" id="instrument-slides">
 					<div class="pair">
 						<div class="tablet"><div class="frame"><picture class="screen">
-							<source srcset="assets/screenshots/tablet-song-chord-shape-dark.webp?v=aa1ce50f" media="(prefers-color-scheme: dark)">
-							<img src="assets/screenshots/tablet-song-chord-shape-light.webp?v=f7b1621c" width="1400" height="1050" loading="lazy" alt="Uptown Girl on an iPad, with the shapes of an E chord on a guitar offered over the song.">
+							<source srcset="assets/screenshots/tablet-song-chord-shape-dark.webp?v=01670640" media="(prefers-color-scheme: dark)">
+							<img src="assets/screenshots/tablet-song-chord-shape-light.webp?v=46646bf5" width="1200" height="900" loading="lazy" alt="I’m Gonna Be (500 Miles) on an iPad, with the shapes of a B chord on a guitar offered over the song.">
 						</picture></div></div>
 						<div class="phone"><div class="frame"><picture class="screen">
-							<source srcset="assets/screenshots/phone-chords-dark.webp?v=75153e4d" media="(prefers-color-scheme: dark)">
-							<img src="assets/screenshots/phone-chords-light.webp?v=e9296d4e" width="600" height="1304" loading="lazy" alt="The Chords tab on an iPhone, showing the chords of C on a ukulele.">
+							<source srcset="assets/screenshots/phone-chords-dark.webp?v=fe9d2ecd" media="(prefers-color-scheme: dark)">
+							<img src="assets/screenshots/phone-chords-light.webp?v=773efc0c" width="450" height="978" loading="lazy" alt="The Chords tab on an iPhone, showing the chords of C on a ukulele.">
 						</picture></div></div>
 					</div>
 					<div class="pair" aria-hidden="true">
 						<div class="tablet"><div class="frame"><picture class="screen">
-							<source srcset="assets/screenshots/tablet-song-scales-dark.webp?v=15aeceae" media="(prefers-color-scheme: dark)">
-							<img src="assets/screenshots/tablet-song-scales-light.webp?v=a16b01d7" width="1400" height="1050" loading="lazy" alt="Take Me Home, Country Roads on an iPad, its Scales section under its chords, with the A major pentatonic scale drawn on a guitar neck over the song.">
+							<source srcset="assets/screenshots/tablet-song-scales-dark.webp?v=dbd737be" media="(prefers-color-scheme: dark)">
+							<img src="assets/screenshots/tablet-song-scales-light.webp?v=0ea42ea0" width="1200" height="900" loading="lazy" alt="I'm Gonna Be (500 Miles) on an iPad, its Scales section under its chords, with the E major scale drawn on a guitar neck over the song.">
 						</picture></div></div>
 						<div class="phone"><div class="frame"><picture class="screen">
-							<source srcset="assets/screenshots/phone-scales-dark.webp?v=b5aca51a" media="(prefers-color-scheme: dark)">
-							<img src="assets/screenshots/phone-scales-light.webp?v=00e0da88" width="600" height="1304" loading="lazy" alt="The Scales tab on an iPhone, showing the common scales of A on a guitar.">
+							<source srcset="assets/screenshots/phone-scales-dark.webp?v=54691697" media="(prefers-color-scheme: dark)">
+							<img src="assets/screenshots/phone-scales-light.webp?v=9a9ffb5b" width="450" height="978" loading="lazy" alt="The Scales tab on an iPhone, showing the common scales of A on a guitar.">
 						</picture></div></div>
 					</div>
 				</div>
@@ -285,32 +351,32 @@ That [G]saved a wretch like [D]me
 				<li>
 					<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5M7.5 10.5h6M10.5 7.5v6"/></svg>
 					<h3>Search and filter</h3>
-					<p>Search by title, artist, or tag, with the closest matches first. Song cards show the key, tempo, or length you choose.</p>
+					<p>Search by title, artist, or tag, with the closest matches first. Sort and filter by tags or languages.</p>
 				</li>
 				<li>
 					<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h8l10 10-8 8L3 11Z"/><circle cx="7.5" cy="7.5" r="1"/></svg>
 					<h3>Tags and bulk edits</h3>
-					<p>Make your own colored labels, select many songs at once to tag them, add them to a setlist, or export them.</p>
+					<p>Make your own colored labels. Select many songs at once to tag them, add them to a setlist, or export them.</p>
 				</li>
 				<li>
 					<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h18m-4-4 4 4-4 4M21 17H3m4-4-4 4 4 4"/></svg>
 					<h3>Sharing</h3>
-					<p>Send songs and setlists to the musicians you play with, as a zip file any Campfire user can open.</p>
+					<p>Send songs and setlists to the musicians you play with, as a zip file or a link any Campfire user can open.</p>
 				</li>
 				<li>
 					<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 9a8 8 0 0 0-14-3L3 9m0-5v5h5M4 15a8 8 0 0 0 14 3l3-3m0 5v-5h-5"/></svg>
 					<h3>Real-time Dropbox sync</h3>
-					<p>Edit a song on your laptop and see it change on your phone a moment later. Songs, setlists, and how you play them stay in step on every device, stored in your own Dropbox.</p>
+					<p>Edit a song on your laptop and see it change on your phone a moment later, with everything stored in your own Dropbox folder.</p>
 				</li>
 				<li>
 					<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
 					<h3>Read-only mode</h3>
-					<p>Locks editing while you’re on stage, so a stray tap can’t change a song or a setlist in the middle of a set.</p>
+					<p>A simple toggle locks editing on stage, so a stray tap can’t change a song or a setlist in the middle of a set.</p>
 				</li>
 				<li>
 					<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="7" width="20" height="10" rx="5"/><circle cx="16" cy="12" r="2"/></svg>
 					<h3>Hide what you don’t use</h3>
-					<p>Turn off the features you don’t need, and Campfire hides them to keep your UI simple and intuitive.</p>
+					<p>Turn off the features you don’t need, and Campfire hides them to keep your experience simple and free of distractions.</p>
 				</li>
 			</ul>
 		</section>
@@ -367,6 +433,6 @@ That [G]saved a wretch like [D]me
 		</div>
 	</footer>
 </div>
-<script src="assets/home.js?v=7fb99351"></script>
+<script src="assets/home.js?v=9e7838e5"></script>
 </body>
 </html>
