@@ -1,0 +1,10 @@
+{
+	"applinks": {
+		"details": [
+			{
+				"appIDs": ["N45A6ZHDGY.com.pandulapeter.campfire"],
+				"components": [{ "/": "/s/*" }]
+			}
+		]
+	}
+}

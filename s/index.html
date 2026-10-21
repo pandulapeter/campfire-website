@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Shared from Campfire</title>
+	<meta name="robots" content="noindex">
+	<meta name="description" content="A song or setlist shared from Campfire, the free songbook app for lyrics and chords.">
+	<meta name="theme-color" content="#FAF8FE" media="(prefers-color-scheme: light)">
+	<meta name="theme-color" content="#15121C" media="(prefers-color-scheme: dark)">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="Campfire">
+	<meta property="og:url" content="https://campfire-songbook.com/s/">
+	<meta property="og:title" content="A song or setlist shared from Campfire">
+	<meta property="og:description" content="Open it in Campfire, the free songbook app for lyrics and chords.">
+	<meta property="og:image" content="https://campfire-songbook.com/assets/og-image.jpg?v=b83c530d">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:image:alt" content="Campfire running on a laptop and a phone">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="apple-itunes-app" content="app-id=6815160850">
+	<link rel="icon" href="../assets/icon.svg?v=8ba29e56" type="image/svg+xml">
+	<link rel="apple-touch-icon" href="../assets/icon-192.png?v=0f2be8ac">
+	<link rel="stylesheet" href="../assets/site.css?v=62b99fc7">
+	<style>
+		/* The landing page of a shared link: the buttons that open it, one under another, the first the largest. */
+		.shared { max-width: 560px; }
+		.shared h1 { overflow-wrap: anywhere; }
+		.shared .lede { font-size: 18px; margin: 0 0 32px; }
+		.shared .actions { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
+		.shared .actions .button { min-height: 48px; padding: 0 28px; font-size: 16px; }
+		.shared .note { margin: 0; font-size: 14px; }
+		.shared .group { margin: 32px 0 0; padding-top: 24px; border-top: 1px solid var(--outline-variant); }
+		.shared .group > p:first-child { margin: 0 0 12px; color: var(--on-background); font-weight: 700; }
+		.shared .group.actions > p:first-child { margin: 0; }
+		.shared .more { display: flex; flex-wrap: wrap; gap: 12px; }
+		.shared .more + .note { margin-top: 12px; }
+		.shared .in-app { margin: -16px 0 24px; color: var(--on-background); }
+		@media (max-width: 600px) {
+			.shared .lede { font-size: 17px; }
+			.shared .actions .button { align-self: stretch; }
+			.shared .group > .button { display: flex; }
+			.shared .more .button { flex: 1 1 auto; }
+		}
+	</style>
+	<script>
+		// Reads the link in the address's fragment, which never reaches a server, and offers the ways to open it on this
+		// system. It fetches nothing, waits for nothing, and never tries to tell whether Campfire is installed: the
+		// visitor picks, and the line under Open in Campfire says what it means when nothing happened.
+		var sharedLink = (function () {
+			// A hand copy of the grammar in ShareLinks.kt (data/model/…/share in the app's repository); keep the two in
+			// step. It takes the address in any form the app does, so a messenger's query before the fragment
+			// (?fbclid=…) is ignored, though the page reads only its own fragment.
+			var maxAddressLength = 4096;
+			var maxTitleBytes = 120;
+			var address = /^(?:https:\/\/campfire-songbook\.com\/(?:s|app)\/(?:\?[^#\s]*)?#|campfire:\/\/s\/)?(\S+)$/;
+			var versionOne = /^1\.(song|setlist)\.([a-z2-7]{16})\.([A-Za-z0-9_-]{1,64})\.([A-Za-z0-9_-]{1,64})\.((?:[A-Za-z0-9_~-]|%[0-9A-Fa-f]{2})*)$/;
+			var laterVersion = /^([1-9][0-9]{0,5})\.[A-Za-z0-9._~%-]+$/;
+
+			// The title is percent-encoded UTF-8 of at most 120 bytes, and a title that is not valid UTF-8 makes no link.
+			function decodeTitle(encoded) {
+				var bytes = [];
+				for (var index = 0; index < encoded.length;) {
+					if (encoded.charAt(index) === "%") {
+						bytes.push(parseInt(encoded.substr(index + 1, 2), 16));
+						index += 3;
+					} else {
+						bytes.push(encoded.charCodeAt(index));
+						index++;
+					}
+				}
+				if (bytes.length > maxTitleBytes) return null;
+				try {
+					return new TextDecoder("utf-8", { fatal: true }).decode(new Uint8Array(bytes));
+				} catch (e) {
+					return null;
+				}
+			}
+
+			// A readable link, a link from a later version of Campfire (only its version is known), or null.
+			function parse(text) {
+				var trimmed = String(text).trim();
+				if (trimmed.length > maxAddressLength) return null;
+				var match = address.exec(trimmed);
+				if (!match) return null;
+				var payload = match[1];
+				var parts = versionOne.exec(payload);
+				if (parts) {
+					var title = decodeTitle(parts[5]);
+					if (title === null) return null;
+					return {
+						version: 1, payload: payload, kind: parts[1], title: title,
+						// The download is built from the parts, never taken from the link, on the host that answers a
+						// dead link with 403 or 404.
+						download: "https://dl.dropboxusercontent.com/scl/fi/" + parts[3] + "/" + parts[2] + ".zip?rlkey=" + parts[4] + "&dl=1"
+					};
+				}
+				var later = laterVersion.exec(payload);
+				return later && Number(later[1]) > 1 ? { version: Number(later[1]), payload: payload } : null;
+			}
+
+			var link = parse(location.hash.slice(1));
+			// Safari's banner for an installed app hands it the link. It is no way to install, so it is only a nicety.
+			if (link) {
+				document.querySelector('meta[name="apple-itunes-app"]').content =
+					"app-id=6815160850, app-argument=https://campfire-songbook.com/s/#" + link.payload;
+			}
+			return { parse: parse, link: link };
+		}());
+	</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+	<div class="wrap">
+		<a class="brand" href="../"><img src="../assets/icon.svg?v=8ba29e56" alt="">Campfire</a>
+	</div>
+</header>
+<div class="wrap">
+	<main class="document shared" id="main">
+		<p class="cue" id="kind">Shared from Campfire</p>
+		<h1 id="title">A song or setlist shared from Campfire</h1>
+		<p class="lede" id="lede">This page needs JavaScript to open the link. Campfire itself is on the <a href="../#download">home page</a>.</p>
+		<div id="actions"></div>
+	</main>
+</div>
+<script>
+	(function (d) {
+		var agent = navigator.userAgent;
+		// iPadOS presents itself as a Mac, so an iPad is told apart by its touch screen.
+		var os = /Android/.test(agent) ? "android" : /iPhone|iPad|iPod/.test(agent) || (/Macintosh/.test(agent) && navigator.maxTouchPoints > 1) ? "ios" : /Windows/.test(agent) ? "windows" : /Macintosh/.test(agent) ? "macos" : /Linux/.test(agent) ? "linux" : "";
+		// The browsers inside other apps, which often keep a custom scheme or an intent:// address from opening anything.
+		var inAppBrowser = /FBAN|FBAV|FB_IAB|Instagram|Messenger|MicroMessenger|Line\/|Snapchat|TikTok|musical_ly|Bytedance|LinkedInApp|Pinterest|Twitter|; wv\)/.test(agent);
+		var hungarian = /^hu\b/i.test(navigator.language || "");
+		var text = hungarian ? {
+			song: "Egy dal, megosztva a Campfire-ből",
+			setlist: "Egy lista, megosztva a Campfire-ből",
+			untitled: "Megosztva a Campfire-ből",
+			untitledSong: "Egy megosztott dal",
+			untitledSetlist: "Egy megosztott lista",
+			ledeSong: "Nyisd meg a Campfire-ben, hogy bekerüljön a dalaid közé. A Campfire ingyenes daloskönyv-alkalmazás dalszövegekhez és akkordokhoz, minden platformra.",
+			ledeSetlist: "Nyisd meg a Campfire-ben, hogy a lista és a dalai bekerüljenek a könyvtáradba. A Campfire ingyenes daloskönyv-alkalmazás dalszövegekhez és akkordokhoz, minden platformra.",
+			newer: "Ezt a linket a Campfire egy újabb verziója készítette. Frissítsd a Campfire-t, hogy megnyithasd.",
+			incomplete: "Ez a link hiányos.",
+			askAgain: "Kérd el újra attól, aki küldte. Addig is: a Campfire ingyenes daloskönyv-alkalmazás dalszövegekhez és akkordokhoz, minden platformra.",
+			open: "Megnyitás a Campfire-ben",
+			nothingHappened: "Nem történt semmi? Ezen az eszközön nincs telepítve a Campfire.",
+			get: "A Campfire letöltése",
+			copyHint: "A gomb kimásolja a linket, hogy a Campfire a telepítés után megnyithassa.",
+			copied: "Kimásoltuk a linket, hogy a Campfire a telepítés után megnyithassa.",
+			alreadyInstalled: "Már telepítetted?",
+			notYet: "Még nincs meg?",
+			webApp: "Megnyitás a webes alkalmazásban",
+			webAppPlain: "A webes alkalmazás megnyitása",
+			download: "A fájl letöltése",
+			downloadHint: "Kézzel is hozzáadhatod: importáld a fájlt a Campfire beállításainak Könyvtár lapján.",
+			inAppBrowser: "Ha a gombok nem működnek, nyisd meg ezt az oldalt a böngésződben.",
+			native: { android: "Letöltés a Google Playről", ios: "Letöltés az App Store-ból", windows: "Letöltés Windowsra", macos: "Letöltés macOS-re", linux: "Letöltés Linuxra", "": "Minden platform" }
+		} : {
+			song: "A song shared from Campfire",
+			setlist: "A setlist shared from Campfire",
+			untitled: "Shared from Campfire",
+			untitledSong: "A shared song",
+			untitledSetlist: "A shared setlist",
+			ledeSong: "Open it in Campfire to add it to your songs. Campfire is a free songbook app for lyrics and chords, on every platform.",
+			ledeSetlist: "Open it in Campfire to add the setlist and its songs to your library. Campfire is a free songbook app for lyrics and chords, on every platform.",
+			newer: "This link was made by a newer version of Campfire. Update Campfire to open it.",
+			incomplete: "This link is incomplete.",
+			askAgain: "Ask the person who sent it for it again. Meanwhile, Campfire is a free songbook app for lyrics and chords, on every platform.",
+			open: "Open in Campfire",
+			nothingHappened: "Nothing happened? Campfire isn't installed here.",
+			get: "Get Campfire",
+			copyHint: "Tapping it copies the link, so Campfire can open it once it's installed.",
+			copied: "We copied the link, so Campfire can open it once it's installed.",
+			alreadyInstalled: "Already installed it?",
+			notYet: "Don't have it yet?",
+			webApp: "Open in the web app",
+			webAppPlain: "Open the web app",
+			download: "Download the file",
+			downloadHint: "To add it by hand, import the file from the Library tab of Campfire's settings.",
+			inAppBrowser: "Open this page in your browser if the buttons don't work.",
+			native: { android: "Get it on Google Play", ios: "Get it on the App Store", windows: "Download for Windows", macos: "Download for macOS", linux: "Download for Linux", "": "Every platform" }
+		};
+		// The same stores and downloads as the rest of the site; without a known system, the list of every platform.
+		var native = {
+			android: "https://play.google.com/store/apps/details?id=com.pandulapeter.campfire",
+			ios: "https://apps.apple.com/app/id6815160850",
+			windows: "https://apps.microsoft.com/detail/9MSR62F288M1",
+			macos: "https://apps.apple.com/app/id6815160850",
+			linux: "https://github.com/pandulapeter/campfire/releases/latest",
+			"": "../#download"
+		};
+		var link = sharedLink.link;
+		var actions = d.getElementById("actions");
+		d.documentElement.lang = hungarian ? "hu" : "en";
+
+		function element(tag, className, content) {
+			var node = d.createElement(tag);
+			if (className) node.className = className;
+			if (content) node.textContent = content;
+			return node;
+		}
+
+		function button(label, href, tonal, external) {
+			var node = element("a", tonal ? "button tonal" : "button", label);
+			node.href = href;
+			if (external) {
+				node.target = "_blank";
+				node.rel = "noopener";
+			}
+			return node;
+		}
+
+		function group(heading) {
+			var node = element("div", "group");
+			if (heading) node.appendChild(element("p", "", heading));
+			actions.appendChild(node);
+			return node;
+		}
+
+		function nativeButton(parent, tonal) {
+			parent.appendChild(button(text.native[os], native[os], tonal, os !== ""));
+		}
+
+		// The title is only ever text, never markup, and only for display: the app shows the real one when it imports.
+		if (!link) {
+			d.getElementById("kind").textContent = "Campfire";
+			d.getElementById("title").textContent = text.incomplete;
+			d.getElementById("lede").textContent = text.askAgain;
+			d.title = text.incomplete.replace(/\.$/, "") + " – Campfire";
+			var downloads = element("div", "more");
+			nativeButton(downloads, false);
+			downloads.appendChild(button(text.webAppPlain, "../app/", true, true));
+			actions.appendChild(downloads);
+			return;
+		}
+		var readable = link.version === 1;
+		var setlist = readable && link.kind === "setlist";
+		d.getElementById("kind").textContent = !readable ? "Campfire" : setlist ? text.setlist : text.song;
+		var title = !readable ? text.untitled : link.title || (setlist ? text.untitledSetlist : text.untitledSong);
+		d.getElementById("title").textContent = title;
+		d.getElementById("lede").textContent = !readable ? text.newer : setlist ? text.ledeSetlist : text.ledeSong;
+		d.title = readable ? title + " – Campfire" : title;
+
+		// The address of the scheme carries the payload in its path, as Android's intent:// claims the fragment. There,
+		// Chrome opens the app when it is installed and Play otherwise, which hands the link to the app after the
+		// install, through the referrer (encoded once, then once more as part of the fallback's own address).
+		var scheme = "campfire://s/" + link.payload;
+		var play = native.android + "&referrer=" + encodeURIComponent("campfire_link=" + link.payload);
+		var intent = "intent://s/" + link.payload + "#Intent;scheme=campfire;package=com.pandulapeter.campfire;S.browser_fallback_url=" + encodeURIComponent(play) + ";end";
+		var landing = "https://campfire-songbook.com/s/#" + link.payload;
+
+		var first = element("div", "actions");
+		actions.appendChild(first);
+		if (os === "ios") {
+			// Campfire looks for a link on the clipboard on its first launch, so the store button copies it first, inside
+			// the tap that the clipboard requires, and then goes on to the App Store as an ordinary link.
+			var get = button(text.get, native.ios, false, false);
+			var copyNote = element("p", "note", text.copyHint);
+			get.addEventListener("click", function () {
+				if (!navigator.clipboard) return;
+				navigator.clipboard.writeText(landing).then(function () {
+					copyNote.textContent = text.copied;
+				}, function () {});
+			});
+			first.appendChild(get);
+			first.appendChild(copyNote);
+			var installed = group(text.alreadyInstalled);
+			installed.classList.add("actions");
+			installed.appendChild(button(text.open, scheme, false, false));
+			installed.appendChild(element("p", "note", text.nothingHappened));
+		} else {
+			first.appendChild(button(text.open, os === "android" ? intent : scheme, false, false));
+			first.appendChild(element("p", "note", text.nothingHappened));
+			if (os !== "android") nativeButton(group(text.notYet), true);
+		}
+		var more = group("");
+		var row = element("div", "more");
+		more.appendChild(row);
+		row.appendChild(button(text.webApp, "../app/#" + link.payload, true, true));
+		if (readable) {
+			row.appendChild(button(text.download, link.download, true, false));
+			more.appendChild(element("p", "note", text.downloadHint));
+		}
+		if (inAppBrowser) actions.insertBefore(element("p", "note in-app", text.inAppBrowser), actions.firstChild);
+	}(document));
+</script>
+</body>
+</html>

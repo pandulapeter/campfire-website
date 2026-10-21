@@ -15,6 +15,8 @@ index.html            the home page, with the main features next to their screen
 support/index.html    support and frequently asked questions
 privacy/index.html    the privacy policy
 404.html              the page GitHub Pages serves for an address that does not exist
+s/index.html          the landing page of a shared song or setlist link, see Shared links
+.well-known/          assetlinks.json and apple-app-site-association, which let the Android and iOS apps open those links
 assets/site.css       the one stylesheet every page shares
 assets/home.js        the home page's ChordPro example, its slideshow of screenshots, and the placeholder of a screenshot that is missing
 assets/fonts/         Inter and JetBrains Mono, the fonts the app itself uses, as WOFF2 cut down to Latin, with their licenses
@@ -52,6 +54,25 @@ with the black menu bar strip cropped off the top of the Mac screenshot), `table
 or `phone` (600 × 1304, an iPhone), and the theme `light` or `dark`. A screenshot that is missing keeps its place,
 striped and named after the file it waits for. `og-image.jpg` (1200 × 630) is the preview image for links shared on
 social media.
+
+## Shared links
+
+The app shares a song or setlist as `https://campfire-songbook.com/s/#<payload>`, where the payload names a zip in the
+sharer's Dropbox (`ShareLinks.kt` in the app's repository holds the grammar). The payload sits in the fragment, so it
+never reaches this site's server or a messenger's link preview, which see only the page's Open Graph text.
+
+`s/index.html` reads the fragment with a hand copy of the app's regex, which must stay in step with `ShareLinks.kt`, and
+fetches nothing. It shows the title as text and offers the ways to open the link on the visitor's system, in English or
+Hungarian by the browser's language: `campfire://s/<payload>` (on Android an `intent://` address that falls back to Play
+with the link in the install referrer; on iOS and iPadOS the App Store first, after copying the link for the app's first
+launch), the web app at `/app/#<payload>`, and the file's direct download. It never tries to tell whether the app is
+installed: the line under **Open in Campfire** explains what it means when nothing happened. Its few styles of its own
+are in the page.
+
+With the app installed, Android and iOS open these links themselves, which `.well-known/` allows: `assetlinks.json`
+names the Android package and the SHA-256 of the certificate Play installs it with, and `apple-app-site-association`
+the team and bundle ID. Both must be live before an app release that relies on them; Apple fetches its file through its
+own CDN and keeps it for a day or more.
 
 ## Running it locally
 

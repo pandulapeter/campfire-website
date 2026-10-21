@@ -8,7 +8,7 @@ import re
 
 root = pathlib.Path(__file__).resolve().parent
 pages = [root / "assets/site.css", root / "index.html", root / "support/index.html", root / "privacy/index.html",
-         root / "404.html"]
+         root / "404.html", root / "s/index.html"]
 link = re.compile(r'(?P<path>(?:https://campfire-songbook\.com/|/|(?:\.\./)*)?(?:assets/)?[\w./-]+\.(?:css|js|webp|png|jpg|svg|woff2))(?:\?v=\w+)?(?=["\')\s,])')
 
 def stamp(page):

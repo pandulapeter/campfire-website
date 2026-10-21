@@ -1,0 +1,10 @@
+[
+	{
+		"relation": ["delegate_permission/common.handle_all_urls"],
+		"target": {
+			"namespace": "android_app",
+			"package_name": "com.pandulapeter.campfire",
+			"sha256_cert_fingerprints": ["BF:4E:38:BB:A7:F8:06:25:AB:FB:0E:B7:84:7E:83:4D:79:A0:A7:97:3B:9D:B2:36:B8:69:2D:87:62:E1:06:79"]
+		}
+	}
+]
