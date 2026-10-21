@@ -173,10 +173,10 @@ html:not([data-os]) .all-platforms { display: none; }
 .beats i:nth-child(2) { background-position-x: 33.333%; animation-delay: 0.5s; }
 .beats i:nth-child(3) { background-position-x: 66.667%; animation-delay: 1s; }
 .beats i:nth-child(4) { background-position-x: 100%; animation-delay: 1.5s; }
-.beats.tablet-song-metronome i { background-image: url("screenshots/tablet-song-metronome-beats-light.webp?v=049b3dc6"); }
+.beats.tablet-song-metronome i { background-image: url("screenshots/tablet-song-metronome-beats-light.webp?v=56685221"); }
 .beats.phone-metronome i { background-image: url("screenshots/phone-metronome-beats-light.webp?v=aacb0c66"); }
 @media (prefers-color-scheme: dark) {
-	.beats.tablet-song-metronome i { background-image: url("screenshots/tablet-song-metronome-beats-dark.webp?v=c1477bb3"); }
+	.beats.tablet-song-metronome i { background-image: url("screenshots/tablet-song-metronome-beats-dark.webp?v=24be3df8"); }
 	.beats.phone-metronome i { background-image: url("screenshots/phone-metronome-beats-dark.webp?v=bd02799b"); }
 }
 @keyframes beat { 0% { opacity: 1; } 1.25% { opacity: 0.75; } 2.5% { opacity: 0.42; } 3.75% { opacity: 0.2; } 5% { opacity: 0.1; } 7.5%, 100% { opacity: 0; } }
