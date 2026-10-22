@@ -23,30 +23,52 @@
 	<link rel="apple-touch-icon" href="../assets/icon-192.png?v=0f2be8ac">
 	<link rel="stylesheet" href="../assets/site.css?v=b968cb73">
 	<style>
-		/* The landing page of a shared link: the buttons that open it, one under another, the first the largest. */
-		.shared { max-width: 560px; }
-		.shared h1 { overflow-wrap: anywhere; }
+		/* The landing page of a shared link: a column in the middle of the page with the two ways to open it as cards, the
+		   first of them filled, the app's store under them, the file after a line, and what Campfire is at the bottom. */
+		.shared { max-width: 600px; margin: 0 auto; }
+		.shared h1 { overflow-wrap: anywhere; margin-bottom: 12px; }
 		.shared .lede { font-size: 18px; margin: 0 0 32px; }
-		.shared .actions { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
-		.shared .actions .button { min-height: 48px; padding: 0 28px; font-size: 16px; }
-		.shared .note { margin: 0; font-size: 14px; }
-		.shared .group { margin: 32px 0 0; padding-top: 24px; border-top: 1px solid var(--outline-variant); }
-		.shared .group > p:first-child { margin: 0 0 12px; color: var(--on-background); font-weight: 700; }
-		.shared .group.actions > p:first-child { margin: 0; }
-		.shared .more { display: flex; flex-wrap: wrap; gap: 12px; }
-		.shared .more + .note { margin-top: 12px; }
-		.shared .in-app { margin: -16px 0 24px; color: var(--on-background); }
+		.in-app { margin: 0 0 24px; padding: 12px 16px; border-radius: 12px; background: var(--container); font-size: 15px; }
+		.shared .in-app { color: var(--on-background); }
+		.choices { display: grid; gap: 12px; }
+		.choice { display: flex; align-items: center; gap: 16px; min-height: 80px; padding: 16px 20px; border-radius: 16px; background: var(--container-low); border: 1px solid var(--outline-variant); color: var(--on-background); text-decoration: none; line-height: 1.4; }
+		.choice svg { flex-shrink: 0; width: 28px; height: 28px; color: var(--primary); fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+		.choice strong { display: block; font-size: 17px; color: inherit; }
+		.choice span { color: var(--muted); font-size: 15px; }
+		.choice::after { content: "→"; content: "→" / ""; margin-left: auto; padding-left: 8px; font-size: 20px; color: var(--muted); }
+		.choice.main { background: var(--primary); border-color: var(--primary); color: var(--on-primary); }
+		.choice.main svg, .choice.main span, .choice.main::after { color: inherit; }
+		.choice.main span { opacity: 0.85; }
+		@media (hover: hover) and (pointer: fine) {
+			.choice:hover { background: color-mix(in srgb, var(--primary) 8%, var(--container-low)); border-color: var(--outline); }
+			.choice.main:hover { background: var(--primary); border-color: var(--primary); filter: brightness(1.08); }
+		}
+		@media (hover: none) {
+			.choice:active { background: color-mix(in srgb, var(--primary) 18%, var(--container-low)); border-color: var(--primary); transform: scale(0.98); }
+			.choice.main:active { background: var(--primary); box-shadow: inset 0 0 0 100vmax color-mix(in srgb, currentColor 18%, transparent); }
+		}
+		.shared .fallback { margin: 16px 0 0; font-size: 15px; }
+		.file { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--outline-variant); }
+		.file .button { flex-shrink: 0; gap: 8px; }
+		.file .button svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+		.shared .file p { flex: 1 1 240px; margin: 0; font-size: 14px; }
+		.about { display: flex; align-items: center; gap: 16px; margin-top: 48px; padding: 20px 24px; border-radius: 20px; background: var(--container); }
+		.about img { flex-shrink: 0; width: 48px; height: 48px; }
+		.shared .about p { margin: 0; font-size: 15px; }
+		.about a { font-weight: 700; }
 		@media (max-width: 600px) {
-			.shared .lede { font-size: 17px; }
-			.shared .actions .button { align-self: stretch; }
-			.shared .group > .button { display: flex; }
-			.shared .more .button { flex: 1 1 auto; }
+			.shared { padding-top: 32px; }
+			.shared .lede { font-size: 17px; margin-bottom: 24px; }
+			.choice { padding: 16px; gap: 14px; }
+			.file .button { flex: 1 1 100%; }
+			.about { align-items: flex-start; padding: 20px; }
+			.about img { width: 40px; height: 40px; }
 		}
 	</style>
 	<script>
 		// Reads the link in the address's fragment, which never reaches a server, and offers the ways to open it on this
 		// system. It fetches nothing, waits for nothing, and never tries to tell whether Campfire is installed: the
-		// visitor picks, and the line under Open in Campfire says what it means when nothing happened.
+		// visitor picks, and the line under the two ways to open it leads to the app's store when nothing happened.
 		var sharedLink = (function () {
 			// A hand copy of the grammar in ShareLinks.kt (data/model/…/share in the app's repository); keep the two in
 			// step. It takes the address in any form the app does, so a messenger's query before the fragment
@@ -122,64 +144,76 @@
 		<h1 id="title">A song or setlist shared from Campfire</h1>
 		<p class="lede" id="lede">This page needs JavaScript to open the link. Campfire itself is on the <a href="../#download">home page</a>.</p>
 		<div id="actions"></div>
+		<aside class="about">
+			<img src="../assets/icon.svg?v=8ba29e56" width="48" height="48" alt="">
+			<p><span id="about">Campfire is a free songbook app for lyrics and chords, on every platform and in the browser.</span> <a id="about-link" href="../">Visit campfire-songbook.com</a></p>
+		</aside>
 	</main>
 </div>
 <script>
 	(function (d) {
 		var agent = navigator.userAgent;
 		// iPadOS presents itself as a Mac, so an iPad is told apart by its touch screen.
-		var os = /Android/.test(agent) ? "android" : /iPhone|iPad|iPod/.test(agent) || (/Macintosh/.test(agent) && navigator.maxTouchPoints > 1) ? "ios" : /Windows/.test(agent) ? "windows" : /Macintosh/.test(agent) ? "macos" : /Linux/.test(agent) ? "linux" : "";
+		var ipad = /iPad/.test(agent) || (/Macintosh/.test(agent) && navigator.maxTouchPoints > 1);
+		var os = /Android/.test(agent) ? "android" : /iPhone|iPod/.test(agent) || ipad ? "ios" : /Windows/.test(agent) ? "windows" : /Macintosh/.test(agent) ? "macos" : /Linux/.test(agent) ? "linux" : "";
+		var mobile = os === "android" || os === "ios";
 		// The browsers inside other apps, which often keep a custom scheme or an intent:// address from opening anything.
 		var inAppBrowser = /FBAN|FBAV|FB_IAB|Instagram|Messenger|MicroMessenger|Line\/|Snapchat|TikTok|musical_ly|Bytedance|LinkedInApp|Pinterest|Twitter|; wv\)/.test(agent);
 		var hungarian = /^hu\b/i.test(navigator.language || "");
 		var text = hungarian ? {
-			song: "Egy dal, megosztva a Campfire-ből",
-			setlist: "Egy lista, megosztva a Campfire-ből",
+			song: "Megosztott dal",
+			setlist: "Megosztott lista",
 			untitled: "Megosztva a Campfire-ből",
-			untitledSong: "Egy megosztott dal",
-			untitledSetlist: "Egy megosztott lista",
-			ledeSong: "Nyisd meg a Campfire-ben, hogy bekerüljön a dalaid közé. A Campfire ingyenes daloskönyv-alkalmazás dalszövegekhez és akkordokhoz, minden platformra.",
-			ledeSetlist: "Nyisd meg a Campfire-ben, hogy a lista és a dalai bekerüljenek a könyvtáradba. A Campfire ingyenes daloskönyv-alkalmazás dalszövegekhez és akkordokhoz, minden platformra.",
-			newer: "Ezt a linket a Campfire egy újabb verziója készítette. Frissítsd a Campfire-t, hogy megnyithasd.",
+			untitledSong: "Cím nélküli dal",
+			untitledSetlist: "Cím nélküli lista",
+			ledeSong: "Nyisd meg a Campfire-ben, hogy bekerüljön a dalaid közé.",
+			ledeSetlist: "Nyisd meg a Campfire-ben, hogy a lista és a dalai bekerüljenek a könyvtáradba.",
+			newer: "Ezt a linket a Campfire egy újabb verziója készítette. A webes alkalmazás mindig a legfrissebb, a telepített alkalmazást pedig frissítsd, hogy megnyithasd.",
 			incomplete: "Ez a link hiányos.",
-			askAgain: "Kérd el újra attól, aki küldte. Addig is: a Campfire ingyenes daloskönyv-alkalmazás dalszövegekhez és akkordokhoz, minden platformra.",
-			open: "Megnyitás a Campfire-ben",
-			nothingHappened: "Nem történt semmi? Ezen az eszközön nincs telepítve a Campfire.",
-			get: "A Campfire letöltése",
-			copyHint: "A gomb kimásolja a linket, hogy a Campfire a telepítés után megnyithassa.",
-			copied: "Kimásoltuk a linket, hogy a Campfire a telepítés után megnyithassa.",
-			alreadyInstalled: "Már telepítetted?",
-			notYet: "Még nincs meg?",
-			webApp: "Megnyitás a webes alkalmazásban",
-			webAppPlain: "A webes alkalmazás megnyitása",
+			askAgain: "Kérd el újra attól, aki küldte.",
+			openApp: "Megnyitás az alkalmazásban",
+			getApp: "Az alkalmazás letöltése",
+			openWeb: "Megnyitás a webes alkalmazásban",
+			openWebPlain: "A webes alkalmazás megnyitása",
+			web: "Ebben a böngészőben fut, telepítés nélkül",
+			notInstalled: "Nincs telepítve?",
+			outdated: "Frissítés kell?",
+			afterInstall: "A Campfire a telepítés után megnyitja a linket.",
+			copied: "Kimásoltuk a linket, így a Campfire a telepítés után megnyitja.",
 			download: "A fájl letöltése",
 			downloadHint: "Kézzel is hozzáadhatod: importáld a fájlt a Campfire beállításainak Könyvtár lapján.",
 			inAppBrowser: "Ha a gombok nem működnek, nyisd meg ezt az oldalt a böngésződben.",
-			native: { android: "Letöltés a Google Playről", ios: "Letöltés az App Store-ból", windows: "Letöltés Windowsra", macos: "Letöltés macOS-re", linux: "Letöltés Linuxra", "": "Minden platform" }
+			about: "A Campfire ingyenes daloskönyv-alkalmazás dalszövegekhez és akkordokhoz, minden platformra és böngészőbe.",
+			aboutLink: "Tovább a campfire-songbook.com-ra",
+			platform: { android: "Campfire Androidra", ios: ipad ? "Campfire iPadOS-re" : "Campfire iOS-re", windows: "Campfire Windowsra", macos: "Campfire macOS-re", linux: "Campfire Linuxra", "": "Ha telepítve van ezen az eszközön" },
+			store: { android: "Töltsd le a Google Playről", ios: "Töltsd le az App Store-ból", windows: "Töltsd le a Microsoft Store-ból", macos: "Töltsd le a Mac App Store-ból", linux: "Töltsd le a GitHubról", "": "Válaszd ki a platformodat" }
 		} : {
-			song: "A song shared from Campfire",
-			setlist: "A setlist shared from Campfire",
+			song: "Shared song",
+			setlist: "Shared setlist",
 			untitled: "Shared from Campfire",
-			untitledSong: "A shared song",
-			untitledSetlist: "A shared setlist",
-			ledeSong: "Open it in Campfire to add it to your songs. Campfire is a free songbook app for lyrics and chords, on every platform.",
-			ledeSetlist: "Open it in Campfire to add the setlist and its songs to your library. Campfire is a free songbook app for lyrics and chords, on every platform.",
-			newer: "This link was made by a newer version of Campfire. Update Campfire to open it.",
+			untitledSong: "Untitled song",
+			untitledSetlist: "Untitled setlist",
+			ledeSong: "Open it in Campfire to add it to your songs.",
+			ledeSetlist: "Open it in Campfire to add the setlist and its songs to your library.",
+			newer: "This link was made by a newer version of Campfire. The web app is always up to date, and the installed app needs an update to open it.",
 			incomplete: "This link is incomplete.",
-			askAgain: "Ask the person who sent it for it again. Meanwhile, Campfire is a free songbook app for lyrics and chords, on every platform.",
-			open: "Open in Campfire",
-			nothingHappened: "Nothing happened? Campfire isn't installed here.",
-			get: "Get Campfire",
-			copyHint: "Tapping it copies the link, so Campfire can open it once it's installed.",
+			askAgain: "Ask the person who sent it for it again.",
+			openApp: "Open in the app",
+			getApp: "Get the app",
+			openWeb: "Open in the web app",
+			openWebPlain: "Open the web app",
+			web: "Runs in this browser, with nothing to install",
+			notInstalled: "Not installed?",
+			outdated: "Need the update?",
+			afterInstall: "Campfire opens the link once it's installed.",
 			copied: "We copied the link, so Campfire can open it once it's installed.",
-			alreadyInstalled: "Already installed it?",
-			notYet: "Don't have it yet?",
-			webApp: "Open in the web app",
-			webAppPlain: "Open the web app",
 			download: "Download the file",
 			downloadHint: "To add it by hand, import the file from the Library tab of Campfire's settings.",
 			inAppBrowser: "Open this page in your browser if the buttons don't work.",
-			native: { android: "Get it on Google Play", ios: "Get it on the App Store", windows: "Download for Windows", macos: "Download for macOS", linux: "Download for Linux", "": "Every platform" }
+			about: "Campfire is a free songbook app for lyrics and chords, on every platform and in the browser.",
+			aboutLink: "Visit campfire-songbook.com",
+			platform: { android: "Campfire for Android", ios: ipad ? "Campfire for iPadOS" : "Campfire for iOS", windows: "Campfire for Windows", macos: "Campfire for macOS", linux: "Campfire for Linux", "": "If it's installed on this device" },
+			store: { android: "Get it on Google Play", ios: "Get it on the App Store", windows: "Get it from the Microsoft Store", macos: "Get it on the Mac App Store", linux: "Download it from GitHub", "": "Pick your platform" }
 		};
 		// The same stores and downloads as the rest of the site; without a known system, the list of every platform.
 		var native = {
@@ -190,9 +224,19 @@
 			linux: "https://github.com/pandulapeter/campfire/releases/latest",
 			"": "../#download"
 		};
+		// Line icons in the style of the home page's: a phone or a computer for the app, a globe for the web app, and an
+		// arrow into a tray for the file.
+		var icons = {
+			phone: '<rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M10.5 18.5h3"/>',
+			computer: '<rect x="2.5" y="4" width="19" height="12.5" rx="2"/><path d="M8.5 20.5h7M12 16.5v4"/>',
+			globe: '<circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.8 3.9 6 3.9 9.5s-1.3 6.7-3.9 9.5c-2.6-2.8-3.9-6-3.9-9.5s1.3-6.7 3.9-9.5Z"/>',
+			download: '<path d="M12 3.5v11m-4.5-4.5 4.5 4.5 4.5-4.5M4.5 15.5v3a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2v-3"/>'
+		};
 		var link = sharedLink.link;
 		var actions = d.getElementById("actions");
 		d.documentElement.lang = hungarian ? "hu" : "en";
+		d.getElementById("about").textContent = text.about;
+		d.getElementById("about-link").textContent = text.aboutLink;
 
 		function element(tag, className, content) {
 			var node = d.createElement(tag);
@@ -201,26 +245,38 @@
 			return node;
 		}
 
-		function button(label, href, tonal, external) {
-			var node = element("a", tonal ? "button tonal" : "button", label);
+		function icon(name) {
+			return '<svg viewBox="0 0 24 24" aria-hidden="true">' + icons[name] + "</svg>";
+		}
+
+		function external(node) {
+			node.target = "_blank";
+			node.rel = "noopener";
+			return node;
+		}
+
+		// A card with an icon, a label, and a line under it. The labels are only ever text, never markup.
+		function choice(iconName, label, detail, href) {
+			var node = element("a", "choice");
 			node.href = href;
-			if (external) {
-				node.target = "_blank";
-				node.rel = "noopener";
-			}
+			node.innerHTML = icon(iconName) + "<div><strong></strong><span></span></div>";
+			node.querySelector("strong").textContent = label;
+			node.querySelector("span").textContent = detail;
 			return node;
 		}
 
-		function group(heading) {
-			var node = element("div", "group");
-			if (heading) node.appendChild(element("p", "", heading));
+		// Phones and tablets get the app first, computers the web app, as everywhere else on the site.
+		function choices(app, web) {
+			var node = element("div", "choices");
+			var first = mobile ? app : web;
+			first.classList.add("main");
+			node.appendChild(first);
+			node.appendChild(mobile ? web : app);
 			actions.appendChild(node);
-			return node;
 		}
 
-		function nativeButton(parent, tonal) {
-			parent.appendChild(button(text.native[os], native[os], tonal, os !== ""));
-		}
+		if (inAppBrowser) actions.appendChild(element("p", "in-app", text.inAppBrowser));
+		var device = mobile ? "phone" : "computer";
 
 		// The title is only ever text, never markup, and only for display: the app shows the real one when it imports.
 		if (!link) {
@@ -228,10 +284,10 @@
 			d.getElementById("title").textContent = text.incomplete;
 			d.getElementById("lede").textContent = text.askAgain;
 			d.title = text.incomplete.replace(/\.$/, "") + " – Campfire";
-			var downloads = element("div", "more");
-			nativeButton(downloads, false);
-			downloads.appendChild(button(text.webAppPlain, "../app/", true, true));
-			actions.appendChild(downloads);
+			var getApp = choice(device, text.getApp, text.platform[os], native[os]);
+			if (os === "") getApp.querySelector("span").textContent = text.store[""];
+			else external(getApp);
+			choices(getApp, external(choice("globe", text.openWebPlain, text.web, "../app/")));
 			return;
 		}
 		var readable = link.version === 1;
@@ -250,39 +306,41 @@
 		var intent = "intent://s/" + link.payload + "#Intent;scheme=campfire;package=com.pandulapeter.campfire;S.browser_fallback_url=" + encodeURIComponent(play) + ";end";
 		var landing = "https://campfire-songbook.com/s/#" + link.payload;
 
-		var first = element("div", "actions");
-		actions.appendChild(first);
-		if (os === "ios") {
-			// Campfire looks for a link on the clipboard on its first launch, so the store button copies it first, inside
+		choices(
+			choice(device, text.openApp, text.platform[os], os === "android" ? intent : scheme),
+			external(choice("globe", text.openWeb, text.web, "../app/#" + link.payload))
+		);
+
+		// The app's store, for when opening it did nothing. Play gets the link through the referrer, as above.
+		var fallback = element("p", "fallback", (readable ? text.notInstalled : text.outdated) + " ");
+		var store = element("a", "", text.store[os]);
+		store.href = os === "android" ? play : native[os];
+		if (os !== "") external(store);
+		fallback.appendChild(store);
+		actions.appendChild(fallback);
+		if (readable && os === "android") fallback.appendChild(d.createTextNode(" " + text.afterInstall));
+		if (readable && os === "ios") {
+			// Campfire looks for a link on the clipboard on its first launch, so the store link copies it first, inside
 			// the tap that the clipboard requires, and then goes on to the App Store as an ordinary link.
-			var get = button(text.get, native.ios, false, false);
-			var copyNote = element("p", "note", text.copyHint);
-			get.addEventListener("click", function () {
+			store.addEventListener("click", function () {
 				if (!navigator.clipboard) return;
 				navigator.clipboard.writeText(landing).then(function () {
-					copyNote.textContent = text.copied;
+					var copied = fallback.querySelector(".copied") || fallback.appendChild(element("span", "copied"));
+					copied.textContent = " " + text.copied;
 				}, function () {});
 			});
-			first.appendChild(get);
-			first.appendChild(copyNote);
-			var installed = group(text.alreadyInstalled);
-			installed.classList.add("actions");
-			installed.appendChild(button(text.open, scheme, false, false));
-			installed.appendChild(element("p", "note", text.nothingHappened));
-		} else {
-			first.appendChild(button(text.open, os === "android" ? intent : scheme, false, false));
-			first.appendChild(element("p", "note", text.nothingHappened));
-			if (os !== "android") nativeButton(group(text.notYet), true);
 		}
-		var more = group("");
-		var row = element("div", "more");
-		more.appendChild(row);
-		row.appendChild(button(text.webApp, "../app/#" + link.payload, true, true));
+
 		if (readable) {
-			row.appendChild(button(text.download, link.download, true, false));
-			more.appendChild(element("p", "note", text.downloadHint));
+			var file = element("div", "file");
+			var download = element("a", "button tonal small");
+			download.href = link.download;
+			download.innerHTML = icon("download");
+			download.appendChild(d.createTextNode(text.download));
+			file.appendChild(download);
+			file.appendChild(element("p", "", text.downloadHint));
+			actions.appendChild(file);
 		}
-		if (inAppBrowser) actions.insertBefore(element("p", "note in-app", text.inAppBrowser), actions.firstChild);
 	}(document));
 </script>
 </body>

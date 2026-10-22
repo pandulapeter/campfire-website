@@ -65,11 +65,12 @@ never reaches this site's server or a messenger's link preview, which see only t
 
 `s/index.html` reads the fragment with a hand copy of the app's regex, which must stay in step with `ShareLinks.kt`, and
 fetches nothing. It shows the title as text and offers the ways to open the link on the visitor's system, in English or
-Hungarian by the browser's language: `campfire://s/<payload>` (on Android an `intent://` address that falls back to Play
-with the link in the install referrer; on iOS and iPadOS the App Store first, after copying the link for the app's first
-launch), the web app at `/app/#<payload>`, and the file's direct download. It never tries to tell whether the app is
-installed: the line under **Open in Campfire** explains what it means when nothing happened. Its few styles of its own
-are in the page.
+Hungarian by the browser's language. Two cards come first, in the order the rest of the site uses: the app at
+`campfire://s/<payload>` (on Android an `intent://` address that falls back to Play with the link in the install
+referrer) and the web app at `/app/#<payload>`. A line under them links to the system's store listing (on iOS and iPadOS
+copying the link first, for the app's first launch), then come the file's direct download and a link to the home page.
+It never tries to tell whether the app is installed: the store line is there for when nothing happened. Its few styles
+of its own are in the page.
 
 With the app installed, Android and iOS open these links themselves, which `.well-known/` allows: `assetlinks.json`
 names the Android package and the SHA-256 of the certificate Play installs it with, and `apple-app-site-association`
