@@ -25,7 +25,7 @@
 	<style>
 		/* The landing page of a shared link: a column in the middle of the page with the two ways to open it as cards, the
 		   first of them filled, the app's store under them, the file after a line, and what Campfire is at the bottom. */
-		.shared { max-width: 600px; margin: 0 auto; }
+		.shared { max-width: 600px; margin: 0 auto; padding-bottom: 64px; }
 		.shared h1 { overflow-wrap: anywhere; margin-bottom: 12px; }
 		.shared .lede { font-size: 18px; margin: 0 0 32px; }
 		.in-app { margin: 0 0 24px; padding: 12px 16px; border-radius: 12px; background: var(--container); font-size: 15px; }
@@ -49,8 +49,9 @@
 		}
 		.shared .fallback { margin: 16px 0 0; font-size: 15px; }
 		.file { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--outline-variant); }
-		.file .button { flex-shrink: 0; gap: 8px; }
-		.file .button svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+		.file .download { display: inline-flex; flex-shrink: 0; align-items: center; gap: 8px; color: var(--muted); font-size: 14px; font-weight: 700; }
+		.file .download svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+		@media (hover: hover) and (pointer: fine) { .file .download:hover { color: var(--primary); } }
 		.shared .file p { flex: 1 1 240px; margin: 0; font-size: 14px; }
 		.about { display: flex; align-items: center; gap: 16px; margin-top: 48px; padding: 20px 24px; border-radius: 20px; background: var(--container); }
 		.about img { flex-shrink: 0; width: 48px; height: 48px; }
@@ -60,7 +61,7 @@
 			.shared { padding-top: 32px; }
 			.shared .lede { font-size: 17px; margin-bottom: 24px; }
 			.choice { padding: 16px; gap: 14px; }
-			.file .button { flex: 1 1 100%; }
+			.shared { padding-bottom: 48px; }
 			.about { align-items: flex-start; padding: 20px; }
 			.about img { width: 40px; height: 40px; }
 		}
@@ -333,7 +334,7 @@
 
 		if (readable) {
 			var file = element("div", "file");
-			var download = element("a", "button tonal small");
+			var download = element("a", "download");
 			download.href = link.download;
 			download.innerHTML = icon("download");
 			download.appendChild(d.createTextNode(text.download));
