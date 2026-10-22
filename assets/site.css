@@ -203,7 +203,7 @@ html:not([data-os]) .all-platforms { display: none; }
 /* The text size demo under its laptop: a slider for a setting that has a slider in the app. Dragging it shows the
    screenshot taken at that size, which the app bar in it names. */
 /* Its screenshots swap at once, as a slider's steps would in the app, rather than crossfading. */
-.slides.demo > * { transition: none; }
+.slides.demo > * { box-shadow: none; transition: none; }
 .slider { display: flex; flex-direction: column; align-items: center; margin-top: 24px; }
 .slider-label { font-size: 13px; font-weight: 700; }
 /* The slider is drawn like the app's Material 3 one: a track filled up to a round thumb. The script fills the track by
