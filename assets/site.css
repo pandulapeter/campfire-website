@@ -184,10 +184,10 @@ html:not([data-os]) .all-platforms { display: none; }
 
 /* A screen, or a pair of devices, that shows one of several screenshots: they lie on top of each other and crossfade
    when one of the pills under them, which name them, is picked. The first is shown before the script runs, as the
-   others start out hidden in the page. The one coming in fades in on top of the one going out, which stays until it is
-   covered, so that the dark lid never shows through the two halfway. */
+   others start out hidden in the page. Each slide has an opaque page-colour backing, extending beyond its drop
+   shadows. That keeps the device chrome and its soft edges from being composited twice while the screenshots fade. */
 .slides { display: grid; }
-.slides > * { grid-area: 1 / 1; z-index: 1; transition: opacity 0.3s; }
+.slides > * { grid-area: 1 / 1; z-index: 1; background: var(--background); box-shadow: 0 0 48px 48px var(--background); transition: opacity 0.3s; }
 .slides > [aria-hidden="true"] { z-index: 0; opacity: 0; transition: opacity 0s 0.3s; }
 .slides-nav { display: flex; justify-content: center; margin-top: 24px; }
 .slides-nav > span { display: inline-flex; flex-wrap: wrap; justify-content: center; background: var(--container-high); border-radius: 20px; font-size: 13px; }
