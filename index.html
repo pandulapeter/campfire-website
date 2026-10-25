@@ -14,6 +14,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Campfire: Songbook &amp; Chords</title>
 	<meta name="description" content="A free songbook for your lyrics and chords, with chord diagrams and scales for your instrument, setlists, a metronome set to each song’s tempo, and a tuner. Works offline on phones, tablets, and computers, with optional real-time Dropbox sync.">
+	<link rel="canonical" href="https://campfire-songbook.com/">
 	<meta name="theme-color" content="#FAF8FE" media="(prefers-color-scheme: light)">
 	<meta name="theme-color" content="#15121C" media="(prefers-color-scheme: dark)">
 	<meta property="og:type" content="website">
@@ -26,6 +27,65 @@
 	<meta property="og:image:height" content="630">
 	<meta property="og:image:alt" content="Campfire running on a laptop and a phone">
 	<meta name="twitter:card" content="summary_large_image">
+	<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@graph": [
+			{
+				"@type": "WebSite",
+				"@id": "https://campfire-songbook.com/#website",
+				"url": "https://campfire-songbook.com/",
+				"name": "Campfire",
+				"alternateName": "Campfire Songbook",
+				"publisher": {"@id": "https://campfire-songbook.com/#author"}
+			},
+			{
+				"@type": "Person",
+				"@id": "https://campfire-songbook.com/#author",
+				"name": "Péter Pandula",
+				"url": "https://pandulapeter.com",
+				"sameAs": ["https://github.com/pandulapeter"]
+			},
+			{
+				"@type": "SoftwareApplication",
+				"@id": "https://campfire-songbook.com/#app",
+				"name": "Campfire",
+				"alternateName": "Campfire Songbook",
+				"url": "https://campfire-songbook.com/",
+				"description": "A free songbook for your lyrics and chords, with chord diagrams and scales for your instrument, setlists, a metronome set to each song’s tempo, and a tuner. Works offline on phones, tablets, and computers, with optional real-time Dropbox sync.",
+				"applicationCategory": "MusicApplication",
+				"operatingSystem": "Android, iOS, iPadOS, Windows, macOS, Linux, Web",
+				"offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+				"isAccessibleForFree": true,
+				"license": "https://mozilla.org/MPL/2.0/",
+				"image": "https://campfire-songbook.com/assets/og-image.jpg?v=c7c14970",
+				"screenshot": [
+					"https://campfire-songbook.com/assets/screenshots/laptop-setlists-light.webp?v=fb412ca0",
+					"https://campfire-songbook.com/assets/screenshots/tablet-song-light.webp?v=14eb1ddc",
+					"https://campfire-songbook.com/assets/screenshots/phone-songs-light.webp?v=733f21fb"
+				],
+				"featureList": [
+					"Lyrics and chords in ChordPro",
+					"Chord diagrams for guitar, ukulele, mandolin, banjo, and keyboard",
+					"Scales",
+					"Setlists",
+					"Metronome",
+					"Tuner",
+					"Import from PDF, Word, and plain text",
+					"Works offline",
+					"Real-time Dropbox sync"
+				],
+				"author": {"@id": "https://campfire-songbook.com/#author"},
+				"sameAs": [
+					"https://play.google.com/store/apps/details?id=com.pandulapeter.campfire",
+					"https://apps.apple.com/app/id6815160850",
+					"https://apps.microsoft.com/detail/9MSR62F288M1",
+					"https://github.com/pandulapeter/campfire"
+				]
+			}
+		]
+	}
+	</script>
 	<link rel="icon" href="assets/icon.svg?v=8ba29e56" type="image/svg+xml">
 	<link rel="apple-touch-icon" href="assets/icon-192.png?v=0f2be8ac">
 	<link rel="preload" href="assets/fonts/inter_bold.woff2?v=821f5d7f" as="font" type="font/woff2" crossorigin>

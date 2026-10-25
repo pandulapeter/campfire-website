@@ -25,7 +25,9 @@ assets/icon.svg       the app icon, for the header and the browser tab
 assets/peter.webp     the photo of the author in the donation card, cropped square to 480 × 480
 assets/icon-192.png   the Play Store icon (`app/android/appIcon.png` in the app's repository), for home screens
 CNAME                 the custom domain, managed by GitHub Pages
-stamp.py              marks the links to every file in assets/ with the file's hash, see Publishing
+robots.txt            points search engines to the sitemap
+sitemap.xml           the pages search engines should list: the home page, support, and privacy
+stamp.py              marks the links to every file in assets/ with the file's hash, and writes the support page's FAQ for search engines, see Publishing
 .githooks/pre-commit  runs stamp.py before every commit
 ```
 
@@ -93,6 +95,9 @@ Browsers keep the files in `assets/` for up to 4 hours (Cloudflare's browser cac
 minutes, so a changed screenshot or stylesheet could reach visitors long after the pages that link it. Every link to a
 file in `assets/` ends in `?v=` and the start of the file's hash, which `stamp.py` writes. Every page linking a changed
 file asks for it anew within 10 minutes, while the files that did not change stay cached.
+
+`stamp.py` also writes the questions and answers under *Frequently asked questions* on the support page into the
+structured data (FAQPage JSON-LD) in that page's head, so edit the visible text only and let it follow.
 
 The pre-commit hook in `.githooks/` runs `stamp.py` and stages the pages it updates. Git runs it once a clone is told
 where it is:
