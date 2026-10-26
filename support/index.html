@@ -212,7 +212,7 @@
 	</script>
 	<link rel="icon" href="../assets/icon.svg?v=8ba29e56" type="image/svg+xml">
 	<link rel="apple-touch-icon" href="../assets/icon-192.png?v=0f2be8ac">
-	<link rel="stylesheet" href="../assets/site.css?v=1201efd8">
+	<link rel="stylesheet" href="../assets/site.css?v=76394209">
 	<script>
 		// Every visitor is offered two versions: a phone or a tablet the app from its store first and the web app second,
 		// a computer the other way around. The script names the system: the stylesheet shows the elements marked
@@ -268,67 +268,113 @@
 		<p>If you have a GitHub account, you can also <a href="https://github.com/pandulapeter/campfire/issues" target="_blank" rel="noopener">report a problem on GitHub</a>, where the app's source code is too.</p>
 		</div>
 		<h2>Frequently asked questions</h2>
-		<h3>Is Campfire free?</h3>
-		<p>Yes. It has no ads, subscription, in-app purchases, or song limits, and no account to sign up for. It is open source under the <a href="https://mozilla.org/MPL/2.0/" target="_blank" rel="noopener">Mozilla Public License 2.0</a>, with its <a href="https://github.com/pandulapeter/campfire" target="_blank" rel="noopener">source code on GitHub</a>, and donations keep it going.</p>
-		<h3>Which platforms does Campfire run on?</h3>
-		<p>Android, iOS, iPadOS, Windows, macOS, and Linux, as well as any modern browser, with nothing to install. It is the same app on each, and a library synced through Dropbox stays the same on all of them. The browser version gets new features first, and the others can take a few days to catch up. The <a href="../#download">download section</a> links every version.</p>
-		<h3>Does Campfire work offline?</h3>
-		<p>Yes. Your songs and setlists are stored on your device, so everything you use on stage works without a connection, the metronome and the tuner included. The web app opens offline too, once it has been opened online. A connection is only needed for Dropbox sync, share links, and looking up song details and cover art.</p>
-		<h3>Can I move my library from OnSong, SongbookPro, or OpenSong?</h3>
-		<p>Yes. Campfire imports SongbookPro's <em>.sbpbackup</em> backups and <em>.sbp</em> sets, OnSong's <em>.onsong</em> files, OpenSong songs, ABC tunes, ChordPro files from any app, and the songs in other apps' JSON exports. Put many files in a zip archive to bring them over in one go. Every song becomes a ChordPro file, and SongbookPro's sets become setlists.</p>
-		<h3>Does Campfire work with a page-turner pedal?</h3>
-		<p>Yes. Pair the pedal with your phone, tablet, or computer: pedals that send the arrow keys and pedals that send Page Up and Page Down both work. Up and down step through the song, and in a setlist left and right go to the previous and the next song. A keyboard does the same.</p>
-		<h3>How do I add songs?</h3>
-		<p>There are four ways:</p>
-		<ul>
-			<li><strong>Paste:</strong> copy a song's chords and lyrics from any website, however messy, and choose <em>Paste from clipboard</em> from the <em>New</em> menu of the song list, or press Ctrl+V (⌘V on a Mac) there. Campfire tidies the text into a song and opens it in the editor: check the title and the artist, then save.</li>
-			<li><strong>Share:</strong> on Android, iOS, and iPadOS, share a chord sheet's text, or a file, to Campfire from another app. A shared web address is not opened, so share the text of the page instead.</li>
-			<li><strong>Import:</strong> choose <em>Import songs, documents, or zip archives…</em> in the <em>Library</em> tab of the settings, or drag files onto the app. Campfire reads <a href="https://www.chordpro.org" target="_blank" rel="noopener">ChordPro</a> files (<em>.cho</em>, <em>.chopro</em>, <em>.chordpro</em>, <em>.crd</em>, <em>.chord</em>, and <em>.pro</em>), plain <em>.txt</em>, PDF and Word <em>.docx</em> documents, zip archives containing them, and backups exported from other songbook apps. Before anything is written, you see what the import holds, can leave files out, and choose whether a song whose name is taken is numbered or replaces yours.</li>
-			<li><strong>Write:</strong> create a song in the app's built-in editor.</li>
-		</ul>
-		<h3>Can I import a PDF or Word chord sheet?</h3>
-		<p>Yes. Import a <em>.pdf</em> or <em>.docx</em> through the file picker, a drop, or a zip archive; on Android, iOS, and iPadOS you can also share it to Campfire. Plain text files, and text you paste or share, get the same conversion. Campfire extracts the text and makes its best attempt to place chords over the lyrics and recognize sections, a title, and playing instructions. Everything happens on your device, without a service or an AI model. The original document is not kept.</p>
-		<p>The result is an ordinary song in your library, and the import message tells you how many songs were converted. It is worth checking them in the editor, especially when the original layout is unusual. A document with several clearly titled songs may be split into several songs. Scanned pages, protected PDFs, and old <em>.doc</em> files cannot be read: use a PDF with selectable text or save the Word file as <em>.docx</em>. The PDFs Campfire shares are images for printing, so share songs as ChordPro or zip files to move them between libraries.</p>
-		<h3>How do I change many songs at once?</h3>
-		<p>Open the menu of one of them (tap its three dots, long-press it, or right-click it on a computer) and choose <em>Select multiple</em>. Tick the others, or use <em>Select all</em> on what the search and the filters show, then tag them, add them to setlists, set their language, or share them together. Choose <em>Done</em> when you are finished. Songs are never deleted in bulk.</p>
-		<h3>How do I send a setlist to my band?</h3>
-		<p>Share it as a link. Choose <em>Share setlist</em> in the setlist's menu, pick <em>Link</em>, then <em>Create link</em>, and send the link or show its QR code. Anyone can open it: with Campfire installed, it opens the import, which shows the setlist and its songs before anything is added; without Campfire, the link's page helps them get it on their device, or opens the setlist in the web app. A single song is shared the same way, with <em>Share song</em>.</p>
-		<p>Links are made from your Dropbox, so the first one asks you to connect it, which also syncs your library. A link always gives the latest version: when you change the setlist or its songs, your bandmates open the same link again to update their copies. <em>Settings → Sharing</em> lists everything you share, and <em>Stop sharing</em> makes a link stop working.</p>
-		<h3>How do I use the tuner?</h3>
-		<p>Open the <em>Tuner</em> (behind <em>Tools</em> when there is no room for every tab) and pick your instrument and its tuning. Opening it with a tap asks to use the microphone the first time; otherwise tap <em>Use the microphone</em>. Play one string at a time: the note you play is shown with how many cents it is flat or sharp, and each string is ticked off once it is in tune. Tap a string to hear its note instead. The tuner is also a button next to the instrument and tuning at the top of every song, so you can tune without leaving it. It is one instrument for the whole app, so the chord diagrams follow the same choice.</p>
-		<p>The reference pitch can be set on the tab from 415 to 466 Hz, if your band does not tune to A = 440 Hz.</p>
-		<h3>The tuner cannot hear me.</h3>
-		<p>Campfire needs your permission to use the microphone. If you said no, tap <em>Open settings</em> or <em>Ask again</em> on the tuner and allow it; in a browser, allow the microphone in the site settings next to the address. If the microphone is in use by a call or another app, end that first. If the tuner says nothing at all is heard, check that the microphone is not muted, and on a computer that the right input is selected in the system's sound settings. On Windows, Audio enhancements can remove a held note as noise: tap <em>Open sound settings</em> on the tuner and turn them off for your microphone. The reference tones can be played even without a microphone.</p>
-		<h3>Does the tuner record me?</h3>
-		<p>No. The sound is analyzed on your device as it arrives and then thrown away: nothing is recorded, saved, or sent anywhere. The microphone is only on while the tuner is on screen and the app is in front, so your system's recording indicator is lit exactly then. If you never use it, switch off <em>Tuner</em> in <em>Settings → Features</em> and Campfire never asks for the microphone at all.</p>
-		<h3>Which instruments get chord diagrams?</h3>
-		<p>Guitar, ukulele, mandolin, banjo, and keyboard, in standard tuning and in the other tunings the app offers for each, such as drop D or open G on a guitar. Pick your instrument and tuning at the top of any song, on the <em>Chords</em> tab, or in <em>Settings → Songs</em>: it is one choice for the whole app, and the tuner uses it too. Seven- and eight-string guitars, basses, and violin have a tuner but no chord diagrams.</p>
-		<p>To play a chord another way, tap it in a song or on the <em>Chords</em> tab and pick another shape. The one you choose is used in every song, unless a song defines its own.</p>
-		<h3>Why does a tab look different from the one I imported?</h3>
-		<p>Tabs are moved to your instrument and tuning, an octave up or down where a note would leave the neck, and a line under the tab says what was done. A song with tabs for several instruments shows only the one for yours. With a keyboard or a violin picked, tabs are hidden; with <em>Other</em>, they are shown as written. The song's file is never changed.</p>
-		<h3>How do I fill in a song's album, year, or songwriters?</h3>
-		<p>Choose <em>Edit song details</em> in the song's menu, then <em>Find song details online</em>. Campfire searches MusicBrainz and iTunes for recordings matching the title and the artist, and <em>Fill in</em> copies the one you pick into the form; nothing changes until you save. If you'd rather not be offered it, switch off <em>Online song details</em> in <em>Settings → Features</em>.</p>
-		<h3>How do I go through the setup questions again?</h3>
-		<p>Choose <em>Set up Campfire again</em> at the top of <em>Settings → General</em> to pick your look, instrument, chord notation, and features step by step.</p>
-		<h3>Where are my songs stored?</h3>
-		<p>On your device, inside the app's own storage. Campfire has no account and no server: your songs never leave your device unless you share or export them, or turn on sync.</p>
-		<h3>How do I back up my library or move it to another device?</h3>
-		<p>There are two ways:</p>
-		<ul>
-			<li><strong>Export:</strong> choose <em>Export library as zip</em> in the settings and save the archive wherever you like. Import that archive on the other device, or keep it as a backup. Single songs and setlists are shared from their own menus instead.</li>
-			<li><strong>Sync:</strong> connect your Dropbox account in the settings, and Campfire keeps the library the same on every device connected to it, in real time: a change made on one shows up within seconds on the others that have Campfire open. Sync is off until you turn it on.</li>
-		</ul>
-		<h3>How does sync work, and what can Campfire see in my Dropbox?</h3>
-		<p>Campfire only has access to its own folder, <em>Apps/Campfire Sync</em>, and nothing else in your Dropbox. The files go directly between your device and Dropbox. Choosing <em>Disconnect</em> in the settings stops syncing without deleting anything, either on your device or in Dropbox. The <a href="../privacy/">privacy policy</a> has the details.</p>
-		<h3>A sync is asking whether to delete files. What should I do?</h3>
-		<p>Campfire asks before carrying out a sync that would delete many of your files at once, since that usually means a folder was moved or emptied by accident. If you did not mean to delete them, choose the option that keeps them, and they will be copied back.</p>
-		<h3>Can I hide the parts of the app I don't use?</h3>
-		<p>Yes. <em>Settings → Features</em> switches the chords, the chord diagrams (and with them the <em>Chords</em> tab), the metronome, the tuner, setlists, cover art, and the online song details lookup on and off. Switching one off only hides it: nothing is deleted, and it comes back as it was when you switch it on again.</p>
-		<h3>I deleted the demo songs and want them back.</h3>
-		<p>Choose <em>Add the demo library</em> in the <em>Library</em> tab of the settings.</p>
-		<h3>How do I delete my data?</h3>
-		<p>To delete your whole library, open the settings, go to the <em>Library</em> tab, and under <em>On this device</em> tap the row that shows how many songs and setlists you have, then type <em>DELETE</em> and confirm. If Dropbox sync is connected, this also deletes your songs and setlists from the <em>Apps/Campfire Sync</em> folder and from every other device synced with it, so choose <em>Disconnect</em> first if you only want to clear this device. Tapping <em>Cover art cache</em> on the same screen deletes the cover images kept on the device.</p>
-		<p>Uninstalling the app removes everything from the device. If you used sync without deleting your library first, also delete the <em>Apps/Campfire Sync</em> folder in your Dropbox. I hold no copy of your data, so there is nothing for me to delete.</p>
+		<details>
+			<summary><h3>Is Campfire free?</h3></summary>
+			<p>Yes. It has no ads, subscription, in-app purchases, or song limits, and no account to sign up for. It is open source under the <a href="https://mozilla.org/MPL/2.0/" target="_blank" rel="noopener">Mozilla Public License 2.0</a>, with its <a href="https://github.com/pandulapeter/campfire" target="_blank" rel="noopener">source code on GitHub</a>, and donations keep it going.</p>
+		</details>
+		<details>
+			<summary><h3>Which platforms does Campfire run on?</h3></summary>
+			<p>Android, iOS, iPadOS, Windows, macOS, and Linux, as well as any modern browser, with nothing to install. It is the same app on each, and a library synced through Dropbox stays the same on all of them. The browser version gets new features first, and the others can take a few days to catch up. The <a href="../#download">download section</a> links every version.</p>
+		</details>
+		<details>
+			<summary><h3>Does Campfire work offline?</h3></summary>
+			<p>Yes. Your songs and setlists are stored on your device, so everything you use on stage works without a connection, the metronome and the tuner included. The web app opens offline too, once it has been opened online. A connection is only needed for Dropbox sync, share links, and looking up song details and cover art.</p>
+		</details>
+		<details>
+			<summary><h3>Can I move my library from OnSong, SongbookPro, or OpenSong?</h3></summary>
+			<p>Yes. Campfire imports SongbookPro's <em>.sbpbackup</em> backups and <em>.sbp</em> sets, OnSong's <em>.onsong</em> files, OpenSong songs, ABC tunes, ChordPro files from any app, and the songs in other apps' JSON exports. Put many files in a zip archive to bring them over in one go. Every song becomes a ChordPro file, and SongbookPro's sets become setlists.</p>
+		</details>
+		<details>
+			<summary><h3>Does Campfire work with a page-turner pedal?</h3></summary>
+			<p>Yes. Pair the pedal with your phone, tablet, or computer: pedals that send the arrow keys and pedals that send Page Up and Page Down both work. Up and down step through the song, and in a setlist left and right go to the previous and the next song. A keyboard does the same.</p>
+		</details>
+		<details>
+			<summary><h3>How do I add songs?</h3></summary>
+			<p>There are four ways:</p>
+			<ul>
+				<li><strong>Paste:</strong> copy a song's chords and lyrics from any website, however messy, and choose <em>Paste from clipboard</em> from the <em>New</em> menu of the song list, or press Ctrl+V (⌘V on a Mac) there. Campfire tidies the text into a song and opens it in the editor: check the title and the artist, then save.</li>
+				<li><strong>Share:</strong> on Android, iOS, and iPadOS, share a chord sheet's text, or a file, to Campfire from another app. A shared web address is not opened, so share the text of the page instead.</li>
+				<li><strong>Import:</strong> choose <em>Import songs, documents, or zip archives…</em> in the <em>Library</em> tab of the settings, or drag files onto the app. Campfire reads <a href="https://www.chordpro.org" target="_blank" rel="noopener">ChordPro</a> files (<em>.cho</em>, <em>.chopro</em>, <em>.chordpro</em>, <em>.crd</em>, <em>.chord</em>, and <em>.pro</em>), plain <em>.txt</em>, PDF and Word <em>.docx</em> documents, zip archives containing them, and backups exported from other songbook apps. Before anything is written, you see what the import holds, can leave files out, and choose whether a song whose name is taken is numbered or replaces yours.</li>
+				<li><strong>Write:</strong> create a song in the app's built-in editor.</li>
+			</ul>
+		</details>
+		<details>
+			<summary><h3>Can I import a PDF or Word chord sheet?</h3></summary>
+			<p>Yes. Import a <em>.pdf</em> or <em>.docx</em> through the file picker, a drop, or a zip archive; on Android, iOS, and iPadOS you can also share it to Campfire. Plain text files, and text you paste or share, get the same conversion. Campfire extracts the text and makes its best attempt to place chords over the lyrics and recognize sections, a title, and playing instructions. Everything happens on your device, without a service or an AI model. The original document is not kept.</p>
+			<p>The result is an ordinary song in your library, and the import message tells you how many songs were converted. It is worth checking them in the editor, especially when the original layout is unusual. A document with several clearly titled songs may be split into several songs. Scanned pages, protected PDFs, and old <em>.doc</em> files cannot be read: use a PDF with selectable text or save the Word file as <em>.docx</em>. The PDFs Campfire shares are images for printing, so share songs as ChordPro or zip files to move them between libraries.</p>
+		</details>
+		<details>
+			<summary><h3>How do I change many songs at once?</h3></summary>
+			<p>Open the menu of one of them (tap its three dots, long-press it, or right-click it on a computer) and choose <em>Select multiple</em>. Tick the others, or use <em>Select all</em> on what the search and the filters show, then tag them, add them to setlists, set their language, or share them together. Choose <em>Done</em> when you are finished. Songs are never deleted in bulk.</p>
+		</details>
+		<details>
+			<summary><h3>How do I send a setlist to my band?</h3></summary>
+			<p>Share it as a link. Choose <em>Share setlist</em> in the setlist's menu, pick <em>Link</em>, then <em>Create link</em>, and send the link or show its QR code. Anyone can open it: with Campfire installed, it opens the import, which shows the setlist and its songs before anything is added; without Campfire, the link's page helps them get it on their device, or opens the setlist in the web app. A single song is shared the same way, with <em>Share song</em>.</p>
+			<p>Links are made from your Dropbox, so the first one asks you to connect it, which also syncs your library. A link always gives the latest version: when you change the setlist or its songs, your bandmates open the same link again to update their copies. <em>Settings → Sharing</em> lists everything you share, and <em>Stop sharing</em> makes a link stop working.</p>
+		</details>
+		<details>
+			<summary><h3>How do I use the tuner?</h3></summary>
+			<p>Open the <em>Tuner</em> (behind <em>Tools</em> when there is no room for every tab) and pick your instrument and its tuning. Opening it with a tap asks to use the microphone the first time; otherwise tap <em>Use the microphone</em>. Play one string at a time: the note you play is shown with how many cents it is flat or sharp, and each string is ticked off once it is in tune. Tap a string to hear its note instead. The tuner is also a button next to the instrument and tuning at the top of every song, so you can tune without leaving it. It is one instrument for the whole app, so the chord diagrams follow the same choice.</p>
+			<p>The reference pitch can be set on the tab from 415 to 466 Hz, if your band does not tune to A = 440 Hz.</p>
+		</details>
+		<details>
+			<summary><h3>The tuner cannot hear me.</h3></summary>
+			<p>Campfire needs your permission to use the microphone. If you said no, tap <em>Open settings</em> or <em>Ask again</em> on the tuner and allow it; in a browser, allow the microphone in the site settings next to the address. If the microphone is in use by a call or another app, end that first. If the tuner says nothing at all is heard, check that the microphone is not muted, and on a computer that the right input is selected in the system's sound settings. On Windows, Audio enhancements can remove a held note as noise: tap <em>Open sound settings</em> on the tuner and turn them off for your microphone. The reference tones can be played even without a microphone.</p>
+		</details>
+		<details>
+			<summary><h3>Does the tuner record me?</h3></summary>
+			<p>No. The sound is analyzed on your device as it arrives and then thrown away: nothing is recorded, saved, or sent anywhere. The microphone is only on while the tuner is on screen and the app is in front, so your system's recording indicator is lit exactly then. If you never use it, switch off <em>Tuner</em> in <em>Settings → Features</em> and Campfire never asks for the microphone at all.</p>
+		</details>
+		<details>
+			<summary><h3>Which instruments get chord diagrams?</h3></summary>
+			<p>Guitar, ukulele, mandolin, banjo, and keyboard, in standard tuning and in the other tunings the app offers for each, such as drop D or open G on a guitar. Pick your instrument and tuning at the top of any song, on the <em>Chords</em> tab, or in <em>Settings → Songs</em>: it is one choice for the whole app, and the tuner uses it too. Seven- and eight-string guitars, basses, and violin have a tuner but no chord diagrams.</p>
+			<p>To play a chord another way, tap it in a song or on the <em>Chords</em> tab and pick another shape. The one you choose is used in every song, unless a song defines its own.</p>
+		</details>
+		<details>
+			<summary><h3>Why does a tab look different from the one I imported?</h3></summary>
+			<p>Tabs are moved to your instrument and tuning, an octave up or down where a note would leave the neck, and a line under the tab says what was done. A song with tabs for several instruments shows only the one for yours. With a keyboard or a violin picked, tabs are hidden; with <em>Other</em>, they are shown as written. The song's file is never changed.</p>
+		</details>
+		<details>
+			<summary><h3>How do I fill in a song's album, year, or songwriters?</h3></summary>
+			<p>Choose <em>Edit song details</em> in the song's menu, then <em>Find song details online</em>. Campfire searches MusicBrainz and iTunes for recordings matching the title and the artist, and <em>Fill in</em> copies the one you pick into the form; nothing changes until you save. If you'd rather not be offered it, switch off <em>Online song details</em> in <em>Settings → Features</em>.</p>
+		</details>
+		<details>
+			<summary><h3>How do I go through the setup questions again?</h3></summary>
+			<p>Choose <em>Set up Campfire again</em> at the top of <em>Settings → General</em> to pick your look, instrument, chord notation, and features step by step.</p>
+		</details>
+		<details>
+			<summary><h3>Where are my songs stored?</h3></summary>
+			<p>On your device, inside the app's own storage. Campfire has no account and no server: your songs never leave your device unless you share or export them, or turn on sync.</p>
+		</details>
+		<details>
+			<summary><h3>How do I back up my library or move it to another device?</h3></summary>
+			<p>There are two ways:</p>
+			<ul>
+				<li><strong>Export:</strong> choose <em>Export library as zip</em> in the settings and save the archive wherever you like. Import that archive on the other device, or keep it as a backup. Single songs and setlists are shared from their own menus instead.</li>
+				<li><strong>Sync:</strong> connect your Dropbox account in the settings, and Campfire keeps the library the same on every device connected to it, in real time: a change made on one shows up within seconds on the others that have Campfire open. Sync is off until you turn it on.</li>
+			</ul>
+		</details>
+		<details>
+			<summary><h3>How does sync work, and what can Campfire see in my Dropbox?</h3></summary>
+			<p>Campfire only has access to its own folder, <em>Apps/Campfire Sync</em>, and nothing else in your Dropbox. The files go directly between your device and Dropbox. Choosing <em>Disconnect</em> in the settings stops syncing without deleting anything, either on your device or in Dropbox. The <a href="../privacy/">privacy policy</a> has the details.</p>
+		</details>
+		<details>
+			<summary><h3>A sync is asking whether to delete files. What should I do?</h3></summary>
+			<p>Campfire asks before carrying out a sync that would delete many of your files at once, since that usually means a folder was moved or emptied by accident. If you did not mean to delete them, choose the option that keeps them, and they will be copied back.</p>
+		</details>
+		<details>
+			<summary><h3>Can I hide the parts of the app I don't use?</h3></summary>
+			<p>Yes. <em>Settings → Features</em> switches the chords, the chord diagrams (and with them the <em>Chords</em> tab), the metronome, the tuner, setlists, cover art, and the online song details lookup on and off. Switching one off only hides it: nothing is deleted, and it comes back as it was when you switch it on again.</p>
+		</details>
+		<details>
+			<summary><h3>I deleted the demo songs and want them back.</h3></summary>
+			<p>Choose <em>Add the demo library</em> in the <em>Library</em> tab of the settings.</p>
+		</details>
+		<details>
+			<summary><h3>How do I delete my data?</h3></summary>
+			<p>To delete your whole library, open the settings, go to the <em>Library</em> tab, and under <em>On this device</em> tap the row that shows how many songs and setlists you have, then type <em>DELETE</em> and confirm. If Dropbox sync is connected, this also deletes your songs and setlists from the <em>Apps/Campfire Sync</em> folder and from every other device synced with it, so choose <em>Disconnect</em> first if you only want to clear this device. Tapping <em>Cover art cache</em> on the same screen deletes the cover images kept on the device.</p>
+			<p>Uninstalling the app removes everything from the device. If you used sync without deleting your library first, also delete the <em>Apps/Campfire Sync</em> folder in your Dropbox. I hold no copy of your data, so there is nothing for me to delete.</p>
+		</details>
 		<h2>Privacy</h2>
 		<p>Campfire contains no advertising, no analytics, and no tracking, and what the tuner hears never leaves your device. Read the <a href="../privacy/">privacy policy</a> for more information.</p>
 	</main>
