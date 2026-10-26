@@ -27,6 +27,7 @@ assets/icon-192.png   the Play Store icon (`app/android/appIcon.png` in the app'
 assets/demo-cover.png the cover of the app's demo songs, a copy of `app/android/appIcon.png` in the app's repository
 CNAME                 the custom domain, managed by GitHub Pages
 robots.txt            points search engines to the sitemap
+llms.txt              a plain-text summary of the app and its links, for AI assistants (llmstxt.org)
 sitemap.xml           the pages search engines should list: the home page, support, and privacy
 stamp.py              marks the links to every file in assets/ with the file's hash, and writes the support page's FAQ for search engines, see Publishing
 .githooks/pre-commit  runs stamp.py before every commit
