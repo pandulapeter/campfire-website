@@ -4,7 +4,10 @@
 		"target": {
 			"namespace": "android_app",
 			"package_name": "com.pandulapeter.campfire",
-			"sha256_cert_fingerprints": ["BF:4E:38:BB:A7:F8:06:25:AB:FB:0E:B7:84:7E:83:4D:79:A0:A7:97:3B:9D:B2:36:B8:69:2D:87:62:E1:06:79"]
+			"sha256_cert_fingerprints": [
+				"85:93:AA:52:5F:40:AA:A2:A3:E9:82:13:81:6B:04:7F:5E:37:A0:EE:B4:A1:39:14:E4:4C:BF:C8:88:C7:DC:B3",
+				"BF:4E:38:BB:A7:F8:06:25:AB:FB:0E:B7:84:7E:83:4D:79:A0:A7:97:3B:9D:B2:36:B8:69:2D:87:62:E1:06:79"
+			]
 		}
 	}
 ]
