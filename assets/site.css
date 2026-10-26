@@ -60,7 +60,7 @@ a, button { transition: opacity 0.2s, background-color 0.2s, color 0.2s, border-
 }
 /* Without any weight of its own, so buttons, cards, and pill links keep their own shape around the focus ring. */
 :where(a, button):focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; border-radius: 4px; }
-h1, h2, h3 { line-height: 1.2; letter-spacing: -0.02em; text-wrap: balance; }
+h1, h2, h3, h4 { line-height: 1.2; letter-spacing: -0.02em; text-wrap: balance; }
 p, figcaption { text-wrap: pretty; }
 code, kbd { font-family: var(--mono); font-size: 0.9em; }
 
@@ -332,6 +332,8 @@ section > .lead:has(+ .lead) { margin-bottom: 20px; }
 .document h1 { font-size: clamp(32px, 4.4vw, 44px); margin: 0 0 24px; }
 .document h2 { font-size: 24px; margin: 48px 0 12px; }
 .document h3 { font-size: 18px; margin: 32px 0 8px; }
+.document h3.topic { font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--chord); margin: 40px 0 0; }
+.document h4 { font-size: 18px; }
 .document p, .document li { color: var(--muted); }
 .document strong { color: var(--on-background); }
 .document li { margin-bottom: 10px; }
@@ -343,9 +345,9 @@ section > .lead:has(+ .lead) { margin-bottom: 20px; }
 .document summary::-webkit-details-marker { display: none; }
 .document summary::after { content: ""; flex: none; width: 8px; height: 8px; margin-right: 12px; border: solid var(--muted); border-width: 0 2px 2px 0; transform: translateY(-3px) rotate(45deg); transition: transform 0.2s; }
 .document details[open] > summary::after { transform: translateY(2px) rotate(-135deg); }
-.document summary h3 { margin: 0; }
+.document summary h4 { margin: 0; }
 .document summary:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; border-radius: 4px; }
-@media (hover: hover) and (pointer: fine) { .document summary:hover h3 { color: var(--primary); } }
+@media (hover: hover) and (pointer: fine) { .document summary:hover h4 { color: var(--primary); } }
 .document .contact { background: var(--container); border-radius: 20px; padding: 24px; margin: 32px 0; }
 .document .contact h2 { margin-top: 0; }
 .document .contact p:last-child { margin-bottom: 0; }

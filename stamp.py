@@ -35,7 +35,8 @@ def stamp(page):
 def faq(page):
 	text = page.read_text()
 	section = re.search(r"<h2>Frequently asked questions</h2>(.*?)<h2", text, re.S)[1]
-	parts = re.split(r"<h3>(.*?)</h3>", section)[1:]
+	section = re.sub(r"<h3\b[^>]*>.*?</h3>", "", section)
+	parts = re.split(r"<h4>(.*?)</h4>", section)[1:]
 	def plain(fragment):
 		fragment = re.sub(r"</?(?:p|ul|ol|li|br)\b[^>]*>", " ", fragment)
 		return " ".join(html.unescape(re.sub(r"<[^>]+>", "", fragment)).split())
