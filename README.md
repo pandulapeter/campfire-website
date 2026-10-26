@@ -24,6 +24,7 @@ assets/screenshots/   the screenshots of the home page, in a light and a dark ve
 assets/icon.svg       the app icon, for the header and the browser tab
 assets/peter.webp     the photo of the author in the donation card, cropped square to 480 × 480
 assets/icon-192.png   the Play Store icon (`app/android/appIcon.png` in the app's repository), for home screens
+assets/demo-cover.png the cover of the app's demo songs, a copy of `app/android/appIcon.png` in the app's repository
 CNAME                 the custom domain, managed by GitHub Pages
 robots.txt            points search engines to the sitemap
 sitemap.xml           the pages search engines should list: the home page, support, and privacy
