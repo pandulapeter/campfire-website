@@ -338,6 +338,7 @@ section > .lead:has(+ .lead) { margin-bottom: 20px; }
 .document .updated { font-size: 14px; }
 .document details { border-bottom: 1px solid var(--outline-variant); }
 .document details > :last-child { margin-bottom: 20px; }
+.document summary + * { margin-top: 0; }
 .document summary { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 0; cursor: pointer; list-style: none; }
 .document summary::-webkit-details-marker { display: none; }
 .document summary::after { content: ""; flex: none; width: 8px; height: 8px; margin-right: 12px; border: solid var(--muted); border-width: 0 2px 2px 0; transform: translateY(-3px) rotate(45deg); transition: transform 0.2s; }
