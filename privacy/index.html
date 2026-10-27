@@ -7,19 +7,50 @@
 		// The site is in the languages of the picker, each in a folder of its own, and the English pages, at the root,
 		// are also those of every other language. A visitor who lands on one of them is sent to the same page in the
 		// language they last picked in the picker, which is remembered, or else in the first of their browser's languages
-		// the site has. The picker is a <details>, closed by a click anywhere else or by Escape.
+		// the site has. The picker is a <details>, closed by a click anywhere else or by Escape. A page in another language
+		// has the same elements in the same order, only with longer or shorter text, so a visitor who picks one is kept at
+		// the element at the top of the window, as far into it as they were.
 		(function (d, l) {
 			var languages = ["de", "en", "es", "fr", "hu", "it", "ro"];
 			var picked = null;
+			var blocks = "h1, h2, h3, p, li, dt, dd, summary, figure, pre, img";
+			function top() { var header = d.querySelector(".site-header"); return header ? header.getBoundingClientRect().bottom : 0; }
 			try { picked = localStorage.getItem("language"); } catch (e) {}
 			d.addEventListener("click", function (event) {
 				var link = event.target.closest("a[hreflang]");
-				if (link) try { localStorage.setItem("language", link.hreflang); } catch (e) {}
+				if (link) try {
+					localStorage.setItem("language", link.hreflang);
+					sessionStorage.removeItem("position");
+					var line = top();
+					var elements = d.querySelectorAll(blocks);
+					for (var index = 0; scrollY && index < elements.length; index++) {
+						var box = elements[index].getBoundingClientRect();
+						if (box.height && box.bottom > line && !elements[index].closest(".site-header")) {
+							sessionStorage.setItem("position", JSON.stringify([link.pathname, index, (line - box.top) / box.height]));
+							break;
+						}
+					}
+				} catch (e) {}
 				d.querySelectorAll("details.languages[open]").forEach(function (picker) { if (!picker.contains(event.target)) picker.open = false; });
 			});
 			d.addEventListener("keydown", function (event) {
 				if (event.key === "Escape") d.querySelectorAll("details.languages[open]").forEach(function (picker) { picker.open = false; picker.querySelector("summary").focus(); });
 			});
+			var position = null;
+			try { position = JSON.parse(sessionStorage.getItem("position")); sessionStorage.removeItem("position"); } catch (e) {}
+			if (position && position[0] === l.pathname && !l.hash) {
+				var scrolled = null;
+				var restore = function () {
+					if (scrolled !== null && scrolled !== scrollY) return;
+					var element = d.querySelectorAll(blocks)[position[1]];
+					if (!element) return;
+					var box = element.getBoundingClientRect();
+					scrollBy(0, box.top + position[2] * box.height - top());
+					scrolled = scrollY;
+				};
+				d.addEventListener("DOMContentLoaded", restore);
+				addEventListener("load", restore);
+			}
 			if (d.documentElement.lang !== "en") return;
 			var preferred = [picked].concat((navigator.languages || [navigator.language]).map(function (tag) { return String(tag).slice(0, 2).toLowerCase(); }))
 				.filter(function (code) { return languages.indexOf(code) !== -1; })[0];
