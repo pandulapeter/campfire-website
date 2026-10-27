@@ -29,10 +29,10 @@ from urllib.parse import urljoin, urlsplit
 root = pathlib.Path(__file__).resolve().parent
 SITE = "https://campfire-songbook.com/"
 # Each language's code, its name in itself as the picker shows it, its word for "Language", and its locale for Open
-# Graph, in the order of the picker (by code, as the app lists them).
+# Graph, in the order of the picker: English first, then the others by code.
 LANGUAGES = {
-	"de": ("Deutsch", "Sprache", "de_DE"),
 	"en": ("English", "Language", "en_US"),
+	"de": ("Deutsch", "Sprache", "de_DE"),
 	"es": ("Español", "Idioma", "es_ES"),
 	"fr": ("Français", "Langue", "fr_FR"),
 	"hu": ("Magyar", "Nyelv", "hu_HU"),
