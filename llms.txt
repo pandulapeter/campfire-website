@@ -4,11 +4,12 @@
 
 Campfire is made by Péter Pandula and licensed under the Mozilla Public License 2.0. Every song is stored as a plain ChordPro text file on the device, and an optional Dropbox sync keeps the library the same on every device in real time.
 
-- Layout: songs are drawn in as many columns as fit the screen at the chosen text size, with chord diagrams at the top. Pages turn with a tap, a keyboard, or a page-turner pedal. A lyrics-only mode hides the chords for singers, and a read-only mode locks editing on stage.
+- Layout: songs are drawn in as many columns as fit the screen at the chosen text size, with chord diagrams at the top. Pages turn with a tap, a keyboard, or a page-turner pedal. Auto-scroll is the other layout: one column that scrolls by itself, timed to the song's duration, at a speed adjustable per song. A lyrics-only mode hides the chords for singers, and a read-only mode locks editing on stage.
 - Import: paste a song copied from any website, or import ChordPro, plain text, PDF, and Word (.docx) files, zip archives, SongbookPro backups (.sbpbackup and .sbp), OnSong (.onsong) files, OpenSong songs, and ABC tunes. The conversion runs on the device, without an AI model.
 - Setlists: each song's key, capo, and tempo per set, a countdown to the gig, the running time, PDF printing, and sharing as a zip file or as a link with a QR code.
 - Metronome: each song stores its tempo, time signature, and accented beats, and in a set the tempo switches to the next song's on the next bar.
 - Tuner: six-, seven-, eight-, and twelve-string guitar, four- and five-string bass, ukulele, mandolin, banjo, and violin, in many tunings, with a reference pitch from 415 to 466 Hz. The sound is analyzed on the device and never recorded.
+- Sheet music: melodies written in ABC notation are drawn as staff notation, transposed with the song, in its chord notation, and printed in the PDF.
 - Chords and scales: diagrams follow the instrument's tuning, every chord has alternative shapes, and the Scales tab draws every scale and mode in any key. Chords can be shown as letters, German, Latin, Nashville numbers, or Roman numerals.
 - Privacy: no analytics or tracking, and no server: songs leave the device only when shared, exported, or synced.
 
