@@ -1,6 +1,213 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-	<url><loc>https://campfire-songbook.com/</loc></url>
-	<url><loc>https://campfire-songbook.com/support/</loc></url>
-	<url><loc>https://campfire-songbook.com/privacy/</loc></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+	<url>
+		<loc>https://campfire-songbook.com/de/</loc>
+		<xhtml:link rel="alternate" hreflang="de" href="https://campfire-songbook.com/de/"/>
+		<xhtml:link rel="alternate" hreflang="en" href="https://campfire-songbook.com/"/>
+		<xhtml:link rel="alternate" hreflang="es" href="https://campfire-songbook.com/es/"/>
+		<xhtml:link rel="alternate" hreflang="fr" href="https://campfire-songbook.com/fr/"/>
+		<xhtml:link rel="alternate" hreflang="hu" href="https://campfire-songbook.com/hu/"/>
+		<xhtml:link rel="alternate" hreflang="it" href="https://campfire-songbook.com/it/"/>
+		<xhtml:link rel="alternate" hreflang="ro" href="https://campfire-songbook.com/ro/"/>
+	</url>
+	<url>
+		<loc>https://campfire-songbook.com/</loc>
+		<xhtml:link rel="alternate" hreflang="de" href="https://campfire-songbook.com/de/"/>
+		<xhtml:link rel="alternate" hreflang="en" href="https://campfire-songbook.com/"/>
+		<xhtml:link rel="alternate" hreflang="es" href="https://campfire-songbook.com/es/"/>
+		<xhtml:link rel="alternate" hreflang="fr" href="https://campfire-songbook.com/fr/"/>
+		<xhtml:link rel="alternate" hreflang="hu" href="https://campfire-songbook.com/hu/"/>
+		<xhtml:link rel="alternate" hreflang="it" href="https://campfire-songbook.com/it/"/>
+		<xhtml:link rel="alternate" hreflang="ro" href="https://campfire-songbook.com/ro/"/>
+	</url>
+	<url>
+		<loc>https://campfire-songbook.com/es/</loc>
+		<xhtml:link rel="alternate" hreflang="de" href="https://campfire-songbook.com/de/"/>
+		<xhtml:link rel="alternate" hreflang="en" href="https://campfire-songbook.com/"/>
+		<xhtml:link rel="alternate" hreflang="es" href="https://campfire-songbook.com/es/"/>
+		<xhtml:link rel="alternate" hreflang="fr" href="https://campfire-songbook.com/fr/"/>
+		<xhtml:link rel="alternate" hreflang="hu" href="https://campfire-songbook.com/hu/"/>
+		<xhtml:link rel="alternate" hreflang="it" href="https://campfire-songbook.com/it/"/>
+		<xhtml:link rel="alternate" hreflang="ro" href="https://campfire-songbook.com/ro/"/>
+	</url>
+	<url>
+		<loc>https://campfire-songbook.com/fr/</loc>
+		<xhtml:link rel="alternate" hreflang="de" href="https://campfire-songbook.com/de/"/>
+		<xhtml:link rel="alternate" hreflang="en" href="https://campfire-songbook.com/"/>
+		<xhtml:link rel="alternate" hreflang="es" href="https://campfire-songbook.com/es/"/>
+		<xhtml:link rel="alternate" hreflang="fr" href="https://campfire-songbook.com/fr/"/>
+		<xhtml:link rel="alternate" hreflang="hu" href="https://campfire-songbook.com/hu/"/>
+		<xhtml:link rel="alternate" hreflang="it" href="https://campfire-songbook.com/it/"/>
+		<xhtml:link rel="alternate" hreflang="ro" href="https://campfire-songbook.com/ro/"/>
+	</url>
+	<url>
+		<loc>https://campfire-songbook.com/hu/</loc>
+		<xhtml:link rel="alternate" hreflang="de" href="https://campfire-songbook.com/de/"/>
+		<xhtml:link rel="alternate" hreflang="en" href="https://campfire-songbook.com/"/>
+		<xhtml:link rel="alternate" hreflang="es" href="https://campfire-songbook.com/es/"/>
+		<xhtml:link rel="alternate" hreflang="fr" href="https://campfire-songbook.com/fr/"/>
+		<xhtml:link rel="alternate" hreflang="hu" href="https://campfire-songbook.com/hu/"/>
+		<xhtml:link rel="alternate" hreflang="it" href="https://campfire-songbook.com/it/"/>
+		<xhtml:link rel="alternate" hreflang="ro" href="https://campfire-songbook.com/ro/"/>
+	</url>
+	<url>
+		<loc>https://campfire-songbook.com/it/</loc>
+		<xhtml:link rel="alternate" hreflang="de" href="https://campfire-songbook.com/de/"/>
+		<xhtml:link rel="alternate" hreflang="en" href="https://campfire-songbook.com/"/>
+		<xhtml:link rel="alternate" hreflang="es" href="https://campfire-songbook.com/es/"/>
+		<xhtml:link rel="alternate" hreflang="fr" href="https://campfire-songbook.com/fr/"/>
+		<xhtml:link rel="alternate" hreflang="hu" href="https://campfire-songbook.com/hu/"/>
+		<xhtml:link rel="alternate" hreflang="it" href="https://campfire-songbook.com/it/"/>
+		<xhtml:link rel="alternate" hreflang="ro" href="https://campfire-songbook.com/ro/"/>
+	</url>
+	<url>
+		<loc>https://campfire-songbook.com/ro/</loc>
+		<xhtml:link rel="alternate" hreflang="de" href="https://campfire-songbook.com/de/"/>
+		<xhtml:link rel="alternate" hreflang="en" href="https://campfire-songbook.com/"/>
+		<xhtml:link rel="alternate" hreflang="es" href="https://campfire-songbook.com/es/"/>
+		<xhtml:link rel="alternate" hreflang="fr" href="https://campfire-songbook.com/fr/"/>
+		<xhtml:link rel="alternate" hreflang="hu" href="https://campfire-songbook.com/hu/"/>
+		<xhtml:link rel="alternate" hreflang="it" href="https://campfire-songbook.com/it/"/>
+		<xhtml:link rel="alternate" hreflang="ro" href="https://campfire-songbook.com/ro/"/>
+	</url>
+	<url>
+		<loc>https://campfire-songbook.com/de/support/</loc>
+		<xhtml:link rel="alternate" hreflang="de" href="https://campfire-songbook.com/de/support/"/>
+		<xhtml:link rel="alternate" hreflang="en" href="https://campfire-songbook.com/support/"/>
+		<xhtml:link rel="alternate" hreflang="es" href="https://campfire-songbook.com/es/support/"/>
+		<xhtml:link rel="alternate" hreflang="fr" href="https://campfire-songbook.com/fr/support/"/>
+		<xhtml:link rel="alternate" hreflang="hu" href="https://campfire-songbook.com/hu/support/"/>
+		<xhtml:link rel="alternate" hreflang="it" href="https://campfire-songbook.com/it/support/"/>
+		<xhtml:link rel="alternate" hreflang="ro" href="https://campfire-songbook.com/ro/support/"/>
+	</url>
+	<url>
+		<loc>https://campfire-songbook.com/support/</loc>
+		<xhtml:link rel="alternate" hreflang="de" href="https://campfire-songbook.com/de/support/"/>
+		<xhtml:link rel="alternate" hreflang="en" href="https://campfire-songbook.com/support/"/>
+		<xhtml:link rel="alternate" hreflang="es" href="https://campfire-songbook.com/es/support/"/>
+		<xhtml:link rel="alternate" hreflang="fr" href="https://campfire-songbook.com/fr/support/"/>
+		<xhtml:link rel="alternate" hreflang="hu" href="https://campfire-songbook.com/hu/support/"/>
+		<xhtml:link rel="alternate" hreflang="it" href="https://campfire-songbook.com/it/support/"/>
+		<xhtml:link rel="alternate" hreflang="ro" href="https://campfire-songbook.com/ro/support/"/>
+	</url>
+	<url>
+		<loc>https://campfire-songbook.com/es/support/</loc>
+		<xhtml:link rel="alternate" hreflang="de" href="https://campfire-songbook.com/de/support/"/>
+		<xhtml:link rel="alternate" hreflang="en" href="https://campfire-songbook.com/support/"/>
+		<xhtml:link rel="alternate" hreflang="es" href="https://campfire-songbook.com/es/support/"/>
+		<xhtml:link rel="alternate" hreflang="fr" href="https://campfire-songbook.com/fr/support/"/>
+		<xhtml:link rel="alternate" hreflang="hu" href="https://campfire-songbook.com/hu/support/"/>
+		<xhtml:link rel="alternate" hreflang="it" href="https://campfire-songbook.com/it/support/"/>
+		<xhtml:link rel="alternate" hreflang="ro" href="https://campfire-songbook.com/ro/support/"/>
+	</url>
+	<url>
+		<loc>https://campfire-songbook.com/fr/support/</loc>
+		<xhtml:link rel="alternate" hreflang="de" href="https://campfire-songbook.com/de/support/"/>
+		<xhtml:link rel="alternate" hreflang="en" href="https://campfire-songbook.com/support/"/>
+		<xhtml:link rel="alternate" hreflang="es" href="https://campfire-songbook.com/es/support/"/>
+		<xhtml:link rel="alternate" hreflang="fr" href="https://campfire-songbook.com/fr/support/"/>
+		<xhtml:link rel="alternate" hreflang="hu" href="https://campfire-songbook.com/hu/support/"/>
+		<xhtml:link rel="alternate" hreflang="it" href="https://campfire-songbook.com/it/support/"/>
+		<xhtml:link rel="alternate" hreflang="ro" href="https://campfire-songbook.com/ro/support/"/>
+	</url>
+	<url>
+		<loc>https://campfire-songbook.com/hu/support/</loc>
+		<xhtml:link rel="alternate" hreflang="de" href="https://campfire-songbook.com/de/support/"/>
+		<xhtml:link rel="alternate" hreflang="en" href="https://campfire-songbook.com/support/"/>
+		<xhtml:link rel="alternate" hreflang="es" href="https://campfire-songbook.com/es/support/"/>
+		<xhtml:link rel="alternate" hreflang="fr" href="https://campfire-songbook.com/fr/support/"/>
+		<xhtml:link rel="alternate" hreflang="hu" href="https://campfire-songbook.com/hu/support/"/>
+		<xhtml:link rel="alternate" hreflang="it" href="https://campfire-songbook.com/it/support/"/>
+		<xhtml:link rel="alternate" hreflang="ro" href="https://campfire-songbook.com/ro/support/"/>
+	</url>
+	<url>
+		<loc>https://campfire-songbook.com/it/support/</loc>
+		<xhtml:link rel="alternate" hreflang="de" href="https://campfire-songbook.com/de/support/"/>
+		<xhtml:link rel="alternate" hreflang="en" href="https://campfire-songbook.com/support/"/>
+		<xhtml:link rel="alternate" hreflang="es" href="https://campfire-songbook.com/es/support/"/>
+		<xhtml:link rel="alternate" hreflang="fr" href="https://campfire-songbook.com/fr/support/"/>
+		<xhtml:link rel="alternate" hreflang="hu" href="https://campfire-songbook.com/hu/support/"/>
+		<xhtml:link rel="alternate" hreflang="it" href="https://campfire-songbook.com/it/support/"/>
+		<xhtml:link rel="alternate" hreflang="ro" href="https://campfire-songbook.com/ro/support/"/>
+	</url>
+	<url>
+		<loc>https://campfire-songbook.com/ro/support/</loc>
+		<xhtml:link rel="alternate" hreflang="de" href="https://campfire-songbook.com/de/support/"/>
+		<xhtml:link rel="alternate" hreflang="en" href="https://campfire-songbook.com/support/"/>
+		<xhtml:link rel="alternate" hreflang="es" href="https://campfire-songbook.com/es/support/"/>
+		<xhtml:link rel="alternate" hreflang="fr" href="https://campfire-songbook.com/fr/support/"/>
+		<xhtml:link rel="alternate" hreflang="hu" href="https://campfire-songbook.com/hu/support/"/>
+		<xhtml:link rel="alternate" hreflang="it" href="https://campfire-songbook.com/it/support/"/>
+		<xhtml:link rel="alternate" hreflang="ro" href="https://campfire-songbook.com/ro/support/"/>
+	</url>
+	<url>
+		<loc>https://campfire-songbook.com/de/privacy/</loc>
+		<xhtml:link rel="alternate" hreflang="de" href="https://campfire-songbook.com/de/privacy/"/>
+		<xhtml:link rel="alternate" hreflang="en" href="https://campfire-songbook.com/privacy/"/>
+		<xhtml:link rel="alternate" hreflang="es" href="https://campfire-songbook.com/es/privacy/"/>
+		<xhtml:link rel="alternate" hreflang="fr" href="https://campfire-songbook.com/fr/privacy/"/>
+		<xhtml:link rel="alternate" hreflang="hu" href="https://campfire-songbook.com/hu/privacy/"/>
+		<xhtml:link rel="alternate" hreflang="it" href="https://campfire-songbook.com/it/privacy/"/>
+		<xhtml:link rel="alternate" hreflang="ro" href="https://campfire-songbook.com/ro/privacy/"/>
+	</url>
+	<url>
+		<loc>https://campfire-songbook.com/privacy/</loc>
+		<xhtml:link rel="alternate" hreflang="de" href="https://campfire-songbook.com/de/privacy/"/>
+		<xhtml:link rel="alternate" hreflang="en" href="https://campfire-songbook.com/privacy/"/>
+		<xhtml:link rel="alternate" hreflang="es" href="https://campfire-songbook.com/es/privacy/"/>
+		<xhtml:link rel="alternate" hreflang="fr" href="https://campfire-songbook.com/fr/privacy/"/>
+		<xhtml:link rel="alternate" hreflang="hu" href="https://campfire-songbook.com/hu/privacy/"/>
+		<xhtml:link rel="alternate" hreflang="it" href="https://campfire-songbook.com/it/privacy/"/>
+		<xhtml:link rel="alternate" hreflang="ro" href="https://campfire-songbook.com/ro/privacy/"/>
+	</url>
+	<url>
+		<loc>https://campfire-songbook.com/es/privacy/</loc>
+		<xhtml:link rel="alternate" hreflang="de" href="https://campfire-songbook.com/de/privacy/"/>
+		<xhtml:link rel="alternate" hreflang="en" href="https://campfire-songbook.com/privacy/"/>
+		<xhtml:link rel="alternate" hreflang="es" href="https://campfire-songbook.com/es/privacy/"/>
+		<xhtml:link rel="alternate" hreflang="fr" href="https://campfire-songbook.com/fr/privacy/"/>
+		<xhtml:link rel="alternate" hreflang="hu" href="https://campfire-songbook.com/hu/privacy/"/>
+		<xhtml:link rel="alternate" hreflang="it" href="https://campfire-songbook.com/it/privacy/"/>
+		<xhtml:link rel="alternate" hreflang="ro" href="https://campfire-songbook.com/ro/privacy/"/>
+	</url>
+	<url>
+		<loc>https://campfire-songbook.com/fr/privacy/</loc>
+		<xhtml:link rel="alternate" hreflang="de" href="https://campfire-songbook.com/de/privacy/"/>
+		<xhtml:link rel="alternate" hreflang="en" href="https://campfire-songbook.com/privacy/"/>
+		<xhtml:link rel="alternate" hreflang="es" href="https://campfire-songbook.com/es/privacy/"/>
+		<xhtml:link rel="alternate" hreflang="fr" href="https://campfire-songbook.com/fr/privacy/"/>
+		<xhtml:link rel="alternate" hreflang="hu" href="https://campfire-songbook.com/hu/privacy/"/>
+		<xhtml:link rel="alternate" hreflang="it" href="https://campfire-songbook.com/it/privacy/"/>
+		<xhtml:link rel="alternate" hreflang="ro" href="https://campfire-songbook.com/ro/privacy/"/>
+	</url>
+	<url>
+		<loc>https://campfire-songbook.com/hu/privacy/</loc>
+		<xhtml:link rel="alternate" hreflang="de" href="https://campfire-songbook.com/de/privacy/"/>
+		<xhtml:link rel="alternate" hreflang="en" href="https://campfire-songbook.com/privacy/"/>
+		<xhtml:link rel="alternate" hreflang="es" href="https://campfire-songbook.com/es/privacy/"/>
+		<xhtml:link rel="alternate" hreflang="fr" href="https://campfire-songbook.com/fr/privacy/"/>
+		<xhtml:link rel="alternate" hreflang="hu" href="https://campfire-songbook.com/hu/privacy/"/>
+		<xhtml:link rel="alternate" hreflang="it" href="https://campfire-songbook.com/it/privacy/"/>
+		<xhtml:link rel="alternate" hreflang="ro" href="https://campfire-songbook.com/ro/privacy/"/>
+	</url>
+	<url>
+		<loc>https://campfire-songbook.com/it/privacy/</loc>
+		<xhtml:link rel="alternate" hreflang="de" href="https://campfire-songbook.com/de/privacy/"/>
+		<xhtml:link rel="alternate" hreflang="en" href="https://campfire-songbook.com/privacy/"/>
+		<xhtml:link rel="alternate" hreflang="es" href="https://campfire-songbook.com/es/privacy/"/>
+		<xhtml:link rel="alternate" hreflang="fr" href="https://campfire-songbook.com/fr/privacy/"/>
+		<xhtml:link rel="alternate" hreflang="hu" href="https://campfire-songbook.com/hu/privacy/"/>
+		<xhtml:link rel="alternate" hreflang="it" href="https://campfire-songbook.com/it/privacy/"/>
+		<xhtml:link rel="alternate" hreflang="ro" href="https://campfire-songbook.com/ro/privacy/"/>
+	</url>
+	<url>
+		<loc>https://campfire-songbook.com/ro/privacy/</loc>
+		<xhtml:link rel="alternate" hreflang="de" href="https://campfire-songbook.com/de/privacy/"/>
+		<xhtml:link rel="alternate" hreflang="en" href="https://campfire-songbook.com/privacy/"/>
+		<xhtml:link rel="alternate" hreflang="es" href="https://campfire-songbook.com/es/privacy/"/>
+		<xhtml:link rel="alternate" hreflang="fr" href="https://campfire-songbook.com/fr/privacy/"/>
+		<xhtml:link rel="alternate" hreflang="hu" href="https://campfire-songbook.com/hu/privacy/"/>
+		<xhtml:link rel="alternate" hreflang="it" href="https://campfire-songbook.com/it/privacy/"/>
+		<xhtml:link rel="alternate" hreflang="ro" href="https://campfire-songbook.com/ro/privacy/"/>
+	</url>
 </urlset>

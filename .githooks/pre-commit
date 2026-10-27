@@ -1,9 +1,13 @@
 #!/bin/sh
-# Runs stamp.py before every commit and stages what it changes, so a changed asset never goes out under its old link. A
-# page that also has changes left unstaged is not staged for you: the commit stops so that you can stage it yourself.
+# Runs stamp.py before every commit and stages what it changes, so a changed asset never goes out under its old link and
+# the pages of the other languages never fall behind the English ones. A page that also has changes left unstaged is not
+# staged for you: the commit stops so that you can stage it yourself. The pages of the other languages are only ever
+# written by localize.py, so whatever differs in them is staged, unless an English page or a translation they are made
+# from has changes left unstaged, which would put those changes in the other languages before they are in the commit.
 cd "$(git rev-parse --show-toplevel)" || exit 1
-pages="assets/site.css index.html support/index.html privacy/index.html 404.html s/index.html"
-unstaged=$(git diff --name-only -- $pages)
+pages="assets/site.css index.html support/index.html privacy/index.html 404.html s/index.html sitemap.xml"
+languages="de es fr hu it ro"
+unstaged=$(git diff --name-only -- $pages i18n)
 before=$(for page in $pages; do echo "$page $(git hash-object "$page")"; done)
 python3 stamp.py > /dev/null || exit 1
 blocked=""
@@ -11,7 +15,10 @@ for page in $pages; do
 	printf '%s\n' "$before" | grep -qxF "$page $(git hash-object "$page")" && continue
 	if printf '%s\n' "$unstaged" | grep -qxF "$page"; then blocked="$blocked $page"; else git add "$page"; fi
 done
+for page in $(git status --porcelain --untracked-files=all -- $languages | cut -c4-); do
+	if [ -n "$unstaged" ]; then blocked="$blocked $page"; else git add "$page"; fi
+done
 if [ -n "$blocked" ]; then
-	echo "stamp.py updated the links in$blocked, which also has unstaged changes. Stage it and commit again."
+	echo "stamp.py updated$blocked, but what it is made from has unstaged changes. Stage them and commit again."
 	exit 1
 fi

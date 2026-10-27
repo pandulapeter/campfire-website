@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="fr">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script>
+		// The site is in the languages of the picker, each in a folder of its own, and the English pages, at the root,
+		// are also those of every other language. A visitor who lands on one of them is sent to the same page in the
+		// language they last picked in the picker, which is remembered, or else in the first of their browser's languages
+		// the site has. The picker is a <details>, closed by a click anywhere else or by Escape.
+		(function (d, l) {
+			var languages = ["de", "en", "es", "fr", "hu", "it", "ro"];
+			var picked = null;
+			try { picked = localStorage.getItem("language"); } catch (e) {}
+			d.addEventListener("click", function (event) {
+				var link = event.target.closest("a[hreflang]");
+				if (link) try { localStorage.setItem("language", link.hreflang); } catch (e) {}
+				d.querySelectorAll("details.languages[open]").forEach(function (picker) { if (!picker.contains(event.target)) picker.open = false; });
+			});
+			d.addEventListener("keydown", function (event) {
+				if (event.key === "Escape") d.querySelectorAll("details.languages[open]").forEach(function (picker) { picker.open = false; picker.querySelector("summary").focus(); });
+			});
+			if (d.documentElement.lang !== "en") return;
+			var preferred = [picked].concat((navigator.languages || [navigator.language]).map(function (tag) { return String(tag).slice(0, 2).toLowerCase(); }))
+				.filter(function (code) { return languages.indexOf(code) !== -1; })[0];
+			if (preferred && preferred !== "en") l.replace("/" + preferred + l.pathname + l.search + l.hash);
+		}(document, location));
+	</script>
+	<title>Assistance – Campfire</title>
+	<meta name="description" content="Réponses aux questions fréquentes sur Campfire, et comment me contacter.">
+	<link rel="canonical" href="https://campfire-songbook.com/fr/support/">
+	<link rel="alternate" hreflang="de" href="https://campfire-songbook.com/de/support/">
+	<link rel="alternate" hreflang="en" href="https://campfire-songbook.com/support/">
+	<link rel="alternate" hreflang="es" href="https://campfire-songbook.com/es/support/">
+	<link rel="alternate" hreflang="fr" href="https://campfire-songbook.com/fr/support/">
+	<link rel="alternate" hreflang="hu" href="https://campfire-songbook.com/hu/support/">
+	<link rel="alternate" hreflang="it" href="https://campfire-songbook.com/it/support/">
+	<link rel="alternate" hreflang="ro" href="https://campfire-songbook.com/ro/support/">
+	<link rel="alternate" hreflang="x-default" href="https://campfire-songbook.com/support/">
+	<meta name="theme-color" content="#FAF8FE" media="(prefers-color-scheme: light)">
+	<meta name="theme-color" content="#15121C" media="(prefers-color-scheme: dark)">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="Campfire">
+	<meta property="og:locale" content="fr_FR">
+	<meta property="og:url" content="https://campfire-songbook.com/fr/support/">
+	<meta property="og:title" content="Assistance – Campfire">
+	<meta property="og:description" content="Réponses aux questions fréquentes sur Campfire, et comment me contacter.">
+	<meta property="og:image" content="https://campfire-songbook.com/assets/og-image.jpg?v=a569ced8">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:image:alt" content="Campfire sur un ordinateur portable et un téléphone">
+	<meta name="twitter:card" content="summary_large_image">
+	<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "FAQPage",
+		"mainEntity": [
+			{
+				"@type": "Question",
+				"name": "Campfire est-il gratuit ?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Oui. Il n’a ni pub, ni abonnement, ni achats intégrés, ni limite de chansons, et aucun compte à créer. Il est open source sous licence Mozilla Public License 2.0, avec son code source sur GitHub, et ce sont les dons qui le font vivre."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Sur quelles plateformes Campfire fonctionne-t-il ?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Android, iOS, iPadOS, Windows, macOS et Linux, ainsi que n’importe quel navigateur récent, sans rien installer. C’est la même app partout, et une bibliothèque synchronisée via Dropbox reste identique sur chacune. La version navigateur reçoit les nouvelles fonctionnalités en premier, et les autres peuvent mettre quelques jours à suivre. La section Téléchargement donne le lien de chaque version."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Campfire fonctionne-t-il hors ligne ?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Oui. Tes chansons et tes setlists sont stockées sur ton appareil : tout ce que tu utilises sur scène fonctionne sans connexion, métronome et accordeur compris. L’app web s’ouvre aussi hors ligne, une fois qu’elle a été ouverte en ligne. Une connexion n’est nécessaire que pour la synchronisation Dropbox, les liens de partage et la recherche des infos et des pochettes de chansons."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Comment refaire les questions de configuration ?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Choisis Reconfigurer Campfire en haut de Réglages → Général pour choisir ton apparence, ton instrument, ta notation des accords et tes fonctionnalités, étape par étape."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Puis-je masquer les parties de l’app que je n’utilise pas ?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Oui. Réglages → Fonctionnalités active ou désactive les accords, les diagrammes d’accords (et avec eux l’onglet Accords), le métronome, l’accordeur, les setlists, les pochettes et la recherche d’infos de chansons en ligne. Désactiver un élément ne fait que le masquer : rien n’est supprimé, et il revient tel quel quand tu le réactives."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Comment ajouter des chansons ?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Il y a quatre façons : Coller : copie les accords et les paroles d’une chanson depuis n’importe quel site, même en désordre, et choisis Coller depuis le presse-papiers dans le menu Nouveau de la liste des chansons, ou appuie sur Ctrl+V (⌘V sur Mac) dans cette liste. Campfire met le texte en forme en une chanson et l’ouvre dans l’éditeur : vérifie le titre et l’artiste, puis enregistre. Partager : sur Android, iOS et iPadOS, partage vers Campfire le texte d’une grille d’accords, ou un fichier, depuis une autre app. Une adresse web partagée n’est pas ouverte : partage plutôt le texte de la page. Importer : choisis Importer des chansons, documents ou archives zip… dans l’onglet Bibliothèque des réglages, ou fais glisser des fichiers sur l’app. Campfire lit les fichiers ChordPro (.cho, .chopro, .chordpro, .crd, .chord et .pro), le texte brut .txt, les documents PDF et Word .docx, les archives zip qui les contiennent et les sauvegardes exportées d’autres apps de recueil. Avant que quoi que ce soit ne soit écrit, tu vois ce que contient l’import, tu peux écarter des fichiers, et tu choisis si une chanson dont le nom est déjà pris est numérotée ou remplace la tienne. Écrire : crée une chanson dans l’éditeur intégré de l’app."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Puis-je transférer ma bibliothèque depuis OnSong, SongbookPro ou OpenSong ?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Oui. Campfire importe les sauvegardes .sbpbackup et les sets .sbp de SongbookPro, les fichiers .onsong d’OnSong, les chansons OpenSong, les airs ABC, les fichiers ChordPro de n’importe quelle app et les chansons des exports JSON d’autres apps. Mets de nombreux fichiers dans une archive zip pour les transférer en une fois. Chaque chanson devient un fichier ChordPro, et les sets de SongbookPro deviennent des setlists."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Puis-je importer une grille d’accords PDF ou Word ?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Oui. Importe un .pdf ou un .docx avec le sélecteur de fichiers, par glisser-déposer ou dans une archive zip ; sur Android, iOS et iPadOS, tu peux aussi le partager vers Campfire. Les fichiers texte, et le texte que tu colles ou partages, passent par la même conversion. Campfire extrait le texte et fait de son mieux pour placer les accords au-dessus des paroles et reconnaître les sections, un titre et les indications de jeu. Tout se passe sur ton appareil, sans service ni modèle d’IA. Le document d’origine n’est pas conservé. Le résultat est une chanson ordinaire de ta bibliothèque, et le message d’import t’indique combien de chansons ont été converties. Mieux vaut les vérifier dans l’éditeur, surtout quand la mise en page d’origine est inhabituelle. Un document contenant plusieurs chansons aux titres clairs peut être découpé en plusieurs chansons. Les pages scannées, les PDF protégés et les anciens fichiers .doc ne peuvent pas être lus : utilise un PDF au texte sélectionnable ou enregistre le fichier Word en .docx. Les PDF que Campfire partage sont des images destinées à l’impression : pour passer des chansons d’une bibliothèque à l’autre, partage-les en fichiers ChordPro ou zip."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "J’ai supprimé les chansons de démonstration et je veux les récupérer.",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Choisis Ajouter la bibliothèque de démonstration dans l’onglet Bibliothèque des réglages."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Comment modifier plusieurs chansons à la fois ?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Ouvre le menu de l’une d’elles (touche ses trois points, fais un appui long dessus ou, sur ordinateur, un clic droit) et choisis Sélection multiple. Coche les autres, ou utilise Tout sélectionner sur ce qu’affichent la recherche et les filtres, puis ajoute-leur des étiquettes, ajoute-les à des setlists, définis leur langue ou partage-les ensemble. Choisis OK quand tu as terminé. Les chansons ne sont jamais supprimées en masse."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Comment renseigner l’album, l’année ou les auteurs-compositeurs d’une chanson ?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Choisis Modifier les infos de la chanson dans le menu de la chanson, puis Chercher les infos de la chanson en ligne. Campfire cherche sur MusicBrainz et iTunes les enregistrements qui correspondent au titre et à l’artiste, et Remplir copie celui que tu choisis dans le formulaire ; rien ne change tant que tu n’enregistres pas. Si tu préfères qu’on ne te le propose pas, désactive Infos de chanson en ligne dans Réglages → Fonctionnalités."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Comment envoyer une setlist à mon groupe ?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Partage-la sous forme de lien. Choisis Partager la setlist dans le menu de la setlist, choisis Lien, puis Créer le lien, et envoie le lien ou montre son code QR. N’importe qui peut l’ouvrir : si Campfire est installé, le lien ouvre l’import, qui affiche la setlist et ses chansons avant d’ajouter quoi que ce soit ; sans Campfire, la page du lien aide à l’installer sur l’appareil, ou ouvre la setlist dans l’app web. Une chanson seule se partage de la même façon, avec Partager la chanson. Les liens sont créés dans ton Dropbox : le premier te demande donc de le connecter, ce qui synchronise aussi ta bibliothèque. Un lien donne toujours la dernière version : quand tu modifies la setlist ou ses chansons, les membres de ton groupe rouvrent le même lien pour mettre à jour leurs copies. Réglages → Partage liste tout ce que tu partages, et Arrêter le partage désactive un lien."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Campfire fonctionne-t-il avec une pédale tourne-page ?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Oui. Associe la pédale à ton téléphone, ta tablette ou ton ordinateur : les pédales qui envoient les touches fléchées et celles qui envoient Page Up et Page Down fonctionnent toutes. Haut et bas font défiler la chanson et, dans une setlist, gauche et droite passent à la chanson précédente ou suivante. Un clavier fait de même."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Quels instruments ont des diagrammes d’accords ?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Guitare, ukulélé, mandoline, banjo et clavier, en accordage standard et dans les autres accordages que l’app propose pour chacun, comme le drop D ou l’open G à la guitare. Choisis ton instrument et ton accordage en haut de n’importe quelle chanson ou dans l’onglet Accords : c’est un seul choix pour toute l’app, et l’accordeur l’utilise aussi. Les guitares à sept et huit cordes, les basses et le violon ont un accordeur, mais pas de diagrammes d’accords. Pour jouer un accord autrement, touche-le dans une chanson ou dans l’onglet Accords et choisis un autre doigté. Celui que tu choisis est utilisé dans toutes les chansons, sauf si une chanson définit le sien."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Pourquoi une tablature est-elle différente de celle que j’ai importée ?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Les tablatures sont adaptées à ton instrument et à ton accordage, une octave plus haut ou plus bas quand une note sortirait du manche, et une ligne sous la tablature indique ce qui a été fait. Une chanson qui a des tablatures pour plusieurs instruments n’affiche que celle du tien. Si tu as choisi le clavier ou le violon, les tablatures sont masquées ; avec Autre, elles s’affichent telles qu’écrites. Le fichier de la chanson n’est jamais modifié."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Comment utiliser l’accordeur ?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Ouvre l’Accordeur (sous Outils quand il n’y a pas de place pour tous les onglets) et choisis ton instrument et son accordage. Si tu l’ouvres en le touchant, il demande l’accès au micro la première fois ; sinon, touche Utiliser le micro. Joue une corde à la fois : la note jouée s’affiche avec le nombre de cents dont elle est trop basse ou trop haute, et chaque corde est cochée une fois juste. Touche une corde pour entendre sa note à la place. L’accordeur est aussi un bouton à côté de l’instrument et de l’accordage en haut de chaque chanson : tu peux t’accorder sans la quitter. C’est un seul instrument pour toute l’app, donc les diagrammes d’accords suivent le même choix. Le diapason se règle dans l’onglet, de 415 à 466 Hz, si ton groupe ne s’accorde pas sur A = 440 Hz."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "L’accordeur ne m’entend pas.",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Campfire a besoin de ton autorisation pour utiliser le micro. Si tu as refusé, touche Ouvrir les paramètres ou Redemander dans l’accordeur et autorise-le ; dans un navigateur, autorise le micro dans les paramètres du site, à côté de l’adresse. Si le micro est utilisé par un appel ou une autre app, termine-les d’abord. Si l’accordeur n’entend rien du tout, vérifie que le micro n’est pas coupé et, sur ordinateur, que la bonne entrée est sélectionnée dans les paramètres de son du système. Sous Windows, les améliorations audio peuvent supprimer une note tenue en la prenant pour du bruit : touche Paramètres de son dans l’accordeur et désactive-les pour ton micro. Les sons de référence peuvent être joués même sans micro."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "L’accordeur m’enregistre-t-il ?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Non. Le son est analysé sur ton appareil au fur et à mesure, puis jeté : rien n’est enregistré, conservé ni envoyé nulle part. Le micro n’est actif que lorsque l’accordeur est à l’écran et que l’app est au premier plan : le témoin d’enregistrement de ton système s’allume donc exactement à ce moment-là. Si tu ne l’utilises jamais, désactive Accordeur dans Réglages → Fonctionnalités et Campfire ne demandera jamais l’accès au micro."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Où sont stockées mes chansons ?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Sur ton appareil, dans le stockage propre à l’app. Campfire n’a ni compte ni serveur : tes chansons ne quittent jamais ton appareil, sauf si tu les partages, les exportes ou actives la synchronisation."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Comment sauvegarder ma bibliothèque ou la transférer sur un autre appareil ?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Il y a deux façons : Exporter : choisis Exporter la bibliothèque en zip dans les réglages et enregistre l’archive où tu veux. Importe cette archive sur l’autre appareil, ou garde-la comme sauvegarde. Les chansons et setlists individuelles se partagent plutôt depuis leurs propres menus. Synchroniser : connecte ton compte Dropbox dans les réglages, et Campfire garde la même bibliothèque sur tous les appareils qui y sont connectés, en temps réel : une modification faite sur l’un apparaît en quelques secondes sur les autres où Campfire est ouvert. La synchronisation reste désactivée tant que tu ne l’actives pas."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Comment fonctionne la synchronisation, et que peut voir Campfire dans mon Dropbox ?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Campfire n’a accès qu’à son propre dossier, Apps/Campfire Sync, et à rien d’autre dans ton Dropbox. Les fichiers transitent directement entre ton appareil et Dropbox. Choisir Déconnecter dans les réglages arrête la synchronisation sans rien supprimer, ni sur ton appareil ni dans Dropbox. La politique de confidentialité donne les détails."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Une synchronisation me demande s’il faut supprimer des fichiers. Que faire ?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Campfire demande confirmation avant d’effectuer une synchronisation qui supprimerait beaucoup de tes fichiers d’un coup, car cela signifie généralement qu’un dossier a été déplacé ou vidé par erreur. Si tu ne voulais pas les supprimer, choisis l’option qui les conserve : ils seront recopiés."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Comment supprimer mes données ?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Pour supprimer toute ta bibliothèque, ouvre les réglages, va dans l’onglet Bibliothèque et, sous Sur cet appareil, touche la ligne qui indique combien de chansons et de setlists tu as, puis saisis DELETE et confirme. Si la synchronisation Dropbox est connectée, cela supprime aussi tes chansons et setlists du dossier Apps/Campfire Sync et de tous les autres appareils synchronisés avec lui : choisis donc d’abord Déconnecter si tu veux seulement vider cet appareil. Toucher Cache des pochettes sur le même écran supprime les images de pochettes conservées sur l’appareil. Désinstaller l’app supprime tout de l’appareil. Si tu as utilisé la synchronisation sans supprimer d’abord ta bibliothèque, supprime aussi le dossier Apps/Campfire Sync de ton Dropbox. Je ne détiens aucune copie de tes données : je n’ai donc rien à supprimer."
+				}
+			}
+		]
+	}
+	</script>
+	<link rel="icon" href="../../assets/icon.svg?v=8ba29e56" type="image/svg+xml">
+	<link rel="apple-touch-icon" href="../../assets/icon-192.png?v=0f2be8ac">
+	<link rel="stylesheet" href="../../assets/site.css?v=128df0b0">
+	<script>
+		// Every visitor is offered two versions: a phone or a tablet the app from its store first and the web app second,
+		// a computer the other way around. The script names the system: the stylesheet shows the elements marked
+		// for-mobile instead of for-desktop on a phone or a tablet, every link marked data-native goes to the system's own
+		// version, and one marked data-native-label is also named after it. iPadOS presents itself as a Mac, so an iPad is
+		// told apart by its touch screen. Without a match, the links lead to the list of every platform.
+		(function (d) {
+			var agent = navigator.userAgent;
+			var os = /Android/.test(agent) ? "android" : /iPhone|iPad|iPod/.test(agent) || (/Macintosh/.test(agent) && navigator.maxTouchPoints > 1) ? "ios" : /Windows/.test(agent) ? "windows" : /Macintosh/.test(agent) ? "macos" : /Linux/.test(agent) ? "linux" : "";
+			var native = {
+				android: ["https://play.google.com/store/apps/details?id=com.pandulapeter.campfire", "Disponible sur Google Play"],
+				ios: ["https://apps.apple.com/app/id6815160850", "Télécharger dans l’App Store"],
+				windows: ["https://apps.microsoft.com/detail/9MSR62F288M1", "Télécharger pour Windows"],
+				macos: ["https://apps.apple.com/app/id6815160850", "Télécharger pour macOS"],
+				linux: ["https://github.com/pandulapeter/campfire/releases/latest", "Télécharger pour Linux"]
+			}[os];
+			if (!native) return;
+			d.documentElement.dataset.os = os;
+			if (os === "android" || os === "ios") d.documentElement.dataset.mobile = "";
+			d.addEventListener("DOMContentLoaded", function () {
+				d.querySelectorAll("[data-native]").forEach(function (link) {
+					link.href = native[0];
+					link.target = "_blank";
+					link.rel = "noopener";
+					if (link.hasAttribute("data-native-label")) link.textContent = native[1];
+				});
+			});
+		}(document));
+	</script>
+</head>
+<body>
+<a class="skip" href="#main">Aller au contenu</a>
+<header class="site-header">
+	<div class="wrap">
+		<a class="brand" translate="no" href="../"><img src="../../assets/icon.svg?v=8ba29e56" alt="">Campfire</a>
+		<nav aria-label="Principal">
+			<a class="optional" href="../#download">Télécharger</a>
+			<a class="optional" href="./" aria-current="page">Assistance</a>
+			<a class="optional" href="../privacy/">Confidentialité</a>
+			<details class="languages" translate="no">
+				<summary aria-label="Langue: Français"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.8 3.9 6 3.9 9.5s-1.3 6.7-3.9 9.5c-2.6-2.8-3.9-6-3.9-9.5s1.3-6.7 3.9-9.5Z"/></svg><span>FR</span></summary>
+				<ul>
+					<li><a href="../../de/support/" hreflang="de" lang="de">Deutsch</a></li>
+					<li><a href="../../support/" hreflang="en" lang="en">English</a></li>
+					<li><a href="../../es/support/" hreflang="es" lang="es">Español</a></li>
+					<li><a href="./" hreflang="fr" lang="fr" aria-current="true">Français</a></li>
+					<li><a href="../../hu/support/" hreflang="hu" lang="hu">Magyar</a></li>
+					<li><a href="../../it/support/" hreflang="it" lang="it">Italiano</a></li>
+					<li><a href="../../ro/support/" hreflang="ro" lang="ro">Română</a></li>
+				</ul>
+			</details>
+			<a class="button small for-desktop" href="../../app/" target="_blank" rel="noopener">Ouvrir l’app web</a>
+			<a class="button small for-mobile" href="../#download" data-native>Télécharger l’app</a>
+		</nav>
+	</div>
+</header>
+<div class="wrap">
+
+	<main class="document" id="main">
+		<h1>Assistance</h1>
+		<p>Campfire est une app gratuite pour afficher et modifier les paroles et les accords de chansons, disponible sur Android, iOS, iPadOS, macOS, Windows, Linux et le web. Cette page répond aux questions les plus fréquentes et t’explique comment me joindre si la tienne n’y figure pas.</p>
+		<div class="contact">
+		<h2>Me contacter</h2>
+		<p>Si tu as une question, un problème ou une idée pour l’app, <a href="mailto:pandulapeter@gmail.com?Subject=Campfire%20support" target="_top">écris-moi à pandulapeter@gmail.com</a>. Indique l’appareil et la version de Campfire que tu utilises (tu la trouves dans l’onglet À propos des réglages de l’app). Je lis chaque message et réponds généralement en quelques jours.</p>
+		<p>Si tu as un compte GitHub, tu peux aussi <a href="https://github.com/pandulapeter/campfire/issues" target="_blank" rel="noopener">signaler un problème sur GitHub</a>, où se trouve aussi le code source de l’app.</p>
+		</div>
+		<h2 id="faq">Questions fréquentes</h2>
+		<h3 class="topic">Premiers pas</h3>
+		<details>
+			<summary><h4>Campfire est-il gratuit ?</h4></summary>
+			<p>Oui. Il n’a ni pub, ni abonnement, ni achats intégrés, ni limite de chansons, et aucun compte à créer. Il est open source sous licence <a href="https://mozilla.org/MPL/2.0/" target="_blank" rel="noopener">Mozilla Public License 2.0</a>, avec son <a href="https://github.com/pandulapeter/campfire" target="_blank" rel="noopener">code source sur GitHub</a>, et ce sont les dons qui le font vivre.</p>
+		</details>
+		<details>
+			<summary><h4>Sur quelles plateformes Campfire fonctionne-t-il ?</h4></summary>
+			<p>Android, iOS, iPadOS, Windows, macOS et Linux, ainsi que n’importe quel navigateur récent, sans rien installer. C’est la même app partout, et une bibliothèque synchronisée via Dropbox reste identique sur chacune. La version navigateur reçoit les nouvelles fonctionnalités en premier, et les autres peuvent mettre quelques jours à suivre. La <a href="../#download">section Téléchargement</a> donne le lien de chaque version.</p>
+		</details>
+		<details>
+			<summary><h4>Campfire fonctionne-t-il hors ligne ?</h4></summary>
+			<p>Oui. Tes chansons et tes setlists sont stockées sur ton appareil : tout ce que tu utilises sur scène fonctionne sans connexion, métronome et accordeur compris. L’app web s’ouvre aussi hors ligne, une fois qu’elle a été ouverte en ligne. Une connexion n’est nécessaire que pour la synchronisation Dropbox, les liens de partage et la recherche des infos et des pochettes de chansons.</p>
+		</details>
+		<details>
+			<summary><h4>Comment refaire les questions de configuration ?</h4></summary>
+			<p>Choisis <em>Reconfigurer Campfire</em> en haut de <em>Réglages → Général</em> pour choisir ton apparence, ton instrument, ta notation des accords et tes fonctionnalités, étape par étape.</p>
+		</details>
+		<details>
+			<summary><h4>Puis-je masquer les parties de l’app que je n’utilise pas ?</h4></summary>
+			<p>Oui. <em>Réglages → Fonctionnalités</em> active ou désactive les accords, les diagrammes d’accords (et avec eux l’onglet <em>Accords</em>), le métronome, l’accordeur, les setlists, les pochettes et la recherche d’infos de chansons en ligne. Désactiver un élément ne fait que le masquer : rien n’est supprimé, et il revient tel quel quand tu le réactives.</p>
+		</details>
+		<h3 class="topic">Ajouter des chansons</h3>
+		<details>
+			<summary><h4>Comment ajouter des chansons ?</h4></summary>
+			<p>Il y a quatre façons :</p>
+			<ul>
+				<li><strong>Coller :</strong> copie les accords et les paroles d’une chanson depuis n’importe quel site, même en désordre, et choisis <em>Coller depuis le presse-papiers</em> dans le menu <em>Nouveau</em> de la liste des chansons, ou appuie sur Ctrl+V (⌘V sur Mac) dans cette liste. Campfire met le texte en forme en une chanson et l’ouvre dans l’éditeur : vérifie le titre et l’artiste, puis enregistre.</li>
+				<li><strong>Partager :</strong> sur Android, iOS et iPadOS, partage vers Campfire le texte d’une grille d’accords, ou un fichier, depuis une autre app. Une adresse web partagée n’est pas ouverte : partage plutôt le texte de la page.</li>
+				<li><strong>Importer :</strong> choisis <em>Importer des chansons, documents ou archives zip…</em> dans l’onglet <em>Bibliothèque</em> des réglages, ou fais glisser des fichiers sur l’app. Campfire lit les fichiers <a href="https://www.chordpro.org" target="_blank" rel="noopener">ChordPro</a> (<em>.cho</em>, <em>.chopro</em>, <em>.chordpro</em>, <em>.crd</em>, <em>.chord</em> et <em>.pro</em>), le texte brut <em>.txt</em>, les documents PDF et Word <em>.docx</em>, les archives zip qui les contiennent et les sauvegardes exportées d’autres apps de recueil. Avant que quoi que ce soit ne soit écrit, tu vois ce que contient l’import, tu peux écarter des fichiers, et tu choisis si une chanson dont le nom est déjà pris est numérotée ou remplace la tienne.</li>
+				<li><strong>Écrire :</strong> crée une chanson dans l’éditeur intégré de l’app.</li>
+			</ul>
+		</details>
+		<details>
+			<summary><h4>Puis-je transférer ma bibliothèque depuis OnSong, SongbookPro ou OpenSong ?</h4></summary>
+			<p>Oui. Campfire importe les sauvegardes <em>.sbpbackup</em> et les sets <em>.sbp</em> de SongbookPro, les fichiers <em>.onsong</em> d’OnSong, les chansons OpenSong, les airs ABC, les fichiers ChordPro de n’importe quelle app et les chansons des exports JSON d’autres apps. Mets de nombreux fichiers dans une archive zip pour les transférer en une fois. Chaque chanson devient un fichier ChordPro, et les sets de SongbookPro deviennent des setlists.</p>
+		</details>
+		<details>
+			<summary><h4>Puis-je importer une grille d’accords PDF ou Word ?</h4></summary>
+			<p>Oui. Importe un <em>.pdf</em> ou un <em>.docx</em> avec le sélecteur de fichiers, par glisser-déposer ou dans une archive zip ; sur Android, iOS et iPadOS, tu peux aussi le partager vers Campfire. Les fichiers texte, et le texte que tu colles ou partages, passent par la même conversion. Campfire extrait le texte et fait de son mieux pour placer les accords au-dessus des paroles et reconnaître les sections, un titre et les indications de jeu. Tout se passe sur ton appareil, sans service ni modèle d’IA. Le document d’origine n’est pas conservé.</p>
+			<p>Le résultat est une chanson ordinaire de ta bibliothèque, et le message d’import t’indique combien de chansons ont été converties. Mieux vaut les vérifier dans l’éditeur, surtout quand la mise en page d’origine est inhabituelle. Un document contenant plusieurs chansons aux titres clairs peut être découpé en plusieurs chansons. Les pages scannées, les PDF protégés et les anciens fichiers <em>.doc</em> ne peuvent pas être lus : utilise un PDF au texte sélectionnable ou enregistre le fichier Word en <em>.docx</em>. Les PDF que Campfire partage sont des images destinées à l’impression : pour passer des chansons d’une bibliothèque à l’autre, partage-les en fichiers ChordPro ou zip.</p>
+		</details>
+		<details>
+			<summary><h4>J’ai supprimé les chansons de démonstration et je veux les récupérer.</h4></summary>
+			<p>Choisis <em>Ajouter la bibliothèque de démonstration</em> dans l’onglet <em>Bibliothèque</em> des réglages.</p>
+		</details>
+		<h3 class="topic">Gérer les chansons et les setlists</h3>
+		<details>
+			<summary><h4>Comment modifier plusieurs chansons à la fois ?</h4></summary>
+			<p>Ouvre le menu de l’une d’elles (touche ses trois points, fais un appui long dessus ou, sur ordinateur, un clic droit) et choisis <em>Sélection multiple</em>. Coche les autres, ou utilise <em>Tout sélectionner</em> sur ce qu’affichent la recherche et les filtres, puis ajoute-leur des étiquettes, ajoute-les à des setlists, définis leur langue ou partage-les ensemble. Choisis <em>OK</em> quand tu as terminé. Les chansons ne sont jamais supprimées en masse.</p>
+		</details>
+		<details>
+			<summary><h4>Comment renseigner l’album, l’année ou les auteurs-compositeurs d’une chanson ?</h4></summary>
+			<p>Choisis <em>Modifier les infos de la chanson</em> dans le menu de la chanson, puis <em>Chercher les infos de la chanson en ligne</em>. Campfire cherche sur MusicBrainz et iTunes les enregistrements qui correspondent au titre et à l’artiste, et <em>Remplir</em> copie celui que tu choisis dans le formulaire ; rien ne change tant que tu n’enregistres pas. Si tu préfères qu’on ne te le propose pas, désactive <em>Infos de chanson en ligne</em> dans <em>Réglages → Fonctionnalités</em>.</p>
+		</details>
+		<details>
+			<summary><h4>Comment envoyer une setlist à mon groupe ?</h4></summary>
+			<p>Partage-la sous forme de lien. Choisis <em>Partager la setlist</em> dans le menu de la setlist, choisis <em>Lien</em>, puis <em>Créer le lien</em>, et envoie le lien ou montre son code QR. N’importe qui peut l’ouvrir : si Campfire est installé, le lien ouvre l’import, qui affiche la setlist et ses chansons avant d’ajouter quoi que ce soit ; sans Campfire, la page du lien aide à l’installer sur l’appareil, ou ouvre la setlist dans l’app web. Une chanson seule se partage de la même façon, avec <em>Partager la chanson</em>.</p>
+			<p>Les liens sont créés dans ton Dropbox : le premier te demande donc de le connecter, ce qui synchronise aussi ta bibliothèque. Un lien donne toujours la dernière version : quand tu modifies la setlist ou ses chansons, les membres de ton groupe rouvrent le même lien pour mettre à jour leurs copies. <em>Réglages → Partage</em> liste tout ce que tu partages, et <em>Arrêter le partage</em> désactive un lien.</p>
+		</details>
+		<h3 class="topic">Sur scène</h3>
+		<details>
+			<summary><h4>Campfire fonctionne-t-il avec une pédale tourne-page ?</h4></summary>
+			<p>Oui. Associe la pédale à ton téléphone, ta tablette ou ton ordinateur : les pédales qui envoient les touches fléchées et celles qui envoient Page Up et Page Down fonctionnent toutes. Haut et bas font défiler la chanson et, dans une setlist, gauche et droite passent à la chanson précédente ou suivante. Un clavier fait de même.</p>
+		</details>
+		<details>
+			<summary><h4>Quels instruments ont des diagrammes d’accords ?</h4></summary>
+			<p>Guitare, ukulélé, mandoline, banjo et clavier, en accordage standard et dans les autres accordages que l’app propose pour chacun, comme le drop D ou l’open G à la guitare. Choisis ton instrument et ton accordage en haut de n’importe quelle chanson ou dans l’onglet <em>Accords</em> : c’est un seul choix pour toute l’app, et l’accordeur l’utilise aussi. Les guitares à sept et huit cordes, les basses et le violon ont un accordeur, mais pas de diagrammes d’accords.</p>
+			<p>Pour jouer un accord autrement, touche-le dans une chanson ou dans l’onglet <em>Accords</em> et choisis un autre doigté. Celui que tu choisis est utilisé dans toutes les chansons, sauf si une chanson définit le sien.</p>
+		</details>
+		<details>
+			<summary><h4>Pourquoi une tablature est-elle différente de celle que j’ai importée ?</h4></summary>
+			<p>Les tablatures sont adaptées à ton instrument et à ton accordage, une octave plus haut ou plus bas quand une note sortirait du manche, et une ligne sous la tablature indique ce qui a été fait. Une chanson qui a des tablatures pour plusieurs instruments n’affiche que celle du tien. Si tu as choisi le clavier ou le violon, les tablatures sont masquées ; avec <em>Autre</em>, elles s’affichent telles qu’écrites. Le fichier de la chanson n’est jamais modifié.</p>
+		</details>
+		<h3 class="topic">Accordeur</h3>
+		<details>
+			<summary><h4>Comment utiliser l’accordeur ?</h4></summary>
+			<p>Ouvre l’<em>Accordeur</em> (sous <em>Outils</em> quand il n’y a pas de place pour tous les onglets) et choisis ton instrument et son accordage. Si tu l’ouvres en le touchant, il demande l’accès au micro la première fois ; sinon, touche <em>Utiliser le micro</em>. Joue une corde à la fois : la note jouée s’affiche avec le nombre de cents dont elle est trop basse ou trop haute, et chaque corde est cochée une fois juste. Touche une corde pour entendre sa note à la place. L’accordeur est aussi un bouton à côté de l’instrument et de l’accordage en haut de chaque chanson : tu peux t’accorder sans la quitter. C’est un seul instrument pour toute l’app, donc les diagrammes d’accords suivent le même choix.</p>
+			<p>Le diapason se règle dans l’onglet, de 415 à 466 Hz, si ton groupe ne s’accorde pas sur A = 440 Hz.</p>
+		</details>
+		<details>
+			<summary><h4>L’accordeur ne m’entend pas.</h4></summary>
+			<p>Campfire a besoin de ton autorisation pour utiliser le micro. Si tu as refusé, touche <em>Ouvrir les paramètres</em> ou <em>Redemander</em> dans l’accordeur et autorise-le ; dans un navigateur, autorise le micro dans les paramètres du site, à côté de l’adresse. Si le micro est utilisé par un appel ou une autre app, termine-les d’abord. Si l’accordeur n’entend rien du tout, vérifie que le micro n’est pas coupé et, sur ordinateur, que la bonne entrée est sélectionnée dans les paramètres de son du système. Sous Windows, les améliorations audio peuvent supprimer une note tenue en la prenant pour du bruit : touche <em>Paramètres de son</em> dans l’accordeur et désactive-les pour ton micro. Les sons de référence peuvent être joués même sans micro.</p>
+		</details>
+		<details>
+			<summary><h4>L’accordeur m’enregistre-t-il ?</h4></summary>
+			<p>Non. Le son est analysé sur ton appareil au fur et à mesure, puis jeté : rien n’est enregistré, conservé ni envoyé nulle part. Le micro n’est actif que lorsque l’accordeur est à l’écran et que l’app est au premier plan : le témoin d’enregistrement de ton système s’allume donc exactement à ce moment-là. Si tu ne l’utilises jamais, désactive <em>Accordeur</em> dans <em>Réglages → Fonctionnalités</em> et Campfire ne demandera jamais l’accès au micro.</p>
+		</details>
+		<h3 class="topic">Stockage, synchronisation et sauvegarde</h3>
+		<details>
+			<summary><h4>Où sont stockées mes chansons ?</h4></summary>
+			<p>Sur ton appareil, dans le stockage propre à l’app. Campfire n’a ni compte ni serveur : tes chansons ne quittent jamais ton appareil, sauf si tu les partages, les exportes ou actives la synchronisation.</p>
+		</details>
+		<details>
+			<summary><h4>Comment sauvegarder ma bibliothèque ou la transférer sur un autre appareil ?</h4></summary>
+			<p>Il y a deux façons :</p>
+			<ul>
+				<li><strong>Exporter :</strong> choisis <em>Exporter la bibliothèque en zip</em> dans les réglages et enregistre l’archive où tu veux. Importe cette archive sur l’autre appareil, ou garde-la comme sauvegarde. Les chansons et setlists individuelles se partagent plutôt depuis leurs propres menus.</li>
+				<li><strong>Synchroniser :</strong> connecte ton compte Dropbox dans les réglages, et Campfire garde la même bibliothèque sur tous les appareils qui y sont connectés, en temps réel : une modification faite sur l’un apparaît en quelques secondes sur les autres où Campfire est ouvert. La synchronisation reste désactivée tant que tu ne l’actives pas.</li>
+			</ul>
+		</details>
+		<details>
+			<summary><h4>Comment fonctionne la synchronisation, et que peut voir Campfire dans mon Dropbox ?</h4></summary>
+			<p>Campfire n’a accès qu’à son propre dossier, <em>Apps/Campfire Sync</em>, et à rien d’autre dans ton Dropbox. Les fichiers transitent directement entre ton appareil et Dropbox. Choisir <em>Déconnecter</em> dans les réglages arrête la synchronisation sans rien supprimer, ni sur ton appareil ni dans Dropbox. La <a href="../privacy/">politique de confidentialité</a> donne les détails.</p>
+		</details>
+		<details>
+			<summary><h4>Une synchronisation me demande s’il faut supprimer des fichiers. Que faire ?</h4></summary>
+			<p>Campfire demande confirmation avant d’effectuer une synchronisation qui supprimerait beaucoup de tes fichiers d’un coup, car cela signifie généralement qu’un dossier a été déplacé ou vidé par erreur. Si tu ne voulais pas les supprimer, choisis l’option qui les conserve : ils seront recopiés.</p>
+		</details>
+		<details>
+			<summary><h4>Comment supprimer mes données ?</h4></summary>
+			<p>Pour supprimer toute ta bibliothèque, ouvre les réglages, va dans l’onglet <em>Bibliothèque</em> et, sous <em>Sur cet appareil</em>, touche la ligne qui indique combien de chansons et de setlists tu as, puis saisis <em>DELETE</em> et confirme. Si la synchronisation Dropbox est connectée, cela supprime aussi tes chansons et setlists du dossier <em>Apps/Campfire Sync</em> et de tous les autres appareils synchronisés avec lui : choisis donc d’abord <em>Déconnecter</em> si tu veux seulement vider cet appareil. Toucher <em>Cache des pochettes</em> sur le même écran supprime les images de pochettes conservées sur l’appareil.</p>
+			<p>Désinstaller l’app supprime tout de l’appareil. Si tu as utilisé la synchronisation sans supprimer d’abord ta bibliothèque, supprime aussi le dossier <em>Apps/Campfire Sync</em> de ton Dropbox. Je ne détiens aucune copie de tes données : je n’ai donc rien à supprimer.</p>
+		</details>
+		<h2>Confidentialité</h2>
+		<p>Campfire ne contient ni publicité, ni outil d’analyse, ni pistage, et ce qu’entend l’accordeur ne quitte jamais ton appareil. Lis la <a href="../privacy/">politique de confidentialité</a> pour en savoir plus.</p>
+	</main>
+
+	<footer class="site-footer">
+		<div class="legal">
+			<p>© 2026 · <a href="https://pandulapeter.com" target="_blank" rel="noopener">Péter Pandula</a></p>
+			<a class="source" href="https://github.com/pandulapeter/campfire" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>Code source</a>
+			<ul class="language-links" translate="no" aria-label="Langue">
+				<li><a href="../../de/support/" hreflang="de" lang="de">Deutsch</a></li>
+				<li><a href="../../support/" hreflang="en" lang="en">English</a></li>
+				<li><a href="../../es/support/" hreflang="es" lang="es">Español</a></li>
+				<li><a href="./" hreflang="fr" lang="fr" aria-current="true">Français</a></li>
+				<li><a href="../../hu/support/" hreflang="hu" lang="hu">Magyar</a></li>
+				<li><a href="../../it/support/" hreflang="it" lang="it">Italiano</a></li>
+				<li><a href="../../ro/support/" hreflang="ro" lang="ro">Română</a></li>
+			</ul>
+		</div>
+	</footer>
+</div>
+</body>
+</html>

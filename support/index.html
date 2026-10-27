@@ -3,13 +3,45 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script>
+		// The site is in the languages of the picker, each in a folder of its own, and the English pages, at the root,
+		// are also those of every other language. A visitor who lands on one of them is sent to the same page in the
+		// language they last picked in the picker, which is remembered, or else in the first of their browser's languages
+		// the site has. The picker is a <details>, closed by a click anywhere else or by Escape.
+		(function (d, l) {
+			var languages = ["de", "en", "es", "fr", "hu", "it", "ro"];
+			var picked = null;
+			try { picked = localStorage.getItem("language"); } catch (e) {}
+			d.addEventListener("click", function (event) {
+				var link = event.target.closest("a[hreflang]");
+				if (link) try { localStorage.setItem("language", link.hreflang); } catch (e) {}
+				d.querySelectorAll("details.languages[open]").forEach(function (picker) { if (!picker.contains(event.target)) picker.open = false; });
+			});
+			d.addEventListener("keydown", function (event) {
+				if (event.key === "Escape") d.querySelectorAll("details.languages[open]").forEach(function (picker) { picker.open = false; picker.querySelector("summary").focus(); });
+			});
+			if (d.documentElement.lang !== "en") return;
+			var preferred = [picked].concat((navigator.languages || [navigator.language]).map(function (tag) { return String(tag).slice(0, 2).toLowerCase(); }))
+				.filter(function (code) { return languages.indexOf(code) !== -1; })[0];
+			if (preferred && preferred !== "en") l.replace("/" + preferred + l.pathname + l.search + l.hash);
+		}(document, location));
+	</script>
 	<title>Support – Campfire</title>
 	<meta name="description" content="Answers to common questions about Campfire, and how to get in touch.">
 	<link rel="canonical" href="https://campfire-songbook.com/support/">
+	<link rel="alternate" hreflang="de" href="https://campfire-songbook.com/de/support/">
+	<link rel="alternate" hreflang="en" href="https://campfire-songbook.com/support/">
+	<link rel="alternate" hreflang="es" href="https://campfire-songbook.com/es/support/">
+	<link rel="alternate" hreflang="fr" href="https://campfire-songbook.com/fr/support/">
+	<link rel="alternate" hreflang="hu" href="https://campfire-songbook.com/hu/support/">
+	<link rel="alternate" hreflang="it" href="https://campfire-songbook.com/it/support/">
+	<link rel="alternate" hreflang="ro" href="https://campfire-songbook.com/ro/support/">
+	<link rel="alternate" hreflang="x-default" href="https://campfire-songbook.com/support/">
 	<meta name="theme-color" content="#FAF8FE" media="(prefers-color-scheme: light)">
 	<meta name="theme-color" content="#15121C" media="(prefers-color-scheme: dark)">
 	<meta property="og:type" content="website">
 	<meta property="og:site_name" content="Campfire">
+	<meta property="og:locale" content="en_US">
 	<meta property="og:url" content="https://campfire-songbook.com/support/">
 	<meta property="og:title" content="Support – Campfire">
 	<meta property="og:description" content="Answers to common questions about Campfire, and how to get in touch.">
@@ -132,7 +164,7 @@
 				"name": "Which instruments get chord diagrams?",
 				"acceptedAnswer": {
 					"@type": "Answer",
-					"text": "Guitar, ukulele, mandolin, banjo, and keyboard, in standard tuning and in the other tunings the app offers for each, such as drop D or open G on a guitar. Pick your instrument and tuning at the top of any song, on the Chords tab, or in Settings → Songs: it is one choice for the whole app, and the tuner uses it too. Seven- and eight-string guitars, basses, and violin have a tuner but no chord diagrams. To play a chord another way, tap it in a song or on the Chords tab and pick another shape. The one you choose is used in every song, unless a song defines its own."
+					"text": "Guitar, ukulele, mandolin, banjo, and keyboard, in standard tuning and in the other tunings the app offers for each, such as drop D or open G on a guitar. Pick your instrument and tuning at the top of any song or on the Chords tab: it is one choice for the whole app, and the tuner uses it too. Seven- and eight-string guitars, basses, and violin have a tuner but no chord diagrams. To play a chord another way, tap it in a song or on the Chords tab and pick another shape. The one you choose is used in every song, unless a song defines its own."
 				}
 			},
 			{
@@ -212,7 +244,7 @@
 	</script>
 	<link rel="icon" href="../assets/icon.svg?v=8ba29e56" type="image/svg+xml">
 	<link rel="apple-touch-icon" href="../assets/icon-192.png?v=0f2be8ac">
-	<link rel="stylesheet" href="../assets/site.css?v=2f65ccb9">
+	<link rel="stylesheet" href="../assets/site.css?v=128df0b0">
 	<script>
 		// Every visitor is offered two versions: a phone or a tablet the app from its store first and the web app second,
 		// a computer the other way around. The script names the system: the stylesheet shows the elements marked
@@ -247,11 +279,23 @@
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-header">
 	<div class="wrap">
-		<a class="brand" href="../"><img src="../assets/icon.svg?v=8ba29e56" alt="">Campfire</a>
+		<a class="brand" translate="no" href="../"><img src="../assets/icon.svg?v=8ba29e56" alt="">Campfire</a>
 		<nav aria-label="Main">
 			<a class="optional" href="../#download">Download</a>
 			<a class="optional" href="../support/" aria-current="page">Support</a>
 			<a class="optional" href="../privacy/">Privacy</a>
+			<details class="languages" translate="no">
+				<summary aria-label="Language: English"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.8 3.9 6 3.9 9.5s-1.3 6.7-3.9 9.5c-2.6-2.8-3.9-6-3.9-9.5s1.3-6.7 3.9-9.5Z"/></svg><span>EN</span></summary>
+				<ul>
+					<li><a href="../de/support/" hreflang="de" lang="de">Deutsch</a></li>
+					<li><a href="./" hreflang="en" lang="en" aria-current="true">English</a></li>
+					<li><a href="../es/support/" hreflang="es" lang="es">Español</a></li>
+					<li><a href="../fr/support/" hreflang="fr" lang="fr">Français</a></li>
+					<li><a href="../hu/support/" hreflang="hu" lang="hu">Magyar</a></li>
+					<li><a href="../it/support/" hreflang="it" lang="it">Italiano</a></li>
+					<li><a href="../ro/support/" hreflang="ro" lang="ro">Română</a></li>
+				</ul>
+			</details>
 			<a class="button small for-desktop" href="../app/" target="_blank" rel="noopener">Open the web app</a>
 			<a class="button small for-mobile" href="../#download" data-native>Download the app</a>
 		</nav>
@@ -267,7 +311,7 @@
 		<p>If you have a question, found a problem, or have an idea for the app, <a href="mailto:pandulapeter@gmail.com?Subject=Campfire%20support" target="_top">send me an email at pandulapeter@gmail.com</a>. Please mention the device and the version of Campfire you are using (you can find it in the About tab of the app's settings). I read every message and usually answer within a few days.</p>
 		<p>If you have a GitHub account, you can also <a href="https://github.com/pandulapeter/campfire/issues" target="_blank" rel="noopener">report a problem on GitHub</a>, where the app's source code is too.</p>
 		</div>
-		<h2>Frequently asked questions</h2>
+		<h2 id="faq">Frequently asked questions</h2>
 		<h3 class="topic">Getting started</h3>
 		<details>
 			<summary><h4>Is Campfire free?</h4></summary>
@@ -334,7 +378,7 @@
 		</details>
 		<details>
 			<summary><h4>Which instruments get chord diagrams?</h4></summary>
-			<p>Guitar, ukulele, mandolin, banjo, and keyboard, in standard tuning and in the other tunings the app offers for each, such as drop D or open G on a guitar. Pick your instrument and tuning at the top of any song, on the <em>Chords</em> tab, or in <em>Settings → Songs</em>: it is one choice for the whole app, and the tuner uses it too. Seven- and eight-string guitars, basses, and violin have a tuner but no chord diagrams.</p>
+			<p>Guitar, ukulele, mandolin, banjo, and keyboard, in standard tuning and in the other tunings the app offers for each, such as drop D or open G on a guitar. Pick your instrument and tuning at the top of any song or on the <em>Chords</em> tab: it is one choice for the whole app, and the tuner uses it too. Seven- and eight-string guitars, basses, and violin have a tuner but no chord diagrams.</p>
 			<p>To play a chord another way, tap it in a song or on the <em>Chords</em> tab and pick another shape. The one you choose is used in every song, unless a song defines its own.</p>
 		</details>
 		<details>
@@ -389,6 +433,15 @@
 		<div class="legal">
 			<p>© 2026 · <a href="https://pandulapeter.com" target="_blank" rel="noopener">Péter Pandula</a></p>
 			<a class="source" href="https://github.com/pandulapeter/campfire" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>Source code</a>
+			<ul class="language-links" translate="no" aria-label="Language">
+				<li><a href="../de/support/" hreflang="de" lang="de">Deutsch</a></li>
+				<li><a href="./" hreflang="en" lang="en" aria-current="true">English</a></li>
+				<li><a href="../es/support/" hreflang="es" lang="es">Español</a></li>
+				<li><a href="../fr/support/" hreflang="fr" lang="fr">Français</a></li>
+				<li><a href="../hu/support/" hreflang="hu" lang="hu">Magyar</a></li>
+				<li><a href="../it/support/" hreflang="it" lang="it">Italiano</a></li>
+				<li><a href="../ro/support/" hreflang="ro" lang="ro">Română</a></li>
+			</ul>
 		</div>
 	</footer>
 </div>

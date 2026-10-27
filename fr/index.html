@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="fr">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script>
+		// The site is in the languages of the picker, each in a folder of its own, and the English pages, at the root,
+		// are also those of every other language. A visitor who lands on one of them is sent to the same page in the
+		// language they last picked in the picker, which is remembered, or else in the first of their browser's languages
+		// the site has. The picker is a <details>, closed by a click anywhere else or by Escape.
+		(function (d, l) {
+			var languages = ["de", "en", "es", "fr", "hu", "it", "ro"];
+			var picked = null;
+			try { picked = localStorage.getItem("language"); } catch (e) {}
+			d.addEventListener("click", function (event) {
+				var link = event.target.closest("a[hreflang]");
+				if (link) try { localStorage.setItem("language", link.hreflang); } catch (e) {}
+				d.querySelectorAll("details.languages[open]").forEach(function (picker) { if (!picker.contains(event.target)) picker.open = false; });
+			});
+			d.addEventListener("keydown", function (event) {
+				if (event.key === "Escape") d.querySelectorAll("details.languages[open]").forEach(function (picker) { picker.open = false; picker.querySelector("summary").focus(); });
+			});
+			if (d.documentElement.lang !== "en") return;
+			var preferred = [picked].concat((navigator.languages || [navigator.language]).map(function (tag) { return String(tag).slice(0, 2).toLowerCase(); }))
+				.filter(function (code) { return languages.indexOf(code) !== -1; })[0];
+			if (preferred && preferred !== "en") l.replace("/" + preferred + l.pathname + l.search + l.hash);
+		}(document, location));
+	</script>
+	<title>Campfire : recueil de chansons &amp; accords</title>
+	<meta name="description" content="Un recueil de chansons gratuit pour tes paroles et tes accords, avec setlists, diagrammes d’accords, métronome et accordeur. Fonctionne hors ligne sur téléphone, tablette et ordinateur.">
+	<link rel="canonical" href="https://campfire-songbook.com/fr/">
+	<link rel="alternate" hreflang="de" href="https://campfire-songbook.com/de/">
+	<link rel="alternate" hreflang="en" href="https://campfire-songbook.com/">
+	<link rel="alternate" hreflang="es" href="https://campfire-songbook.com/es/">
+	<link rel="alternate" hreflang="fr" href="https://campfire-songbook.com/fr/">
+	<link rel="alternate" hreflang="hu" href="https://campfire-songbook.com/hu/">
+	<link rel="alternate" hreflang="it" href="https://campfire-songbook.com/it/">
+	<link rel="alternate" hreflang="ro" href="https://campfire-songbook.com/ro/">
+	<link rel="alternate" hreflang="x-default" href="https://campfire-songbook.com/">
+	<meta name="theme-color" content="#FAF8FE" media="(prefers-color-scheme: light)">
+	<meta name="theme-color" content="#15121C" media="(prefers-color-scheme: dark)">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="Campfire">
+	<meta property="og:locale" content="fr_FR">
+	<meta property="og:url" content="https://campfire-songbook.com/fr/">
+	<meta property="og:title" content="Campfire : recueil de chansons &amp; accords">
+	<meta property="og:description" content="Un recueil de chansons gratuit pour tes paroles et tes accords, avec les diagrammes d’accords et les gammes de ton instrument, des setlists, un métronome réglé sur le tempo de chaque chanson et un accordeur. Fonctionne hors ligne sur téléphone, tablette et ordinateur, avec synchronisation Dropbox en temps réel en option.">
+	<meta property="og:image" content="https://campfire-songbook.com/assets/og-image.jpg?v=a569ced8">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:image:alt" content="Campfire sur un ordinateur portable et un téléphone">
+	<meta name="twitter:card" content="summary_large_image">
+	<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@graph": [
+			{
+				"@type": "WebSite",
+				"@id": "https://campfire-songbook.com/#website",
+				"url": "https://campfire-songbook.com/",
+				"name": "Campfire",
+				"alternateName": "Campfire Songbook",
+				"publisher": {"@id": "https://campfire-songbook.com/#author"}
+			},
+			{
+				"@type": "Person",
+				"@id": "https://campfire-songbook.com/#author",
+				"name": "Péter Pandula",
+				"url": "https://pandulapeter.com",
+				"sameAs": ["https://github.com/pandulapeter"]
+			},
+			{
+				"@type": "SoftwareApplication",
+				"@id": "https://campfire-songbook.com/#app",
+				"name": "Campfire",
+				"alternateName": "Campfire Songbook",
+				"url": "https://campfire-songbook.com/",
+				"description": "Un recueil de chansons gratuit pour tes paroles et tes accords, avec les diagrammes d’accords et les gammes de ton instrument, des setlists, un métronome réglé sur le tempo de chaque chanson et un accordeur. Fonctionne hors ligne sur téléphone, tablette et ordinateur, avec synchronisation Dropbox en temps réel en option.",
+				"applicationCategory": "MusicApplication",
+				"operatingSystem": "Android, iOS, iPadOS, Windows, macOS, Linux, Web",
+				"offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+				"isAccessibleForFree": true,
+				"license": "https://mozilla.org/MPL/2.0/",
+				"image": "https://campfire-songbook.com/assets/og-image.jpg?v=a569ced8",
+				"screenshot": [
+					"https://campfire-songbook.com/assets/screenshots/fr/laptop-setlists-light.webp?v=ba6cb1ec",
+					"https://campfire-songbook.com/assets/screenshots/fr/tablet-song-light.webp?v=bc24472b",
+					"https://campfire-songbook.com/assets/screenshots/fr/phone-songs-light.webp?v=5c806ca8"
+				],
+				"featureList": [
+					"Paroles et accords au format ChordPro",
+					"Diagrammes d’accords pour guitare, ukulélé, mandoline, banjo et clavier",
+					"Gammes",
+					"Setlists",
+					"Métronome",
+					"Accordeur",
+					"Import depuis PDF, Word et texte brut",
+					"Fonctionne hors ligne",
+					"Synchronisation Dropbox en temps réel"
+				],
+				"author": {"@id": "https://campfire-songbook.com/#author"},
+				"sameAs": [
+					"https://play.google.com/store/apps/details?id=com.pandulapeter.campfire",
+					"https://apps.apple.com/app/id6815160850",
+					"https://apps.microsoft.com/detail/9MSR62F288M1",
+					"https://github.com/pandulapeter/campfire"
+				]
+			}
+		]
+	}
+	</script>
+	<link rel="icon" href="../assets/icon.svg?v=8ba29e56" type="image/svg+xml">
+	<link rel="apple-touch-icon" href="../assets/icon-192.png?v=0f2be8ac">
+	<link rel="preload" href="../assets/fonts/inter_bold.woff2?v=676dbe48" as="font" type="font/woff2" crossorigin>
+	<link rel="preload" href="../assets/fonts/inter_regular.woff2?v=0b354d6b" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" href="../assets/site.css?v=128df0b0">
+	<script>
+		// Every visitor is offered two versions: a phone or a tablet the app from its store first and the web app second,
+		// a computer the other way around. The script names the system: the stylesheet shows the elements marked
+		// for-mobile instead of for-desktop on a phone or a tablet, every link marked data-native goes to the system's own
+		// version, and one marked data-native-label is also named after it. iPadOS presents itself as a Mac, so an iPad is
+		// told apart by its touch screen. Without a match, the links lead to the list of every platform.
+		(function (d) {
+			var agent = navigator.userAgent;
+			var os = /Android/.test(agent) ? "android" : /iPhone|iPad|iPod/.test(agent) || (/Macintosh/.test(agent) && navigator.maxTouchPoints > 1) ? "ios" : /Windows/.test(agent) ? "windows" : /Macintosh/.test(agent) ? "macos" : /Linux/.test(agent) ? "linux" : "";
+			var native = {
+				android: ["https://play.google.com/store/apps/details?id=com.pandulapeter.campfire", "Disponible sur Google Play"],
+				ios: ["https://apps.apple.com/app/id6815160850", "Télécharger dans l’App Store"],
+				windows: ["https://apps.microsoft.com/detail/9MSR62F288M1", "Télécharger pour Windows"],
+				macos: ["https://apps.apple.com/app/id6815160850", "Télécharger pour macOS"],
+				linux: ["https://github.com/pandulapeter/campfire/releases/latest", "Télécharger pour Linux"]
+			}[os];
+			if (!native) return;
+			d.documentElement.dataset.os = os;
+			if (os === "android" || os === "ios") d.documentElement.dataset.mobile = "";
+			d.addEventListener("DOMContentLoaded", function () {
+				d.querySelectorAll("[data-native]").forEach(function (link) {
+					link.href = native[0];
+					link.target = "_blank";
+					link.rel = "noopener";
+					if (link.hasAttribute("data-native-label")) link.textContent = native[1];
+				});
+			});
+		}(document));
+	</script>
+</head>
+<body>
+<a class="skip" href="#main">Aller au contenu</a>
+<header class="site-header">
+	<div class="wrap">
+		<a class="brand" translate="no" href="./"><img src="../assets/icon.svg?v=8ba29e56" alt="">Campfire</a>
+		<nav aria-label="Principal">
+			<a class="optional" href="#download">Télécharger</a>
+			<a class="optional" href="support/">Assistance</a>
+			<a class="optional" href="privacy/">Confidentialité</a>
+			<details class="languages" translate="no">
+				<summary aria-label="Langue: Français"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.8 3.9 6 3.9 9.5s-1.3 6.7-3.9 9.5c-2.6-2.8-3.9-6-3.9-9.5s1.3-6.7 3.9-9.5Z"/></svg><span>FR</span></summary>
+				<ul>
+					<li><a href="../de/" hreflang="de" lang="de">Deutsch</a></li>
+					<li><a href="../" hreflang="en" lang="en">English</a></li>
+					<li><a href="../es/" hreflang="es" lang="es">Español</a></li>
+					<li><a href="./" hreflang="fr" lang="fr" aria-current="true">Français</a></li>
+					<li><a href="../hu/" hreflang="hu" lang="hu">Magyar</a></li>
+					<li><a href="../it/" hreflang="it" lang="it">Italiano</a></li>
+					<li><a href="../ro/" hreflang="ro" lang="ro">Română</a></li>
+				</ul>
+			</details>
+			<a class="button small for-desktop" href="../app/" target="_blank" rel="noopener">Ouvrir l’app web</a>
+			<a class="button small for-mobile" href="#download" data-native>Télécharger l’app</a>
+		</nav>
+	</div>
+</header>
+<div class="wrap">
+
+	<main id="main">
+		<div class="hero">
+			<div>
+				<p class="cue">Chansons <span>·</span> Setlists <span>·</span> Métronome <span>·</span> Accordeur <span>·</span> Accords <span>·</span> Gammes</p>
+				<h1>Un recueil de chansons gratuit pour tes paroles et tes accords.</h1>
+				<p class="lede">Campfire organise ton répertoire et le garde prêt pour la répétition et la scène, quel que soit l’écran sur lequel tu joues.</p>
+				<div class="actions">
+					<a class="button for-desktop" href="../app/" target="_blank" rel="noopener">Ouvrir dans le navigateur</a>
+					<a class="button tonal for-desktop" href="#download" data-native data-native-label>Télécharger</a>
+					<a class="button for-mobile" href="#download" data-native data-native-label>Télécharger l’app</a>
+					<a class="button tonal for-mobile" href="../app/" target="_blank" rel="noopener">Ouvrir dans le navigateur</a>
+				</div>
+				<p class="all-platforms"><a href="#download"><span>Toutes les versions</span></a></p>
+			</div>
+			<div class="stage">
+				<div class="laptop"><div class="lid"><picture class="screen">
+					<source srcset="../assets/screenshots/fr/laptop-setlists-dark.webp?v=3de0db72" media="(prefers-color-scheme: dark)">
+					<img src="../assets/screenshots/fr/laptop-setlists-light.webp?v=ba6cb1ec" width="1200" height="753" fetchpriority="high" alt="Les setlists sur un MacBook, chacune avec ses chansons, leur tonalité, leur tempo et leur durée, et la durée totale du set.">
+				</picture></div><div class="base"></div></div>
+				<div class="tablet"><div class="frame"><picture class="screen">
+					<source srcset="../assets/screenshots/fr/tablet-song-dark.webp?v=f8dabce5" media="(prefers-color-scheme: dark)">
+					<img src="../assets/screenshots/fr/tablet-song-light.webp?v=bc24472b" width="1200" height="900" alt="Une chanson sur un iPad, avec ses diagrammes d’accords et ses couplets en colonnes.">
+				</picture></div></div>
+				<div class="phone"><div class="frame"><picture class="screen">
+					<source srcset="../assets/screenshots/fr/phone-songs-dark.webp?v=2270c297" media="(prefers-color-scheme: dark)">
+					<img src="../assets/screenshots/fr/phone-songs-light.webp?v=5c806ca8" width="450" height="978" alt="La liste des chansons sur un iPhone, regroupées par artiste, avec des étiquettes sur chaque chanson.">
+				</picture></div></div>
+			</div>
+		</div>
+
+		<ul class="highlights">
+			<li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="14" height="10" rx="1.5"/><path d="M1 18.5h15"/><rect x="18" y="9" width="5" height="10" rx="1.2"/></svg><h2>Toutes les plateformes</h2><p>Android, iOS, iPadOS, Windows, macOS, Linux et le navigateur.</p></li>
+			<li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 8.5a15 15 0 0 1 20 0M5.5 12a10 10 0 0 1 13 0M9 15.5a5 5 0 0 1 6 0M3 3l18 18"/><circle cx="12" cy="19.5" r="1"/></svg><h2>Fonctionne hors ligne</h2><p>Les chansons sont stockées sur ton appareil : une salle sans réseau ne pose aucun problème.</p></li>
+			<li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18c.9 0 1.5-.7 1.5-1.5 0-.9-.8-1.3-.8-2.2 0-.9.8-1.6 1.7-1.6H17a4 4 0 0 0 4-4C21 6.8 17 3 12 3Z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10.5" cy="7" r="1"/><circle cx="15" cy="7.5" r="1"/></svg><h2>Interface épurée</h2><p>Rien d’autre à l’écran que la chanson. En clair, en sombre ou en sépia, avec la couleur d’accent de ton choix.</p></li>
+			<li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 5 6v5.5c0 4.3 3 8 7 9.5 4-1.5 7-5.2 7-9.5V6Z"/><path d="m9 12 2 2 4-4"/></svg><h2>Pas de pub, pas de compte</h2><p>Ni pistage, ni abonnement, ni achats intégrés, ni limite de chansons.</p></li>
+		</ul>
+
+		<section class="split reverse media-wide" aria-labelledby="playing-title">
+			<div>
+				<h2 id="playing-title">Des colonnes qui suivent la taille du texte</h2>
+				<p class="lead">Agrandis le texte autant qu’il le faut pour le lire sur le pupitre : la chanson se répartit en autant de colonnes qu’il en tient à cette taille.</p>
+				<ul class="points">
+					<li>Tourne les pages en touchant l’écran ou avec une pédale tourne-page.</li>
+					<li>Les diagrammes d’accords se trouvent en haut de la chanson.</li>
+					<li>Des gammes recommandées pour l’improvisation.</li>
+					<li>Un mode paroles seules masque les accords pour les chanteurs.</li>
+				</ul>
+			</div>
+			<div>
+				<div class="laptop"><div class="lid"><div class="slides demo" id="text-size-slides">
+					<picture class="screen">
+						<source srcset="../assets/screenshots/fr/laptop-song-100-dark.webp?v=735e0ef6" media="(prefers-color-scheme: dark)">
+						<img src="../assets/screenshots/fr/laptop-song-100-light.webp?v=fd38d88f" width="1200" height="753" loading="lazy" alt="Une chanson sur un MacBook avec la taille de texte par défaut, sur quatre colonnes sous les diagrammes de ses accords.">
+					</picture>
+					<picture class="screen" aria-hidden="true">
+						<source data-srcset="../assets/screenshots/fr/laptop-song-110-dark.webp?v=4c6b56ee" media="(prefers-color-scheme: dark)">
+						<img data-src="../assets/screenshots/fr/laptop-song-110-light.webp?v=de7b1393" width="1200" height="753" loading="lazy" alt="La même chanson avec le texte à 110 %, sur quatre colonnes.">
+					</picture>
+					<picture class="screen" aria-hidden="true">
+						<source data-srcset="../assets/screenshots/fr/laptop-song-120-dark.webp?v=37d8bcf3" media="(prefers-color-scheme: dark)">
+						<img data-src="../assets/screenshots/fr/laptop-song-120-light.webp?v=2912ef6f" width="1200" height="753" loading="lazy" alt="La même chanson avec le texte à 120 %, sur trois colonnes.">
+					</picture>
+					<picture class="screen" aria-hidden="true">
+						<source data-srcset="../assets/screenshots/fr/laptop-song-130-dark.webp?v=f545b0b9" media="(prefers-color-scheme: dark)">
+						<img data-src="../assets/screenshots/fr/laptop-song-130-light.webp?v=9d5dbbe7" width="1200" height="753" loading="lazy" alt="La même chanson avec le texte à 130 %, sur trois colonnes.">
+					</picture>
+					<picture class="screen" aria-hidden="true">
+						<source data-srcset="../assets/screenshots/fr/laptop-song-140-dark.webp?v=926d4bc9" media="(prefers-color-scheme: dark)">
+						<img data-src="../assets/screenshots/fr/laptop-song-140-light.webp?v=d53982bf" width="1200" height="753" loading="lazy" alt="La même chanson avec le texte à 140 %, sur trois colonnes.">
+					</picture>
+					<picture class="screen" aria-hidden="true">
+						<source data-srcset="../assets/screenshots/fr/laptop-song-150-dark.webp?v=cc81cf0e" media="(prefers-color-scheme: dark)">
+						<img data-src="../assets/screenshots/fr/laptop-song-150-light.webp?v=c44932b5" width="1200" height="753" loading="lazy" alt="La même chanson avec le texte à 150 %, sur trois colonnes.">
+					</picture>
+					<picture class="screen" aria-hidden="true">
+						<source data-srcset="../assets/screenshots/fr/laptop-song-160-dark.webp?v=2143d164" media="(prefers-color-scheme: dark)">
+						<img data-src="../assets/screenshots/fr/laptop-song-160-light.webp?v=5424fce7" width="1200" height="753" loading="lazy" alt="La même chanson avec le texte à 160 %, sur trois colonnes.">
+					</picture>
+					<picture class="screen" aria-hidden="true">
+						<source data-srcset="../assets/screenshots/fr/laptop-song-170-dark.webp?v=60a33b5e" media="(prefers-color-scheme: dark)">
+						<img data-src="../assets/screenshots/fr/laptop-song-170-light.webp?v=56b22b5c" width="1200" height="753" loading="lazy" alt="La même chanson avec le texte à 170 %, sur trois colonnes.">
+					</picture>
+					<picture class="screen" aria-hidden="true">
+						<source data-srcset="../assets/screenshots/fr/laptop-song-180-dark.webp?v=ec060337" media="(prefers-color-scheme: dark)">
+						<img data-src="../assets/screenshots/fr/laptop-song-180-light.webp?v=76d909d0" width="1200" height="753" loading="lazy" alt="La même chanson avec le texte à 180 %, sur trois colonnes.">
+					</picture>
+					<picture class="screen" aria-hidden="true">
+						<source data-srcset="../assets/screenshots/fr/laptop-song-190-dark.webp?v=ba7488de" media="(prefers-color-scheme: dark)">
+						<img data-src="../assets/screenshots/fr/laptop-song-190-light.webp?v=5bdce6c4" width="1200" height="753" loading="lazy" alt="La même chanson avec le texte à 190 %, sur trois colonnes.">
+					</picture>
+					<picture class="screen" aria-hidden="true">
+						<source data-srcset="../assets/screenshots/fr/laptop-song-200-dark.webp?v=a529f4d7" media="(prefers-color-scheme: dark)">
+						<img data-src="../assets/screenshots/fr/laptop-song-200-light.webp?v=33990fb0" width="1200" height="753" loading="lazy" alt="La même chanson avec le texte à 200 %, sur deux colonnes.">
+					</picture>
+					<picture class="screen" aria-hidden="true">
+						<source data-srcset="../assets/screenshots/fr/laptop-song-210-dark.webp?v=a9a25927" media="(prefers-color-scheme: dark)">
+						<img data-src="../assets/screenshots/fr/laptop-song-210-light.webp?v=45bf9873" width="1200" height="753" loading="lazy" alt="La même chanson avec le texte à 210 %, sur deux colonnes.">
+					</picture>
+					<picture class="screen" aria-hidden="true">
+						<source data-srcset="../assets/screenshots/fr/laptop-song-220-dark.webp?v=cc4b8c70" media="(prefers-color-scheme: dark)">
+						<img data-src="../assets/screenshots/fr/laptop-song-220-light.webp?v=ba4d13d7" width="1200" height="753" loading="lazy" alt="La même chanson avec le texte à 220 %, sur deux colonnes.">
+					</picture>
+					<picture class="screen" aria-hidden="true">
+						<source data-srcset="../assets/screenshots/fr/laptop-song-230-dark.webp?v=c758f884" media="(prefers-color-scheme: dark)">
+						<img data-src="../assets/screenshots/fr/laptop-song-230-light.webp?v=9af678fe" width="1200" height="753" loading="lazy" alt="La même chanson avec le texte à 230 %, sur deux colonnes.">
+					</picture>
+				</div></div><div class="base"></div></div>
+				<div class="slider" role="group" aria-label="Taille du texte">
+					<span class="slider-label" id="text-size-label">Utilise le curseur pour changer la taille du texte</span>
+					<input type="range" min="0" max="13" step="1" value="0" aria-labelledby="text-size-label" aria-controls="text-size-slides" aria-valuetext="100%" data-values="100%,110%,120%,130%,140%,150%,160%,170%,180%,190%,200%,210%,220%,230%">
+				</div>
+			</div>
+		</section>
+
+		<section class="split media-wide" aria-labelledby="editor-title">
+			<div>
+				<h2 id="editor-title">Import et édition</h2>
+				<p class="lead">Colle une chanson copiée depuis n’importe quel site, même en désordre : elle s’ouvre dans l’éditeur avec les accords alignés au-dessus des paroles, et les couplets et refrains repérés.</p>
+				<ul class="points">
+					<li>Importe des fichiers texte, des PDF, des documents Word, des archives zip et des sauvegardes d’autres apps.</li>
+					<li>L’éditeur signale les erreurs et affiche un aperçu en direct pendant que tu tapes.</li>
+					<li>Retrouve en ligne l’album, l’année, les auteurs-compositeurs et la pochette d’une chanson.</li>
+				</ul>
+			</div>
+			<div>
+				<div class="laptop"><div class="lid"><picture class="screen">
+					<source srcset="../assets/screenshots/fr/laptop-import-dark.webp?v=e129dd28" media="(prefers-color-scheme: dark)">
+					<img src="../assets/screenshots/fr/laptop-import-light.webp?v=5b0d4ab9" width="1200" height="753" loading="lazy" alt="Une chanson importée dans l’éditeur sur un MacBook, avec une erreur signalée et son aperçu en direct à côté.">
+				</picture></div><div class="base"></div></div>
+			</div>
+		</section>
+
+		<section class="split reverse media-wide" aria-labelledby="setlists-title">
+			<div>
+				<h2 id="setlists-title">Setlists et partage</h2>
+				<p class="lead">Joue un set dans l’ordre, la chanson suivante toujours à portée de doigt.</p>
+				<ul class="points">
+					<li>Une setlist enregistre la tonalité, le capo et le tempo de chacune de ses chansons.</li>
+					<li>L’app affiche le compte à rebours jusqu’à la date du concert et additionne la durée totale.</li>
+					<li>Imprime des chansons ou tout le set depuis un PDF, avec l’ordre de passage.</li>
+					<li>Envoie un set à d’autres utilisateurs de Campfire en fichier zip, ou en lien avec un code QR à scanner pour l’ouvrir.</li>
+				</ul>
+			</div>
+			<div class="pair">
+				<div class="tablet"><div class="frame"><picture class="screen">
+					<source srcset="../assets/screenshots/fr/tablet-export-dark.webp?v=34deef71" media="(prefers-color-scheme: dark)">
+					<img src="../assets/screenshots/fr/tablet-export-light.webp?v=40e866e9" width="1200" height="900" loading="lazy" alt="Une chanson partagée en PDF sur un iPad, avec l’aperçu de sa page à côté des options.">
+				</picture></div></div>
+				<div class="phone"><div class="frame"><picture class="screen">
+					<source srcset="../assets/screenshots/fr/phone-setlist-dark.webp?v=01d5d41b" media="(prefers-color-scheme: dark)">
+					<img src="../assets/screenshots/fr/phone-setlist-light.webp?v=0d8c9248" width="450" height="978" loading="lazy" alt="Une setlist sur un iPhone, avec la tonalité, le tempo et la durée de chaque chanson, sa durée totale et les jours restants avant le concert.">
+				</picture></div></div>
+			</div>
+		</section>
+
+		<section class="split media-wide" aria-labelledby="metronome-title">
+			<div>
+				<h2 id="metronome-title">Métronome et accordeur</h2>
+				<p class="lead">Chaque chanson enregistre son tempo, sa mesure et ses temps accentués : le clic se lance d’une seule touche depuis l’écran de la chanson.</p>
+				<ul class="points">
+					<li>Dans un set, le tempo passe à celui de la chanson suivante dès la mesure suivante.</li>
+					<li>Les changements de tempo écrits dans une chanson sont suivis aussi.</li>
+					<li>L’accordeur s’ouvre par-dessus la chanson que tu vas jouer et coche chaque corde une fois qu’elle est juste.</li>
+					<li>Le son est analysé sur ton appareil et n’est jamais enregistré.</li>
+				</ul>
+			</div>
+			<div>
+				<div class="slides" id="practice-slides">
+					<div class="pair flip">
+						<div class="tablet"><div class="frame"><picture class="screen">
+							<source srcset="../assets/screenshots/fr/tablet-song-metronome-dark.webp?v=2e59601b" media="(prefers-color-scheme: dark)">
+							<img src="../assets/screenshots/fr/tablet-song-metronome-light.webp?v=cfaec5a9" width="1200" height="900" loading="lazy" alt="Une chanson sur un iPad avec le panneau du métronome ouvert sous son titre.">
+						</picture><span class="beats" style="--beats-light: url(/assets/screenshots/tablet-song-metronome-beats-light.webp?v=27ac7f12); --beats-dark: url(/assets/screenshots/tablet-song-metronome-beats-dark.webp?v=4d282b51)" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div></div>
+						<div class="phone"><div class="frame"><picture class="screen">
+							<source srcset="../assets/screenshots/fr/phone-metronome-dark.webp?v=37467753" media="(prefers-color-scheme: dark)">
+							<img src="../assets/screenshots/fr/phone-metronome-light.webp?v=75288540" width="450" height="978" loading="lazy" alt="L’onglet Métronome sur un iPhone, avec le tempo, les temps de la mesure et ses réglages.">
+						</picture><span class="beats" style="--beats-light: url(/assets/screenshots/phone-metronome-beats-light.webp?v=961f1736); --beats-dark: url(/assets/screenshots/phone-metronome-beats-dark.webp?v=867c4aff)" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div></div>
+					</div>
+					<div class="pair flip" aria-hidden="true">
+						<div class="tablet"><div class="frame"><picture class="screen">
+							<source srcset="../assets/screenshots/fr/tablet-song-tuner-dark.webp?v=2621d4f5" media="(prefers-color-scheme: dark)">
+							<img src="../assets/screenshots/fr/tablet-song-tuner-light.webp?v=28500819" width="1200" height="900" loading="lazy" alt="Une chanson sur un iPad avec l’accordeur ouvert par-dessus, la corde de E grave d’une guitare entendue 9 cents trop haut.">
+						</picture></div></div>
+						<div class="phone"><div class="frame"><picture class="screen">
+							<source srcset="../assets/screenshots/fr/phone-tuner-dark.webp?v=71baf2be" media="(prefers-color-scheme: dark)">
+							<img src="../assets/screenshots/fr/phone-tuner-light.webp?v=29ab0d90" width="450" height="978" loading="lazy" alt="L’onglet Accordeur sur un iPhone, la corde de A d’une guitare entendue 14 cents trop bas et le E grave déjà juste.">
+						</picture></div></div>
+					</div>
+				</div>
+				<div class="slides-nav" role="group" aria-label="Captures d’écran"><span>
+					<button type="button" aria-controls="practice-slides" aria-pressed="true">Métronome</button>
+					<button type="button" aria-controls="practice-slides" aria-pressed="false">Accordeur</button>
+				</span></div>
+			</div>
+		</section>
+
+		<section class="split reverse media-wide" aria-labelledby="instrument-title">
+			<div>
+				<h2 id="instrument-title">Accords et gammes</h2>
+				<p class="lead">Choisis ton instrument une fois, et les diagrammes d’accords de chaque chanson sont dessinés pour lui : guitare, ukulélé, mandoline, banjo ou clavier.</p>
+				<ul class="points">
+					<li>Les diagrammes et les tablatures suivent l’accordage dans lequel tu joues, du drop D à l’open G.</li>
+					<li>Cherche dans la base d’accords par tonalité ou par nom, et vois les gammes recommandées pour chaque accord.</li>
+					<li>L’onglet Gammes dessine chaque gamme et chaque mode dans n’importe quelle tonalité, des pentatoniques et du blues au bebop, aux gammes symétriques et aux gammes du monde, sur n’importe quel manche et dans n’importe quel accordage, ou sur le clavier.</li>
+				</ul>
+			</div>
+			<div>
+				<div class="slides" id="instrument-slides">
+					<div class="pair">
+						<div class="tablet"><div class="frame"><picture class="screen">
+							<source srcset="../assets/screenshots/fr/tablet-song-chord-shape-dark.webp?v=25d6c5b5" media="(prefers-color-scheme: dark)">
+							<img src="../assets/screenshots/fr/tablet-song-chord-shape-light.webp?v=54f30593" width="1200" height="900" loading="lazy" alt="I’m Gonna Be (500 Miles) sur un iPad, avec les doigtés d’un accord de B à la guitare proposés par-dessus la chanson.">
+						</picture></div></div>
+						<div class="phone"><div class="frame"><picture class="screen">
+							<source srcset="../assets/screenshots/fr/phone-chords-dark.webp?v=c5e8fb15" media="(prefers-color-scheme: dark)">
+							<img src="../assets/screenshots/fr/phone-chords-light.webp?v=d9a6c22c" width="450" height="978" loading="lazy" alt="L’onglet Accords sur un iPhone, avec les accords de C au ukulélé.">
+						</picture></div></div>
+					</div>
+					<div class="pair" aria-hidden="true">
+						<div class="tablet"><div class="frame"><picture class="screen">
+							<source srcset="../assets/screenshots/fr/tablet-song-scales-dark.webp?v=1aa0d0d5" media="(prefers-color-scheme: dark)">
+							<img src="../assets/screenshots/fr/tablet-song-scales-light.webp?v=d19a8dd7" width="1200" height="900" loading="lazy" alt="I’m Gonna Be (500 Miles) sur un iPad, sa section Gammes sous ses accords, avec la gamme de E majeur dessinée sur un manche de guitare par-dessus la chanson.">
+						</picture></div></div>
+						<div class="phone"><div class="frame"><picture class="screen">
+							<source srcset="../assets/screenshots/fr/phone-scales-dark.webp?v=80c4354b" media="(prefers-color-scheme: dark)">
+							<img src="../assets/screenshots/fr/phone-scales-light.webp?v=d2971a22" width="450" height="978" loading="lazy" alt="L’onglet Gammes sur un iPhone, avec les gammes courantes de A à la guitare.">
+						</picture></div></div>
+					</div>
+				</div>
+				<div class="slides-nav" role="group" aria-label="Captures d’écran"><span>
+					<button type="button" aria-controls="instrument-slides" aria-pressed="true">Accords</button>
+					<button type="button" aria-controls="instrument-slides" aria-pressed="false">Gammes</button>
+				</span></div>
+			</div>
+		</section>
+
+		<section aria-labelledby="chords-title">
+			<h2 id="chords-title">Notation</h2>
+			<p class="lead">Affiche les accords en lettres, en notation allemande ou latine, en chiffres de Nashville ou en chiffres romains, dans n’importe quelle tonalité. En dessous, chaque chanson est un simple fichier texte <a href="https://www.chordpro.org" target="_blank" rel="noopener">ChordPro</a> : rien ne t’enferme. Essaie sur l’exemple ci-dessous.</p>
+			<div class="chordpro">
+				<div class="source">
+					<pre id="chordpro-source"># Fichier .cho brut
+{title: Amazing Grace}
+{artist: John Newton}
+{key: G}
+
+{start_of_verse}
+[G]Amazing [G7]grace, how [C]sweet the [G]sound
+That [G]saved a wretch like [D]me
+{end_of_verse}</pre>
+				</div>
+				<span class="conversion-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h16m-6-6 6 6-6 6"/></svg></span>
+				<div class="rendered">
+					<div class="song-heading">
+						<div translate="no">
+							<p class="song-title">Amazing Grace</p>
+							<p class="song-artist">John Newton</p>
+						</div>
+						<span class="transpose" role="group" aria-label="Transposer l’exemple" hidden>
+							<button type="button" data-step="-1" aria-label="Transposer vers le bas">−</button>
+							<button type="button" class="reset" id="transpose-value" aria-label="Réinitialiser la transposition" aria-live="polite">-3 · E</button>
+							<button type="button" data-step="1" aria-label="Transposer vers le haut">+</button>
+						</span>
+						<span class="notation" role="group" aria-label="Notation des accords de l’exemple" hidden>
+							<button type="button" data-notation="standard" aria-pressed="true">Standard</button>
+							<button type="button" data-notation="german" aria-pressed="false">Allemande</button>
+							<button type="button" data-notation="latin" aria-pressed="false">Latine</button>
+							<button type="button" data-notation="nashville" aria-pressed="false">Nashville</button>
+							<button type="button" data-notation="roman" aria-pressed="false">Romaine</button>
+						</span>
+					</div>
+					<div class="sheet" id="chordpro-sheet"><p class="section-label">Couplet</p><div class="line" translate="no"><span class="segment"><b>E</b>Amazing </span><span class="segment"><b>E7</b>grace, how </span><span class="segment"><b>A</b>sweet the </span><span class="segment"><b>E</b>sound</span></div><div class="line" translate="no"><span class="segment"><b></b>That </span><span class="segment"><b>E</b>saved a wretch like </span><span class="segment"><b>B</b>me</span></div></div>
+				</div>
+			</div>
+		</section>
+
+		<section id="features" aria-labelledby="features-title">
+			<h2 id="features-title">Et aussi</h2>
+			<p class="lead">Tout ce qu’il faut à un recueil de chansons, et rien qui ne te gêne.</p>
+			<ul class="features">
+				<li>
+					<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5M7.5 10.5h6M10.5 7.5v6"/></svg>
+					<h3>Recherche et filtres</h3>
+					<p>Cherche par titre, artiste ou étiquette, les résultats les plus proches en premier. Trie et filtre par étiquettes ou par langues.</p>
+				</li>
+				<li>
+					<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h8l10 10-8 8L3 11Z"/><circle cx="7.5" cy="7.5" r="1"/></svg>
+					<h3>Étiquettes et modifications groupées</h3>
+					<p>Crée tes propres étiquettes de couleur. Sélectionne plusieurs chansons à la fois pour les étiqueter, les ajouter à une setlist ou les partager.</p>
+				</li>
+				<li>
+					<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h18m-4-4 4 4-4 4M21 17H3m4-4-4 4 4 4"/></svg>
+					<h3>Partage</h3>
+					<p>Envoie des chansons et des setlists aux musiciens avec qui tu joues, en fichier zip ou en lien que tout utilisateur de Campfire peut ouvrir.</p>
+				</li>
+				<li>
+					<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 9a8 8 0 0 0-14-3L3 9m0-5v5h5M4 15a8 8 0 0 0 14 3l3-3m0 5v-5h-5"/></svg>
+					<h3>Synchronisation Dropbox en temps réel</h3>
+					<p>Modifie une chanson sur ton ordinateur portable et vois-la changer sur ton téléphone un instant plus tard, le tout stocké dans ton propre dossier Dropbox.</p>
+				</li>
+				<li>
+					<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+					<h3>Mode lecture seule</h3>
+					<p>Un simple interrupteur verrouille l’édition sur scène : une fausse manip ne peut pas modifier une chanson ou une setlist en plein set.</p>
+				</li>
+				<li>
+					<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="7" width="20" height="10" rx="5"/><circle cx="16" cy="12" r="2"/></svg>
+					<h3>Masquer ce qui ne sert pas</h3>
+					<p>Désactive les fonctionnalités dont tu n’as pas besoin : Campfire les masque pour garder une interface simple et sans distraction.</p>
+				</li>
+			</ul>
+		</section>
+
+		<section id="download" aria-labelledby="download-title">
+			<h2 id="download-title">Télécharger Campfire</h2>
+			<p class="lead">La même app sur toutes les plateformes, et dans le navigateur sans rien installer.</p>
+			<div class="platforms">
+				<a href="https://play.google.com/store/apps/details?id=com.pandulapeter.campfire" target="_blank" rel="noopener">
+					<svg viewBox="0 0 24 24" aria-hidden="true"><defs><clipPath id="google-play"><path d="M4 5.5Q4 2.5 6.6 4l11.3 6.5q2.6 1.5 0 3L6.6 20Q4 21.5 4 18.5Z"/></clipPath></defs><g clip-path="url(#google-play)"><path fill="#4285F4" d="M4 2.5 12.6 12 4 21.5Z"/><path fill="#34A853" d="M4 2.5 14.2 8.4 12.6 12Z"/><path fill="#EA4335" d="M4 21.5 12.6 12l1.6 3.6Z"/><path fill="#FBBC04" d="m14.2 8.4 6.3 3.6-6.3 3.6-1.6-3.6Z"/></g></svg>
+					<span><strong>Android</strong>Google Play</span>
+				</a>
+				<a href="https://apps.apple.com/app/id6815160850" target="_blank" rel="noopener">
+					<svg viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="app-store" x2="0" y2="1"><stop offset="0" stop-color="#1AC4FC"/><stop offset="1" stop-color="#1D6FF2"/></linearGradient></defs><rect width="24" height="24" rx="5.4" fill="url(#app-store)"/><path fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" d="M10.9 6l6.5 11.3M13.1 6l-4.8 8.4m-1.1 2-.7 1.2M6 14.4h7.9m2 0H18"/></svg>
+					<span><strong>iOS et iPadOS</strong>App Store</span>
+				</a>
+				<a href="../app/" target="_blank" rel="noopener">
+					<img src="../assets/icon.svg?v=8ba29e56" width="40" height="40" alt="">
+					<span><strong>Navigateur</strong>Rien à installer</span>
+				</a>
+				<a href="https://apps.microsoft.com/detail/9MSR62F288M1" target="_blank" rel="noopener">
+					<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="#8A8886" stroke-width="1.6" d="M8.5 7.5V6a3.5 3.5 0 0 1 7 0v1.5"/><rect x="2.8" y="7" width="18.4" height="15" rx="2.4" fill="#F3F2F1" stroke="#C8C6C4" stroke-width=".8"/><path fill="#F25022" d="M7.6 10.2h4v4h-4z"/><path fill="#7FBA00" d="M12.4 10.2h4v4h-4z"/><path fill="#00A4EF" d="M7.6 15h4v4h-4z"/><path fill="#FFB900" d="M12.4 15h4v4h-4z"/></svg>
+					<span><strong>Windows</strong>Microsoft Store</span>
+				</a>
+				<a href="https://apps.apple.com/app/id6815160850" target="_blank" rel="noopener">
+					<svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="5.4" fill="url(#app-store)"/><path fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" d="M10.9 6l6.5 11.3M13.1 6l-4.8 8.4m-1.1 2-.7 1.2M6 14.4h7.9m2 0H18"/></svg>
+					<span><strong>macOS</strong>Mac App Store</span>
+				</a>
+				<a href="https://github.com/pandulapeter/campfire/releases/latest" target="_blank" rel="noopener">
+					<svg class="github" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>
+					<span><strong>Linux</strong>GitHub</span>
+				</a>
+			</div>
+			<p class="release-note">Certaines fonctionnalités ne sont pas encore disponibles sur toutes les plateformes. La version navigateur est toujours la plus à jour, les autres peuvent mettre quelques jours à suivre.</p>
+		</section>
+	</main>
+
+	<footer class="site-footer">
+		<div class="coffee">
+			<a href="https://pandulapeter.com" target="_blank" rel="noopener" aria-label="Le site de Péter Pandula"><img src="../assets/peter.webp?v=70634f3d" width="480" height="480" loading="lazy" alt="Péter jouant de la guitare électrique sur scène."></a>
+			<div>
+				<h2>Entretenir le feu de camp</h2>
+				<p>Salut, moi c’est Péter. Campfire est l’app que je voulais sur mon propre pupitre, alors je l’ai créée. Elle est gratuite et <a href="https://github.com/pandulapeter/campfire" target="_blank" rel="noopener">open source</a>, et elle le restera. Si elle a aussi gagné sa place sur le tien, un café m’aide à continuer.</p>
+			</div>
+			<a class="button" href="https://buymeacoffee.com/pandulapeter" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h13v5a6 6 0 0 1-6 6h-1a6 6 0 0 1-6-6V8Zm13 1h1.5a2.5 2.5 0 0 1 0 5H17M8 2.5v2.5M11 2.5v2.5M14 2.5v2.5"/></svg>Offre-moi un café</a>
+		</div>
+		<div class="legal">
+			<p>© 2026 · <a href="https://pandulapeter.com" target="_blank" rel="noopener">Péter Pandula</a></p>
+			<nav aria-label="Pied de page">
+				<a href="support/">Assistance</a>
+				<a href="privacy/">Confidentialité</a>
+				<a class="source" href="https://github.com/pandulapeter/campfire" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>Code source</a>
+			</nav>
+			<ul class="language-links" translate="no" aria-label="Langue">
+				<li><a href="../de/" hreflang="de" lang="de">Deutsch</a></li>
+				<li><a href="../" hreflang="en" lang="en">English</a></li>
+				<li><a href="../es/" hreflang="es" lang="es">Español</a></li>
+				<li><a href="./" hreflang="fr" lang="fr" aria-current="true">Français</a></li>
+				<li><a href="../hu/" hreflang="hu" lang="hu">Magyar</a></li>
+				<li><a href="../it/" hreflang="it" lang="it">Italiano</a></li>
+				<li><a href="../ro/" hreflang="ro" lang="ro">Română</a></li>
+			</ul>
+		</div>
+	</footer>
+</div>
+<script src="../assets/home.js?v=f5f66237"></script>
+</body>
+</html>

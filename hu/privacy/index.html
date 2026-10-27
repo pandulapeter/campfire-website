@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="hu">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script>
+		// The site is in the languages of the picker, each in a folder of its own, and the English pages, at the root,
+		// are also those of every other language. A visitor who lands on one of them is sent to the same page in the
+		// language they last picked in the picker, which is remembered, or else in the first of their browser's languages
+		// the site has. The picker is a <details>, closed by a click anywhere else or by Escape.
+		(function (d, l) {
+			var languages = ["de", "en", "es", "fr", "hu", "it", "ro"];
+			var picked = null;
+			try { picked = localStorage.getItem("language"); } catch (e) {}
+			d.addEventListener("click", function (event) {
+				var link = event.target.closest("a[hreflang]");
+				if (link) try { localStorage.setItem("language", link.hreflang); } catch (e) {}
+				d.querySelectorAll("details.languages[open]").forEach(function (picker) { if (!picker.contains(event.target)) picker.open = false; });
+			});
+			d.addEventListener("keydown", function (event) {
+				if (event.key === "Escape") d.querySelectorAll("details.languages[open]").forEach(function (picker) { picker.open = false; picker.querySelector("summary").focus(); });
+			});
+			if (d.documentElement.lang !== "en") return;
+			var preferred = [picked].concat((navigator.languages || [navigator.language]).map(function (tag) { return String(tag).slice(0, 2).toLowerCase(); }))
+				.filter(function (code) { return languages.indexOf(code) !== -1; })[0];
+			if (preferred && preferred !== "en") l.replace("/" + preferred + l.pathname + l.search + l.hash);
+		}(document, location));
+	</script>
+	<title>Adatvédelmi irányelvek – Campfire</title>
+	<meta name="description" content="Hogyan kezeli a Campfire az adataidat: nincs fiók, nincs szerver, nincs reklám és követés.">
+	<link rel="canonical" href="https://campfire-songbook.com/hu/privacy/">
+	<link rel="alternate" hreflang="de" href="https://campfire-songbook.com/de/privacy/">
+	<link rel="alternate" hreflang="en" href="https://campfire-songbook.com/privacy/">
+	<link rel="alternate" hreflang="es" href="https://campfire-songbook.com/es/privacy/">
+	<link rel="alternate" hreflang="fr" href="https://campfire-songbook.com/fr/privacy/">
+	<link rel="alternate" hreflang="hu" href="https://campfire-songbook.com/hu/privacy/">
+	<link rel="alternate" hreflang="it" href="https://campfire-songbook.com/it/privacy/">
+	<link rel="alternate" hreflang="ro" href="https://campfire-songbook.com/ro/privacy/">
+	<link rel="alternate" hreflang="x-default" href="https://campfire-songbook.com/privacy/">
+	<meta name="theme-color" content="#FAF8FE" media="(prefers-color-scheme: light)">
+	<meta name="theme-color" content="#15121C" media="(prefers-color-scheme: dark)">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="Campfire">
+	<meta property="og:locale" content="hu_HU">
+	<meta property="og:url" content="https://campfire-songbook.com/hu/privacy/">
+	<meta property="og:title" content="Adatvédelmi irányelvek – Campfire">
+	<meta property="og:description" content="Hogyan kezeli a Campfire az adataidat: nincs fiók, nincs szerver, nincs reklám és követés.">
+	<meta property="og:image" content="https://campfire-songbook.com/assets/og-image.jpg?v=a569ced8">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:image:alt" content="A Campfire laptopon és telefonon">
+	<meta name="twitter:card" content="summary_large_image">
+	<link rel="icon" href="../../assets/icon.svg?v=8ba29e56" type="image/svg+xml">
+	<link rel="apple-touch-icon" href="../../assets/icon-192.png?v=0f2be8ac">
+	<link rel="stylesheet" href="../../assets/site.css?v=128df0b0">
+	<script>
+		// Every visitor is offered two versions: a phone or a tablet the app from its store first and the web app second,
+		// a computer the other way around. The script names the system: the stylesheet shows the elements marked
+		// for-mobile instead of for-desktop on a phone or a tablet, every link marked data-native goes to the system's own
+		// version, and one marked data-native-label is also named after it. iPadOS presents itself as a Mac, so an iPad is
+		// told apart by its touch screen. Without a match, the links lead to the list of every platform.
+		(function (d) {
+			var agent = navigator.userAgent;
+			var os = /Android/.test(agent) ? "android" : /iPhone|iPad|iPod/.test(agent) || (/Macintosh/.test(agent) && navigator.maxTouchPoints > 1) ? "ios" : /Windows/.test(agent) ? "windows" : /Macintosh/.test(agent) ? "macos" : /Linux/.test(agent) ? "linux" : "";
+			var native = {
+				android: ["https://play.google.com/store/apps/details?id=com.pandulapeter.campfire", "Töltsd le a Google Playről"],
+				ios: ["https://apps.apple.com/app/id6815160850", "Töltsd le az App Store-ból"],
+				windows: ["https://apps.microsoft.com/detail/9MSR62F288M1", "Letöltés Windowsra"],
+				macos: ["https://apps.apple.com/app/id6815160850", "Letöltés macOS-re"],
+				linux: ["https://github.com/pandulapeter/campfire/releases/latest", "Letöltés Linuxra"]
+			}[os];
+			if (!native) return;
+			d.documentElement.dataset.os = os;
+			if (os === "android" || os === "ios") d.documentElement.dataset.mobile = "";
+			d.addEventListener("DOMContentLoaded", function () {
+				d.querySelectorAll("[data-native]").forEach(function (link) {
+					link.href = native[0];
+					link.target = "_blank";
+					link.rel = "noopener";
+					if (link.hasAttribute("data-native-label")) link.textContent = native[1];
+				});
+			});
+		}(document));
+	</script>
+</head>
+<body>
+<a class="skip" href="#main">Ugrás a tartalomhoz</a>
+<header class="site-header">
+	<div class="wrap">
+		<a class="brand" translate="no" href="../"><img src="../../assets/icon.svg?v=8ba29e56" alt="">Campfire</a>
+		<nav aria-label="Főmenü">
+			<a class="optional" href="../#download">Letöltés</a>
+			<a class="optional" href="../support/">Támogatás</a>
+			<a class="optional" href="./" aria-current="page">Adatvédelem</a>
+			<details class="languages" translate="no">
+				<summary aria-label="Nyelv: Magyar"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.8 3.9 6 3.9 9.5s-1.3 6.7-3.9 9.5c-2.6-2.8-3.9-6-3.9-9.5s1.3-6.7 3.9-9.5Z"/></svg><span>HU</span></summary>
+				<ul>
+					<li><a href="../../de/privacy/" hreflang="de" lang="de">Deutsch</a></li>
+					<li><a href="../../privacy/" hreflang="en" lang="en">English</a></li>
+					<li><a href="../../es/privacy/" hreflang="es" lang="es">Español</a></li>
+					<li><a href="../../fr/privacy/" hreflang="fr" lang="fr">Français</a></li>
+					<li><a href="./" hreflang="hu" lang="hu" aria-current="true">Magyar</a></li>
+					<li><a href="../../it/privacy/" hreflang="it" lang="it">Italiano</a></li>
+					<li><a href="../../ro/privacy/" hreflang="ro" lang="ro">Română</a></li>
+				</ul>
+			</details>
+			<a class="button small for-desktop" href="../../app/" target="_blank" rel="noopener">Webalkalmazás</a>
+			<a class="button small for-mobile" href="../#download" data-native>Letöltés</a>
+		</nav>
+	</div>
+</header>
+<div class="wrap">
+
+	<main class="document" id="main">
+		<h1>Adatvédelmi irányelvek</h1>
+		<p>A Campfire letöltésével és használatával ezek a feltételek automatikusan vonatkoznak rád, ezért figyelmesen olvasd el őket.</p>
+		<p>Ezt az alkalmazást Pandula Péter díjmentesen bocsátja a rendelkezésedre, és abban a formában használható, ahogy van.</p>
+		<p class="updated"><em>Utolsó frissítés: 2026. október 22. Ez a változat a Campfire 4.0-s és újabb verzióira vonatkozik; a borítóképek és a teljes könyvtár beállításokból való törlése a Campfire 4.5-ben jelent meg, a kiválasztott akkordfogások, valamint a dalonkénti transzponálás, capo és tempó szinkronizálása a Campfire 4.7-ben, a mikrofont használó hangoló, valamint a címkeszínek és az egyes dalok metronómhangsúlyainak szinkronizálása a Campfire 4.7.1-ben, a daladatok online keresése, a dalok beillesztése és a dalok alkalmazással való megosztása a Campfire 4.9-ben, a dal- és listalinkek a Campfire 5.0-ban, az alkalmazás naplója pedig a Campfire 5.0.1-ben.</em></p>
+		<h2>Általános áttekintés</h2>
+		<p>Ez az oldal arról tájékoztat, milyen elveket követek a személyes adatok gyűjtése, felhasználása és közlése terén, ha valaki a szolgáltatásomat használja.</p>
+		<p>A Campfire offline is működő alkalmazás dalszövegek és akkordok megjelenítésére és szerkesztésére. A dalaid és listáid hagyományos <a href="https://www.chordpro.org" target="_blank" rel="noopener">ChordPro</a> szövegfájlok, amelyeket az alkalmazás a saját tárhelyén tárol az eszközödön, weben pedig a böngésződ webhelyhez tartozó privát tárhelyén. Nincs Campfire-fiók, és sehol nem vesz részt saját szerverem: sosem kapom meg a dalaidat, a beállításaidat vagy bármi mást arról, hogyan használod az alkalmazást. A Campfire csak a felhőszinkronizáláshoz és az általa megosztott linkekhez, egy megosztott link megnyitásához, a borítóképekhez és a daladatok kereséséhez csatlakozik az internethez; ezeket alább részletezem. A hangoló a mikrofonodat használja, de amit hall, sosem hagyja el az eszközödet; ezt szintén alább részletezem. A Campfire ezenkívül naplót vezet arról, mit csinált az eszközödön, és ez csak akkor jut el hozzám, ha te magad elküldöd nekem, ahogy <a href="#log">Az alkalmazás naplója</a> részben olvasható.</p>
+		<p>A Campfire semmilyen reklámot, analitikát vagy követést nem tartalmaz.</p>
+		<h2>Az adatok gyűjtése és felhasználása</h2>
+		<p>A Campfire-be nincs beépítve semmilyen adatgyűjtő megoldás; ennek megfelelően szándékosan nem gyűjtök személyazonosításra alkalmas adatokat. Ne feledd azonban, hogy egyes adatgyűjtési mechanizmusok kívül esnek a hatáskörömön. Például pusztán azzal, hogy az alkalmazást a Google Play Áruházból töltöd le, automatikusan megosztasz bizonyos korlátozott használati adatokat és összeomlási naplókat velem, a fejlesztővel, valamint a Google-lel. Ehhez a Play-szolgáltatások licencszerződésének elfogadásakor járultál hozzá, amelyre semmilyen befolyásom nincs.</p>
+		<h2>Felhőszinkronizálás</h2>
+		<p>A Campfire több saját eszközödön is azonosan tudja tartani a könyvtáradat, ha egy hozzád tartozó felhőmappában tárolja. <strong>Ez ki van kapcsolva, amíg be nem kapcsolod.</strong> Amíg nem csatlakoztatsz fiókot az alkalmazás beállításaiban, a szinkronizálás egyáltalán nem küld hálózati kérést, és ha sosem csatlakoztatsz fiókot, ebből a részből semmi sem vonatkozik rád.</p>
+		<p>A szinkronizálás jelenleg a <a href="https://www.dropbox.com/privacy" target="_blank" rel="noopener">Dropboxot</a> támogatja. Ha csatlakoztatod:</p>
+		<ul>
+			<li><strong>A fájljaid a saját Dropboxodba kerülnek, nem hozzám.</strong> A dalok és listák közvetlenül az eszközöd és a Dropbox között mozognak. Nem üzemeltetek szervert, és a könyvtáradról egyetlen másolat sem jut el hozzám.</li>
+			<li><strong>A Campfire csak a saját mappáját látja.</strong> Az alkalmazás a Dropbox „alkalmazásmappa” engedélyét kéri, amely a hozzáférését egyetlen, számára létrehozott, <em>Apps/Campfire Sync</em> nevű mappára korlátozza. A Dropboxod többi része láthatatlan az alkalmazás számára.</li>
+			<li><strong>Csak a könyvtárad szinkronizálódik, és az, ahogyan játszod.</strong> Ez a dalfájljaidat és a listafájljaidat jelenti, valamint – egy mellettük, ugyanabban a mappában lévő <em>preferences.json</em> fájlban – a dalokhoz beállított transzponálást, capót, tempót és metronómhangsúlyokat, az egyes hangszerekhez és hangolásokhoz választott akkordfogásokat és a címkéid színét. A többi alkalmazásbeállításodat, például a választott témát, a nyelvet és a szövegméretet, a szinkronizálás sosem tölti fel, ezek azon az eszközön maradnak, ahol beállítottad őket (az eszközöd saját biztonsági mentése azonban átviheti őket egy új eszközre, lásd alább <em>Az eszköz biztonsági mentése</em> részt).</li>
+			<li><strong>Mit olvas ki a Campfire a fiókodból.</strong> A csatlakozás után az alkalmazás lekéri a Dropboxtól a fiók megjelenítendő nevét és e-mail-címét, kizárólag azért, hogy a beállítások képernyője megmutathassa, melyik fiókba kerül a könyvtárad, és megőrzi a fiók Dropbox-azonosítóját, hogy a fiókot akkor is felismerje, ha megváltoztatod a nevét vagy az e-mail-címét. Ezeket az eszközöd tárolja, és sosem kerülnek máshová.</li>
+			<li><strong>Hogyan működik a bejelentkezés.</strong> Az engedélyezés a szabványos OAuth 2.0 folyamattal, PKCE-vel történik, a Dropbox saját, a böngésződben megnyíló hozzájárulási oldalán. A Dropbox-jelszavadat sosem a Campfire-be írod be, és az nem is halad át rajta. Az így kapott hozzáférési és frissítési tokeneket kizárólag az alkalmazás privát tárhelye tárolja az eszközödön (Androidon a rendszer által őrzött kulccsal titkosítva, iOS-en és iPadOS-en a rendszer Kulcskarikájában), és sosem kerülnek máshová, csak a Dropboxhoz.</li>
+			<li><strong>Leválasztás.</strong> Ha a beállításokban a „Leválasztás” lehetőséget választod, az alkalmazás megkéri a Dropboxot a token visszavonására, és törli azt az eszközödről. A fájljaid érintetlenek maradnak, az eszközön és a Dropboxodban is, és ugyanígy a megosztott linkjeid is, amelyek továbbra is működnek: ha meg akarsz szabadulni tőlük, előbb állítsd le a megosztásukat. A Campfire hozzáférését bármikor visszavonhatod a Dropbox-fiókod csatlakoztatott alkalmazásainak oldalán is.</li>
+		</ul>
+		<p>A Dropboxodban tárolt adatokra a Dropbox saját adatvédelmi irányelvei és feltételei vonatkoznak, amelyek közted és a Dropbox között állnak fenn. Ha a Campfire a jövőben más felhőszolgáltatást is támogatna, arra is ugyanezek az elvek vonatkoznak majd, és ezt az oldalt frissítem, hogy megnevezze.</p>
+		<h2 id="links">Dal- és listalinkek</h2>
+		<p>Egy dalt vagy listát megoszthatsz olyan linkként, amelyet bárki megnyithat. Link létrehozásához a fent leírt Dropbox-felhőszinkronizálás szükséges; a megnyitásához nem kell fiók.</p>
+		<ul>
+			<li><strong>A megosztás nyilvános másolatot helyez el a saját Dropboxodban.</strong> Link létrehozásakor a Campfire a dalt, illetve a listát a dalaival együtt zip fájlként menti az <em>Apps/Campfire Sync</em> mappán belüli <em>shared</em> mappába, és nyilvános linket kér hozzá a Dropboxtól. Bárki, akinél megvan a link, letöltheti ezt a fájlt. Amíg a szinkronizálás csatlakoztatva van, a Campfire naprakészen tartja a fájlt, ahogy módosítod a dalt vagy a listát, egészen addig, amíg le nem állítod a megosztását. Ehhez az alkalmazás engedélyt kér a Dropboxtól megosztott linkek létrehozására és listázására is, ami csak a saját mappájára terjed ki. A megosztásaid listáját – minden elem címével, fájlnevével, linkjével és a megosztás napjával – egy ugyanabban a mappában lévő <em>shared-links.json</em> fájl tárolja, hogy minden hozzá csatlakoztatott eszköz ugyanazt a listát mutassa.</li>
+			<li><strong>Leállítás.</strong> A <em>Megosztás leállítása</em> a <em>Megosztás</em> képernyőn vagy a <em>Beállítások → Megosztás</em> alatt törli a fájlt a Dropboxodból, és ugyanezt teszi a dal vagy a lista törlése a Campfire-ben. A link ezután senkinek sem működik. A mások által már importált példányok az övék, azokat a Campfire nem éri el.</li>
+			<li><strong>A link megnyitása letölti a fájlt a Dropboxból.</strong> Az alkalmazás közvetlenül a Dropboxból tölti le, megmutatja, mi van benne, és semmit sem ír ki, amíg nem importálod. A Dropbox egy szokásos letöltést lát az eszközöd IP-címéről, és hozzám semmi sem jut el.</li>
+			<li><strong>A link oldala semmit sem küld el.</strong> A link ennek a webhelynek egy oldalára vezet, amely a böngésződben olvassa ki a linket. A link fájlt megnevező része egy <em>#</em> után áll, amelyet a böngészők sosem küldenek el szervernek, így sem ez a webhely, sem egy üzenetküldő linkelőnézete nem látja. Az oldal maga semmit sem tölt le; a gombjai a Campfire-t, az alkalmazásboltját, a webes alkalmazást vagy a fájl letöltését nyitják meg.</li>
+			<li><strong>Telepítés linkről.</strong> Androidon, ha a Campfire-t az oldal gombjával a Google Playről telepíted, a Google Play az első indításkor átadja a linket az alkalmazásnak. iOS-en és iPadOS-en az oldal <em>Az alkalmazás letöltése</em> gombja kimásolja a linket; az első indításkor a Campfire ellenőrzi, hogy webcím van-e a vágólapon, anélkül hogy kiolvasná, és csak akkor olvassa ki, ha a <em>Megnyitás</em> gombra koppintasz. Ami nem Campfire-link, azt figyelmen kívül hagyja.</li>
+		</ul>
+		<h2>A mikrofon és a hangoló</h2>
+		<p>A Campfire hangolója a mikrofonon keresztül hallgatja a hangszeredet. <strong>Semmit, amit hall, nem rögzít, nem őriz meg és nem küld el sehová.</strong></p>
+		<ul>
+			<li><strong>Csak ha kéred.</strong> Az alkalmazás indításkor sosem kéri a mikrofont. Akkor kéri, amikor koppintással megnyitod a hangolót (a Hangoló fület, vagy egy dal hangológombját vagy menüpontját), vagy amikor a <em>Mikrofon használata</em> gombra koppintasz egy koppintás nélkül megjelent hangolón, például olyanon, amelyet az alkalmazás ott nyit meg újra, ahol abbahagytad. Az Android, az iOS, az iPadOS, a macOS és a böngésződ előbb az engedélyedet kéri, amelyet bármikor visszavonhatsz a beállításaikban. Számítógépen, ahol az alkalmazás nem tudja megállapítani, kapott-e engedélyt, megjegyzi, hogy egyszer a gombra koppintottál, és onnantól kezdve megnyitja a mikrofont, valahányszor a hangoló megjelenik.</li>
+			<li><strong>Csak amíg a hangoló a képernyőn van.</strong> A mikrofon csak addig van nyitva, amíg a Hangoló fül vagy egy dal fölötti hangoló látható, és az alkalmazás előtérben van. Amint elhagyod a hangolót, másik alkalmazásra váltasz vagy lezárod a képernyőt, bezárul, így az eszközöd felvételjelzője pontosan addig világít, amíg a hangoló figyel.</li>
+			<li><strong>Az eszközödön elemezve, majd eldobva.</strong> A hangot az eszközöd a beérkezéskor dolgozza fel, kizárólag a megszólaló hang magasságának megállapításához, majd eldobja. Semmilyen hanganyagot és semmi abból származó adatot nem ment, nem szinkronizál, nem tesz bele biztonsági mentésbe, és nem küld el nekem vagy bárki másnak.</li>
+			<li><strong>Kikapcsolás.</strong> Az alkalmazás beállításaiban a „Hangoló” kapcsoló eltávolítja a hangolót, és vele együtt minden módot, ahogyan az alkalmazás a mikrofont kérhetné.</li>
+		</ul>
+		<h2>Borítóképek</h2>
+		<p>Egy dal megnevezhet egy mellette megjelenő albumborítót, egy kép webcímeként a dal saját fájljában. A címet te vagy az választotta, aki a dalt lejegyezte, és a Campfire-nek nincs beleszólása abba, melyik webhelyre mutat.</p>
+		<ul>
+			<li><strong>A borító megjelenítése.</strong> Amikor egy borítóval rendelkező dal először jelenik meg, az alkalmazás letölti a képet erről a címről, és egy másolatot tárol az eszközödön, hogy ne kelljen újra letölteni. A képet kiszolgáló webhely egy szokásos kérést lát az eszközöd IP-címéről, ahogyan egy böngészőtől is. Azokat a másolatokat, amelyeket már egyik dal sem nevez meg, az alkalmazás törli, és ezek sosem szinkronizálódnak, és nem kerülnek bele az eszközöd biztonsági mentésébe. Bármikor törölheted mindet, ha az alkalmazás beállításaiban a <em>Könyvtár</em> alatt a <em>Borítóképek gyorsítótára</em> sorra koppintasz.</li>
+			<li><strong>Borító keresése.</strong> Csak amikor megnyitod egy dal borítókeresését, akkor kerül a keresőmezőiben szereplő előadó, album és cím a <a href="https://musicbrainz.org/doc/About/Privacy_Policy" target="_blank" rel="noopener">MusicBrainz</a> és az Apple <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener">iTunes Search API</a> szolgáltatásához, és a talált lemezek bélyegképei a <a href="https://coverartarchive.org" target="_blank" rel="noopener">Cover Art Archive</a> oldaláról és az Apple-től töltődnek le. Rólad vagy a könyvtáradról semmi más nem kerül elküldésre, és egyiknél sincs fiókod. Ezekre a kérésekre az adott szolgáltatások saját adatvédelmi irányelvei vonatkoznak.</li>
+			<li><strong>Cím beírása.</strong> Ha egy kép címét te magad adod meg, az alkalmazás letölti a képet erről a címről, hogy előnézetet mutasson.</li>
+			<li><strong>Kikapcsolás.</strong> Az alkalmazás beállításaiban a „Borítóképek” kapcsoló mindezt kikapcsolja: egyetlen borítót sem tölt le és nem jelenít meg, és a keresést sem kínálja fel.</li>
+		</ul>
+		<h2>Daladatok keresése</h2>
+		<p>Amíg egy dal adatait szerkeszted, a Campfire online megkeresheti az előadóját, albumát, évét és szerzőit.</p>
+		<ul>
+			<li><strong>Csak ha kéred.</strong> Semmi sem kerül elküldésre, amíg meg nem nyitod egy dalnál a <em>Daladatok keresése online</em> funkciót. Ekkor a keresőmezőiben szereplő cím, előadó és album a <a href="https://musicbrainz.org/doc/About/Privacy_Policy" target="_blank" rel="noopener">MusicBrainz</a> és az Apple <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener">iTunes Search API</a> szolgáltatásához kerül, a MusicBrainztől pedig a talált felvétel szerzőit is lekéri. Rólad vagy a könyvtáradról semmi más nem kerül elküldésre, és egyiknél sincs fiókod. Ezekre a kérésekre az adott szolgáltatások saját adatvédelmi irányelvei vonatkoznak.</li>
+			<li><strong>Semmit sem őriz meg, és semmit sem ír ki, amíg nem mented.</strong> A keresés eredménye csak az űrlapot tölti ki. A dal fájlja csak akkor változik meg, amikor a Mentés gombra koppintasz, a találatokat pedig nem tárolja.</li>
+			<li><strong>Kikapcsolás.</strong> Az alkalmazás beállításaiban a „Daladatok online” kapcsoló eltávolítja a keresést.</li>
+		</ul>
+		<h2>Dalok beillesztése és megosztása</h2>
+		<ul>
+			<li><strong>A vágólapot csak beillesztéskor olvassa.</strong> A Campfire akkor olvassa a vágólapot, amikor a <em>Beillesztés a vágólapról</em> lehetőségre koppintasz vagy megnyomod a Ctrl+V-t (Macen a ⌘V-t), illetve amikor iOS-en és iPadOS-en a linkről történő telepítés utáni első indításkor a <em>Megnyitás</em> gombra koppintasz (lásd: <a href="#links">Dal- és listalinkek</a>), magától soha. iOS-en és iPadOS-en, valamint egyes böngészőkben a rendszer előbb rákérdez.</li>
+			<li><strong>A megosztott és behúzott dalok az eszközödön maradnak.</strong> Az Androidon, iOS-en vagy iPadOS-en egy másik alkalmazásból a Campfire-rel megosztott, illetve rá húzott szöveget és fájlokat az eszközöd olvassa be és alakítja át. A köztük lévő webcímeket sosem nyitja meg. iOS-en és iPadOS-en a megosztás egy olyan mappában várakozik, amelyen az alkalmazás és a megosztási bővítménye osztozik, amíg a Campfire át nem veszi, majd törlődik.</li>
+			<li><strong>Semmi sem mentődik, amíg el nem mented.</strong> A beillesztett vagy megosztott dal a szerkesztőben nyílik meg, és csak akkor lesz belőle fájl a könyvtáradban, amikor a Mentés gombra koppintasz. Addig a szerkesztő a nem mentett szöveget kizárólag az eszközödön őrzi, hogy ne vesszen el, ha az alkalmazás bezárul.</li>
+		</ul>
+		<h2 id="log">Az alkalmazás naplója</h2>
+		<p>A Campfire naplót vezet arról, mit csinált az utóbbi időben, hogy ha valami elromlik, elküldhesd nekem, és kideríthessem, miért. Ez nem analitika: az eszközödön marad, semmi sem küldi el magától sehová, és csak akkor jut el hozzám, ha úgy döntesz, hogy elküldöd.</p>
+		<ul>
+			<li><strong>Mit tartalmaz.</strong> Mikor indult el az alkalmazás, melyik verziója, és milyen típusú eszközön fut; mely képernyőket és párbeszédablakokat nyitottad meg, csak a típusuk szerint (például „daladatok”, sosem magát a dalt); mit csináltál, néhány szóban, például egy dal mentését, dalok listához adását, egy beállítás módosítását (a nevét, nem azt, amire állítottad), egy keresés megnyitását (sosem azt, amit beírtál), a metronóm vagy a hangoló elindítását, importálást, exportálást, megosztást és az egyes szinkronizálások eredményét, darabszámokban; valamint az alkalmazás üzeneteit arról, mit csinált, és a hibákról, amelyek megnevezhetik a dalaid és listáid fájljait. Minden sorban szerepel, mikor íródott. Sosem tartalmazza a dalaid szövegét, a beállításaidat, a Dropbox-fiókodat vagy azt, amit a hangoló hall.</li>
+			<li><strong>Hol tárolódik.</strong> Kizárólag az eszközödön, az alkalmazás saját tárhelyén, és sosem szinkronizálódik. A mérete körülbelül fél megabájtra korlátozott, és az új sorok írásakor a régebbiek törlődnek.</li>
+			<li><strong>Az elküldés rajtad múlik.</strong> A beállításokban a <em>Névjegy</em> fül naplósora először megmutatja, mit tartalmaz a napló, majd ha folytatod, csatolja egy nekem címzett új levélhez Androidon, valamint iOS-en és iPadOS-en, ha a Mail alkalmazásban van fiók. A levelet és a naplót elküldés előtt elolvashatod, vagy el sem küldöd. Máshol a Campfire felajánlja a fájl megosztását vagy mentését, és te magad küldöd el. Számítógépen a napló által említett mappaútvonalakban a felhasználóneved lecserélődik, mielőtt a napló elhagyja az alkalmazást.</li>
+			<li><strong>Összeomlás után.</strong> Androidon, iOS-en, iPadOS-en és számítógépen, ha az alkalmazás egy hiba miatt leállt, a következő megnyitáskor egyszer megkérdezi, szeretnéd-e elküldeni nekem a naplót. Ha a <em>Most nem</em> lehetőséget választod, semmi sem kerül elküldésre.</li>
+			<li><strong>Ha elküldöd nekem,</strong> kizárólag arra használom, hogy megtaláljam és kijavítsam a hibát, amelybe belefutottál.</li>
+		</ul>
+		<h2>Az eszköz biztonsági mentése</h2>
+		<p>Az androidos telefonok és tabletek, az iPhone-ok és az iPadek biztonsági mentést készíthetnek a rajtuk lévő alkalmazások adatairól, és átvihetik azokat egy új eszközre. Ha ez be van kapcsolva, a Campfire-könyvtárad és az alkalmazásbeállításaid is benne vannak: Androidon a Google-biztonsági mentésben vagy az új telefonra történő közvetlen átvitelben, iOS-en és iPadOS-en az iCloud-mentésben vagy a régi eszközről történő átvitelben. Ezt a másolatot az operációs rendszer készíti az eszközöd biztonsági mentési beállításai szerint, és a mentést a saját Google- vagy Apple-fiókod tárolja, a Google, illetve az Apple adatvédelmi irányelvei szerint. A Campfire nem kezdeményezi, és én sosem kapom meg és nem is látom. Az eszközöd beállításaiban kikapcsolhatod. A borítóképek, az alkalmazás naplója, a szerkesztőben lévő nem mentett szöveg és az iOS-megosztási bővítményből még át nem vett megosztások nem kerülnek bele.</p>
+		<p>Ha felhőszinkronizálást használsz, a Dropbox-kapcsolat és az utolsó szinkronizálás adatai minden eszközön kimaradnak a biztonsági mentésből, így a visszaállított vagy új telefon vagy tablet leválasztva indul, és újra be kell jelentkezned a Dropboxba.</p>
+		<p>Számítógépen a könyvtár és az alkalmazás naplója a Campfire mappájában, a felhasználói fiókod alkalmazásadatai között található, és a számítógépről készített bármely biztonsági mentés, például a Time Machine vagy a Fájlelőzmények, tartalmazhatja őket. Weben a könyvtár és a napló a böngésződ webhelyhez tartozó tárhelyén van. Ezek nem részei semmilyen biztonsági mentésnek, és a webhely adatainak törlése eltávolítja őket.</p>
+		<h2 id="data-deletion">Az adataid törlése</h2>
+		<p>Nincs másolatom semmiről, amit a Campfire-ben tárolsz, így nincs mit törölnöm, és nem kell kérelmet küldened: minden másolat olyan helyen van, amely felett te rendelkezel, és bármikor magad törölheted.</p>
+		<ul>
+			<li><strong>A teljes könyvtárad, az alkalmazásból:</strong> nyisd meg a beállításokat, lépj a <em>Könyvtár</em> fülre, az <em>Ezen az eszközön</em> részben koppints arra a sorra, amely a dalaid és listáid számát mutatja, írd be, hogy <em>DELETE</em>, és erősítsd meg. Minden dal és lista törlődik az eszközről. <strong>Ha a Dropbox-szinkronizálás csatlakoztatva van, ez az <em>Apps/Campfire Sync</em> mappádból és minden vele szinkronizált eszközről is törli őket</strong>; a párbeszédablak ezt a megerősítés előtt jelzi. Ha csak erről az eszközről szeretnéd törölni őket, előbb válaszd a „Leválasztás” lehetőséget. A borítóképek másolatait ugyanezen a képernyőn, a <em>Borítóképek gyorsítótára</em> sorral törölheted. A könyvtár törlése minden dal és lista megosztását is leállítja, így egyik linked sem működik tovább.</li>
+			<li><strong>A megosztott linkjeid, az alkalmazásból:</strong> a beállítások <em>Megosztás</em> fülén a <em>Minden megosztás leállítása</em> minden megosztott másolatot töröl a Dropboxodból, és egyik link sem működik tovább. A könyvtárad változatlan marad.</li>
+			<li><strong>Minden az eszközödön:</strong> távolítsd el az alkalmazást, ami törli az eszközről a könyvtárat, a beállításokat, a borítóképeket, az alkalmazás naplóját és a Dropbox-kapcsolatot. Weben ugyanezt teszi a webhely adatainak törlése a böngésződben.</li>
+			<li><strong>A Dropboxodban, ha használtad a szinkronizálást:</strong> ha a könyvtáradat csatlakoztatott állapotban törlöd, ahogy fent leírtam, az eltávolítja a dalaidat és listáidat az <em>Apps/Campfire Sync</em> mappából, és csak a választott akkordfogásokat és címkeszíneket tartalmazó <em>preferences.json</em> fájl marad meg, valamint, ha valaha megosztottál valamit, a <em>shared-links.json</em> lista, immár üresen. Ha mindent el akarsz távolítani, válaszd az alkalmazás beállításaiban a „Leválasztás” lehetőséget, majd töröld az <em>Apps/Campfire Sync</em> mappát a Dropboxban. A Campfire hozzáférését a Dropbox-fiókod csatlakoztatott alkalmazásainak oldalán is visszavonhatod.</li>
+			<li><strong>Az eszközöd biztonsági mentésében:</strong> töröld a mentést, vagy kapcsold ki az alkalmazás biztonsági mentését az eszközöd beállításaiban, illetve a Google- vagy iCloud-fiókodban.</li>
+		</ul>
+		<p>Ha bármi nem egyértelmű, <a href="mailto:pandulapeter@gmail.com?Subject=Campfire" target="_top">írj nekem</a>, és segítek.</p>
+		<h2>Gyermekek adatainak védelme</h2>
+		<p>Ezek a szolgáltatások nem 13 év alattiaknak szólnak. Tudatosan nem gyűjtök személyazonosításra alkalmas adatokat 13 év alatti gyermekektől. Ha szülő vagy gondviselő vagy, és tudomásod van arról, hogy a gyermeked személyes adatokat adott meg nekem, kérlek, lépj kapcsolatba velem, hogy megtehessem a szükséges lépéseket.</p>
+		<h2>Az adatvédelmi irányelvek módosításai</h2>
+		<p>Az adatvédelmi irányelveimet időről időre frissíthetem. Ezért javaslom, hogy rendszeresen nézd át ezt az oldalt a változások miatt. A változásokról úgy értesítelek, hogy az új adatvédelmi irányelveket közzéteszem ezen az oldalon. A változások a közzétételük után azonnal hatályba lépnek.</p>
+		<h2>Kapcsolat</h2>
+		<p>Ha kérdésed vagy javaslatod van az adatvédelmi irányelveimmel kapcsolatban, nyugodtan <a href="mailto:pandulapeter@gmail.com?Subject=Campfire" target="_top">írj nekem</a>.</p>
+	</main>
+
+	<footer class="site-footer">
+		<div class="legal">
+			<p>© 2026 · <a href="https://pandulapeter.com" target="_blank" rel="noopener">Pandula Péter</a></p>
+			<a class="source" href="https://github.com/pandulapeter/campfire" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>Forráskód</a>
+			<ul class="language-links" translate="no" aria-label="Nyelv">
+				<li><a href="../../de/privacy/" hreflang="de" lang="de">Deutsch</a></li>
+				<li><a href="../../privacy/" hreflang="en" lang="en">English</a></li>
+				<li><a href="../../es/privacy/" hreflang="es" lang="es">Español</a></li>
+				<li><a href="../../fr/privacy/" hreflang="fr" lang="fr">Français</a></li>
+				<li><a href="./" hreflang="hu" lang="hu" aria-current="true">Magyar</a></li>
+				<li><a href="../../it/privacy/" hreflang="it" lang="it">Italiano</a></li>
+				<li><a href="../../ro/privacy/" hreflang="ro" lang="ro">Română</a></li>
+			</ul>
+		</div>
+	</footer>
+</div>
+</body>
+</html>

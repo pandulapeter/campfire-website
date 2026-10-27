@@ -24,19 +24,43 @@
 	<meta name="theme-color" content="#FAF8FE" media="(prefers-color-scheme: light)">
 	<meta name="theme-color" content="#15121C" media="(prefers-color-scheme: dark)">
 	<link rel="icon" href="/assets/icon.svg?v=8ba29e56" type="image/svg+xml">
-	<link rel="stylesheet" href="/assets/site.css?v=2f65ccb9">
+	<link rel="stylesheet" href="/assets/site.css?v=128df0b0">
 </head>
 <body>
 <header class="site-header">
 	<div class="wrap">
-		<a class="brand" href="/"><img src="/assets/icon.svg?v=8ba29e56" alt="">Campfire</a>
+		<a class="brand" translate="no" href="/"><img src="/assets/icon.svg?v=8ba29e56" alt="">Campfire</a>
 	</div>
 </header>
 <div class="wrap">
 	<main class="document" id="main">
-		<h1>There’s nothing at this address.</h1>
-		<p>The page may have moved, or the link has a typo in it. The <a href="/">home page</a> has everything else.</p>
+		<h1 id="heading">There’s nothing at this address.</h1>
+		<p id="text">The page may have moved, or the link has a typo in it. The <a href="/">home page</a> has everything else.</p>
 	</main>
 </div>
+<script>
+	// In the language picked in the site's picker, or else the first of the browser's languages the site has, with a
+	// link to the home page in that language. English is the page as it is.
+	(function (d) {
+		var texts = {
+			de: { title: "Seite nicht gefunden – Campfire", heading: "Unter dieser Adresse gibt es nichts.", text: "Die Seite wurde vielleicht verschoben, oder der Link enthält einen Tippfehler. Alles andere findest du auf der <a href=\"/\">Startseite</a>." },
+			es: { title: "Página no encontrada – Campfire", heading: "No hay nada en esta dirección.", text: "Puede que la página se haya movido o que el enlace tenga una errata. En la <a href=\"/\">página de inicio</a> está todo lo demás." },
+			fr: { title: "Page introuvable – Campfire", heading: "Il n’y a rien à cette adresse.", text: "La page a peut-être été déplacée, ou le lien contient une faute de frappe. La <a href=\"/\">page d’accueil</a> mène à tout le reste." },
+			hu: { title: "Az oldal nem található – Campfire", heading: "Ezen a címen nincs semmi.", text: "Lehet, hogy az oldal máshová került, vagy elírás van a linkben. A <a href=\"/\">kezdőlapon</a> minden más megtalálható." },
+			it: { title: "Pagina non trovata – Campfire", heading: "A questo indirizzo non c’è niente.", text: "La pagina potrebbe essere stata spostata, o il link contiene un errore di battitura. La <a href=\"/\">home page</a> ha tutto il resto." },
+			ro: { title: "Pagina nu a fost găsită – Campfire", heading: "La această adresă nu se află nimic.", text: "Pagina poate să se fi mutat sau linkul are o greșeală de scriere. <a href=\"/\">Pagina principală</a> are tot restul." }
+		};
+		var picked = null;
+		try { picked = localStorage.getItem("language"); } catch (e) {}
+		var codes = [picked].concat((navigator.languages || [navigator.language]).map(function (tag) { return String(tag).slice(0, 2).toLowerCase(); }));
+		var language = codes.filter(function (code) { return code === "en" || texts.hasOwnProperty(code); })[0];
+		var text = texts[language];
+		if (!text) return;
+		d.documentElement.lang = language;
+		d.title = text.title;
+		d.getElementById("heading").textContent = text.heading;
+		d.getElementById("text").innerHTML = text.text.replace('href="/"', 'href="/' + language + '/"');
+	}(document));
+</script>
 </body>
 </html>

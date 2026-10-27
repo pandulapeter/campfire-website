@@ -2,10 +2,10 @@
    a violet night in the dark one, purple for the interface and orange for the chords. */
 
 /* The fonts are cut down to the Latin letters, punctuation and arrows, and compressed as WOFF2. */
-@font-face { font-family: Inter; src: url("fonts/inter_regular.woff2?v=8982fd4c") format("woff2"); font-weight: 400; font-display: swap; }
-@font-face { font-family: Inter; src: url("fonts/inter_bold.woff2?v=821f5d7f") format("woff2"); font-weight: 700; font-display: swap; }
-@font-face { font-family: "JetBrains Mono"; src: url("fonts/jetbrains_mono_regular.woff2?v=dd310140") format("woff2"); font-weight: 400; font-display: swap; }
-@font-face { font-family: "JetBrains Mono"; src: url("fonts/jetbrains_mono_bold.woff2?v=3de607e6") format("woff2"); font-weight: 700; font-display: swap; }
+@font-face { font-family: Inter; src: url("fonts/inter_regular.woff2?v=0b354d6b") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: Inter; src: url("fonts/inter_bold.woff2?v=676dbe48") format("woff2"); font-weight: 700; font-display: swap; }
+@font-face { font-family: "JetBrains Mono"; src: url("fonts/jetbrains_mono_regular.woff2?v=05f8eec0") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "JetBrains Mono"; src: url("fonts/jetbrains_mono_bold.woff2?v=884a2224") format("woff2"); font-weight: 700; font-display: swap; }
 
 :root {
 	color-scheme: light dark;
@@ -76,13 +76,26 @@ code, kbd { font-family: var(--mono); font-size: 0.9em; }
 html { scroll-padding-top: 73px; }
 .site-header { position: sticky; top: 0; z-index: 100; background: var(--background); border-bottom: 1px solid color-mix(in srgb, var(--outline-variant) 50%, transparent); }
 .site-header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 72px; }
-.brand { display: inline-flex; align-items: center; gap: 10px; color: inherit; text-decoration: none; font-weight: 700; font-size: 20px; letter-spacing: -0.01em; }
+.brand { display: inline-flex; flex-shrink: 0; align-items: center; gap: 10px; color: inherit; text-decoration: none; font-weight: 700; font-size: 20px; letter-spacing: -0.01em; }
 .brand img { width: 32px; height: 32px; }
 .site-header nav { display: flex; align-items: center; gap: 4px; }
 .site-header nav a:not(.button) { color: var(--muted); text-decoration: none; font-size: 15px; padding: 8px 12px; border-radius: 20px; }
 @media (hover: hover) and (pointer: fine) { .site-header nav a:not(.button):hover { background: var(--container); color: var(--on-background); } }
 @media (hover: none) { .site-header nav a:not(.button):active { background: color-mix(in srgb, var(--on-background) 12%, transparent); color: var(--on-background); } }
 .site-header nav a[aria-current] { color: var(--on-background); font-weight: 700; }
+/* The language picker: a globe and the language's code, opening a list of every language under it. The list is
+   anchored to the picker's right edge, which on a phone is close to the screen's. */
+.languages { position: relative; }
+.languages summary { display: flex; align-items: center; gap: 6px; height: 36px; padding: 0 12px; border-radius: 20px; color: var(--muted); font-size: 14px; font-weight: 700; cursor: pointer; list-style: none; transition: background-color 0.2s, color 0.2s; }
+.languages summary::-webkit-details-marker { display: none; }
+.languages summary svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+.languages summary:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
+.languages[open] summary { background: var(--container); color: var(--on-background); }
+@media (hover: hover) and (pointer: fine) { .languages summary:hover { background: var(--container); color: var(--on-background); } }
+@media (hover: none) { .languages summary:active { background: color-mix(in srgb, var(--on-background) 12%, transparent); color: var(--on-background); transition-duration: 0s; } }
+.languages ul { position: absolute; top: calc(100% + 8px); right: 0; z-index: 1; min-width: 168px; margin: 0; padding: 8px; list-style: none; border-radius: 16px; background: var(--container-low); border: 1px solid var(--outline-variant); box-shadow: 0 8px 24px rgb(0 0 0 / 0.16); }
+.site-header nav .languages a { display: block; padding: 8px 12px; border-radius: 10px; color: var(--on-background); }
+.site-header nav .languages a[aria-current] { color: var(--primary); }
 
 .site-footer { margin-top: 72px; padding-bottom: 32px; }
 .coffee { display: flex; align-items: center; justify-content: space-between; gap: 24px 48px; padding: 32px 40px; border-radius: 20px; background: var(--primary-container); color: var(--on-primary-container); }
@@ -100,6 +113,11 @@ html { scroll-padding-top: 73px; }
 .legal .source { display: inline-flex; align-items: center; gap: 8px; }
 .legal .source svg { width: 16px; height: 16px; fill: currentColor; }
 .legal a { color: inherit; }
+/* Every language of the page, on a row of its own under the rest. */
+.language-links { display: flex; flex-wrap: wrap; flex-basis: 100%; gap: 4px 16px; margin: 0; padding: 0; list-style: none; }
+.language-links a { text-decoration: none; }
+.language-links a[aria-current] { color: var(--on-background); font-weight: 700; }
+@media (hover: hover) and (pointer: fine) { .language-links a:hover { color: var(--primary); } }
 /* Without the coffee box above it (on the privacy policy and support pages), a line separates it from the page. */
 .legal:first-child { margin-top: 0; padding-top: 32px; border-top: 1px solid var(--outline-variant); }
 
@@ -166,19 +184,15 @@ html:not([data-os]) .all-platforms { display: none; }
 
 /* A metronome that plays: its beats, lit one after another over the screenshot, which shows none lit. Each layer is
    one beat at its brightest, from a strip of the four side by side, and fades as the app's flash does, quickly, at the
-   screenshots' 120 BPM. */
+   screenshots' 120 BPM. The strips are named by the page, as --beats-light and --beats-dark, since each language has its own. */
 .beats { position: absolute; inset: 2.4cqw; pointer-events: none; }
 .phone .beats { inset: 3cqw; }
 .beats i { position: absolute; inset: 0; background-size: 400% 100%; opacity: 0; animation: beat 2s infinite; }
 .beats i:nth-child(2) { background-position-x: 33.333%; animation-delay: 0.5s; }
 .beats i:nth-child(3) { background-position-x: 66.667%; animation-delay: 1s; }
 .beats i:nth-child(4) { background-position-x: 100%; animation-delay: 1.5s; }
-.beats.tablet-song-metronome i { background-image: url("screenshots/tablet-song-metronome-beats-light.webp?v=b508c048"); }
-.beats.phone-metronome i { background-image: url("screenshots/phone-metronome-beats-light.webp?v=aacb0c66"); }
-@media (prefers-color-scheme: dark) {
-	.beats.tablet-song-metronome i { background-image: url("screenshots/tablet-song-metronome-beats-dark.webp?v=c0ba32ca"); }
-	.beats.phone-metronome i { background-image: url("screenshots/phone-metronome-beats-dark.webp?v=bd02799b"); }
-}
+.beats i { background-image: var(--beats-light); }
+@media (prefers-color-scheme: dark) { .beats i { background-image: var(--beats-dark); } }
 @keyframes beat { 0% { opacity: 1; } 1.25% { opacity: 0.75; } 2.5% { opacity: 0.42; } 3.75% { opacity: 0.2; } 5% { opacity: 0.1; } 7.5%, 100% { opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .beats { display: none; } }
 
@@ -369,9 +383,21 @@ section > .lead:has(+ .lead) { margin-bottom: 20px; }
 	.split > div > .phone { width: min(260px, 70%); }
 }
 
+/* Below this the header has no room for the language picker beside the longer languages' links and buttons: the row
+   of languages in the footer takes its place. */
+@media (max-width: 860px) {
+	.site-header .languages { display: none; }
+}
+
 /* Below this the header links and the brand would run into each other. */
 @media (max-width: 640px) {
 	.site-header nav a.optional { display: none; }
+}
+
+/* The brand and the longest of the languages' header buttons still fit on one row. */
+@media (max-width: 400px) {
+	.site-header .wrap { gap: 8px; }
+	.site-header .button.small { padding: 0 12px; }
 }
 
 @media (max-width: 600px) {

@@ -21,7 +21,7 @@
 	<meta name="apple-itunes-app" content="app-id=6815160850">
 	<link rel="icon" href="../assets/icon.svg?v=8ba29e56" type="image/svg+xml">
 	<link rel="apple-touch-icon" href="../assets/icon-192.png?v=0f2be8ac">
-	<link rel="stylesheet" href="../assets/site.css?v=2f65ccb9">
+	<link rel="stylesheet" href="../assets/site.css?v=128df0b0">
 	<style>
 		/* The landing page of a shared link: a column in the middle of the page with the two ways to open it as cards, the
 		   first of them filled, the app's store under them, the file after a line, and what Campfire is at the bottom. */
@@ -160,62 +160,215 @@
 		var mobile = os === "android" || os === "ios";
 		// The browsers inside other apps, which often keep a custom scheme or an intent:// address from opening anything.
 		var inAppBrowser = /FBAN|FBAV|FB_IAB|Instagram|Messenger|MicroMessenger|Line\/|Snapchat|TikTok|musical_ly|Bytedance|LinkedInApp|Pinterest|Twitter|; wv\)/.test(agent);
-		var hungarian = /^hu\b/i.test(navigator.language || "");
-		var text = hungarian ? {
-			song: "Megosztott dal",
-			setlist: "Megosztott lista",
-			untitled: "Megosztva a Campfire-ből",
-			untitledSong: "Cím nélküli dal",
-			untitledSetlist: "Cím nélküli lista",
-			ledeSong: "Nyisd meg a Campfire-ben, hogy bekerüljön a dalaid közé.",
-			ledeSetlist: "Nyisd meg a Campfire-ben, hogy a lista és a dalai bekerüljenek a könyvtáradba.",
-			newer: "Ezt a linket a Campfire egy újabb verziója készítette. A webes alkalmazás mindig a legfrissebb, a telepített alkalmazást pedig frissítsd, hogy megnyithasd.",
-			incomplete: "Ez a link hiányos.",
-			askAgain: "Kérd el újra attól, aki küldte.",
-			openApp: "Megnyitás az alkalmazásban",
-			getApp: "Az alkalmazás letöltése",
-			openWeb: "Megnyitás a webes alkalmazásban",
-			openWebPlain: "A webes alkalmazás megnyitása",
-			web: "Ebben a böngészőben fut, telepítés nélkül",
-			notInstalled: "Nincs telepítve?",
-			outdated: "Frissítés kell?",
-			afterInstall: "A Campfire a telepítés után megnyitja a linket.",
-			copied: "Kimásoltuk a linket, így a Campfire a telepítés után megnyitja.",
-			download: "A fájl letöltése",
-			downloadHint: "Kézzel is hozzáadhatod miután megnyitottad az alkalmazást.",
-			inAppBrowser: "Ha a gombok nem működnek, nyisd meg ezt az oldalt a böngésződben.",
-			about: "A Campfire ingyenes daloskönyv-alkalmazás dalszövegekhez és akkordokhoz, minden platformra és böngészőbe.",
-			aboutLink: "Tovább a campfire-songbook.com-ra",
-			platform: { android: "Campfire Androidra", ios: ipad ? "Campfire iPadOS-re" : "Campfire iOS-re", windows: "Campfire Windowsra", macos: "Campfire macOS-re", linux: "Campfire Linuxra", "": "Ha telepítve van ezen az eszközön" },
-			store: { android: "Töltsd le a Google Playről", ios: "Töltsd le az App Store-ból", windows: "Töltsd le a Microsoft Store-ból", macos: "Töltsd le a Mac App Store-ból", linux: "Töltsd le a GitHubról", "": "Válaszd ki a platformodat" }
-		} : {
-			song: "Shared song",
-			setlist: "Shared setlist",
-			untitled: "Shared from Campfire",
-			untitledSong: "Untitled song",
-			untitledSetlist: "Untitled setlist",
-			ledeSong: "Open it in Campfire to add it to your songs.",
-			ledeSetlist: "Open it in Campfire to add the setlist and its songs to your library.",
-			newer: "This link was made by a newer version of Campfire. The web app is always up to date, and the installed app needs an update to open it.",
-			incomplete: "This link is incomplete.",
-			askAgain: "Ask the person who sent it for it again.",
-			openApp: "Open in the app",
-			getApp: "Get the app",
-			openWeb: "Open in the web app",
-			openWebPlain: "Open the web app",
-			web: "Runs in this browser, with nothing to install",
-			notInstalled: "Not installed?",
-			outdated: "Need the update?",
-			afterInstall: "Campfire opens the link once it's installed.",
-			copied: "We copied the link, so Campfire can open it once it's installed.",
-			download: "Download the file",
-			downloadHint: "You can import it by hand after you open the app.",
-			inAppBrowser: "Open this page in your browser if the buttons don't work.",
-			about: "Campfire is a free songbook app for lyrics and chords, on every platform and in the browser.",
-			aboutLink: "Visit campfire-songbook.com",
-			platform: { android: "Campfire for Android", ios: ipad ? "Campfire for iPadOS" : "Campfire for iOS", windows: "Campfire for Windows", macos: "Campfire for macOS", linux: "Campfire for Linux", "": "If it's installed on this device" },
-			store: { android: "Get it on Google Play", ios: "Get it on the App Store", windows: "Get it from the Microsoft Store", macos: "Get it on the Mac App Store", linux: "Download it from GitHub", "": "Pick your platform" }
+		// The language picked in the site's picker, or else the first of the browser's languages the site has, or English.
+		var language = (function () {
+			var picked = null;
+			try { picked = localStorage.getItem("language"); } catch (e) {}
+			var codes = [picked].concat((navigator.languages || [navigator.language]).map(function (tag) { return String(tag).slice(0, 2).toLowerCase(); }));
+			return codes.filter(function (code) { return /^(de|en|es|fr|hu|it|ro)$/.test(code); })[0] || "en";
+		}());
+		var texts = {
+			de: {
+				song: "Geteilter Song",
+				setlist: "Geteilte Setlist",
+				untitled: "Geteilt aus Campfire",
+				untitledSong: "Song ohne Titel",
+				untitledSetlist: "Setlist ohne Titel",
+				ledeSong: "Öffne ihn in Campfire, um ihn zu deinen Songs hinzuzufügen.",
+				ledeSetlist: "Öffne sie in Campfire, um die Setlist und ihre Songs zu deiner Bibliothek hinzuzufügen.",
+				newer: "Dieser Link wurde mit einer neueren Version von Campfire erstellt. Die Web-App ist immer aktuell, die installierte App braucht ein Update, um ihn zu öffnen.",
+				incomplete: "Dieser Link ist unvollständig.",
+				askAgain: "Bitte die Person, die ihn geschickt hat, ihn noch einmal zu senden.",
+				openApp: "In der App öffnen",
+				getApp: "App laden",
+				openWeb: "In der Web-App öffnen",
+				openWebPlain: "Web-App öffnen",
+				web: "Läuft in diesem Browser, ganz ohne Installation",
+				notInstalled: "Nicht installiert?",
+				outdated: "Update nötig?",
+				afterInstall: "Campfire öffnet den Link nach der Installation.",
+				copied: "Wir haben den Link kopiert, damit Campfire ihn nach der Installation öffnen kann.",
+				download: "Datei herunterladen",
+				downloadHint: "Du kannst sie auch von Hand importieren, nachdem du die App geöffnet hast.",
+				inAppBrowser: "Öffne diese Seite in deinem Browser, falls die Buttons nicht funktionieren.",
+				about: "Campfire ist eine kostenlose Songbook-App für Songtexte und Akkorde, auf jeder Plattform und im Browser.",
+				aboutLink: "Zu campfire-songbook.com",
+				platform: { android: "Campfire für Android", ios: "Campfire für iOS", ipados: "Campfire für iPadOS", windows: "Campfire für Windows", macos: "Campfire für macOS", linux: "Campfire für Linux", "": "Falls es auf diesem Gerät installiert ist" },
+				store: { android: "Jetzt bei Google Play", ios: "Laden im App Store", windows: "Aus dem Microsoft Store laden", macos: "Laden im Mac App Store", linux: "Von GitHub herunterladen", "": "Wähle deine Plattform" }
+			},
+			en: {
+				song: "Shared song",
+				setlist: "Shared setlist",
+				untitled: "Shared from Campfire",
+				untitledSong: "Untitled song",
+				untitledSetlist: "Untitled setlist",
+				ledeSong: "Open it in Campfire to add it to your songs.",
+				ledeSetlist: "Open it in Campfire to add the setlist and its songs to your library.",
+				newer: "This link was made by a newer version of Campfire. The web app is always up to date, and the installed app needs an update to open it.",
+				incomplete: "This link is incomplete.",
+				askAgain: "Ask the person who sent it for it again.",
+				openApp: "Open in the app",
+				getApp: "Get the app",
+				openWeb: "Open in the web app",
+				openWebPlain: "Open the web app",
+				web: "Runs in this browser, with nothing to install",
+				notInstalled: "Not installed?",
+				outdated: "Need the update?",
+				afterInstall: "Campfire opens the link once it's installed.",
+				copied: "We copied the link, so Campfire can open it once it's installed.",
+				download: "Download the file",
+				downloadHint: "You can import it by hand after you open the app.",
+				inAppBrowser: "Open this page in your browser if the buttons don't work.",
+				about: "Campfire is a free songbook app for lyrics and chords, on every platform and in the browser.",
+				aboutLink: "Visit campfire-songbook.com",
+				platform: { android: "Campfire for Android", ios: "Campfire for iOS", ipados: "Campfire for iPadOS", windows: "Campfire for Windows", macos: "Campfire for macOS", linux: "Campfire for Linux", "": "If it's installed on this device" },
+				store: { android: "Get it on Google Play", ios: "Get it on the App Store", windows: "Get it from the Microsoft Store", macos: "Get it on the Mac App Store", linux: "Download it from GitHub", "": "Pick your platform" }
+			},
+			es: {
+				song: "Canción compartida",
+				setlist: "Repertorio compartido",
+				untitled: "Compartido desde Campfire",
+				untitledSong: "Canción sin título",
+				untitledSetlist: "Repertorio sin título",
+				ledeSong: "Ábrela en Campfire para añadirla a tus canciones.",
+				ledeSetlist: "Ábrelo en Campfire para añadir el repertorio y sus canciones a tu biblioteca.",
+				newer: "Este enlace se creó con una versión más reciente de Campfire. La app web siempre está actualizada; la app instalada necesita una actualización para abrirlo.",
+				incomplete: "Este enlace está incompleto.",
+				askAgain: "Pídeselo de nuevo a quien te lo envió.",
+				openApp: "Abrir en la app",
+				getApp: "Descargar la app",
+				openWeb: "Abrir en la app web",
+				openWebPlain: "Abrir la app web",
+				web: "Funciona en este navegador, sin instalar nada",
+				notInstalled: "¿No la tienes instalada?",
+				outdated: "¿Necesitas actualizarla?",
+				afterInstall: "Campfire abrirá el enlace una vez instalada.",
+				copied: "Hemos copiado el enlace para que Campfire pueda abrirlo una vez instalada.",
+				download: "Descargar el archivo",
+				downloadHint: "Puedes importarlo a mano después de abrir la app.",
+				inAppBrowser: "Si los botones no funcionan, abre esta página en tu navegador.",
+				about: "Campfire es una app de cancionero gratuita para letras y acordes, en todas las plataformas y en el navegador.",
+				aboutLink: "Visitar campfire-songbook.com",
+				platform: { android: "Campfire para Android", ios: "Campfire para iOS", ipados: "Campfire para iPadOS", windows: "Campfire para Windows", macos: "Campfire para macOS", linux: "Campfire para Linux", "": "Si la tienes instalada en este dispositivo" },
+				store: { android: "Disponible en Google Play", ios: "Descárgalo en el App Store", windows: "Descárgalo en Microsoft Store", macos: "Descárgalo en el Mac App Store", linux: "Descárgalo de GitHub", "": "Elige tu plataforma" }
+			},
+			fr: {
+				song: "Chanson partagée",
+				setlist: "Setlist partagée",
+				untitled: "Partagé depuis Campfire",
+				untitledSong: "Chanson sans titre",
+				untitledSetlist: "Setlist sans titre",
+				ledeSong: "Ouvre-la dans Campfire pour l’ajouter à tes chansons.",
+				ledeSetlist: "Ouvre-la dans Campfire pour ajouter la setlist et ses chansons à ta bibliothèque.",
+				newer: "Ce lien a été créé par une version plus récente de Campfire. L’app web est toujours à jour, et l’app installée doit être mise à jour pour l’ouvrir.",
+				incomplete: "Ce lien est incomplet.",
+				askAgain: "Redemande-le à la personne qui te l’a envoyé.",
+				openApp: "Ouvrir dans l’app",
+				getApp: "Télécharger l’app",
+				openWeb: "Ouvrir dans l’app web",
+				openWebPlain: "Ouvrir l’app web",
+				web: "Fonctionne dans ce navigateur, sans rien installer",
+				notInstalled: "Pas installé ?",
+				outdated: "Besoin de la mise à jour ?",
+				afterInstall: "Campfire ouvre le lien une fois installé.",
+				copied: "Nous avons copié le lien : Campfire pourra l’ouvrir une fois installé.",
+				download: "Télécharger le fichier",
+				downloadHint: "Tu peux l’importer à la main après avoir ouvert l’app.",
+				inAppBrowser: "Ouvre cette page dans ton navigateur si les boutons ne fonctionnent pas.",
+				about: "Campfire est un recueil de chansons gratuit pour les paroles et les accords, sur toutes les plateformes et dans le navigateur.",
+				aboutLink: "Découvrir campfire-songbook.com",
+				platform: { android: "Campfire pour Android", ios: "Campfire pour iOS", ipados: "Campfire pour iPadOS", windows: "Campfire pour Windows", macos: "Campfire pour macOS", linux: "Campfire pour Linux", "": "S’il est installé sur cet appareil" },
+				store: { android: "Disponible sur Google Play", ios: "Télécharger dans l’App Store", windows: "Obtenir sur le Microsoft Store", macos: "Télécharger dans le Mac App Store", linux: "Télécharger sur GitHub", "": "Choisis ta plateforme" }
+			},
+			hu: {
+				song: "Megosztott dal",
+				setlist: "Megosztott lista",
+				untitled: "Megosztva a Campfire-ből",
+				untitledSong: "Cím nélküli dal",
+				untitledSetlist: "Cím nélküli lista",
+				ledeSong: "Nyisd meg a Campfire-ben, hogy bekerüljön a dalaid közé.",
+				ledeSetlist: "Nyisd meg a Campfire-ben, hogy a lista és a dalai bekerüljenek a könyvtáradba.",
+				newer: "Ezt a linket a Campfire egy újabb verziója készítette. A webes alkalmazás mindig a legfrissebb, a telepített alkalmazást pedig frissítsd, hogy megnyithasd.",
+				incomplete: "Ez a link hiányos.",
+				askAgain: "Kérd el újra attól, aki küldte.",
+				openApp: "Megnyitás az alkalmazásban",
+				getApp: "Az alkalmazás letöltése",
+				openWeb: "Megnyitás a webes alkalmazásban",
+				openWebPlain: "A webes alkalmazás megnyitása",
+				web: "Ebben a böngészőben fut, telepítés nélkül",
+				notInstalled: "Nincs telepítve?",
+				outdated: "Frissítés kell?",
+				afterInstall: "A Campfire a telepítés után megnyitja a linket.",
+				copied: "Kimásoltuk a linket, így a Campfire a telepítés után megnyitja.",
+				download: "A fájl letöltése",
+				downloadHint: "Az alkalmazás megnyitása után kézzel is importálhatod.",
+				inAppBrowser: "Ha a gombok nem működnek, nyisd meg ezt az oldalt a böngésződben.",
+				about: "A Campfire ingyenes daloskönyv-alkalmazás dalszövegekhez és akkordokhoz, minden platformon és a böngészőben.",
+				aboutLink: "Tovább a campfire-songbook.com oldalra",
+				platform: { android: "Campfire Androidra", ios: "Campfire iOS-re", ipados: "Campfire iPadOS-re", windows: "Campfire Windowsra", macos: "Campfire macOS-re", linux: "Campfire Linuxra", "": "Ha telepítve van ezen az eszközön" },
+				store: { android: "Töltsd le a Google Playről", ios: "Töltsd le az App Store-ból", windows: "Töltsd le a Microsoft Store-ból", macos: "Töltsd le a Mac App Store-ból", linux: "Töltsd le a GitHubról", "": "Válaszd ki a platformodat" }
+			},
+			it: {
+				song: "Canzone condivisa",
+				setlist: "Scaletta condivisa",
+				untitled: "Condiviso da Campfire",
+				untitledSong: "Canzone senza titolo",
+				untitledSetlist: "Scaletta senza titolo",
+				ledeSong: "Aprila in Campfire per aggiungerla alle tue canzoni.",
+				ledeSetlist: "Aprila in Campfire per aggiungere la scaletta e le sue canzoni alla tua libreria.",
+				newer: "Questo link è stato creato da una versione più recente di Campfire. La web app è sempre aggiornata, mentre l’app installata va aggiornata per aprirlo.",
+				incomplete: "Questo link è incompleto.",
+				askAgain: "Chiedilo di nuovo a chi te l’ha inviato.",
+				openApp: "Apri nell’app",
+				getApp: "Scarica l’app",
+				openWeb: "Apri nella web app",
+				openWebPlain: "Apri la web app",
+				web: "Funziona in questo browser, senza installare nulla",
+				notInstalled: "Non è installata?",
+				outdated: "Serve l’aggiornamento?",
+				afterInstall: "Campfire apre il link dopo l’installazione.",
+				copied: "Abbiamo copiato il link, così Campfire può aprirlo dopo l’installazione.",
+				download: "Scarica il file",
+				downloadHint: "Puoi importarlo a mano dopo aver aperto l’app.",
+				inAppBrowser: "Se i pulsanti non funzionano, apri questa pagina nel tuo browser.",
+				about: "Campfire è un’app canzoniere gratuita per testi e accordi, su ogni piattaforma e nel browser.",
+				aboutLink: "Visita campfire-songbook.com",
+				platform: { android: "Campfire per Android", ios: "Campfire per iOS", ipados: "Campfire per iPadOS", windows: "Campfire per Windows", macos: "Campfire per macOS", linux: "Campfire per Linux", "": "Se è installata su questo dispositivo" },
+				store: { android: "Disponibile su Google Play", ios: "Scarica su App Store", windows: "Scarica dal Microsoft Store", macos: "Scarica dal Mac App Store", linux: "Scarica da GitHub", "": "Scegli la tua piattaforma" }
+			},
+			ro: {
+				song: "Cântec partajat",
+				setlist: "Listă partajată",
+				untitled: "Partajat din Campfire",
+				untitledSong: "Cântec fără titlu",
+				untitledSetlist: "Listă fără titlu",
+				ledeSong: "Deschide-l în Campfire ca să-l adaugi la cântecele tale.",
+				ledeSetlist: "Deschide-o în Campfire ca să adaugi lista și cântecele ei în biblioteca ta.",
+				newer: "Acest link a fost creat de o versiune mai nouă de Campfire. Aplicația web e mereu la zi, iar aplicația instalată trebuie actualizată ca să-l deschidă.",
+				incomplete: "Acest link este incomplet.",
+				askAgain: "Cere-l din nou celui care ți l-a trimis.",
+				openApp: "Deschide în aplicație",
+				getApp: "Descarcă aplicația",
+				openWeb: "Deschide în aplicația web",
+				openWebPlain: "Deschide aplicația web",
+				web: "Rulează în acest browser, fără nimic de instalat",
+				notInstalled: "Nu e instalată?",
+				outdated: "Trebuie actualizată?",
+				afterInstall: "Campfire deschide linkul după instalare.",
+				copied: "Am copiat linkul, ca Campfire să-l poată deschide după instalare.",
+				download: "Descarcă fișierul",
+				downloadHint: "Îl poți importa manual după ce deschizi aplicația.",
+				inAppBrowser: "Deschide această pagină în browser dacă butoanele nu funcționează.",
+				about: "Campfire este o aplicație gratuită de cântece, cu versuri și acorduri, pe orice platformă și în browser.",
+				aboutLink: "Vizitează campfire-songbook.com",
+				platform: { android: "Campfire pentru Android", ios: "Campfire pentru iOS", ipados: "Campfire pentru iPadOS", windows: "Campfire pentru Windows", macos: "Campfire pentru macOS", linux: "Campfire pentru Linux", "": "Dacă aplicația e instalată pe acest dispozitiv" },
+				store: { android: "Descarcă de pe Google Play", ios: "Descarcă din App Store", windows: "Descarcă din Microsoft Store", macos: "Descarcă din Mac App Store", linux: "Descarcă de pe GitHub", "": "Alege-ți platforma" }
+			}
 		};
+		var text = texts[language];
+		var platform = ipad ? "ipados" : os;
+		// The home page in the same language.
+		var home = "../" + (language === "en" ? "" : language + "/");
 		// The same stores and downloads as the rest of the site; without a known system, the list of every platform.
 		var native = {
 			android: "https://play.google.com/store/apps/details?id=com.pandulapeter.campfire",
@@ -223,7 +376,7 @@
 			windows: "https://apps.microsoft.com/detail/9MSR62F288M1",
 			macos: "https://apps.apple.com/app/id6815160850",
 			linux: "https://github.com/pandulapeter/campfire/releases/latest",
-			"": "../#download"
+			"": home + "#download"
 		};
 		// Line icons in the style of the home page's: a phone or a computer for the app, a globe for the web app, and an
 		// arrow into a tray for the file.
@@ -235,7 +388,8 @@
 		};
 		var link = sharedLink.link;
 		var actions = d.getElementById("actions");
-		d.documentElement.lang = hungarian ? "hu" : "en";
+		d.documentElement.lang = language;
+		d.getElementById("about-link").href = home;
 		d.getElementById("about").textContent = text.about;
 		d.getElementById("about-link").textContent = text.aboutLink;
 
@@ -285,7 +439,7 @@
 			d.getElementById("title").textContent = text.incomplete;
 			d.getElementById("lede").textContent = text.askAgain;
 			d.title = text.incomplete.replace(/\.$/, "") + " – Campfire";
-			var getApp = choice(device, text.getApp, text.platform[os], native[os]);
+			var getApp = choice(device, text.getApp, text.platform[platform], native[os]);
 			if (os === "") getApp.querySelector("span").textContent = text.store[""];
 			else external(getApp);
 			choices(getApp, external(choice("globe", text.openWebPlain, text.web, "../app/")));
@@ -308,7 +462,7 @@
 		var landing = "https://campfire-songbook.com/s/#" + link.payload;
 
 		choices(
-			choice(device, text.openApp, text.platform[os], os === "android" ? intent : scheme),
+			choice(device, text.openApp, text.platform[platform], os === "android" ? intent : scheme),
 			external(choice("globe", text.openWeb, text.web, "../app/#" + link.payload))
 		);
 

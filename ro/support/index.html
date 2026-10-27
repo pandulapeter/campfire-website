@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="ro">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script>
+		// The site is in the languages of the picker, each in a folder of its own, and the English pages, at the root,
+		// are also those of every other language. A visitor who lands on one of them is sent to the same page in the
+		// language they last picked in the picker, which is remembered, or else in the first of their browser's languages
+		// the site has. The picker is a <details>, closed by a click anywhere else or by Escape.
+		(function (d, l) {
+			var languages = ["de", "en", "es", "fr", "hu", "it", "ro"];
+			var picked = null;
+			try { picked = localStorage.getItem("language"); } catch (e) {}
+			d.addEventListener("click", function (event) {
+				var link = event.target.closest("a[hreflang]");
+				if (link) try { localStorage.setItem("language", link.hreflang); } catch (e) {}
+				d.querySelectorAll("details.languages[open]").forEach(function (picker) { if (!picker.contains(event.target)) picker.open = false; });
+			});
+			d.addEventListener("keydown", function (event) {
+				if (event.key === "Escape") d.querySelectorAll("details.languages[open]").forEach(function (picker) { picker.open = false; picker.querySelector("summary").focus(); });
+			});
+			if (d.documentElement.lang !== "en") return;
+			var preferred = [picked].concat((navigator.languages || [navigator.language]).map(function (tag) { return String(tag).slice(0, 2).toLowerCase(); }))
+				.filter(function (code) { return languages.indexOf(code) !== -1; })[0];
+			if (preferred && preferred !== "en") l.replace("/" + preferred + l.pathname + l.search + l.hash);
+		}(document, location));
+	</script>
+	<title>Asistență – Campfire</title>
+	<meta name="description" content="Răspunsuri la întrebările frecvente despre Campfire și cum mă poți contacta.">
+	<link rel="canonical" href="https://campfire-songbook.com/ro/support/">
+	<link rel="alternate" hreflang="de" href="https://campfire-songbook.com/de/support/">
+	<link rel="alternate" hreflang="en" href="https://campfire-songbook.com/support/">
+	<link rel="alternate" hreflang="es" href="https://campfire-songbook.com/es/support/">
+	<link rel="alternate" hreflang="fr" href="https://campfire-songbook.com/fr/support/">
+	<link rel="alternate" hreflang="hu" href="https://campfire-songbook.com/hu/support/">
+	<link rel="alternate" hreflang="it" href="https://campfire-songbook.com/it/support/">
+	<link rel="alternate" hreflang="ro" href="https://campfire-songbook.com/ro/support/">
+	<link rel="alternate" hreflang="x-default" href="https://campfire-songbook.com/support/">
+	<meta name="theme-color" content="#FAF8FE" media="(prefers-color-scheme: light)">
+	<meta name="theme-color" content="#15121C" media="(prefers-color-scheme: dark)">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="Campfire">
+	<meta property="og:locale" content="ro_RO">
+	<meta property="og:url" content="https://campfire-songbook.com/ro/support/">
+	<meta property="og:title" content="Asistență – Campfire">
+	<meta property="og:description" content="Răspunsuri la întrebările frecvente despre Campfire și cum mă poți contacta.">
+	<meta property="og:image" content="https://campfire-songbook.com/assets/og-image.jpg?v=a569ced8">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:image:alt" content="Campfire pe un laptop și pe un telefon">
+	<meta name="twitter:card" content="summary_large_image">
+	<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "FAQPage",
+		"mainEntity": [
+			{
+				"@type": "Question",
+				"name": "Campfire este gratuit?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Da. Nu are reclame, abonament, achiziții în aplicație sau limită de cântece și nici cont în care să te înregistrezi. Este open source sub Mozilla Public License 2.0, cu codul sursă pe GitHub, iar donațiile îl țin în viață."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Pe ce platforme funcționează Campfire?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Android, iOS, iPadOS, Windows, macOS și Linux, precum și în orice browser modern, fără nimic de instalat. Peste tot e aceeași aplicație, iar o bibliotecă sincronizată prin Dropbox rămâne la fel pe toate. Versiunea pentru browser primește prima funcțiile noi, iar celelalte pot avea nevoie de câteva zile ca s-o ajungă din urmă. Secțiunea de descărcare are linkuri către toate versiunile."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Campfire funcționează offline?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Da. Cântecele și listele tale sunt stocate pe dispozitiv, așa că tot ce folosești pe scenă merge fără conexiune, inclusiv metronomul și acordorul. Și aplicația web se deschide offline, după ce a fost deschisă o dată online. Conexiunea e necesară doar pentru sincronizarea Dropbox, linkurile de partajare și căutarea detaliilor și copertelor cântecelor."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Cum parcurg din nou întrebările de configurare?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Alege Configurează Campfire din nou din partea de sus a Setări → General ca să alegi pas cu pas aspectul, instrumentul, notația acordurilor și funcțiile."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Pot ascunde părțile aplicației pe care nu le folosesc?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Da. Din Setări → Funcții activezi și dezactivezi acordurile, diagramele acordurilor (și, odată cu ele, fila Acorduri), metronomul, acordorul, listele, copertele și căutarea online a detaliilor cântecelor. Dezactivarea doar ascunde funcția: nu se șterge nimic, iar ea revine cum era când o activezi din nou."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Cum adaug cântece?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Există patru moduri: Lipire: copiază acordurile și versurile unui cântec de pe orice site, oricât de dezordonate, și alege Lipește din clipboard din meniul Cântec nou al listei de cântece sau apasă acolo Ctrl+V (⌘V pe Mac). Campfire aranjează textul într-un cântec și îl deschide în editor: verifică titlul și artistul, apoi salvează. Partajare: pe Android, iOS și iPadOS, partajează către Campfire textul unei fișe de acorduri sau un fișier dintr-o altă aplicație. O adresă web partajată nu este deschisă, așa că partajează în schimb textul paginii. Import: alege Importă cântece, documente sau arhive zip… din fila Bibliotecă a setărilor sau trage fișierele peste aplicație. Campfire citește fișiere ChordPro (.cho, .chopro, .chordpro, .crd, .chord și .pro), fișiere .txt simple, documente PDF și Word .docx, arhive zip care le conțin și backupuri exportate din alte aplicații de cântece. Înainte să se scrie ceva, vezi ce conține importul, poți lăsa fișiere deoparte și alegi dacă un cântec al cărui nume e deja folosit primește un număr sau îl înlocuiește pe al tău. Scriere: creează un cântec în editorul integrat al aplicației."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Îmi pot muta biblioteca din OnSong, SongbookPro sau OpenSong?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Da. Campfire importă backupurile .sbpbackup și seturile .sbp din SongbookPro, fișierele .onsong din OnSong, cântecele OpenSong, melodiile ABC, fișierele ChordPro din orice aplicație și cântecele din exporturile JSON ale altor aplicații. Pune mai multe fișiere într-o arhivă zip ca să le aduci pe toate deodată. Fiecare cântec devine un fișier ChordPro, iar seturile din SongbookPro devin liste."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Pot importa o fișă de acorduri PDF sau Word?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Da. Importă un .pdf sau un .docx prin selectorul de fișiere, prin tragere sau într-o arhivă zip; pe Android, iOS și iPadOS îl poți și partaja către Campfire. Fișierele text simple și textul pe care îl lipești sau îl partajezi trec prin aceeași conversie. Campfire extrage textul și face tot posibilul să așeze acordurile deasupra versurilor și să recunoască secțiunile, titlul și indicațiile de interpretare. Totul se întâmplă pe dispozitivul tău, fără vreun serviciu sau model AI. Documentul original nu este păstrat. Rezultatul e un cântec obișnuit din biblioteca ta, iar mesajul de import îți spune câte cântece au fost convertite. Merită să le verifici în editor, mai ales când aranjarea originală e neobișnuită. Un document cu mai multe cântece cu titluri clare poate fi împărțit în mai multe cântece. Paginile scanate, PDF-urile protejate și fișierele .doc vechi nu pot fi citite: folosește un PDF cu text selectabil sau salvează fișierul Word ca .docx. PDF-urile pe care le partajează Campfire sunt imagini pentru tipărire, așa că partajează cântecele ca fișiere ChordPro sau zip ca să le muți dintr-o bibliotecă în alta."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Am șters cântecele demonstrative și le vreau înapoi.",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Alege Adaugă biblioteca demonstrativă din fila Bibliotecă a setărilor."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Cum modific mai multe cântece deodată?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Deschide meniul unuia dintre ele (atinge cele trei puncte, ține apăsat pe el sau dă clic dreapta pe un computer) și alege Selectează mai multe. Bifează-le pe celelalte sau folosește Selectează tot pentru ce arată căutarea și filtrele, apoi etichetează-le, adaugă-le în liste, setează-le limba sau partajează-le împreună. Alege Gata când ai terminat. Cântecele nu se șterg niciodată în bloc."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Cum completez albumul, anul sau compozitorii unui cântec?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Alege Editează detaliile cântecului din meniul cântecului, apoi Caută detaliile cântecului online. Campfire caută în MusicBrainz și iTunes înregistrări care se potrivesc cu titlul și artistul, iar Completează copiază în formular înregistrarea pe care o alegi; nimic nu se schimbă până nu salvezi. Dacă preferi să nu ți se ofere, dezactivează Detalii online ale cântecelor din Setări → Funcții."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Cum îi trimit o listă trupei mele?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Partajeaz-o ca link. Alege Partajează lista din meniul listei, selectează Link, apoi Creează link și trimite linkul sau arată codul lui QR. Oricine îl poate deschide: dacă are Campfire instalat, se deschide importul, care arată lista și cântecele ei înainte să se adauge ceva; fără Campfire, pagina linkului îl ajută să-l instaleze pe dispozitivul lui sau deschide lista în aplicația web. Un singur cântec se partajează la fel, cu Partajează cântecul. Linkurile sunt create din Dropboxul tău, așa că la primul ți se cere să-l conectezi, ceea ce îți și sincronizează biblioteca. Un link duce mereu la cea mai nouă versiune: când modifici lista sau cântecele ei, colegii de trupă deschid din nou același link ca să-și actualizeze copiile. Setări → Partajare arată tot ce partajezi, iar Oprește partajarea face ca un link să nu mai funcționeze."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Campfire funcționează cu o pedală de întors pagini?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Da. Asociază pedala cu telefonul, tableta sau computerul: funcționează atât pedalele care trimit tastele săgeți, cât și cele care trimit Page Up și Page Down. Sus și jos parcurg cântecul, iar într-o listă stânga și dreapta duc la cântecul anterior și la următorul. O tastatură face același lucru."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Pentru ce instrumente există diagrame de acorduri?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Chitară, ukulele, mandolină, banjo și claviatură, în acordajul standard și în celelalte acordaje pe care aplicația le oferă pentru fiecare, cum ar fi drop D sau open G la chitară. Alege instrumentul și acordajul în partea de sus a oricărui cântec sau în fila Acorduri: e o singură alegere pentru toată aplicația și o folosește și acordorul. Chitarele cu șapte și opt corzi, basurile și vioara au acordor, dar nu au diagrame de acorduri. Ca să cânți un acord altfel, atinge-l într-un cântec sau în fila Acorduri și alege altă poziție. Cea pe care o alegi e folosită în toate cântecele, cu excepția celor care își definesc propria poziție."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "De ce arată o tabulatură altfel decât cea pe care am importat-o?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Tabulaturile sunt mutate pe instrumentul și acordajul tău, cu o octavă mai sus sau mai jos acolo unde o notă ar ieși de pe grif, iar un rând sub tabulatură spune ce s-a schimbat. Un cântec cu tabulaturi pentru mai multe instrumente o arată doar pe cea pentru al tău. Cu claviatura sau vioara aleasă, tabulaturile sunt ascunse; cu Altul, sunt afișate așa cum sunt scrise. Fișierul cântecului nu este modificat niciodată."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Cum folosesc acordorul?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Deschide Acordor (din Unelte, când nu e loc pentru toate filele) și alege instrumentul și acordajul lui. Dacă îl deschizi cu o atingere, prima dată îți cere permisiunea de a folosi microfonul; altfel atinge Folosește microfonul. Cântă câte o coardă pe rând: nota cântată apare împreună cu numărul de cenți cu care e prea jos sau prea sus, iar fiecare coardă e bifată de îndată ce e acordată. Atinge o coardă ca să-i auzi nota. Acordorul e și un buton lângă instrument și acordaj, în partea de sus a fiecărui cântec, așa că te poți acorda fără să ieși din cântec. E un singur instrument pentru toată aplicația, așa că diagramele acordurilor urmează aceeași alegere. Frecvența de referință poate fi setată în filă între 415 și 466 Hz, dacă trupa ta nu se acordează la A = 440 Hz."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Acordorul nu mă aude.",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Campfire are nevoie de permisiunea ta ca să folosească microfonul. Dacă ai refuzat, atinge Deschide setările sau Întreabă din nou în acordor și permite accesul; într-un browser, permite microfonul din setările site-ului, de lângă adresă. Dacă microfonul e folosit de un apel sau de altă aplicație, închide-le mai întâi. Dacă acordorul spune că nu aude nimic, verifică dacă microfonul nu e dezactivat și, pe un computer, dacă e selectată intrarea corectă în setările de sunet ale sistemului. Pe Windows, Îmbunătățirile audio pot elimina o notă ținută ca zgomot: atinge Deschide setările de sunet în acordor și dezactivează-le pentru microfonul tău. Tonurile de referință pot fi redate și fără microfon."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Acordorul mă înregistrează?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Nu. Sunetul e analizat pe dispozitivul tău pe măsură ce ajunge și apoi aruncat: nimic nu e înregistrat, salvat sau trimis nicăieri. Microfonul e pornit doar cât timp acordorul e pe ecran și aplicația e în prim-plan, așa că indicatorul de înregistrare al sistemului e aprins exact atunci. Dacă nu îl folosești niciodată, dezactivează Acordor din Setări → Funcții, iar Campfire nu va cere deloc microfonul."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Unde sunt stocate cântecele mele?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Pe dispozitivul tău, în spațiul de stocare propriu al aplicației. Campfire nu are cont și nici server: cântecele tale nu părăsesc niciodată dispozitivul decât dacă le partajezi, le exporți sau pornești sincronizarea."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Cum îmi fac backup la bibliotecă sau cum o mut pe alt dispozitiv?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Există două moduri: Export: alege Exportă biblioteca ca zip din setări și salvează arhiva unde vrei. Importă arhiva pe celălalt dispozitiv sau păstreaz-o ca backup. Cântecele și listele individuale se partajează în schimb din propriile meniuri. Sincronizare: conectează-ți contul Dropbox din setări, iar Campfire păstrează biblioteca la fel pe toate dispozitivele conectate la el, în timp real: o modificare făcută pe unul apare în câteva secunde pe celelalte care au Campfire deschis. Sincronizarea e oprită până o pornești."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Cum funcționează sincronizarea și ce poate vedea Campfire în Dropboxul meu?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Campfire are acces doar la propriul dosar, Apps/Campfire Sync, și la nimic altceva din Dropboxul tău. Fișierele circulă direct între dispozitivul tău și Dropbox. Dacă alegi Deconectează din setări, sincronizarea se oprește fără să se șteargă nimic, nici pe dispozitiv, nici în Dropbox. Detaliile sunt în politica de confidențialitate."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "O sincronizare mă întreabă dacă să șteargă fișiere. Ce fac?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Campfire te întreabă înainte de o sincronizare care ar șterge deodată multe dintre fișierele tale, pentru că de obicei asta înseamnă că un dosar a fost mutat sau golit din greșeală. Dacă nu ai vrut să le ștergi, alege opțiunea care le păstrează, iar ele vor fi copiate înapoi."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Cum îmi șterg datele?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Ca să-ți ștergi toată biblioteca, deschide setările, mergi la fila Bibliotecă și, sub Pe acest dispozitiv, atinge rândul care arată câte cântece și liste ai, apoi scrie DELETE și confirmă. Dacă sincronizarea Dropbox e conectată, astfel se șterg cântecele și listele tale și din dosarul Apps/Campfire Sync și de pe toate celelalte dispozitive sincronizate cu el, așa că alege mai întâi Deconectează dacă vrei să golești doar acest dispozitiv. Dacă atingi Memoria cache a copertelor pe același ecran, se șterg copertele păstrate pe dispozitiv. Dezinstalarea aplicației elimină totul de pe dispozitiv. Dacă ai folosit sincronizarea fără să-ți ștergi mai întâi biblioteca, șterge și dosarul Apps/Campfire Sync din Dropboxul tău. Nu păstrez nicio copie a datelor tale, așa că nu am ce șterge."
+				}
+			}
+		]
+	}
+	</script>
+	<link rel="icon" href="../../assets/icon.svg?v=8ba29e56" type="image/svg+xml">
+	<link rel="apple-touch-icon" href="../../assets/icon-192.png?v=0f2be8ac">
+	<link rel="stylesheet" href="../../assets/site.css?v=128df0b0">
+	<script>
+		// Every visitor is offered two versions: a phone or a tablet the app from its store first and the web app second,
+		// a computer the other way around. The script names the system: the stylesheet shows the elements marked
+		// for-mobile instead of for-desktop on a phone or a tablet, every link marked data-native goes to the system's own
+		// version, and one marked data-native-label is also named after it. iPadOS presents itself as a Mac, so an iPad is
+		// told apart by its touch screen. Without a match, the links lead to the list of every platform.
+		(function (d) {
+			var agent = navigator.userAgent;
+			var os = /Android/.test(agent) ? "android" : /iPhone|iPad|iPod/.test(agent) || (/Macintosh/.test(agent) && navigator.maxTouchPoints > 1) ? "ios" : /Windows/.test(agent) ? "windows" : /Macintosh/.test(agent) ? "macos" : /Linux/.test(agent) ? "linux" : "";
+			var native = {
+				android: ["https://play.google.com/store/apps/details?id=com.pandulapeter.campfire", "Descarcă de pe Google Play"],
+				ios: ["https://apps.apple.com/app/id6815160850", "Descarcă din App Store"],
+				windows: ["https://apps.microsoft.com/detail/9MSR62F288M1", "Descarcă pentru Windows"],
+				macos: ["https://apps.apple.com/app/id6815160850", "Descarcă pentru macOS"],
+				linux: ["https://github.com/pandulapeter/campfire/releases/latest", "Descarcă pentru Linux"]
+			}[os];
+			if (!native) return;
+			d.documentElement.dataset.os = os;
+			if (os === "android" || os === "ios") d.documentElement.dataset.mobile = "";
+			d.addEventListener("DOMContentLoaded", function () {
+				d.querySelectorAll("[data-native]").forEach(function (link) {
+					link.href = native[0];
+					link.target = "_blank";
+					link.rel = "noopener";
+					if (link.hasAttribute("data-native-label")) link.textContent = native[1];
+				});
+			});
+		}(document));
+	</script>
+</head>
+<body>
+<a class="skip" href="#main">Salt la conținut</a>
+<header class="site-header">
+	<div class="wrap">
+		<a class="brand" translate="no" href="../"><img src="../../assets/icon.svg?v=8ba29e56" alt="">Campfire</a>
+		<nav aria-label="Principal">
+			<a class="optional" href="../#download">Descărcare</a>
+			<a class="optional" href="./" aria-current="page">Asistență</a>
+			<a class="optional" href="../privacy/">Confidențialitate</a>
+			<details class="languages" translate="no">
+				<summary aria-label="Limbă: Română"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.8 3.9 6 3.9 9.5s-1.3 6.7-3.9 9.5c-2.6-2.8-3.9-6-3.9-9.5s1.3-6.7 3.9-9.5Z"/></svg><span>RO</span></summary>
+				<ul>
+					<li><a href="../../de/support/" hreflang="de" lang="de">Deutsch</a></li>
+					<li><a href="../../support/" hreflang="en" lang="en">English</a></li>
+					<li><a href="../../es/support/" hreflang="es" lang="es">Español</a></li>
+					<li><a href="../../fr/support/" hreflang="fr" lang="fr">Français</a></li>
+					<li><a href="../../hu/support/" hreflang="hu" lang="hu">Magyar</a></li>
+					<li><a href="../../it/support/" hreflang="it" lang="it">Italiano</a></li>
+					<li><a href="./" hreflang="ro" lang="ro" aria-current="true">Română</a></li>
+				</ul>
+			</details>
+			<a class="button small for-desktop" href="../../app/" target="_blank" rel="noopener">Aplicația web</a>
+			<a class="button small for-mobile" href="../#download" data-native>Descarcă aplicația</a>
+		</nav>
+	</div>
+</header>
+<div class="wrap">
+
+	<main class="document" id="main">
+		<h1>Asistență</h1>
+		<p>Campfire este o aplicație gratuită pentru vizualizarea și editarea versurilor și acordurilor, disponibilă pe Android, iOS, iPadOS, macOS, Windows, Linux și pe web. Această pagină răspunde la cele mai frecvente întrebări și îți spune cum mă poți contacta dacă a ta nu se află printre ele.</p>
+		<div class="contact">
+		<h2>Contact</h2>
+		<p>Dacă ai o întrebare, ai găsit o problemă sau ai o idee pentru aplicație, <a href="mailto:pandulapeter@gmail.com?Subject=Campfire%20support" target="_top">scrie-mi un email la pandulapeter@gmail.com</a>. Te rog să menționezi dispozitivul și versiunea de Campfire pe care o folosești (o găsești în fila Despre din setările aplicației). Citesc fiecare mesaj și de obicei răspund în câteva zile.</p>
+		<p>Dacă ai un cont GitHub, poți și să <a href="https://github.com/pandulapeter/campfire/issues" target="_blank" rel="noopener">raportezi o problemă pe GitHub</a>, unde se află și codul sursă al aplicației.</p>
+		</div>
+		<h2 id="faq">Întrebări frecvente</h2>
+		<h3 class="topic">Primii pași</h3>
+		<details>
+			<summary><h4>Campfire este gratuit?</h4></summary>
+			<p>Da. Nu are reclame, abonament, achiziții în aplicație sau limită de cântece și nici cont în care să te înregistrezi. Este open source sub <a href="https://mozilla.org/MPL/2.0/" target="_blank" rel="noopener">Mozilla Public License 2.0</a>, cu <a href="https://github.com/pandulapeter/campfire" target="_blank" rel="noopener">codul sursă pe GitHub</a>, iar donațiile îl țin în viață.</p>
+		</details>
+		<details>
+			<summary><h4>Pe ce platforme funcționează Campfire?</h4></summary>
+			<p>Android, iOS, iPadOS, Windows, macOS și Linux, precum și în orice browser modern, fără nimic de instalat. Peste tot e aceeași aplicație, iar o bibliotecă sincronizată prin Dropbox rămâne la fel pe toate. Versiunea pentru browser primește prima funcțiile noi, iar celelalte pot avea nevoie de câteva zile ca s-o ajungă din urmă. <a href="../#download">Secțiunea de descărcare</a> are linkuri către toate versiunile.</p>
+		</details>
+		<details>
+			<summary><h4>Campfire funcționează offline?</h4></summary>
+			<p>Da. Cântecele și listele tale sunt stocate pe dispozitiv, așa că tot ce folosești pe scenă merge fără conexiune, inclusiv metronomul și acordorul. Și aplicația web se deschide offline, după ce a fost deschisă o dată online. Conexiunea e necesară doar pentru sincronizarea Dropbox, linkurile de partajare și căutarea detaliilor și copertelor cântecelor.</p>
+		</details>
+		<details>
+			<summary><h4>Cum parcurg din nou întrebările de configurare?</h4></summary>
+			<p>Alege <em>Configurează Campfire din nou</em> din partea de sus a <em>Setări → General</em> ca să alegi pas cu pas aspectul, instrumentul, notația acordurilor și funcțiile.</p>
+		</details>
+		<details>
+			<summary><h4>Pot ascunde părțile aplicației pe care nu le folosesc?</h4></summary>
+			<p>Da. Din <em>Setări → Funcții</em> activezi și dezactivezi acordurile, diagramele acordurilor (și, odată cu ele, fila <em>Acorduri</em>), metronomul, acordorul, listele, copertele și căutarea online a detaliilor cântecelor. Dezactivarea doar ascunde funcția: nu se șterge nimic, iar ea revine cum era când o activezi din nou.</p>
+		</details>
+		<h3 class="topic">Adăugarea cântecelor</h3>
+		<details>
+			<summary><h4>Cum adaug cântece?</h4></summary>
+			<p>Există patru moduri:</p>
+			<ul>
+				<li><strong>Lipire:</strong> copiază acordurile și versurile unui cântec de pe orice site, oricât de dezordonate, și alege <em>Lipește din clipboard</em> din meniul <em>Cântec nou</em> al listei de cântece sau apasă acolo Ctrl+V (⌘V pe Mac). Campfire aranjează textul într-un cântec și îl deschide în editor: verifică titlul și artistul, apoi salvează.</li>
+				<li><strong>Partajare:</strong> pe Android, iOS și iPadOS, partajează către Campfire textul unei fișe de acorduri sau un fișier dintr-o altă aplicație. O adresă web partajată nu este deschisă, așa că partajează în schimb textul paginii.</li>
+				<li><strong>Import:</strong> alege <em>Importă cântece, documente sau arhive zip…</em> din fila <em>Bibliotecă</em> a setărilor sau trage fișierele peste aplicație. Campfire citește fișiere <a href="https://www.chordpro.org" target="_blank" rel="noopener">ChordPro</a> (<em>.cho</em>, <em>.chopro</em>, <em>.chordpro</em>, <em>.crd</em>, <em>.chord</em> și <em>.pro</em>), fișiere <em>.txt</em> simple, documente PDF și Word <em>.docx</em>, arhive zip care le conțin și backupuri exportate din alte aplicații de cântece. Înainte să se scrie ceva, vezi ce conține importul, poți lăsa fișiere deoparte și alegi dacă un cântec al cărui nume e deja folosit primește un număr sau îl înlocuiește pe al tău.</li>
+				<li><strong>Scriere:</strong> creează un cântec în editorul integrat al aplicației.</li>
+			</ul>
+		</details>
+		<details>
+			<summary><h4>Îmi pot muta biblioteca din OnSong, SongbookPro sau OpenSong?</h4></summary>
+			<p>Da. Campfire importă backupurile <em>.sbpbackup</em> și seturile <em>.sbp</em> din SongbookPro, fișierele <em>.onsong</em> din OnSong, cântecele OpenSong, melodiile ABC, fișierele ChordPro din orice aplicație și cântecele din exporturile JSON ale altor aplicații. Pune mai multe fișiere într-o arhivă zip ca să le aduci pe toate deodată. Fiecare cântec devine un fișier ChordPro, iar seturile din SongbookPro devin liste.</p>
+		</details>
+		<details>
+			<summary><h4>Pot importa o fișă de acorduri PDF sau Word?</h4></summary>
+			<p>Da. Importă un <em>.pdf</em> sau un <em>.docx</em> prin selectorul de fișiere, prin tragere sau într-o arhivă zip; pe Android, iOS și iPadOS îl poți și partaja către Campfire. Fișierele text simple și textul pe care îl lipești sau îl partajezi trec prin aceeași conversie. Campfire extrage textul și face tot posibilul să așeze acordurile deasupra versurilor și să recunoască secțiunile, titlul și indicațiile de interpretare. Totul se întâmplă pe dispozitivul tău, fără vreun serviciu sau model AI. Documentul original nu este păstrat.</p>
+			<p>Rezultatul e un cântec obișnuit din biblioteca ta, iar mesajul de import îți spune câte cântece au fost convertite. Merită să le verifici în editor, mai ales când aranjarea originală e neobișnuită. Un document cu mai multe cântece cu titluri clare poate fi împărțit în mai multe cântece. Paginile scanate, PDF-urile protejate și fișierele <em>.doc</em> vechi nu pot fi citite: folosește un PDF cu text selectabil sau salvează fișierul Word ca <em>.docx</em>. PDF-urile pe care le partajează Campfire sunt imagini pentru tipărire, așa că partajează cântecele ca fișiere ChordPro sau zip ca să le muți dintr-o bibliotecă în alta.</p>
+		</details>
+		<details>
+			<summary><h4>Am șters cântecele demonstrative și le vreau înapoi.</h4></summary>
+			<p>Alege <em>Adaugă biblioteca demonstrativă</em> din fila <em>Bibliotecă</em> a setărilor.</p>
+		</details>
+		<h3 class="topic">Gestionarea cântecelor și a listelor</h3>
+		<details>
+			<summary><h4>Cum modific mai multe cântece deodată?</h4></summary>
+			<p>Deschide meniul unuia dintre ele (atinge cele trei puncte, ține apăsat pe el sau dă clic dreapta pe un computer) și alege <em>Selectează mai multe</em>. Bifează-le pe celelalte sau folosește <em>Selectează tot</em> pentru ce arată căutarea și filtrele, apoi etichetează-le, adaugă-le în liste, setează-le limba sau partajează-le împreună. Alege <em>Gata</em> când ai terminat. Cântecele nu se șterg niciodată în bloc.</p>
+		</details>
+		<details>
+			<summary><h4>Cum completez albumul, anul sau compozitorii unui cântec?</h4></summary>
+			<p>Alege <em>Editează detaliile cântecului</em> din meniul cântecului, apoi <em>Caută detaliile cântecului online</em>. Campfire caută în MusicBrainz și iTunes înregistrări care se potrivesc cu titlul și artistul, iar <em>Completează</em> copiază în formular înregistrarea pe care o alegi; nimic nu se schimbă până nu salvezi. Dacă preferi să nu ți se ofere, dezactivează <em>Detalii online ale cântecelor</em> din <em>Setări → Funcții</em>.</p>
+		</details>
+		<details>
+			<summary><h4>Cum îi trimit o listă trupei mele?</h4></summary>
+			<p>Partajeaz-o ca link. Alege <em>Partajează lista</em> din meniul listei, selectează <em>Link</em>, apoi <em>Creează link</em> și trimite linkul sau arată codul lui QR. Oricine îl poate deschide: dacă are Campfire instalat, se deschide importul, care arată lista și cântecele ei înainte să se adauge ceva; fără Campfire, pagina linkului îl ajută să-l instaleze pe dispozitivul lui sau deschide lista în aplicația web. Un singur cântec se partajează la fel, cu <em>Partajează cântecul</em>.</p>
+			<p>Linkurile sunt create din Dropboxul tău, așa că la primul ți se cere să-l conectezi, ceea ce îți și sincronizează biblioteca. Un link duce mereu la cea mai nouă versiune: când modifici lista sau cântecele ei, colegii de trupă deschid din nou același link ca să-și actualizeze copiile. <em>Setări → Partajare</em> arată tot ce partajezi, iar <em>Oprește partajarea</em> face ca un link să nu mai funcționeze.</p>
+		</details>
+		<h3 class="topic">Cântatul</h3>
+		<details>
+			<summary><h4>Campfire funcționează cu o pedală de întors pagini?</h4></summary>
+			<p>Da. Asociază pedala cu telefonul, tableta sau computerul: funcționează atât pedalele care trimit tastele săgeți, cât și cele care trimit Page Up și Page Down. Sus și jos parcurg cântecul, iar într-o listă stânga și dreapta duc la cântecul anterior și la următorul. O tastatură face același lucru.</p>
+		</details>
+		<details>
+			<summary><h4>Pentru ce instrumente există diagrame de acorduri?</h4></summary>
+			<p>Chitară, ukulele, mandolină, banjo și claviatură, în acordajul standard și în celelalte acordaje pe care aplicația le oferă pentru fiecare, cum ar fi drop D sau open G la chitară. Alege instrumentul și acordajul în partea de sus a oricărui cântec sau în fila <em>Acorduri</em>: e o singură alegere pentru toată aplicația și o folosește și acordorul. Chitarele cu șapte și opt corzi, basurile și vioara au acordor, dar nu au diagrame de acorduri.</p>
+			<p>Ca să cânți un acord altfel, atinge-l într-un cântec sau în fila <em>Acorduri</em> și alege altă poziție. Cea pe care o alegi e folosită în toate cântecele, cu excepția celor care își definesc propria poziție.</p>
+		</details>
+		<details>
+			<summary><h4>De ce arată o tabulatură altfel decât cea pe care am importat-o?</h4></summary>
+			<p>Tabulaturile sunt mutate pe instrumentul și acordajul tău, cu o octavă mai sus sau mai jos acolo unde o notă ar ieși de pe grif, iar un rând sub tabulatură spune ce s-a schimbat. Un cântec cu tabulaturi pentru mai multe instrumente o arată doar pe cea pentru al tău. Cu claviatura sau vioara aleasă, tabulaturile sunt ascunse; cu <em>Altul</em>, sunt afișate așa cum sunt scrise. Fișierul cântecului nu este modificat niciodată.</p>
+		</details>
+		<h3 class="topic">Acordor</h3>
+		<details>
+			<summary><h4>Cum folosesc acordorul?</h4></summary>
+			<p>Deschide <em>Acordor</em> (din <em>Unelte</em>, când nu e loc pentru toate filele) și alege instrumentul și acordajul lui. Dacă îl deschizi cu o atingere, prima dată îți cere permisiunea de a folosi microfonul; altfel atinge <em>Folosește microfonul</em>. Cântă câte o coardă pe rând: nota cântată apare împreună cu numărul de cenți cu care e prea jos sau prea sus, iar fiecare coardă e bifată de îndată ce e acordată. Atinge o coardă ca să-i auzi nota. Acordorul e și un buton lângă instrument și acordaj, în partea de sus a fiecărui cântec, așa că te poți acorda fără să ieși din cântec. E un singur instrument pentru toată aplicația, așa că diagramele acordurilor urmează aceeași alegere.</p>
+			<p>Frecvența de referință poate fi setată în filă între 415 și 466 Hz, dacă trupa ta nu se acordează la A = 440 Hz.</p>
+		</details>
+		<details>
+			<summary><h4>Acordorul nu mă aude.</h4></summary>
+			<p>Campfire are nevoie de permisiunea ta ca să folosească microfonul. Dacă ai refuzat, atinge <em>Deschide setările</em> sau <em>Întreabă din nou</em> în acordor și permite accesul; într-un browser, permite microfonul din setările site-ului, de lângă adresă. Dacă microfonul e folosit de un apel sau de altă aplicație, închide-le mai întâi. Dacă acordorul spune că nu aude nimic, verifică dacă microfonul nu e dezactivat și, pe un computer, dacă e selectată intrarea corectă în setările de sunet ale sistemului. Pe Windows, Îmbunătățirile audio pot elimina o notă ținută ca zgomot: atinge <em>Deschide setările de sunet</em> în acordor și dezactivează-le pentru microfonul tău. Tonurile de referință pot fi redate și fără microfon.</p>
+		</details>
+		<details>
+			<summary><h4>Acordorul mă înregistrează?</h4></summary>
+			<p>Nu. Sunetul e analizat pe dispozitivul tău pe măsură ce ajunge și apoi aruncat: nimic nu e înregistrat, salvat sau trimis nicăieri. Microfonul e pornit doar cât timp acordorul e pe ecran și aplicația e în prim-plan, așa că indicatorul de înregistrare al sistemului e aprins exact atunci. Dacă nu îl folosești niciodată, dezactivează <em>Acordor</em> din <em>Setări → Funcții</em>, iar Campfire nu va cere deloc microfonul.</p>
+		</details>
+		<h3 class="topic">Stocare, sincronizare și backup</h3>
+		<details>
+			<summary><h4>Unde sunt stocate cântecele mele?</h4></summary>
+			<p>Pe dispozitivul tău, în spațiul de stocare propriu al aplicației. Campfire nu are cont și nici server: cântecele tale nu părăsesc niciodată dispozitivul decât dacă le partajezi, le exporți sau pornești sincronizarea.</p>
+		</details>
+		<details>
+			<summary><h4>Cum îmi fac backup la bibliotecă sau cum o mut pe alt dispozitiv?</h4></summary>
+			<p>Există două moduri:</p>
+			<ul>
+				<li><strong>Export:</strong> alege <em>Exportă biblioteca ca zip</em> din setări și salvează arhiva unde vrei. Importă arhiva pe celălalt dispozitiv sau păstreaz-o ca backup. Cântecele și listele individuale se partajează în schimb din propriile meniuri.</li>
+				<li><strong>Sincronizare:</strong> conectează-ți contul Dropbox din setări, iar Campfire păstrează biblioteca la fel pe toate dispozitivele conectate la el, în timp real: o modificare făcută pe unul apare în câteva secunde pe celelalte care au Campfire deschis. Sincronizarea e oprită până o pornești.</li>
+			</ul>
+		</details>
+		<details>
+			<summary><h4>Cum funcționează sincronizarea și ce poate vedea Campfire în Dropboxul meu?</h4></summary>
+			<p>Campfire are acces doar la propriul dosar, <em>Apps/Campfire Sync</em>, și la nimic altceva din Dropboxul tău. Fișierele circulă direct între dispozitivul tău și Dropbox. Dacă alegi <em>Deconectează</em> din setări, sincronizarea se oprește fără să se șteargă nimic, nici pe dispozitiv, nici în Dropbox. Detaliile sunt în <a href="../privacy/">politica de confidențialitate</a>.</p>
+		</details>
+		<details>
+			<summary><h4>O sincronizare mă întreabă dacă să șteargă fișiere. Ce fac?</h4></summary>
+			<p>Campfire te întreabă înainte de o sincronizare care ar șterge deodată multe dintre fișierele tale, pentru că de obicei asta înseamnă că un dosar a fost mutat sau golit din greșeală. Dacă nu ai vrut să le ștergi, alege opțiunea care le păstrează, iar ele vor fi copiate înapoi.</p>
+		</details>
+		<details>
+			<summary><h4>Cum îmi șterg datele?</h4></summary>
+			<p>Ca să-ți ștergi toată biblioteca, deschide setările, mergi la fila <em>Bibliotecă</em> și, sub <em>Pe acest dispozitiv</em>, atinge rândul care arată câte cântece și liste ai, apoi scrie <em>DELETE</em> și confirmă. Dacă sincronizarea Dropbox e conectată, astfel se șterg cântecele și listele tale și din dosarul <em>Apps/Campfire Sync</em> și de pe toate celelalte dispozitive sincronizate cu el, așa că alege mai întâi <em>Deconectează</em> dacă vrei să golești doar acest dispozitiv. Dacă atingi <em>Memoria cache a copertelor</em> pe același ecran, se șterg copertele păstrate pe dispozitiv.</p>
+			<p>Dezinstalarea aplicației elimină totul de pe dispozitiv. Dacă ai folosit sincronizarea fără să-ți ștergi mai întâi biblioteca, șterge și dosarul <em>Apps/Campfire Sync</em> din Dropboxul tău. Nu păstrez nicio copie a datelor tale, așa că nu am ce șterge.</p>
+		</details>
+		<h2>Confidențialitate</h2>
+		<p>Campfire nu conține reclame, analize sau urmărire, iar ce aude acordorul nu părăsește niciodată dispozitivul tău. Citește <a href="../privacy/">politica de confidențialitate</a> pentru mai multe informații.</p>
+	</main>
+
+	<footer class="site-footer">
+		<div class="legal">
+			<p>© 2026 · <a href="https://pandulapeter.com" target="_blank" rel="noopener">Péter Pandula</a></p>
+			<a class="source" href="https://github.com/pandulapeter/campfire" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>Cod sursă</a>
+			<ul class="language-links" translate="no" aria-label="Limbă">
+				<li><a href="../../de/support/" hreflang="de" lang="de">Deutsch</a></li>
+				<li><a href="../../support/" hreflang="en" lang="en">English</a></li>
+				<li><a href="../../es/support/" hreflang="es" lang="es">Español</a></li>
+				<li><a href="../../fr/support/" hreflang="fr" lang="fr">Français</a></li>
+				<li><a href="../../hu/support/" hreflang="hu" lang="hu">Magyar</a></li>
+				<li><a href="../../it/support/" hreflang="it" lang="it">Italiano</a></li>
+				<li><a href="./" hreflang="ro" lang="ro" aria-current="true">Română</a></li>
+			</ul>
+		</div>
+	</footer>
+</div>
+</body>
+</html>

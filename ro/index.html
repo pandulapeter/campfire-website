@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="ro">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script>
+		// The site is in the languages of the picker, each in a folder of its own, and the English pages, at the root,
+		// are also those of every other language. A visitor who lands on one of them is sent to the same page in the
+		// language they last picked in the picker, which is remembered, or else in the first of their browser's languages
+		// the site has. The picker is a <details>, closed by a click anywhere else or by Escape.
+		(function (d, l) {
+			var languages = ["de", "en", "es", "fr", "hu", "it", "ro"];
+			var picked = null;
+			try { picked = localStorage.getItem("language"); } catch (e) {}
+			d.addEventListener("click", function (event) {
+				var link = event.target.closest("a[hreflang]");
+				if (link) try { localStorage.setItem("language", link.hreflang); } catch (e) {}
+				d.querySelectorAll("details.languages[open]").forEach(function (picker) { if (!picker.contains(event.target)) picker.open = false; });
+			});
+			d.addEventListener("keydown", function (event) {
+				if (event.key === "Escape") d.querySelectorAll("details.languages[open]").forEach(function (picker) { picker.open = false; picker.querySelector("summary").focus(); });
+			});
+			if (d.documentElement.lang !== "en") return;
+			var preferred = [picked].concat((navigator.languages || [navigator.language]).map(function (tag) { return String(tag).slice(0, 2).toLowerCase(); }))
+				.filter(function (code) { return languages.indexOf(code) !== -1; })[0];
+			if (preferred && preferred !== "en") l.replace("/" + preferred + l.pathname + l.search + l.hash);
+		}(document, location));
+	</script>
+	<title>Campfire: Caiet de cântece &amp; acorduri</title>
+	<meta name="description" content="O aplicație gratuită de cântece, cu versuri și acorduri, liste, diagrame de acorduri, metronom și acordor. Funcționează offline pe telefoane, tablete și computere.">
+	<link rel="canonical" href="https://campfire-songbook.com/ro/">
+	<link rel="alternate" hreflang="de" href="https://campfire-songbook.com/de/">
+	<link rel="alternate" hreflang="en" href="https://campfire-songbook.com/">
+	<link rel="alternate" hreflang="es" href="https://campfire-songbook.com/es/">
+	<link rel="alternate" hreflang="fr" href="https://campfire-songbook.com/fr/">
+	<link rel="alternate" hreflang="hu" href="https://campfire-songbook.com/hu/">
+	<link rel="alternate" hreflang="it" href="https://campfire-songbook.com/it/">
+	<link rel="alternate" hreflang="ro" href="https://campfire-songbook.com/ro/">
+	<link rel="alternate" hreflang="x-default" href="https://campfire-songbook.com/">
+	<meta name="theme-color" content="#FAF8FE" media="(prefers-color-scheme: light)">
+	<meta name="theme-color" content="#15121C" media="(prefers-color-scheme: dark)">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="Campfire">
+	<meta property="og:locale" content="ro_RO">
+	<meta property="og:url" content="https://campfire-songbook.com/ro/">
+	<meta property="og:title" content="Campfire: Caiet de cântece &amp; acorduri">
+	<meta property="og:description" content="Un caiet de cântece gratuit pentru versurile și acordurile tale, cu diagrame de acorduri și game pentru instrumentul tău, liste, un metronom setat pe tempoul fiecărui cântec și un acordor. Funcționează offline pe telefoane, tablete și computere, cu sincronizare Dropbox opțională în timp real.">
+	<meta property="og:image" content="https://campfire-songbook.com/assets/og-image.jpg?v=a569ced8">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:image:alt" content="Campfire pe un laptop și pe un telefon">
+	<meta name="twitter:card" content="summary_large_image">
+	<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@graph": [
+			{
+				"@type": "WebSite",
+				"@id": "https://campfire-songbook.com/#website",
+				"url": "https://campfire-songbook.com/",
+				"name": "Campfire",
+				"alternateName": "Campfire Songbook",
+				"publisher": {"@id": "https://campfire-songbook.com/#author"}
+			},
+			{
+				"@type": "Person",
+				"@id": "https://campfire-songbook.com/#author",
+				"name": "Péter Pandula",
+				"url": "https://pandulapeter.com",
+				"sameAs": ["https://github.com/pandulapeter"]
+			},
+			{
+				"@type": "SoftwareApplication",
+				"@id": "https://campfire-songbook.com/#app",
+				"name": "Campfire",
+				"alternateName": "Campfire Songbook",
+				"url": "https://campfire-songbook.com/",
+				"description": "Un caiet de cântece gratuit pentru versurile și acordurile tale, cu diagrame de acorduri și game pentru instrumentul tău, liste, un metronom setat pe tempoul fiecărui cântec și un acordor. Funcționează offline pe telefoane, tablete și computere, cu sincronizare Dropbox opțională în timp real.",
+				"applicationCategory": "MusicApplication",
+				"operatingSystem": "Android, iOS, iPadOS, Windows, macOS, Linux, Web",
+				"offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+				"isAccessibleForFree": true,
+				"license": "https://mozilla.org/MPL/2.0/",
+				"image": "https://campfire-songbook.com/assets/og-image.jpg?v=a569ced8",
+				"screenshot": [
+					"https://campfire-songbook.com/assets/screenshots/ro/laptop-setlists-light.webp?v=19464c56",
+					"https://campfire-songbook.com/assets/screenshots/ro/tablet-song-light.webp?v=86fb1454",
+					"https://campfire-songbook.com/assets/screenshots/ro/phone-songs-light.webp?v=20407b1c"
+				],
+				"featureList": [
+					"Versuri și acorduri în ChordPro",
+					"Diagrame de acorduri pentru chitară, ukulele, mandolină, banjo și claviatură",
+					"Game",
+					"Liste de cântece",
+					"Metronom",
+					"Acordor",
+					"Import din PDF, Word și text simplu",
+					"Funcționează offline",
+					"Sincronizare Dropbox în timp real"
+				],
+				"author": {"@id": "https://campfire-songbook.com/#author"},
+				"sameAs": [
+					"https://play.google.com/store/apps/details?id=com.pandulapeter.campfire",
+					"https://apps.apple.com/app/id6815160850",
+					"https://apps.microsoft.com/detail/9MSR62F288M1",
+					"https://github.com/pandulapeter/campfire"
+				]
+			}
+		]
+	}
+	</script>
+	<link rel="icon" href="../assets/icon.svg?v=8ba29e56" type="image/svg+xml">
+	<link rel="apple-touch-icon" href="../assets/icon-192.png?v=0f2be8ac">
+	<link rel="preload" href="../assets/fonts/inter_bold.woff2?v=676dbe48" as="font" type="font/woff2" crossorigin>
+	<link rel="preload" href="../assets/fonts/inter_regular.woff2?v=0b354d6b" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" href="../assets/site.css?v=128df0b0">
+	<script>
+		// Every visitor is offered two versions: a phone or a tablet the app from its store first and the web app second,
+		// a computer the other way around. The script names the system: the stylesheet shows the elements marked
+		// for-mobile instead of for-desktop on a phone or a tablet, every link marked data-native goes to the system's own
+		// version, and one marked data-native-label is also named after it. iPadOS presents itself as a Mac, so an iPad is
+		// told apart by its touch screen. Without a match, the links lead to the list of every platform.
+		(function (d) {
+			var agent = navigator.userAgent;
+			var os = /Android/.test(agent) ? "android" : /iPhone|iPad|iPod/.test(agent) || (/Macintosh/.test(agent) && navigator.maxTouchPoints > 1) ? "ios" : /Windows/.test(agent) ? "windows" : /Macintosh/.test(agent) ? "macos" : /Linux/.test(agent) ? "linux" : "";
+			var native = {
+				android: ["https://play.google.com/store/apps/details?id=com.pandulapeter.campfire", "Descarcă de pe Google Play"],
+				ios: ["https://apps.apple.com/app/id6815160850", "Descarcă din App Store"],
+				windows: ["https://apps.microsoft.com/detail/9MSR62F288M1", "Descarcă pentru Windows"],
+				macos: ["https://apps.apple.com/app/id6815160850", "Descarcă pentru macOS"],
+				linux: ["https://github.com/pandulapeter/campfire/releases/latest", "Descarcă pentru Linux"]
+			}[os];
+			if (!native) return;
+			d.documentElement.dataset.os = os;
+			if (os === "android" || os === "ios") d.documentElement.dataset.mobile = "";
+			d.addEventListener("DOMContentLoaded", function () {
+				d.querySelectorAll("[data-native]").forEach(function (link) {
+					link.href = native[0];
+					link.target = "_blank";
+					link.rel = "noopener";
+					if (link.hasAttribute("data-native-label")) link.textContent = native[1];
+				});
+			});
+		}(document));
+	</script>
+</head>
+<body>
+<a class="skip" href="#main">Salt la conținut</a>
+<header class="site-header">
+	<div class="wrap">
+		<a class="brand" translate="no" href="./"><img src="../assets/icon.svg?v=8ba29e56" alt="">Campfire</a>
+		<nav aria-label="Principal">
+			<a class="optional" href="#download">Descărcare</a>
+			<a class="optional" href="support/">Asistență</a>
+			<a class="optional" href="privacy/">Confidențialitate</a>
+			<details class="languages" translate="no">
+				<summary aria-label="Limbă: Română"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.8 3.9 6 3.9 9.5s-1.3 6.7-3.9 9.5c-2.6-2.8-3.9-6-3.9-9.5s1.3-6.7 3.9-9.5Z"/></svg><span>RO</span></summary>
+				<ul>
+					<li><a href="../de/" hreflang="de" lang="de">Deutsch</a></li>
+					<li><a href="../" hreflang="en" lang="en">English</a></li>
+					<li><a href="../es/" hreflang="es" lang="es">Español</a></li>
+					<li><a href="../fr/" hreflang="fr" lang="fr">Français</a></li>
+					<li><a href="../hu/" hreflang="hu" lang="hu">Magyar</a></li>
+					<li><a href="../it/" hreflang="it" lang="it">Italiano</a></li>
+					<li><a href="./" hreflang="ro" lang="ro" aria-current="true">Română</a></li>
+				</ul>
+			</details>
+			<a class="button small for-desktop" href="../app/" target="_blank" rel="noopener">Aplicația web</a>
+			<a class="button small for-mobile" href="#download" data-native>Descarcă aplicația</a>
+		</nav>
+	</div>
+</header>
+<div class="wrap">
+
+	<main id="main">
+		<div class="hero">
+			<div>
+				<p class="cue">Cântece <span>·</span> Liste <span>·</span> Metronom <span>·</span> Acordor <span>·</span> Acorduri <span>·</span> Game</p>
+				<h1>Un caiet de cântece gratuit pentru versurile și acordurile tale.</h1>
+				<p class="lede">Campfire îți ține repertoriul organizat și pregătit pentru repetiție și scenă, pe orice ecran de pe care cânți.</p>
+				<div class="actions">
+					<a class="button for-desktop" href="../app/" target="_blank" rel="noopener">Deschide în browser</a>
+					<a class="button tonal for-desktop" href="#download" data-native data-native-label>Descărcare</a>
+					<a class="button for-mobile" href="#download" data-native data-native-label>Descarcă aplicația</a>
+					<a class="button tonal for-mobile" href="../app/" target="_blank" rel="noopener">Deschide în browser</a>
+				</div>
+				<p class="all-platforms"><a href="#download"><span>Vezi toate versiunile</span></a></p>
+			</div>
+			<div class="stage">
+				<div class="laptop"><div class="lid"><picture class="screen">
+					<source srcset="../assets/screenshots/ro/laptop-setlists-dark.webp?v=b51aec2a" media="(prefers-color-scheme: dark)">
+					<img src="../assets/screenshots/ro/laptop-setlists-light.webp?v=19464c56" width="1200" height="753" fetchpriority="high" alt="Liste pe un MacBook, fiecare cu cântecele ei, cu tonalitatea, tempoul și durata lor, și cu durata totală a setului.">
+				</picture></div><div class="base"></div></div>
+				<div class="tablet"><div class="frame"><picture class="screen">
+					<source srcset="../assets/screenshots/ro/tablet-song-dark.webp?v=dd2cc0b9" media="(prefers-color-scheme: dark)">
+					<img src="../assets/screenshots/ro/tablet-song-light.webp?v=86fb1454" width="1200" height="900" alt="Un cântec pe un iPad, cu diagramele acordurilor și strofele pe coloane.">
+				</picture></div></div>
+				<div class="phone"><div class="frame"><picture class="screen">
+					<source srcset="../assets/screenshots/ro/phone-songs-dark.webp?v=57840e95" media="(prefers-color-scheme: dark)">
+					<img src="../assets/screenshots/ro/phone-songs-light.webp?v=20407b1c" width="450" height="978" alt="Lista de cântece pe un iPhone, grupată după artist, cu etichete pe fiecare cântec.">
+				</picture></div></div>
+			</div>
+		</div>
+
+		<ul class="highlights">
+			<li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="14" height="10" rx="1.5"/><path d="M1 18.5h15"/><rect x="18" y="9" width="5" height="10" rx="1.2"/></svg><h2>Pe orice platformă</h2><p>Android, iOS, iPadOS, Windows, macOS, Linux și browserul.</p></li>
+			<li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 8.5a15 15 0 0 1 20 0M5.5 12a10 10 0 0 1 13 0M9 15.5a5 5 0 0 1 6 0M3 3l18 18"/><circle cx="12" cy="19.5" r="1"/></svg><h2>Funcționează offline</h2><p>Cântecele sunt stocate pe dispozitivul tău, așa că o sală fără semnal nu e o problemă.</p></li>
+			<li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18c.9 0 1.5-.7 1.5-1.5 0-.9-.8-1.3-.8-2.2 0-.9.8-1.6 1.7-1.6H17a4 4 0 0 0 4-4C21 6.8 17 3 12 3Z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10.5" cy="7" r="1"/><circle cx="15" cy="7.5" r="1"/></svg><h2>Interfață aerisită</h2><p>Pe ecran nu e nimic în afară de cântec. Temă luminoasă, întunecată sau sepia, în culoarea de accent pe care o alegi.</p></li>
+			<li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 5 6v5.5c0 4.3 3 8 7 9.5 4-1.5 7-5.2 7-9.5V6Z"/><path d="m9 12 2 2 4-4"/></svg><h2>Fără reclame, fără cont</h2><p>Nici urmărire, abonament, achiziții în aplicație sau limită de cântece.</p></li>
+		</ul>
+
+		<section class="split reverse media-wide" aria-labelledby="playing-title">
+			<div>
+				<h2 id="playing-title">Coloane care se adaptează textului</h2>
+				<p class="lead">Mărește textul cât ai nevoie ca să-l citești de pe stativ, iar cântecul se așază pe atâtea coloane câte încap la mărimea aceea.</p>
+				<ul class="points">
+					<li>Întorci pagina cu o atingere sau cu o pedală.</li>
+					<li>Diagramele acordurilor stau în partea de sus a cântecului.</li>
+					<li>Game recomandate pentru improvizație.</li>
+					<li>Un mod doar cu versuri ascunde acordurile pentru soliști vocali.</li>
+				</ul>
+			</div>
+			<div>
+				<div class="laptop"><div class="lid"><div class="slides demo" id="text-size-slides">
+					<picture class="screen">
+						<source srcset="../assets/screenshots/ro/laptop-song-100-dark.webp?v=9fdc9815" media="(prefers-color-scheme: dark)">
+						<img src="../assets/screenshots/ro/laptop-song-100-light.webp?v=eae799cd" width="1200" height="753" loading="lazy" alt="Un cântec pe un MacBook la mărimea implicită a textului, pe patru coloane, sub diagramele acordurilor lui.">
+					</picture>
+					<picture class="screen" aria-hidden="true">
+						<source data-srcset="../assets/screenshots/ro/laptop-song-110-dark.webp?v=01fc3597" media="(prefers-color-scheme: dark)">
+						<img data-src="../assets/screenshots/ro/laptop-song-110-light.webp?v=93d053d7" width="1200" height="753" loading="lazy" alt="Același cântec cu textul la 110%, pe patru coloane.">
+					</picture>
+					<picture class="screen" aria-hidden="true">
+						<source data-srcset="../assets/screenshots/ro/laptop-song-120-dark.webp?v=73726469" media="(prefers-color-scheme: dark)">
+						<img data-src="../assets/screenshots/ro/laptop-song-120-light.webp?v=73bca168" width="1200" height="753" loading="lazy" alt="Același cântec cu textul la 120%, pe trei coloane.">
+					</picture>
+					<picture class="screen" aria-hidden="true">
+						<source data-srcset="../assets/screenshots/ro/laptop-song-130-dark.webp?v=b991c076" media="(prefers-color-scheme: dark)">
+						<img data-src="../assets/screenshots/ro/laptop-song-130-light.webp?v=c01d3c6d" width="1200" height="753" loading="lazy" alt="Același cântec cu textul la 130%, pe trei coloane.">
+					</picture>
+					<picture class="screen" aria-hidden="true">
+						<source data-srcset="../assets/screenshots/ro/laptop-song-140-dark.webp?v=e6ab8e47" media="(prefers-color-scheme: dark)">
+						<img data-src="../assets/screenshots/ro/laptop-song-140-light.webp?v=615f3128" width="1200" height="753" loading="lazy" alt="Același cântec cu textul la 140%, pe trei coloane.">
+					</picture>
+					<picture class="screen" aria-hidden="true">
+						<source data-srcset="../assets/screenshots/ro/laptop-song-150-dark.webp?v=703ebbec" media="(prefers-color-scheme: dark)">
+						<img data-src="../assets/screenshots/ro/laptop-song-150-light.webp?v=94177759" width="1200" height="753" loading="lazy" alt="Același cântec cu textul la 150%, pe trei coloane.">
+					</picture>
+					<picture class="screen" aria-hidden="true">
+						<source data-srcset="../assets/screenshots/ro/laptop-song-160-dark.webp?v=1d998544" media="(prefers-color-scheme: dark)">
+						<img data-src="../assets/screenshots/ro/laptop-song-160-light.webp?v=247eb9f0" width="1200" height="753" loading="lazy" alt="Același cântec cu textul la 160%, pe trei coloane.">
+					</picture>
+					<picture class="screen" aria-hidden="true">
+						<source data-srcset="../assets/screenshots/ro/laptop-song-170-dark.webp?v=3263a68a" media="(prefers-color-scheme: dark)">
+						<img data-src="../assets/screenshots/ro/laptop-song-170-light.webp?v=5532c1de" width="1200" height="753" loading="lazy" alt="Același cântec cu textul la 170%, pe trei coloane.">
+					</picture>
+					<picture class="screen" aria-hidden="true">
+						<source data-srcset="../assets/screenshots/ro/laptop-song-180-dark.webp?v=75e0df0e" media="(prefers-color-scheme: dark)">
+						<img data-src="../assets/screenshots/ro/laptop-song-180-light.webp?v=708cf0bf" width="1200" height="753" loading="lazy" alt="Același cântec cu textul la 180%, pe trei coloane.">
+					</picture>
+					<picture class="screen" aria-hidden="true">
+						<source data-srcset="../assets/screenshots/ro/laptop-song-190-dark.webp?v=6f88aa2d" media="(prefers-color-scheme: dark)">
+						<img data-src="../assets/screenshots/ro/laptop-song-190-light.webp?v=f9bfe863" width="1200" height="753" loading="lazy" alt="Același cântec cu textul la 190%, pe trei coloane.">
+					</picture>
+					<picture class="screen" aria-hidden="true">
+						<source data-srcset="../assets/screenshots/ro/laptop-song-200-dark.webp?v=d95fbbe4" media="(prefers-color-scheme: dark)">
+						<img data-src="../assets/screenshots/ro/laptop-song-200-light.webp?v=2b4a6d58" width="1200" height="753" loading="lazy" alt="Același cântec cu textul la 200%, pe două coloane.">
+					</picture>
+					<picture class="screen" aria-hidden="true">
+						<source data-srcset="../assets/screenshots/ro/laptop-song-210-dark.webp?v=d7e41683" media="(prefers-color-scheme: dark)">
+						<img data-src="../assets/screenshots/ro/laptop-song-210-light.webp?v=e6c5ce25" width="1200" height="753" loading="lazy" alt="Același cântec cu textul la 210%, pe două coloane.">
+					</picture>
+					<picture class="screen" aria-hidden="true">
+						<source data-srcset="../assets/screenshots/ro/laptop-song-220-dark.webp?v=a74960b3" media="(prefers-color-scheme: dark)">
+						<img data-src="../assets/screenshots/ro/laptop-song-220-light.webp?v=d99135a5" width="1200" height="753" loading="lazy" alt="Același cântec cu textul la 220%, pe două coloane.">
+					</picture>
+					<picture class="screen" aria-hidden="true">
+						<source data-srcset="../assets/screenshots/ro/laptop-song-230-dark.webp?v=4a3a6722" media="(prefers-color-scheme: dark)">
+						<img data-src="../assets/screenshots/ro/laptop-song-230-light.webp?v=5d085d9e" width="1200" height="753" loading="lazy" alt="Același cântec cu textul la 230%, pe două coloane.">
+					</picture>
+				</div></div><div class="base"></div></div>
+				<div class="slider" role="group" aria-label="Mărimea textului">
+					<span class="slider-label" id="text-size-label">Folosește glisorul ca să schimbi mărimea textului</span>
+					<input type="range" min="0" max="13" step="1" value="0" aria-labelledby="text-size-label" aria-controls="text-size-slides" aria-valuetext="100%" data-values="100%,110%,120%,130%,140%,150%,160%,170%,180%,190%,200%,210%,220%,230%">
+				</div>
+			</div>
+		</section>
+
+		<section class="split media-wide" aria-labelledby="editor-title">
+			<div>
+				<h2 id="editor-title">Import și editare</h2>
+				<p class="lead">Lipește un cântec copiat de pe orice site, oricât de dezordonat, și se deschide în editor cu acordurile aliniate deasupra versurilor, iar strofele și refrenele sunt recunoscute.</p>
+				<ul class="points">
+					<li>Importă fișiere text, PDF-uri, documente Word, arhive zip și backupuri din alte aplicații.</li>
+					<li>Editorul semnalează greșelile și arată o previzualizare live în timp ce scrii.</li>
+					<li>Caută online albumul, anul, compozitorii și coperta unui cântec.</li>
+				</ul>
+			</div>
+			<div>
+				<div class="laptop"><div class="lid"><picture class="screen">
+					<source srcset="../assets/screenshots/ro/laptop-import-dark.webp?v=a4fc4fc7" media="(prefers-color-scheme: dark)">
+					<img src="../assets/screenshots/ro/laptop-import-light.webp?v=7f302964" width="1200" height="753" loading="lazy" alt="Un cântec importat în editor pe un MacBook, cu o greșeală semnalată și previzualizarea live alături.">
+				</picture></div><div class="base"></div></div>
+			</div>
+		</section>
+
+		<section class="split reverse media-wide" aria-labelledby="setlists-title">
+			<div>
+				<h2 id="setlists-title">Liste și partajare</h2>
+				<p class="lead">Cânți un set în ordine, iar următorul cântec e mereu la o atingere distanță.</p>
+				<ul class="points">
+					<li>O listă păstrează tonalitatea, capodastrul și tempoul fiecărui cântec din ea.</li>
+					<li>Aplicația numără zilele până la concert și adună durata setului.</li>
+					<li>Tipărește cântece sau tot setul dintr-un PDF, cu ordinea lor.</li>
+					<li>Trimite un set altor utilizatori Campfire ca fișier zip sau ca link cu un cod QR pe care îl scanează ca să-l deschidă.</li>
+				</ul>
+			</div>
+			<div class="pair">
+				<div class="tablet"><div class="frame"><picture class="screen">
+					<source srcset="../assets/screenshots/ro/tablet-export-dark.webp?v=615079ad" media="(prefers-color-scheme: dark)">
+					<img src="../assets/screenshots/ro/tablet-export-light.webp?v=e03cb526" width="1200" height="900" loading="lazy" alt="Un cântec partajat ca PDF pe un iPad, cu pagina previzualizată lângă opțiuni.">
+				</picture></div></div>
+				<div class="phone"><div class="frame"><picture class="screen">
+					<source srcset="../assets/screenshots/ro/phone-setlist-dark.webp?v=491736b5" media="(prefers-color-scheme: dark)">
+					<img src="../assets/screenshots/ro/phone-setlist-light.webp?v=2b3dd7d1" width="450" height="978" loading="lazy" alt="O listă pe un iPhone, cu tonalitatea, tempoul și durata fiecărui cântec, durata totală și zilele rămase până la concert.">
+				</picture></div></div>
+			</div>
+		</section>
+
+		<section class="split media-wide" aria-labelledby="metronome-title">
+			<div>
+				<h2 id="metronome-title">Metronom și acordor</h2>
+				<p class="lead">Fiecare cântec își păstrează tempoul, măsura și bătăile accentuate, așa că clicul pornește de pe ecranul cântecului cu o singură atingere.</p>
+				<ul class="points">
+					<li>Într-un set, tempoul trece la cel al următorului cântec de la măsura următoare.</li>
+					<li>Sunt urmate și schimbările de tempo scrise în cântec.</li>
+					<li>Acordorul se deschide peste cântecul pe care urmează să-l cânți și bifează fiecare coardă de îndată ce e acordată.</li>
+					<li>Sunetul e analizat pe dispozitivul tău și nu e niciodată înregistrat.</li>
+				</ul>
+			</div>
+			<div>
+				<div class="slides" id="practice-slides">
+					<div class="pair flip">
+						<div class="tablet"><div class="frame"><picture class="screen">
+							<source srcset="../assets/screenshots/ro/tablet-song-metronome-dark.webp?v=bf8b702a" media="(prefers-color-scheme: dark)">
+							<img src="../assets/screenshots/ro/tablet-song-metronome-light.webp?v=424f42c8" width="1200" height="900" loading="lazy" alt="Un cântec pe un iPad, cu panoul metronomului deschis sub titlu.">
+						</picture><span class="beats" style="--beats-light: url(/assets/screenshots/tablet-song-metronome-beats-light.webp?v=27ac7f12); --beats-dark: url(/assets/screenshots/tablet-song-metronome-beats-dark.webp?v=4d282b51)" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div></div>
+						<div class="phone"><div class="frame"><picture class="screen">
+							<source srcset="../assets/screenshots/ro/phone-metronome-dark.webp?v=8f996be9" media="(prefers-color-scheme: dark)">
+							<img src="../assets/screenshots/ro/phone-metronome-light.webp?v=2af2f736" width="450" height="978" loading="lazy" alt="Fila Metronom pe un iPhone, cu tempoul, bătăile măsurii și setările lui.">
+						</picture><span class="beats" style="--beats-light: url(/assets/screenshots/ro/phone-metronome-beats-light.webp?v=de1b96f3); --beats-dark: url(/assets/screenshots/ro/phone-metronome-beats-dark.webp?v=50e671a1)" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div></div>
+					</div>
+					<div class="pair flip" aria-hidden="true">
+						<div class="tablet"><div class="frame"><picture class="screen">
+							<source srcset="../assets/screenshots/ro/tablet-song-tuner-dark.webp?v=ce4444c8" media="(prefers-color-scheme: dark)">
+							<img src="../assets/screenshots/ro/tablet-song-tuner-light.webp?v=1dfe8ff4" width="1200" height="900" loading="lazy" alt="Un cântec pe un iPad cu acordorul deschis peste el: coarda Mi grav a unei chitări se aude cu 9 cenți prea sus.">
+						</picture></div></div>
+						<div class="phone"><div class="frame"><picture class="screen">
+							<source srcset="../assets/screenshots/ro/phone-tuner-dark.webp?v=966dbff3" media="(prefers-color-scheme: dark)">
+							<img src="../assets/screenshots/ro/phone-tuner-light.webp?v=091f5366" width="450" height="978" loading="lazy" alt="Fila Acordor pe un iPhone: coarda A a unei chitări se aude cu 14 cenți prea jos, iar coarda Mi grav e deja acordată.">
+						</picture></div></div>
+					</div>
+				</div>
+				<div class="slides-nav" role="group" aria-label="Capturi de ecran"><span>
+					<button type="button" aria-controls="practice-slides" aria-pressed="true">Metronom</button>
+					<button type="button" aria-controls="practice-slides" aria-pressed="false">Acordor</button>
+				</span></div>
+			</div>
+		</section>
+
+		<section class="split reverse media-wide" aria-labelledby="instrument-title">
+			<div>
+				<h2 id="instrument-title">Acorduri și game</h2>
+				<p class="lead">Alegi o dată instrumentul, iar diagramele acordurilor din fiecare cântec sunt desenate pentru el: chitară, ukulele, mandolină, banjo sau claviatură.</p>
+				<ul class="points">
+					<li>Diagramele și tabulaturile urmează acordajul în care cânți, de la drop D la open G.</li>
+					<li>Caută în baza de date de acorduri după tonalitate sau nume și vezi gamele recomandate pentru fiecare acord.</li>
+					<li>Fila Game desenează orice gamă și orice mod în orice tonalitate, de la pentatonică și blues la bebop, game simetrice și game din toată lumea, pe orice grif cu orice acordaj sau pe claviatură.</li>
+				</ul>
+			</div>
+			<div>
+				<div class="slides" id="instrument-slides">
+					<div class="pair">
+						<div class="tablet"><div class="frame"><picture class="screen">
+							<source srcset="../assets/screenshots/ro/tablet-song-chord-shape-dark.webp?v=1e907b78" media="(prefers-color-scheme: dark)">
+							<img src="../assets/screenshots/ro/tablet-song-chord-shape-light.webp?v=69008375" width="1200" height="900" loading="lazy" alt="I’m Gonna Be (500 Miles) pe un iPad, cu pozițiile unui acord B pe chitară afișate peste cântec.">
+						</picture></div></div>
+						<div class="phone"><div class="frame"><picture class="screen">
+							<source srcset="../assets/screenshots/ro/phone-chords-dark.webp?v=1188f4e5" media="(prefers-color-scheme: dark)">
+							<img src="../assets/screenshots/ro/phone-chords-light.webp?v=24fc067f" width="450" height="978" loading="lazy" alt="Fila Acorduri pe un iPhone, cu acordurile din C pe ukulele.">
+						</picture></div></div>
+					</div>
+					<div class="pair" aria-hidden="true">
+						<div class="tablet"><div class="frame"><picture class="screen">
+							<source srcset="../assets/screenshots/ro/tablet-song-scales-dark.webp?v=bbdb93d6" media="(prefers-color-scheme: dark)">
+							<img src="../assets/screenshots/ro/tablet-song-scales-light.webp?v=0b105e50" width="1200" height="900" loading="lazy" alt="I’m Gonna Be (500 Miles) pe un iPad, cu secțiunea Game sub acorduri și gama E major desenată pe un grif de chitară peste cântec.">
+						</picture></div></div>
+						<div class="phone"><div class="frame"><picture class="screen">
+							<source srcset="../assets/screenshots/ro/phone-scales-dark.webp?v=e5a58b8f" media="(prefers-color-scheme: dark)">
+							<img src="../assets/screenshots/ro/phone-scales-light.webp?v=680de4e6" width="450" height="978" loading="lazy" alt="Fila Game pe un iPhone, cu gamele uzuale din A pe chitară.">
+						</picture></div></div>
+					</div>
+				</div>
+				<div class="slides-nav" role="group" aria-label="Capturi de ecran"><span>
+					<button type="button" aria-controls="instrument-slides" aria-pressed="true">Acorduri</button>
+					<button type="button" aria-controls="instrument-slides" aria-pressed="false">Game</button>
+				</span></div>
+			</div>
+		</section>
+
+		<section aria-labelledby="chords-title">
+			<h2 id="chords-title">Notație</h2>
+			<p class="lead">Afișează acordurile cu litere, în notație germană sau latină, cu numere Nashville sau cu cifre romane, în orice tonalitate. Dedesubt, fiecare cântec e un simplu fișier text <a href="https://www.chordpro.org" target="_blank" rel="noopener">ChordPro</a>, așa că nimic nu rămâne blocat. Încearcă pe exemplul de mai jos.</p>
+			<div class="chordpro">
+				<div class="source">
+					<pre id="chordpro-source"># Fișier .cho brut
+{title: Amazing Grace}
+{artist: John Newton}
+{key: G}
+
+{start_of_verse}
+[G]Amazing [G7]grace, how [C]sweet the [G]sound
+That [G]saved a wretch like [D]me
+{end_of_verse}</pre>
+				</div>
+				<span class="conversion-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h16m-6-6 6 6-6 6"/></svg></span>
+				<div class="rendered">
+					<div class="song-heading">
+						<div translate="no">
+							<p class="song-title">Amazing Grace</p>
+							<p class="song-artist">John Newton</p>
+						</div>
+						<span class="transpose" role="group" aria-label="Transpune exemplul" hidden>
+							<button type="button" data-step="-1" aria-label="Transpune în jos">−</button>
+							<button type="button" class="reset" id="transpose-value" aria-label="Resetează transpunerea" aria-live="polite">-3 · E</button>
+							<button type="button" data-step="1" aria-label="Transpune în sus">+</button>
+						</span>
+						<span class="notation" role="group" aria-label="Notația acordurilor din exemplu" hidden>
+							<button type="button" data-notation="standard" aria-pressed="true">Standard</button>
+							<button type="button" data-notation="german" aria-pressed="false">Germană</button>
+							<button type="button" data-notation="latin" aria-pressed="false">Latină</button>
+							<button type="button" data-notation="nashville" aria-pressed="false">Nashville</button>
+							<button type="button" data-notation="roman" aria-pressed="false">Romane</button>
+						</span>
+					</div>
+					<div class="sheet" id="chordpro-sheet"><p class="section-label">Strofă</p><div class="line" translate="no"><span class="segment"><b>E</b>Amazing </span><span class="segment"><b>E7</b>grace, how </span><span class="segment"><b>A</b>sweet the </span><span class="segment"><b>E</b>sound</span></div><div class="line" translate="no"><span class="segment"><b></b>That </span><span class="segment"><b>E</b>saved a wretch like </span><span class="segment"><b>B</b>me</span></div></div>
+				</div>
+			</div>
+		</section>
+
+		<section id="features" aria-labelledby="features-title">
+			<h2 id="features-title">Ce mai conține</h2>
+			<p class="lead">Tot ce îi trebuie unui caiet de cântece și nimic care să te încurce.</p>
+			<ul class="features">
+				<li>
+					<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5M7.5 10.5h6M10.5 7.5v6"/></svg>
+					<h3>Căutare și filtrare</h3>
+					<p>Caută după titlu, artist sau etichetă, cu cele mai apropiate rezultate primele. Sortează și filtrează după etichete sau limbi.</p>
+				</li>
+				<li>
+					<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h8l10 10-8 8L3 11Z"/><circle cx="7.5" cy="7.5" r="1"/></svg>
+					<h3>Etichete și editare în bloc</h3>
+					<p>Creează-ți propriile etichete colorate. Selectează mai multe cântece deodată ca să le etichetezi, să le adaugi într-o listă sau să le partajezi.</p>
+				</li>
+				<li>
+					<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h18m-4-4 4 4-4 4M21 17H3m4-4-4 4 4 4"/></svg>
+					<h3>Partajare</h3>
+					<p>Trimite cântece și liste muzicienilor cu care cânți, ca fișier zip sau ca link pe care îl poate deschide orice utilizator Campfire.</p>
+				</li>
+				<li>
+					<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 9a8 8 0 0 0-14-3L3 9m0-5v5h5M4 15a8 8 0 0 0 14 3l3-3m0 5v-5h-5"/></svg>
+					<h3>Sincronizare Dropbox în timp real</h3>
+					<p>Editezi un cântec pe laptop și vezi modificarea pe telefon o clipă mai târziu, cu totul stocat în propriul tău dosar Dropbox.</p>
+				</li>
+				<li>
+					<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+					<h3>Mod doar citire</h3>
+					<p>Un simplu comutator blochează editarea pe scenă, ca o atingere scăpată să nu schimbe un cântec sau o listă în mijlocul setului.</p>
+				</li>
+				<li>
+					<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="7" width="20" height="10" rx="5"/><circle cx="16" cy="12" r="2"/></svg>
+					<h3>Ascunde ce nu folosești</h3>
+					<p>Dezactivează funcțiile de care nu ai nevoie, iar Campfire le ascunde, ca aplicația să rămână simplă și fără distrageri.</p>
+				</li>
+			</ul>
+		</section>
+
+		<section id="download" aria-labelledby="download-title">
+			<h2 id="download-title">Descarcă Campfire</h2>
+			<p class="lead">Aceeași aplicație pe fiecare platformă și în browser, fără nimic de instalat.</p>
+			<div class="platforms">
+				<a href="https://play.google.com/store/apps/details?id=com.pandulapeter.campfire" target="_blank" rel="noopener">
+					<svg viewBox="0 0 24 24" aria-hidden="true"><defs><clipPath id="google-play"><path d="M4 5.5Q4 2.5 6.6 4l11.3 6.5q2.6 1.5 0 3L6.6 20Q4 21.5 4 18.5Z"/></clipPath></defs><g clip-path="url(#google-play)"><path fill="#4285F4" d="M4 2.5 12.6 12 4 21.5Z"/><path fill="#34A853" d="M4 2.5 14.2 8.4 12.6 12Z"/><path fill="#EA4335" d="M4 21.5 12.6 12l1.6 3.6Z"/><path fill="#FBBC04" d="m14.2 8.4 6.3 3.6-6.3 3.6-1.6-3.6Z"/></g></svg>
+					<span><strong>Android</strong>Google Play</span>
+				</a>
+				<a href="https://apps.apple.com/app/id6815160850" target="_blank" rel="noopener">
+					<svg viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="app-store" x2="0" y2="1"><stop offset="0" stop-color="#1AC4FC"/><stop offset="1" stop-color="#1D6FF2"/></linearGradient></defs><rect width="24" height="24" rx="5.4" fill="url(#app-store)"/><path fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" d="M10.9 6l6.5 11.3M13.1 6l-4.8 8.4m-1.1 2-.7 1.2M6 14.4h7.9m2 0H18"/></svg>
+					<span><strong>iOS și iPadOS</strong>App Store</span>
+				</a>
+				<a href="../app/" target="_blank" rel="noopener">
+					<img src="../assets/icon.svg?v=8ba29e56" width="40" height="40" alt="">
+					<span><strong>Browser</strong>Nimic de instalat</span>
+				</a>
+				<a href="https://apps.microsoft.com/detail/9MSR62F288M1" target="_blank" rel="noopener">
+					<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="#8A8886" stroke-width="1.6" d="M8.5 7.5V6a3.5 3.5 0 0 1 7 0v1.5"/><rect x="2.8" y="7" width="18.4" height="15" rx="2.4" fill="#F3F2F1" stroke="#C8C6C4" stroke-width=".8"/><path fill="#F25022" d="M7.6 10.2h4v4h-4z"/><path fill="#7FBA00" d="M12.4 10.2h4v4h-4z"/><path fill="#00A4EF" d="M7.6 15h4v4h-4z"/><path fill="#FFB900" d="M12.4 15h4v4h-4z"/></svg>
+					<span><strong>Windows</strong>Microsoft Store</span>
+				</a>
+				<a href="https://apps.apple.com/app/id6815160850" target="_blank" rel="noopener">
+					<svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="5.4" fill="url(#app-store)"/><path fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" d="M10.9 6l6.5 11.3M13.1 6l-4.8 8.4m-1.1 2-.7 1.2M6 14.4h7.9m2 0H18"/></svg>
+					<span><strong>macOS</strong>Mac App Store</span>
+				</a>
+				<a href="https://github.com/pandulapeter/campfire/releases/latest" target="_blank" rel="noopener">
+					<svg class="github" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>
+					<span><strong>Linux</strong>GitHub</span>
+				</a>
+			</div>
+			<p class="release-note">Unele funcții nu au ajuns încă pe toate platformele. Versiunea pentru browser e mereu cea mai nouă, iar celelalte pot avea nevoie de câteva zile ca s-o ajungă din urmă.</p>
+		</section>
+	</main>
+
+	<footer class="site-footer">
+		<div class="coffee">
+			<a href="https://pandulapeter.com" target="_blank" rel="noopener" aria-label="Site-ul lui Péter Pandula"><img src="../assets/peter.webp?v=70634f3d" width="480" height="480" loading="lazy" alt="Péter cântând la chitară electrică pe scenă."></a>
+			<div>
+				<h2>Ține focul aprins</h2>
+				<p>Salut, sunt Péter. Campfire e aplicația pe care mi-am dorit-o pe propriul stativ, așa că am făcut-o. E gratuită și <a href="https://github.com/pandulapeter/campfire" target="_blank" rel="noopener">open source</a> și așa va rămâne. Dacă și-a câștigat un loc și pe stativul tău, o cafea mă ajută să continui.</p>
+			</div>
+			<a class="button" href="https://buymeacoffee.com/pandulapeter" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h13v5a6 6 0 0 1-6 6h-1a6 6 0 0 1-6-6V8Zm13 1h1.5a2.5 2.5 0 0 1 0 5H17M8 2.5v2.5M11 2.5v2.5M14 2.5v2.5"/></svg>Cumpără-mi o cafea</a>
+		</div>
+		<div class="legal">
+			<p>© 2026 · <a href="https://pandulapeter.com" target="_blank" rel="noopener">Péter Pandula</a></p>
+			<nav aria-label="Subsol">
+				<a href="support/">Asistență</a>
+				<a href="privacy/">Confidențialitate</a>
+				<a class="source" href="https://github.com/pandulapeter/campfire" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>Cod sursă</a>
+			</nav>
+			<ul class="language-links" translate="no" aria-label="Limbă">
+				<li><a href="../de/" hreflang="de" lang="de">Deutsch</a></li>
+				<li><a href="../" hreflang="en" lang="en">English</a></li>
+				<li><a href="../es/" hreflang="es" lang="es">Español</a></li>
+				<li><a href="../fr/" hreflang="fr" lang="fr">Français</a></li>
+				<li><a href="../hu/" hreflang="hu" lang="hu">Magyar</a></li>
+				<li><a href="../it/" hreflang="it" lang="it">Italiano</a></li>
+				<li><a href="./" hreflang="ro" lang="ro" aria-current="true">Română</a></li>
+			</ul>
+		</div>
+	</footer>
+</div>
+<script src="../assets/home.js?v=f5f66237"></script>
+</body>
+</html>

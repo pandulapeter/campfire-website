@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="ro">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script>
+		// The site is in the languages of the picker, each in a folder of its own, and the English pages, at the root,
+		// are also those of every other language. A visitor who lands on one of them is sent to the same page in the
+		// language they last picked in the picker, which is remembered, or else in the first of their browser's languages
+		// the site has. The picker is a <details>, closed by a click anywhere else or by Escape.
+		(function (d, l) {
+			var languages = ["de", "en", "es", "fr", "hu", "it", "ro"];
+			var picked = null;
+			try { picked = localStorage.getItem("language"); } catch (e) {}
+			d.addEventListener("click", function (event) {
+				var link = event.target.closest("a[hreflang]");
+				if (link) try { localStorage.setItem("language", link.hreflang); } catch (e) {}
+				d.querySelectorAll("details.languages[open]").forEach(function (picker) { if (!picker.contains(event.target)) picker.open = false; });
+			});
+			d.addEventListener("keydown", function (event) {
+				if (event.key === "Escape") d.querySelectorAll("details.languages[open]").forEach(function (picker) { picker.open = false; picker.querySelector("summary").focus(); });
+			});
+			if (d.documentElement.lang !== "en") return;
+			var preferred = [picked].concat((navigator.languages || [navigator.language]).map(function (tag) { return String(tag).slice(0, 2).toLowerCase(); }))
+				.filter(function (code) { return languages.indexOf(code) !== -1; })[0];
+			if (preferred && preferred !== "en") l.replace("/" + preferred + l.pathname + l.search + l.hash);
+		}(document, location));
+	</script>
+	<title>Politica de confidențialitate – Campfire</title>
+	<meta name="description" content="Cum tratează Campfire datele tale: fără cont, fără server, fără reclame și fără urmărire.">
+	<link rel="canonical" href="https://campfire-songbook.com/ro/privacy/">
+	<link rel="alternate" hreflang="de" href="https://campfire-songbook.com/de/privacy/">
+	<link rel="alternate" hreflang="en" href="https://campfire-songbook.com/privacy/">
+	<link rel="alternate" hreflang="es" href="https://campfire-songbook.com/es/privacy/">
+	<link rel="alternate" hreflang="fr" href="https://campfire-songbook.com/fr/privacy/">
+	<link rel="alternate" hreflang="hu" href="https://campfire-songbook.com/hu/privacy/">
+	<link rel="alternate" hreflang="it" href="https://campfire-songbook.com/it/privacy/">
+	<link rel="alternate" hreflang="ro" href="https://campfire-songbook.com/ro/privacy/">
+	<link rel="alternate" hreflang="x-default" href="https://campfire-songbook.com/privacy/">
+	<meta name="theme-color" content="#FAF8FE" media="(prefers-color-scheme: light)">
+	<meta name="theme-color" content="#15121C" media="(prefers-color-scheme: dark)">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="Campfire">
+	<meta property="og:locale" content="ro_RO">
+	<meta property="og:url" content="https://campfire-songbook.com/ro/privacy/">
+	<meta property="og:title" content="Politica de confidențialitate – Campfire">
+	<meta property="og:description" content="Cum tratează Campfire datele tale: fără cont, fără server, fără reclame și fără urmărire.">
+	<meta property="og:image" content="https://campfire-songbook.com/assets/og-image.jpg?v=a569ced8">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:image:alt" content="Campfire pe un laptop și pe un telefon">
+	<meta name="twitter:card" content="summary_large_image">
+	<link rel="icon" href="../../assets/icon.svg?v=8ba29e56" type="image/svg+xml">
+	<link rel="apple-touch-icon" href="../../assets/icon-192.png?v=0f2be8ac">
+	<link rel="stylesheet" href="../../assets/site.css?v=128df0b0">
+	<script>
+		// Every visitor is offered two versions: a phone or a tablet the app from its store first and the web app second,
+		// a computer the other way around. The script names the system: the stylesheet shows the elements marked
+		// for-mobile instead of for-desktop on a phone or a tablet, every link marked data-native goes to the system's own
+		// version, and one marked data-native-label is also named after it. iPadOS presents itself as a Mac, so an iPad is
+		// told apart by its touch screen. Without a match, the links lead to the list of every platform.
+		(function (d) {
+			var agent = navigator.userAgent;
+			var os = /Android/.test(agent) ? "android" : /iPhone|iPad|iPod/.test(agent) || (/Macintosh/.test(agent) && navigator.maxTouchPoints > 1) ? "ios" : /Windows/.test(agent) ? "windows" : /Macintosh/.test(agent) ? "macos" : /Linux/.test(agent) ? "linux" : "";
+			var native = {
+				android: ["https://play.google.com/store/apps/details?id=com.pandulapeter.campfire", "Descarcă de pe Google Play"],
+				ios: ["https://apps.apple.com/app/id6815160850", "Descarcă din App Store"],
+				windows: ["https://apps.microsoft.com/detail/9MSR62F288M1", "Descarcă pentru Windows"],
+				macos: ["https://apps.apple.com/app/id6815160850", "Descarcă pentru macOS"],
+				linux: ["https://github.com/pandulapeter/campfire/releases/latest", "Descarcă pentru Linux"]
+			}[os];
+			if (!native) return;
+			d.documentElement.dataset.os = os;
+			if (os === "android" || os === "ios") d.documentElement.dataset.mobile = "";
+			d.addEventListener("DOMContentLoaded", function () {
+				d.querySelectorAll("[data-native]").forEach(function (link) {
+					link.href = native[0];
+					link.target = "_blank";
+					link.rel = "noopener";
+					if (link.hasAttribute("data-native-label")) link.textContent = native[1];
+				});
+			});
+		}(document));
+	</script>
+</head>
+<body>
+<a class="skip" href="#main">Salt la conținut</a>
+<header class="site-header">
+	<div class="wrap">
+		<a class="brand" translate="no" href="../"><img src="../../assets/icon.svg?v=8ba29e56" alt="">Campfire</a>
+		<nav aria-label="Principal">
+			<a class="optional" href="../#download">Descărcare</a>
+			<a class="optional" href="../support/">Asistență</a>
+			<a class="optional" href="./" aria-current="page">Confidențialitate</a>
+			<details class="languages" translate="no">
+				<summary aria-label="Limbă: Română"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.8 3.9 6 3.9 9.5s-1.3 6.7-3.9 9.5c-2.6-2.8-3.9-6-3.9-9.5s1.3-6.7 3.9-9.5Z"/></svg><span>RO</span></summary>
+				<ul>
+					<li><a href="../../de/privacy/" hreflang="de" lang="de">Deutsch</a></li>
+					<li><a href="../../privacy/" hreflang="en" lang="en">English</a></li>
+					<li><a href="../../es/privacy/" hreflang="es" lang="es">Español</a></li>
+					<li><a href="../../fr/privacy/" hreflang="fr" lang="fr">Français</a></li>
+					<li><a href="../../hu/privacy/" hreflang="hu" lang="hu">Magyar</a></li>
+					<li><a href="../../it/privacy/" hreflang="it" lang="it">Italiano</a></li>
+					<li><a href="./" hreflang="ro" lang="ro" aria-current="true">Română</a></li>
+				</ul>
+			</details>
+			<a class="button small for-desktop" href="../../app/" target="_blank" rel="noopener">Aplicația web</a>
+			<a class="button small for-mobile" href="../#download" data-native>Descarcă aplicația</a>
+		</nav>
+	</div>
+</header>
+<div class="wrap">
+
+	<main class="document" id="main">
+		<h1>Politica de confidențialitate</h1>
+		<p>Prin descărcarea și utilizarea Campfire, acești termeni ți se aplică automat; de aceea, asigură-te că îi citești cu atenție.</p>
+		<p>Această aplicație îți este oferită de Péter Pandula gratuit și este destinată utilizării ca atare.</p>
+		<p class="updated"><em>Ultima actualizare: 22 octombrie 2026. Această versiune acoperă Campfire 4.0 și versiunile ulterioare; copertele și ștergerea întregii biblioteci din setări au apărut în Campfire 4.5, sincronizarea pozițiilor de acorduri alese și a transpunerii, capodastrului și tempoului fiecărui cântec în Campfire 4.7, acordorul, care folosește microfonul, și sincronizarea culorilor etichetelor și a accentelor de metronom ale fiecărui cântec în Campfire 4.7.1, căutarea online a detaliilor cântecelor, lipirea cântecelor și partajarea lor către aplicație în Campfire 4.9, linkurile către cântece și liste în Campfire 5.0, iar jurnalul aplicației în Campfire 5.0.1.</em></p>
+		<h2>Prezentare generală</h2>
+		<p>Această pagină te informează despre politicile mele privind colectarea, utilizarea și divulgarea informațiilor personale, în cazul în care cineva decide să-mi folosească serviciul.</p>
+		<p>Campfire este o aplicație pentru vizualizarea și editarea versurilor și acordurilor care funcționează offline. Cântecele și listele tale sunt fișiere text <a href="https://www.chordpro.org" target="_blank" rel="noopener">ChordPro</a> obișnuite, păstrate în spațiul de stocare propriu al aplicației pe dispozitivul tău, iar pe web în spațiul de stocare privat al browserului tău pentru acest site. Nu există cont Campfire și niciun server al meu nu este implicat nicăieri: nu primesc niciodată cântecele tale, setările tale sau orice altceva despre felul în care folosești aplicația. Campfire se conectează la internet doar pentru sincronizarea în cloud și linkurile pe care le partajează, pentru deschiderea unui link partajat, pentru coperte și pentru căutarea detaliilor cântecelor, toate descrise mai jos. Acordorul folosește microfonul tău, dar ce aude nu părăsește niciodată dispozitivul, lucru descris tot mai jos. Campfire mai păstrează pe dispozitivul tău un jurnal cu ce a făcut, care ajunge la mine doar dacă mi-l trimiți chiar tu, așa cum se descrie în <a href="#log">Jurnalul aplicației</a>.</p>
+		<p>Campfire nu conține reclame, analize sau urmărire de niciun fel.</p>
+		<h2>Colectarea și utilizarea informațiilor</h2>
+		<p>Campfire nu are integrată nicio soluție de colectare a datelor; prin urmare, nu colectez intenționat nicio informație care te poate identifica personal. Totuși, ține cont că unele mecanisme de colectare a datelor nu se află sub controlul meu. De exemplu, doar prin descărcarea aplicației din Google Play Store, partajezi automat unele date limitate de utilizare și rapoarte de erori cu mine, dezvoltatorul, precum și cu Google. Ai fost de acord cu acest lucru când ai acceptat acordul de licență Play Services, asupra căruia nu am niciun control.</p>
+		<h2>Sincronizarea în cloud</h2>
+		<p>Campfire îți poate păstra biblioteca la fel pe mai multe dintre dispozitivele tale, stocând-o într-un dosar în cloud care îți aparține. <strong>Aceasta este dezactivată până o activezi.</strong> Până nu conectezi un cont în setările aplicației, sincronizarea nu face nicio cerere în rețea, iar dacă nu conectezi niciodată unul, nimic din această secțiune nu ți se aplică.</p>
+		<p>Sincronizarea funcționează în prezent cu <a href="https://www.dropbox.com/privacy" target="_blank" rel="noopener">Dropbox</a>. Când îl conectezi:</p>
+		<ul>
+			<li><strong>Fișierele tale ajung în propriul tău Dropbox, nu la mine.</strong> Cântecele și listele sunt transferate direct între dispozitivul tău și Dropbox. Nu operez niciun server și nicio copie a bibliotecii tale nu ajunge vreodată la mine.</li>
+			<li><strong>Campfire își vede doar propriul dosar.</strong> Aplicația cere permisiunea „app folder” a Dropbox, care îi limitează accesul la un singur dosar numit <em>Apps/Campfire Sync</em>, creat pentru ea. Restul Dropboxului tău este invizibil pentru aplicație.</li>
+			<li><strong>Se sincronizează doar biblioteca ta și felul în care o cânți.</strong> Adică fișierele cântecelor și ale listelor și, într-un fișier <em>preferences.json</em> aflat lângă ele în același dosar, transpunerea, capodastrul, tempoul și accentele de metronom pe care le setezi pentru cântece, pozițiile de acorduri pe care le-ai ales pentru fiecare instrument și acordaj și culorile etichetelor tale. Celelalte setări ale aplicației, cum ar fi tema, limba și mărimea textului alese, nu sunt niciodată încărcate de sincronizare și rămân pe dispozitivul pe care le-ai setat (backupul propriu al dispozitivului le poate totuși duce pe un dispozitiv nou, vezi <em>Backupul dispozitivului</em> mai jos).</li>
+			<li><strong>Ce citește Campfire despre contul tău.</strong> După ce te conectezi, aplicația îi cere Dropbox numele afișat și adresa de email ale contului, exclusiv ca ecranul de setări să-ți poată arăta în ce cont ajunge biblioteca ta, și păstrează ID-ul Dropbox al contului, ca să-l recunoască și după ce îi schimbi numele sau adresa de email. Acestea sunt păstrate pe dispozitivul tău și nu sunt trimise niciodată nicăieri altundeva.</li>
+			<li><strong>Cum funcționează autentificarea.</strong> Autorizarea folosește fluxul standard OAuth 2.0 cu PKCE, pe pagina de consimțământ a Dropbox, deschisă în browserul tău. Parola ta Dropbox nu este introdusă niciodată în Campfire și nu trece niciodată prin aplicație. Tokenurile de acces și de reîmprospătare rezultate sunt stocate doar în spațiul de stocare privat al aplicației pe dispozitivul tău (pe Android criptate cu o cheie deținută de sistem, pe iOS și iPadOS în Keychain-ul sistemului) și nu sunt trimise niciodată nicăieri în afară de Dropbox.</li>
+			<li><strong>Deconectarea.</strong> Dacă alegi „Deconectează” în setări, aplicația îi cere Dropbox să revoce tokenul și îl șterge de pe dispozitivul tău. Fișierele tale rămân neatinse, atât pe dispozitiv, cât și în Dropbox, la fel și linkurile tale partajate, care continuă să funcționeze: oprește mai întâi partajarea lor dacă vrei să dispară. Poți elimina oricând accesul Campfire și din pagina de aplicații conectate a contului tău Dropbox.</li>
+		</ul>
+		<p>Tot ce este stocat în Dropboxul tău se supune politicii de confidențialitate și termenilor proprii ai Dropbox, care sunt o înțelegere între tine și Dropbox. Dacă în viitor Campfire va permite un alt serviciu de cloud, aceleași principii i se vor aplica și această pagină va fi actualizată ca să-l numească.</p>
+		<h2 id="links">Linkuri către cântece și liste</h2>
+		<p>Un cântec sau o listă poate fi partajat ca link pe care îl poate deschide oricine. Crearea unui link necesită sincronizarea în cloud cu Dropbox, descrisă mai sus; deschiderea unuia nu necesită niciun cont.</p>
+		<ul>
+			<li><strong>Partajarea pune o copie publică în propriul tău Dropbox.</strong> Când creezi un link, Campfire salvează cântecul, sau lista cu cântecele ei, ca fișier zip într-un dosar <em>shared</em> din <em>Apps/Campfire Sync</em> și îi cere Dropbox un link public către el. Oricine are linkul poate descărca acel fișier. Cât timp sincronizarea e conectată, Campfire ține fișierul la zi pe măsură ce modifici cântecul sau lista, până când oprești partajarea. Pentru asta, aplicația îi cere Dropbox și permisiunea de a crea și de a lista linkuri partajate, care acoperă doar propriul ei dosar. Lista cu ce partajezi, cu titlul, numele fișierului, linkul și ziua în care a fost partajat fiecare element, este păstrată într-un fișier <em>shared-links.json</em> din același dosar, astfel încât fiecare dispozitiv conectat la el să arate aceeași listă.</li>
+			<li><strong>Oprirea.</strong> <em>Oprește partajarea</em>, pe ecranul <em>Partajează</em> sau în <em>Setări → Partajare</em>, șterge fișierul din Dropboxul tău, la fel ca ștergerea cântecului sau a listei în Campfire. Linkul încetează apoi să funcționeze pentru toată lumea. Copiile pe care alții le-au importat deja sunt ale lor, iar Campfire nu are acces la ele.</li>
+			<li><strong>Deschiderea unui link descarcă acel fișier din Dropbox.</strong> Aplicația îl descarcă direct din Dropbox, îți arată ce conține și nu scrie nimic până nu îl imporți. Dropbox vede o descărcare obișnuită de la adresa de internet a dispozitivului tău și nu mi se trimite nimic.</li>
+			<li><strong>Pagina linkului nu trimite nimic.</strong> Un link duce la o pagină de pe acest site, care citește linkul în browserul tău. Partea linkului care numește fișierul vine după un <em>#</em>, pe care browserele nu îl trimit niciodată unui server, așa că nici acest site, nici previzualizarea linkului dintr-o aplicație de mesagerie nu o văd. Pagina nu încarcă nimic ea însăși; butoanele ei deschid Campfire, magazinul lui, aplicația web sau descărcarea fișierului.</li>
+			<li><strong>Instalarea dintr-un link.</strong> Pe Android, când Campfire este instalat din Google Play prin butonul paginii, Google Play îi transmite linkul aplicației la prima pornire. Pe iOS și iPadOS, butonul <em>Descarcă Campfire</em> al paginii copiază linkul; la prima pornire, Campfire verifică dacă în clipboard se află o adresă web, fără s-o citească, și o citește doar dacă atingi <em>Deschide</em>. Orice nu este un link Campfire este ignorat.</li>
+		</ul>
+		<h2>Microfonul și acordorul</h2>
+		<p>Campfire are un acordor care îți ascultă instrumentul prin microfon. <strong>Nimic din ce aude nu este înregistrat, păstrat sau trimis nicăieri.</strong></p>
+		<ul>
+			<li><strong>Doar când ceri tu.</strong> Aplicația nu cere niciodată microfonul la pornire. Îl cere când atingi ca să deschizi acordorul (fila Acordor sau butonul ori opțiunea de meniu a acordorului dintr-un cântec) sau când atingi <em>Folosește microfonul</em> pe un acordor care a fost afișat fără o atingere, cum ar fi unul pe care aplicația îl redeschide acolo unde l-ai lăsat. Android, iOS, iPadOS, macOS și browserul tău îți cer mai întâi permisiunea, pe care o poți retrage oricând din setările lor. Pe un computer, unde aplicația nu poate ști dacă a primit permisiunea, ea reține că ai atins butonul o dată și de atunci deschide microfonul de fiecare dată când acordorul este afișat.</li>
+			<li><strong>Doar cât timp acordorul e pe ecran.</strong> Microfonul este deschis doar cât timp fila Acordor sau acordorul de peste un cântec este afișat și aplicația este în prim-plan. Se închide imediat ce părăsești acordorul, treci la altă aplicație sau blochezi ecranul, așa că indicatorul de înregistrare al dispozitivului tău e aprins exact cât timp acordorul ascultă.</li>
+			<li><strong>Analizat pe dispozitivul tău, apoi aruncat.</strong> Sunetul este procesat pe dispozitivul tău pe măsură ce ajunge, doar pentru a afla înălțimea notei cântate, și apoi este aruncat. Niciun sunet și nimic derivat din el nu este salvat, sincronizat, inclus într-un backup sau trimis mie ori altcuiva.</li>
+			<li><strong>Dezactivarea.</strong> Comutatorul „Acordor” din setările aplicației elimină acordorul și, odată cu el, orice modalitate prin care aplicația ar putea cere microfonul.</li>
+		</ul>
+		<h2>Coperte</h2>
+		<p>Un cântec poate indica o copertă de album care să fie afișată lângă el, ca adresă web a unei imagini scrise în propriul fișier al cântecului. Adresa este aleasă de tine sau de cine a scris cântecul, iar Campfire nu are niciun cuvânt de spus asupra site-ului către care trimite.</p>
+		<ul>
+			<li><strong>Afișarea unei coperte.</strong> Prima dată când este afișat un cântec cu copertă, aplicația descarcă imaginea de la acea adresă și păstrează o copie pe dispozitivul tău, ca să nu fie descărcată din nou. Site-ul care servește imaginea vede o cerere obișnuită pentru ea de la adresa de internet a dispozitivului tău, ca de la un browser. Copiile pe care nu le mai indică niciun cântec sunt șterse de aplicație și nu sunt niciodată sincronizate sau incluse în backupul dispozitivului. Le poți șterge pe toate oricând atingând <em>Memoria cache a copertelor</em> sub <em>Bibliotecă</em> în setările aplicației.</li>
+			<li><strong>Căutarea unei coperte.</strong> Doar când deschizi căutarea copertei pentru un cântec, artistul, albumul și titlul din câmpurile ei de căutare sunt trimise către <a href="https://musicbrainz.org/doc/About/Privacy_Policy" target="_blank" rel="noopener">MusicBrainz</a> și către <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener">iTunes Search API</a> al Apple, iar miniaturile albumelor găsite sunt descărcate din <a href="https://coverartarchive.org" target="_blank" rel="noopener">Cover Art Archive</a> și de la Apple. Nu se trimite nimic altceva despre tine sau biblioteca ta și nu există cont la niciunul dintre ele. Aceste cereri se supun politicilor de confidențialitate proprii ale acelor servicii.</li>
+			<li><strong>Introducerea unei adrese.</strong> Dacă introduci chiar tu adresa unei imagini, aceasta este descărcată de la acea adresă ca să-ți arate o previzualizare.</li>
+			<li><strong>Dezactivarea.</strong> Comutatorul „Coperte” din setările aplicației dezactivează toate acestea: nicio copertă nu este descărcată sau afișată, iar căutarea nu este oferită.</li>
+		</ul>
+		<h2>Căutarea detaliilor cântecelor</h2>
+		<p>Cât timp editezi detaliile unui cântec, Campfire poate căuta online artistul, albumul, anul și compozitorii lui.</p>
+		<ul>
+			<li><strong>Doar când ceri tu.</strong> Nu se trimite nimic până nu deschizi <em>Caută detaliile cântecului online</em> pentru un cântec. Atunci, titlul, artistul și albumul din câmpurile ei de căutare sunt trimise către <a href="https://musicbrainz.org/doc/About/Privacy_Policy" target="_blank" rel="noopener">MusicBrainz</a> și către <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener">iTunes Search API</a> al Apple, iar MusicBrainz este întrebat și care sunt compozitorii unei înregistrări găsite. Nu se trimite nimic altceva despre tine sau biblioteca ta și nu există cont la niciunul dintre ele. Aceste cereri se supun politicilor de confidențialitate proprii ale acelor servicii.</li>
+			<li><strong>Nu se păstrează nimic și nu se scrie nimic până nu salvezi.</strong> Ce găsește căutarea doar completează formularul. Fișierul cântecului se schimbă doar când atingi Salvează, iar rezultatele nu sunt stocate.</li>
+			<li><strong>Dezactivarea.</strong> Comutatorul „Detalii online ale cântecelor” din setările aplicației elimină căutarea.</li>
+		</ul>
+		<h2>Lipirea și partajarea cântecelor</h2>
+		<ul>
+			<li><strong>Clipboardul este citit doar când lipești.</strong> Campfire îl citește când atingi <em>Lipește din clipboard</em> sau apeși Ctrl+V (⌘V pe Mac) ori <em>Deschide</em> la prima pornire după instalarea dintr-un link pe iOS și iPadOS (vezi <a href="#links">Linkuri către cântece și liste</a>), niciodată din proprie inițiativă. Pe iOS și iPadOS, precum și în unele browsere, sistemul te întreabă mai întâi.</li>
+			<li><strong>Cântecele partajate și trase în aplicație rămân pe dispozitivul tău.</strong> Textul și fișierele pe care le partajezi către Campfire dintr-o altă aplicație pe Android, iOS sau iPadOS ori le tragi peste ea sunt citite și convertite pe dispozitivul tău. O adresă web aflată printre ele nu este deschisă niciodată. Pe iOS și iPadOS, o partajare așteaptă într-un dosar comun aplicației și extensiei ei de partajare până când Campfire o preia, iar apoi este ștearsă.</li>
+			<li><strong>Nimic nu este salvat până nu salvezi tu.</strong> Un cântec lipit sau partajat se deschide în editor și devine un fișier în biblioteca ta doar când atingi Salvează. Până atunci, editorul păstrează textul nesalvat doar pe dispozitivul tău, ca să nu se piardă dacă aplicația este închisă.</li>
+		</ul>
+		<h2 id="log">Jurnalul aplicației</h2>
+		<p>Campfire păstrează un jurnal cu ce a făcut în ultima vreme, ca atunci când ceva nu merge bine să mi-l poți trimite și să pot afla de ce. Nu este o analiză: rămâne pe dispozitivul tău, nimic nu îl trimite nicăieri de la sine și ajunge la mine doar dacă alegi să mi-l trimiți.</p>
+		<ul>
+			<li><strong>Ce conține.</strong> Când a pornit aplicația, versiunea ei și pe ce tip de dispozitiv rulează; ce ecrane și dialoguri ai deschis, doar după tip (de exemplu „detaliile cântecului”, niciodată cântecul însuși); ce ai făcut, în câteva cuvinte, cum ar fi salvarea unui cântec, adăugarea de cântece într-o listă, schimbarea unei setări (numele ei, nu valoarea pe care ai ales-o), deschiderea unei căutări (niciodată ce ai scris), pornirea metronomului sau a acordorului, importul, exportul, partajarea și cum a decurs fiecare sincronizare, în cifre; și mesajele pe care aplicația le scrie despre ce a făcut și despre erori, care pot numi fișierele cântecelor și listelor tale. Fiecare rând poartă ora la care a fost scris. Nu conține niciodată textul cântecelor tale, setările tale, contul tău Dropbox sau ce aude acordorul.</li>
+			<li><strong>Unde este păstrat.</strong> Doar pe dispozitivul tău, în spațiul de stocare propriu al aplicației, fără să fie sincronizat vreodată. Este limitat la aproximativ jumătate de megabyte, iar rândurile mai vechi sunt eliminate pe măsură ce se scriu altele noi.</li>
+			<li><strong>Trimiterea lui depinde de tine.</strong> În setări, rândul jurnalului din fila <em>Despre</em> arată mai întâi ce conține jurnalul, apoi, dacă continui, îl atașează la un email nou către mine pe Android, precum și pe iOS și iPadOS, acolo unde aplicația Mail are un cont. Poți citi emailul și jurnalul înainte să-l trimiți sau poți să nu-l trimiți deloc. În rest, Campfire îți oferă să partajezi sau să salvezi fișierul, iar tu îl trimiți. Pe un computer, numele tău de utilizator din căile de dosare menționate în jurnal este înlocuit înainte ca jurnalul să părăsească aplicația.</li>
+			<li><strong>După o închidere neașteptată.</strong> Pe Android, iOS, iPadOS și pe un computer, dacă aplicația s-a oprit din cauza unei erori, te întreabă o singură dată, data viitoare când o deschizi, dacă vrei să-mi trimiți jurnalul. Dacă alegi <em>Nu acum</em>, nu se trimite nimic.</li>
+			<li><strong>Dacă mi-l trimiți,</strong> îl folosesc doar ca să găsesc și să rezolv problema pe care ai întâmpinat-o.</li>
+		</ul>
+		<h2>Backupul dispozitivului</h2>
+		<p>Telefoanele și tabletele Android, iPhone-urile și iPad-urile pot face backup la datele aplicațiilor de pe ele și le pot muta pe un dispozitiv nou. Dacă ai această opțiune activată, biblioteca ta Campfire și setările aplicației fac parte din el: pe Android în backupul tău Google sau într-un transfer direct pe un telefon nou, pe iOS și iPadOS în backupul tău iCloud sau într-un transfer de pe dispozitivul vechi. Această copie este făcută de sistemul de operare conform setărilor de backup ale dispozitivului tău, iar un backup este stocat în propriul tău cont Google sau Apple, sub politica de confidențialitate a Google sau a Apple. Campfire nu face nicio cerere pentru el, iar eu nu îl primesc și nu îl văd niciodată. Îl poți dezactiva din setările dispozitivului. Copertele, jurnalul aplicației, orice text nesalvat din editor și partajările care așteaptă să fie preluate din extensia de partajare iOS sunt lăsate în afara lui.</p>
+		<p>Dacă folosești sincronizarea în cloud, conexiunea Dropbox și evidența ultimei sincronizări sunt lăsate în afara backupului pe toate dispozitivele, așa că un telefon sau o tabletă restaurată ori nouă pornește deconectată și te autentifici din nou în Dropbox.</p>
+		<p>Pe un computer, biblioteca și jurnalul aplicației sunt păstrate în dosarul Campfire, printre datele aplicațiilor ale contului tău de utilizator, iar orice backup pe care îl faci computerului, cum ar fi Time Machine sau Istoric fișiere, le poate include. Pe web, biblioteca și jurnalul se află în spațiul de stocare al browserului tău pentru acest site. Ele nu fac parte din niciun backup, iar ștergerea datelor site-ului le elimină.</p>
+		<h2 id="data-deletion">Ștergerea datelor tale</h2>
+		<p>Nu păstrez nicio copie a nimic din ce ții în Campfire, așa că nu am nimic de șters și nu e nevoie să trimiți vreo cerere: fiecare copie se află într-un loc pe care îl controlezi și o poți elimina oricând chiar tu.</p>
+		<ul>
+			<li><strong>Toată biblioteca, din aplicație:</strong> deschide setările, mergi la fila <em>Bibliotecă</em>, sub <em>Pe acest dispozitiv</em> atinge rândul care arată câte cântece și liste ai, scrie <em>DELETE</em> și confirmă. Fiecare cântec și fiecare listă sunt șterse de pe dispozitiv. <strong>Dacă sincronizarea Dropbox este conectată, astfel se șterg și din dosarul tău <em>Apps/Campfire Sync</em> și de pe toate celelalte dispozitive sincronizate cu el</strong>; dialogul îți spune asta înainte să confirmi. Ca să le ștergi doar de pe acest dispozitiv, alege mai întâi „Deconectează”. Copiile copertelor se șterg de pe același ecran, cu <em>Memoria cache a copertelor</em>. Ștergerea bibliotecii oprește și partajarea fiecărui cântec și a fiecărei liste, așa că niciunul dintre linkurile tale nu mai funcționează.</li>
+			<li><strong>Linkurile tale partajate, din aplicație:</strong> în setări, opțiunea <em>Oprește toate partajările</em> din fila <em>Partajare</em> șterge fiecare copie partajată din Dropboxul tău, iar fiecare link încetează să funcționeze. Biblioteca ta rămâne neschimbată.</li>
+			<li><strong>Totul de pe dispozitivul tău:</strong> dezinstalează aplicația, ceea ce elimină de pe dispozitiv biblioteca, setările, copertele, jurnalul aplicației și conexiunea Dropbox. Pe web, ștergerea datelor site-ului din browser are același efect.</li>
+			<li><strong>În Dropboxul tău, dacă ai folosit sincronizarea:</strong> ștergerea bibliotecii cât timp ești conectat, ca mai sus, elimină cântecele și listele tale din dosarul <em>Apps/Campfire Sync</em>, lăsând doar fișierul <em>preferences.json</em> cu pozițiile de acorduri și culorile etichetelor pe care le-ai ales și, dacă ai partajat vreodată ceva, lista <em>shared-links.json</em>, atunci goală. Ca să elimini totul, alege „Deconectează” în setările aplicației, apoi șterge dosarul <em>Apps/Campfire Sync</em> din Dropbox. Poți elimina și accesul Campfire din pagina de aplicații conectate a contului tău Dropbox.</li>
+			<li><strong>În backupul dispozitivului tău:</strong> șterge backupul sau dezactivează backupul pentru aplicație, din setările dispozitivului ori din contul tău Google sau iCloud.</li>
+		</ul>
+		<p>Dacă ceva nu e clar, <a href="mailto:pandulapeter@gmail.com?Subject=Campfire" target="_top">contactează-mă</a> și te ajut.</p>
+		<h2>Confidențialitatea copiilor</h2>
+		<p>Aceste servicii nu se adresează persoanelor sub 13 ani. Nu colectez cu bună știință informații care pot identifica personal copii sub 13 ani. Dacă ești părinte sau tutore și știi că copilul tău mi-a furnizat informații personale, te rog să mă contactezi ca să pot lua măsurile necesare.</p>
+		<h2>Modificări ale acestei politici de confidențialitate</h2>
+		<p>Pot actualiza din când în când politica mea de confidențialitate. Prin urmare, îți recomand să verifici periodic această pagină pentru eventuale modificări. Te voi anunța despre orice modificare publicând noua politică de confidențialitate pe această pagină. Aceste modificări intră în vigoare imediat după publicare.</p>
+		<h2>Contact</h2>
+		<p>Dacă ai întrebări sau sugestii despre politica mea de confidențialitate, nu ezita să <a href="mailto:pandulapeter@gmail.com?Subject=Campfire" target="_top">mă contactezi</a>.</p>
+	</main>
+
+	<footer class="site-footer">
+		<div class="legal">
+			<p>© 2026 · <a href="https://pandulapeter.com" target="_blank" rel="noopener">Péter Pandula</a></p>
+			<a class="source" href="https://github.com/pandulapeter/campfire" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>Cod sursă</a>
+			<ul class="language-links" translate="no" aria-label="Limbă">
+				<li><a href="../../de/privacy/" hreflang="de" lang="de">Deutsch</a></li>
+				<li><a href="../../privacy/" hreflang="en" lang="en">English</a></li>
+				<li><a href="../../es/privacy/" hreflang="es" lang="es">Español</a></li>
+				<li><a href="../../fr/privacy/" hreflang="fr" lang="fr">Français</a></li>
+				<li><a href="../../hu/privacy/" hreflang="hu" lang="hu">Magyar</a></li>
+				<li><a href="../../it/privacy/" hreflang="it" lang="it">Italiano</a></li>
+				<li><a href="./" hreflang="ro" lang="ro" aria-current="true">Română</a></li>
+			</ul>
+		</div>
+	</footer>
+</div>
+</body>
+</html>

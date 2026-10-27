@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="hu">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script>
+		// The site is in the languages of the picker, each in a folder of its own, and the English pages, at the root,
+		// are also those of every other language. A visitor who lands on one of them is sent to the same page in the
+		// language they last picked in the picker, which is remembered, or else in the first of their browser's languages
+		// the site has. The picker is a <details>, closed by a click anywhere else or by Escape.
+		(function (d, l) {
+			var languages = ["de", "en", "es", "fr", "hu", "it", "ro"];
+			var picked = null;
+			try { picked = localStorage.getItem("language"); } catch (e) {}
+			d.addEventListener("click", function (event) {
+				var link = event.target.closest("a[hreflang]");
+				if (link) try { localStorage.setItem("language", link.hreflang); } catch (e) {}
+				d.querySelectorAll("details.languages[open]").forEach(function (picker) { if (!picker.contains(event.target)) picker.open = false; });
+			});
+			d.addEventListener("keydown", function (event) {
+				if (event.key === "Escape") d.querySelectorAll("details.languages[open]").forEach(function (picker) { picker.open = false; picker.querySelector("summary").focus(); });
+			});
+			if (d.documentElement.lang !== "en") return;
+			var preferred = [picked].concat((navigator.languages || [navigator.language]).map(function (tag) { return String(tag).slice(0, 2).toLowerCase(); }))
+				.filter(function (code) { return languages.indexOf(code) !== -1; })[0];
+			if (preferred && preferred !== "en") l.replace("/" + preferred + l.pathname + l.search + l.hash);
+		}(document, location));
+	</script>
+	<title>Támogatás – Campfire</title>
+	<meta name="description" content="Válaszok a Campfire-rel kapcsolatos gyakori kérdésekre, és az elérhetőségem.">
+	<link rel="canonical" href="https://campfire-songbook.com/hu/support/">
+	<link rel="alternate" hreflang="de" href="https://campfire-songbook.com/de/support/">
+	<link rel="alternate" hreflang="en" href="https://campfire-songbook.com/support/">
+	<link rel="alternate" hreflang="es" href="https://campfire-songbook.com/es/support/">
+	<link rel="alternate" hreflang="fr" href="https://campfire-songbook.com/fr/support/">
+	<link rel="alternate" hreflang="hu" href="https://campfire-songbook.com/hu/support/">
+	<link rel="alternate" hreflang="it" href="https://campfire-songbook.com/it/support/">
+	<link rel="alternate" hreflang="ro" href="https://campfire-songbook.com/ro/support/">
+	<link rel="alternate" hreflang="x-default" href="https://campfire-songbook.com/support/">
+	<meta name="theme-color" content="#FAF8FE" media="(prefers-color-scheme: light)">
+	<meta name="theme-color" content="#15121C" media="(prefers-color-scheme: dark)">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="Campfire">
+	<meta property="og:locale" content="hu_HU">
+	<meta property="og:url" content="https://campfire-songbook.com/hu/support/">
+	<meta property="og:title" content="Támogatás – Campfire">
+	<meta property="og:description" content="Válaszok a Campfire-rel kapcsolatos gyakori kérdésekre, és az elérhetőségem.">
+	<meta property="og:image" content="https://campfire-songbook.com/assets/og-image.jpg?v=a569ced8">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:image:alt" content="A Campfire laptopon és telefonon">
+	<meta name="twitter:card" content="summary_large_image">
+	<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "FAQPage",
+		"mainEntity": [
+			{
+				"@type": "Question",
+				"name": "Ingyenes a Campfire?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Igen. Nincs benne reklám, előfizetés, alkalmazáson belüli vásárlás és dallimit, és fiókot sem kell létrehoznod. Nyílt forráskódú, a Mozilla Public License 2.0 licenc alatt, a forráskódja a GitHubon érhető el, és adományokból működik."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Milyen platformokon fut a Campfire?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Androidon, iOS-en, iPadOS-en, Windowson, macOS-en és Linuxon, valamint bármelyik modern böngészőben, telepítés nélkül. Mindegyiken ugyanaz az alkalmazás, és a Dropboxon keresztül szinkronizált könyvtár mindegyiken ugyanaz marad. Az új funkciók először a böngészős verzióba kerülnek, a többi néhány napon belül utoléri. A letöltési részben minden verzió linkje megtalálható."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Működik a Campfire offline?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Igen. A dalaid és a listáid az eszközödön tárolódnak, így minden, amit a színpadon használsz, internetkapcsolat nélkül is működik, a metronómmal és a hangolóval együtt. A webes alkalmazás is megnyílik offline, ha egyszer már megnyitottad online. Internetkapcsolat csak a Dropbox-szinkronizáláshoz, a megosztott linkekhez, valamint a daladatok és a borítóképek kereséséhez kell."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Hogyan végezhetem el újra a kezdeti beállítást?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Válaszd a Beállítások → Általános tetején A Campfire újbóli beállítása lehetőséget, és lépésről lépésre kiválaszthatod a megjelenést, a hangszert, az akkordjelölést és a funkciókat."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Elrejthetem az alkalmazás azon részeit, amelyeket nem használok?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Igen. A Beállítások → Funkciók alatt ki- és bekapcsolhatod az akkordokat, az akkordábrákat (és velük az Akkordok fület), a metronómot, a hangolót, a listákat, a borítóképeket és a daladatok online keresését. A kikapcsolás csak elrejti őket: semmi sem törlődik, és visszakapcsoláskor minden úgy tér vissza, ahogy volt."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Hogyan adhatok hozzá dalokat?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Négyféleképpen: Beillesztés: másold ki egy dal akkordjait és szövegét bármelyik weboldalról, akármilyen rendezetlen is, majd a dallistán válaszd az Új dal menüben a Beillesztés a vágólapról lehetőséget, vagy nyomd meg ott a Ctrl+V-t (Macen a ⌘V-t). A Campfire dallá rendezi a szöveget, és megnyitja a szerkesztőben: ellenőrizd a címet és az előadót, majd mentsd. Megosztás: Androidon, iOS-en és iPadOS-en egy másik alkalmazásból oszd meg egy akkordlap szövegét vagy egy fájlt a Campfire-rel. A megosztott webcímet nem nyitja meg, ezért inkább az oldal szövegét oszd meg. Importálás: válaszd a beállítások Könyvtár fülén a Dalok, dokumentumok vagy zip archívumok importálása… lehetőséget, vagy húzd a fájlokat az alkalmazásra. A Campfire beolvassa a ChordPro fájlokat (.cho, .chopro, .chordpro, .crd, .chord és .pro), az egyszerű .txt fájlokat, a PDF- és a Word- (.docx) dokumentumokat, az ezeket tartalmazó zip archívumokat, valamint a más daloskönyv-alkalmazásokból exportált biztonsági mentéseket. Mielőtt bármi a könyvtáradba kerülne, látod, mit tartalmaz az importálás, kihagyhatsz fájlokat, és eldöntheted, hogy egy már foglalt nevű dal sorszámot kapjon, vagy lecserélje a tiédet. Írás: hozz létre egy dalt az alkalmazás beépített szerkesztőjében."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Áthozhatom a könyvtáramat az OnSong, a SongbookPro vagy az OpenSong alkalmazásból?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Igen. A Campfire importálja a SongbookPro .sbpbackup biztonsági mentéseit és .sbp setjeit, az OnSong .onsong fájljait, az OpenSong dalait, az ABC-dallamokat, bármely alkalmazás ChordPro fájljait, valamint a más alkalmazások JSON-exportjaiban lévő dalokat. Ha sok fájlt egy zip archívumba teszel, egyszerre hozhatod át őket. Minden dalból ChordPro fájl lesz, a SongbookPro setjeiből pedig listák."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Importálhatok PDF- vagy Word-akkordlapot?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Igen. Importálj egy .pdf vagy .docx fájlt a fájlválasztóval, áthúzással vagy egy zip archívumban; Androidon, iOS-en és iPadOS-en a Campfire-rel meg is oszthatod. Az egyszerű szövegfájlok, valamint a beillesztett vagy megosztott szöveg ugyanígy alakul át. A Campfire kinyeri a szöveget, és a lehető legjobban igyekszik az akkordokat a dalszöveg fölé helyezni, valamint felismerni a dal részeit, a címet és az előadási utasításokat. Minden az eszközödön történik, külső szolgáltatás vagy MI-modell nélkül. Az eredeti dokumentumot nem őrzi meg. Az eredmény egy szokásos dal a könyvtáradban, és az importálás üzenete megmondja, hány dalt alakított át. Érdemes átnézni őket a szerkesztőben, főleg ha az eredeti elrendezés szokatlan. Egy több, egyértelmű címmel ellátott dalt tartalmazó dokumentumból több dal is lehet. A beszkennelt oldalakat, a védett PDF-eket és a régi .doc fájlokat nem tudja beolvasni: használj kijelölhető szövegű PDF-et, vagy mentsd a Word-fájlt .docx formátumban. A Campfire által megosztott PDF-ek nyomtatásra szánt képek, ezért ha könyvtárak között mozgatnád a dalokat, ChordPro vagy zip fájlként oszd meg őket."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Töröltem a bemutató dalokat, és vissza szeretném kapni őket.",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Válaszd a beállítások Könyvtár fülén a Bemutató könyvtár hozzáadása lehetőséget."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Hogyan módosíthatok egyszerre sok dalt?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Nyisd meg az egyikük menüjét (koppints a három pontjára, nyomd meg hosszan, vagy számítógépen kattints rá a jobb gombbal), és válaszd a Több dal kijelölése lehetőséget. Jelöld be a többit, vagy a Mind kijelölése lehetőséggel jelöld ki azokat, amelyeket a keresés és a szűrők mutatnak, majd címkézd fel őket, add őket listákhoz, állítsd be a nyelvüket, vagy oszd meg őket együtt. Ha végeztél, válaszd a Kész gombot. Dalokat csoportosan sosem lehet törölni."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Hogyan tölthetem ki egy dal albumát, évét vagy szerzőit?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Válaszd a dal menüjében a Daladatok szerkesztése, majd a Daladatok keresése online lehetőséget. A Campfire a MusicBrainzen és az iTunesban keres a címnek és az előadónak megfelelő felvételeket, a Kitöltés pedig a kiválasztottat bemásolja az űrlapba; mentésig semmi sem változik. Ha nem szeretnéd, hogy felajánlja, kapcsold ki a Daladatok online lehetőséget a Beállítások → Funkciók alatt."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Hogyan küldhetek el egy listát a zenekaromnak?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Oszd meg linkként. Válaszd a lista menüjében a Lista megosztása, majd a Link és a Link létrehozása lehetőséget, és küldd el a linket, vagy mutasd meg a QR-kódját. Bárki megnyithatja: ha telepítve van a Campfire, az importálás nyílik meg, amely megmutatja a listát és a dalait, mielőtt bármi bekerülne; Campfire nélkül a link oldala segít letölteni az alkalmazást, vagy megnyitja a listát a webes alkalmazásban. Egy dalt ugyanígy oszthatsz meg, a Dal megosztása lehetőséggel. A linkek a Dropboxodból készülnek, ezért az elsőnél csatlakoztatnod kell a Dropboxot, ami a könyvtáradat is szinkronizálja. A link mindig a legfrissebb verziót adja: ha módosítod a listát vagy a dalait, a zenésztársaid ugyanazt a linket újra megnyitva frissíthetik a saját példányukat. A Beállítások → Megosztás alatt minden megosztásod látható, a Megosztás leállítása pedig megszünteti a link működését."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Működik a Campfire lapozópedállal?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Igen. Párosítsd a pedált a telefonoddal, a tableteddel vagy a számítógépeddel: a nyílbillentyűket küldő és a Page Up és Page Down billentyűt küldő pedálok is működnek. A fel és a le lépeget a dalban, listában pedig a balra és a jobbra az előző, illetve a következő dalra ugrik. Billentyűzettel ugyanez működik."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Melyik hangszerekhez vannak akkordábrák?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Gitárhoz, ukuleléhez, mandolinhoz, bendzsóhoz és billentyűs hangszerhez, normál hangolásban és az alkalmazás által mindegyikhez kínált más hangolásokban, például gitáron drop D vagy nyitott G hangolásban. A hangszert és a hangolást bármelyik dal tetején vagy az Akkordok fülön választhatod ki: egyetlen választás az egész alkalmazásra, és a hangoló is ezt használja. A hét- és nyolchúros gitárokhoz, a basszusgitárokhoz és a hegedűhöz van hangoló, de akkordábra nincs. Ha egy akkordot másképp játszanál, koppints rá egy dalban vagy az Akkordok fülön, és válassz másik fogást. A kiválasztott fogás minden dalban megjelenik, hacsak egy dal nem határozza meg a sajátját."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Miért néz ki másképp egy tabulatúra, mint amit importáltam?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "A tabulatúrák a hangszeredre és a hangolásodra kerülnek át, egy oktávval feljebb vagy lejjebb, ahol egy hang lekerülne a fogólapról, és a tabulatúra alatti sor leírja, mi történt. Ha egy dalban több hangszerre is van tabulatúra, csak a tiédet mutatja. Ha billentyűs hangszert vagy hegedűt választottál, a tabulatúrák rejtve maradnak; az Egyéb választásakor úgy jelennek meg, ahogy le vannak írva. A dal fájlja sosem módosul."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Hogyan használom a hangolót?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Nyisd meg a Hangoló fület (az Eszközök alatt, ha nem fér ki minden fül), és válaszd ki a hangszered és a hangolását. Ha koppintással nyitod meg, első alkalommal engedélyt kér a mikrofon használatára; egyébként koppints a Mikrofon használata gombra. Egyszerre egy húrt szólaltass meg: a megszólaló hang mellett látod, hány centtel mélyebb vagy magasabb, és minden húr kipipálódik, amint tiszta. Ha inkább hallani szeretnéd egy húr hangját, koppints rá. A hangoló minden dal tetején is ott van gombként a hangszer és a hangolás mellett, így a dal elhagyása nélkül hangolhatsz. Az egész alkalmazásra egy hangszer érvényes, így az akkordábrák is ugyanazt a választást követik. Az alaphangot a fülön 415 és 466 Hz között állíthatod be, ha a zenekarod nem A = 440 Hz-re hangol."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "A hangoló nem hall engem.",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "A Campfire-nek engedély kell a mikrofon használatához. Ha elutasítottad, koppints a hangolón a Beállítások megnyitása vagy az Újbóli kérés gombra, és engedélyezd; böngészőben a cím melletti webhelybeállításokban engedélyezd a mikrofont. Ha a mikrofont egy hívás vagy egy másik alkalmazás használja, előbb azt fejezd be. Ha a hangoló szerint semmi sem hallható, ellenőrizd, hogy a mikrofon nincs-e lenémítva, számítógépen pedig azt is, hogy a rendszer hangbeállításaiban a megfelelő bemenet van-e kiválasztva. Windowson a hangjavítások zajként kiszűrhetik a kitartott hangot: koppints a hangolón a Hangbeállítások megnyitása gombra, és kapcsold ki őket a mikrofonodnál. A referenciahangok mikrofon nélkül is lejátszhatók."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Rögzíti a hangomat a hangoló?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Nem. A hangot az eszközöd a beérkezéskor elemzi, majd eldobja: semmit sem rögzít, ment vagy küld el sehová. A mikrofon csak addig van bekapcsolva, amíg a hangoló a képernyőn van, és az alkalmazás előtérben van, így a rendszer felvételjelzője pontosan ekkor világít. Ha sosem használod, kapcsold ki a Hangoló lehetőséget a Beállítások → Funkciók alatt, és a Campfire egyáltalán nem kéri a mikrofont."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Hol tárolódnak a dalaim?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Az eszközödön, az alkalmazás saját tárhelyén. A Campfire-höz nem kell fiók, és nincs szervere: a dalaid sosem hagyják el az eszközödet, hacsak meg nem osztod vagy nem exportálod őket, illetve be nem kapcsolod a szinkronizálást."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Hogyan menthetem el a könyvtáramat, vagy vihetem át egy másik eszközre?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Kétféleképpen: Exportálás: válaszd a beállításokban a Könyvtár exportálása zipként lehetőséget, és mentsd az archívumot, ahová szeretnéd. Importáld a másik eszközön, vagy tartsd meg biztonsági mentésként. Az egyes dalokat és listákat inkább a saját menüjükből oszthatod meg. Szinkronizálás: csatlakoztasd a Dropbox-fiókodat a beállításokban, és a Campfire valós időben azonosan tartja a könyvtárat minden hozzá csatlakoztatott eszközön: az egyiken végzett módosítás másodperceken belül megjelenik a többin, amelyeken nyitva van a Campfire. A szinkronizálás addig ki van kapcsolva, amíg be nem kapcsolod."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Hogyan működik a szinkronizálás, és mit lát a Campfire a Dropboxomból?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "A Campfire csak a saját mappájához, az Apps/Campfire Sync mappához fér hozzá, a Dropboxod többi részéhez nem. A fájlok közvetlenül az eszközöd és a Dropbox között mozognak. Ha a beállításokban a Leválasztás lehetőséget választod, a szinkronizálás leáll, de semmi sem törlődik, sem az eszközödön, sem a Dropboxban. A részleteket az adatvédelmi irányelvek tartalmazzák."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Egy szinkronizálás megkérdezi, hogy töröljön-e fájlokat. Mit tegyek?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "A Campfire rákérdez, mielőtt olyan szinkronizálást hajtana végre, amely egyszerre sok fájlodat törölné, mert ez általában azt jelenti, hogy egy mappát véletlenül áthelyeztek vagy kiürítettek. Ha nem akartad törölni őket, válaszd azt a lehetőséget, amely megtartja őket, és visszamásolódnak."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Hogyan törölhetem az adataimat?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "A teljes könyvtárad törléséhez nyisd meg a beállításokat, lépj a Könyvtár fülre, és az Ezen az eszközön részben koppints arra a sorra, amely a dalaid és listáid számát mutatja, majd írd be, hogy DELETE, és erősítsd meg. Ha a Dropbox-szinkronizálás csatlakoztatva van, ez a dalaidat és listáidat az Apps/Campfire Sync mappából és minden vele szinkronizált eszközről is törli, ezért ha csak ezt az eszközt szeretnéd üríteni, előbb válaszd a Leválasztás lehetőséget. Ugyanezen a képernyőn a Borítóképek gyorsítótára sorra koppintva törölheted az eszközön tárolt borítóképeket. Az alkalmazás eltávolítása mindent töröl az eszközről. Ha használtad a szinkronizálást, és nem törölted előbb a könyvtáradat, a Dropboxodban az Apps/Campfire Sync mappát is töröld. Nekem nincs másolatom az adataidról, így nincs mit törölnöm."
+				}
+			}
+		]
+	}
+	</script>
+	<link rel="icon" href="../../assets/icon.svg?v=8ba29e56" type="image/svg+xml">
+	<link rel="apple-touch-icon" href="../../assets/icon-192.png?v=0f2be8ac">
+	<link rel="stylesheet" href="../../assets/site.css?v=128df0b0">
+	<script>
+		// Every visitor is offered two versions: a phone or a tablet the app from its store first and the web app second,
+		// a computer the other way around. The script names the system: the stylesheet shows the elements marked
+		// for-mobile instead of for-desktop on a phone or a tablet, every link marked data-native goes to the system's own
+		// version, and one marked data-native-label is also named after it. iPadOS presents itself as a Mac, so an iPad is
+		// told apart by its touch screen. Without a match, the links lead to the list of every platform.
+		(function (d) {
+			var agent = navigator.userAgent;
+			var os = /Android/.test(agent) ? "android" : /iPhone|iPad|iPod/.test(agent) || (/Macintosh/.test(agent) && navigator.maxTouchPoints > 1) ? "ios" : /Windows/.test(agent) ? "windows" : /Macintosh/.test(agent) ? "macos" : /Linux/.test(agent) ? "linux" : "";
+			var native = {
+				android: ["https://play.google.com/store/apps/details?id=com.pandulapeter.campfire", "Töltsd le a Google Playről"],
+				ios: ["https://apps.apple.com/app/id6815160850", "Töltsd le az App Store-ból"],
+				windows: ["https://apps.microsoft.com/detail/9MSR62F288M1", "Letöltés Windowsra"],
+				macos: ["https://apps.apple.com/app/id6815160850", "Letöltés macOS-re"],
+				linux: ["https://github.com/pandulapeter/campfire/releases/latest", "Letöltés Linuxra"]
+			}[os];
+			if (!native) return;
+			d.documentElement.dataset.os = os;
+			if (os === "android" || os === "ios") d.documentElement.dataset.mobile = "";
+			d.addEventListener("DOMContentLoaded", function () {
+				d.querySelectorAll("[data-native]").forEach(function (link) {
+					link.href = native[0];
+					link.target = "_blank";
+					link.rel = "noopener";
+					if (link.hasAttribute("data-native-label")) link.textContent = native[1];
+				});
+			});
+		}(document));
+	</script>
+</head>
+<body>
+<a class="skip" href="#main">Ugrás a tartalomhoz</a>
+<header class="site-header">
+	<div class="wrap">
+		<a class="brand" translate="no" href="../"><img src="../../assets/icon.svg?v=8ba29e56" alt="">Campfire</a>
+		<nav aria-label="Főmenü">
+			<a class="optional" href="../#download">Letöltés</a>
+			<a class="optional" href="./" aria-current="page">Támogatás</a>
+			<a class="optional" href="../privacy/">Adatvédelem</a>
+			<details class="languages" translate="no">
+				<summary aria-label="Nyelv: Magyar"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.8 3.9 6 3.9 9.5s-1.3 6.7-3.9 9.5c-2.6-2.8-3.9-6-3.9-9.5s1.3-6.7 3.9-9.5Z"/></svg><span>HU</span></summary>
+				<ul>
+					<li><a href="../../de/support/" hreflang="de" lang="de">Deutsch</a></li>
+					<li><a href="../../support/" hreflang="en" lang="en">English</a></li>
+					<li><a href="../../es/support/" hreflang="es" lang="es">Español</a></li>
+					<li><a href="../../fr/support/" hreflang="fr" lang="fr">Français</a></li>
+					<li><a href="./" hreflang="hu" lang="hu" aria-current="true">Magyar</a></li>
+					<li><a href="../../it/support/" hreflang="it" lang="it">Italiano</a></li>
+					<li><a href="../../ro/support/" hreflang="ro" lang="ro">Română</a></li>
+				</ul>
+			</details>
+			<a class="button small for-desktop" href="../../app/" target="_blank" rel="noopener">Webalkalmazás</a>
+			<a class="button small for-mobile" href="../#download" data-native>Letöltés</a>
+		</nav>
+	</div>
+</header>
+<div class="wrap">
+
+	<main class="document" id="main">
+		<h1>Támogatás</h1>
+		<p>A Campfire ingyenes alkalmazás dalszövegek és akkordok megjelenítésére és szerkesztésére, Androidon, iOS-en, iPadOS-en, macOS-en, Windowson, Linuxon és a weben. Ez az oldal a leggyakoribb kérdésekre válaszol, és leírja, hogyan érhetsz el, ha a tiéd nincs köztük.</p>
+		<div class="contact">
+		<h2>Kapcsolat</h2>
+		<p>Ha kérdésed van, hibát találtál, vagy ötleted van az alkalmazáshoz, <a href="mailto:pandulapeter@gmail.com?Subject=Campfire%20support" target="_top">írj nekem a pandulapeter@gmail.com címre</a>. Írd meg, milyen eszközt és a Campfire melyik verzióját használod (az alkalmazás beállításainak Névjegy fülén találod). Minden üzenetet elolvasok, és általában néhány napon belül válaszolok.</p>
+		<p>Ha van GitHub-fiókod, <a href="https://github.com/pandulapeter/campfire/issues" target="_blank" rel="noopener">a GitHubon is jelezheted a hibát</a>, ahol az alkalmazás forráskódja is megtalálható.</p>
+		</div>
+		<h2 id="faq">Gyakori kérdések</h2>
+		<h3 class="topic">Első lépések</h3>
+		<details>
+			<summary><h4>Ingyenes a Campfire?</h4></summary>
+			<p>Igen. Nincs benne reklám, előfizetés, alkalmazáson belüli vásárlás és dallimit, és fiókot sem kell létrehoznod. Nyílt forráskódú, a <a href="https://mozilla.org/MPL/2.0/" target="_blank" rel="noopener">Mozilla Public License 2.0</a> licenc alatt, a <a href="https://github.com/pandulapeter/campfire" target="_blank" rel="noopener">forráskódja a GitHubon</a> érhető el, és adományokból működik.</p>
+		</details>
+		<details>
+			<summary><h4>Milyen platformokon fut a Campfire?</h4></summary>
+			<p>Androidon, iOS-en, iPadOS-en, Windowson, macOS-en és Linuxon, valamint bármelyik modern böngészőben, telepítés nélkül. Mindegyiken ugyanaz az alkalmazás, és a Dropboxon keresztül szinkronizált könyvtár mindegyiken ugyanaz marad. Az új funkciók először a böngészős verzióba kerülnek, a többi néhány napon belül utoléri. A <a href="../#download">letöltési részben</a> minden verzió linkje megtalálható.</p>
+		</details>
+		<details>
+			<summary><h4>Működik a Campfire offline?</h4></summary>
+			<p>Igen. A dalaid és a listáid az eszközödön tárolódnak, így minden, amit a színpadon használsz, internetkapcsolat nélkül is működik, a metronómmal és a hangolóval együtt. A webes alkalmazás is megnyílik offline, ha egyszer már megnyitottad online. Internetkapcsolat csak a Dropbox-szinkronizáláshoz, a megosztott linkekhez, valamint a daladatok és a borítóképek kereséséhez kell.</p>
+		</details>
+		<details>
+			<summary><h4>Hogyan végezhetem el újra a kezdeti beállítást?</h4></summary>
+			<p>Válaszd a <em>Beállítások → Általános</em> tetején <em>A Campfire újbóli beállítása</em> lehetőséget, és lépésről lépésre kiválaszthatod a megjelenést, a hangszert, az akkordjelölést és a funkciókat.</p>
+		</details>
+		<details>
+			<summary><h4>Elrejthetem az alkalmazás azon részeit, amelyeket nem használok?</h4></summary>
+			<p>Igen. A <em>Beállítások → Funkciók</em> alatt ki- és bekapcsolhatod az akkordokat, az akkordábrákat (és velük az <em>Akkordok</em> fület), a metronómot, a hangolót, a listákat, a borítóképeket és a daladatok online keresését. A kikapcsolás csak elrejti őket: semmi sem törlődik, és visszakapcsoláskor minden úgy tér vissza, ahogy volt.</p>
+		</details>
+		<h3 class="topic">Dalok hozzáadása</h3>
+		<details>
+			<summary><h4>Hogyan adhatok hozzá dalokat?</h4></summary>
+			<p>Négyféleképpen:</p>
+			<ul>
+				<li><strong>Beillesztés:</strong> másold ki egy dal akkordjait és szövegét bármelyik weboldalról, akármilyen rendezetlen is, majd a dallistán válaszd az <em>Új dal</em> menüben a <em>Beillesztés a vágólapról</em> lehetőséget, vagy nyomd meg ott a Ctrl+V-t (Macen a ⌘V-t). A Campfire dallá rendezi a szöveget, és megnyitja a szerkesztőben: ellenőrizd a címet és az előadót, majd mentsd.</li>
+				<li><strong>Megosztás:</strong> Androidon, iOS-en és iPadOS-en egy másik alkalmazásból oszd meg egy akkordlap szövegét vagy egy fájlt a Campfire-rel. A megosztott webcímet nem nyitja meg, ezért inkább az oldal szövegét oszd meg.</li>
+				<li><strong>Importálás:</strong> válaszd a beállítások <em>Könyvtár</em> fülén a <em>Dalok, dokumentumok vagy zip archívumok importálása…</em> lehetőséget, vagy húzd a fájlokat az alkalmazásra. A Campfire beolvassa a <a href="https://www.chordpro.org" target="_blank" rel="noopener">ChordPro</a> fájlokat (<em>.cho</em>, <em>.chopro</em>, <em>.chordpro</em>, <em>.crd</em>, <em>.chord</em> és <em>.pro</em>), az egyszerű <em>.txt</em> fájlokat, a PDF- és a Word- (<em>.docx</em>) dokumentumokat, az ezeket tartalmazó zip archívumokat, valamint a más daloskönyv-alkalmazásokból exportált biztonsági mentéseket. Mielőtt bármi a könyvtáradba kerülne, látod, mit tartalmaz az importálás, kihagyhatsz fájlokat, és eldöntheted, hogy egy már foglalt nevű dal sorszámot kapjon, vagy lecserélje a tiédet.</li>
+				<li><strong>Írás:</strong> hozz létre egy dalt az alkalmazás beépített szerkesztőjében.</li>
+			</ul>
+		</details>
+		<details>
+			<summary><h4>Áthozhatom a könyvtáramat az OnSong, a SongbookPro vagy az OpenSong alkalmazásból?</h4></summary>
+			<p>Igen. A Campfire importálja a SongbookPro <em>.sbpbackup</em> biztonsági mentéseit és <em>.sbp</em> setjeit, az OnSong <em>.onsong</em> fájljait, az OpenSong dalait, az ABC-dallamokat, bármely alkalmazás ChordPro fájljait, valamint a más alkalmazások JSON-exportjaiban lévő dalokat. Ha sok fájlt egy zip archívumba teszel, egyszerre hozhatod át őket. Minden dalból ChordPro fájl lesz, a SongbookPro setjeiből pedig listák.</p>
+		</details>
+		<details>
+			<summary><h4>Importálhatok PDF- vagy Word-akkordlapot?</h4></summary>
+			<p>Igen. Importálj egy <em>.pdf</em> vagy <em>.docx</em> fájlt a fájlválasztóval, áthúzással vagy egy zip archívumban; Androidon, iOS-en és iPadOS-en a Campfire-rel meg is oszthatod. Az egyszerű szövegfájlok, valamint a beillesztett vagy megosztott szöveg ugyanígy alakul át. A Campfire kinyeri a szöveget, és a lehető legjobban igyekszik az akkordokat a dalszöveg fölé helyezni, valamint felismerni a dal részeit, a címet és az előadási utasításokat. Minden az eszközödön történik, külső szolgáltatás vagy MI-modell nélkül. Az eredeti dokumentumot nem őrzi meg.</p>
+			<p>Az eredmény egy szokásos dal a könyvtáradban, és az importálás üzenete megmondja, hány dalt alakított át. Érdemes átnézni őket a szerkesztőben, főleg ha az eredeti elrendezés szokatlan. Egy több, egyértelmű címmel ellátott dalt tartalmazó dokumentumból több dal is lehet. A beszkennelt oldalakat, a védett PDF-eket és a régi <em>.doc</em> fájlokat nem tudja beolvasni: használj kijelölhető szövegű PDF-et, vagy mentsd a Word-fájlt <em>.docx</em> formátumban. A Campfire által megosztott PDF-ek nyomtatásra szánt képek, ezért ha könyvtárak között mozgatnád a dalokat, ChordPro vagy zip fájlként oszd meg őket.</p>
+		</details>
+		<details>
+			<summary><h4>Töröltem a bemutató dalokat, és vissza szeretném kapni őket.</h4></summary>
+			<p>Válaszd a beállítások <em>Könyvtár</em> fülén a <em>Bemutató könyvtár hozzáadása</em> lehetőséget.</p>
+		</details>
+		<h3 class="topic">Dalok és listák kezelése</h3>
+		<details>
+			<summary><h4>Hogyan módosíthatok egyszerre sok dalt?</h4></summary>
+			<p>Nyisd meg az egyikük menüjét (koppints a három pontjára, nyomd meg hosszan, vagy számítógépen kattints rá a jobb gombbal), és válaszd a <em>Több dal kijelölése</em> lehetőséget. Jelöld be a többit, vagy a <em>Mind kijelölése</em> lehetőséggel jelöld ki azokat, amelyeket a keresés és a szűrők mutatnak, majd címkézd fel őket, add őket listákhoz, állítsd be a nyelvüket, vagy oszd meg őket együtt. Ha végeztél, válaszd a <em>Kész</em> gombot. Dalokat csoportosan sosem lehet törölni.</p>
+		</details>
+		<details>
+			<summary><h4>Hogyan tölthetem ki egy dal albumát, évét vagy szerzőit?</h4></summary>
+			<p>Válaszd a dal menüjében a <em>Daladatok szerkesztése</em>, majd a <em>Daladatok keresése online</em> lehetőséget. A Campfire a MusicBrainzen és az iTunesban keres a címnek és az előadónak megfelelő felvételeket, a <em>Kitöltés</em> pedig a kiválasztottat bemásolja az űrlapba; mentésig semmi sem változik. Ha nem szeretnéd, hogy felajánlja, kapcsold ki a <em>Daladatok online</em> lehetőséget a <em>Beállítások → Funkciók</em> alatt.</p>
+		</details>
+		<details>
+			<summary><h4>Hogyan küldhetek el egy listát a zenekaromnak?</h4></summary>
+			<p>Oszd meg linkként. Válaszd a lista menüjében a <em>Lista megosztása</em>, majd a <em>Link</em> és a <em>Link létrehozása</em> lehetőséget, és küldd el a linket, vagy mutasd meg a QR-kódját. Bárki megnyithatja: ha telepítve van a Campfire, az importálás nyílik meg, amely megmutatja a listát és a dalait, mielőtt bármi bekerülne; Campfire nélkül a link oldala segít letölteni az alkalmazást, vagy megnyitja a listát a webes alkalmazásban. Egy dalt ugyanígy oszthatsz meg, a <em>Dal megosztása</em> lehetőséggel.</p>
+			<p>A linkek a Dropboxodból készülnek, ezért az elsőnél csatlakoztatnod kell a Dropboxot, ami a könyvtáradat is szinkronizálja. A link mindig a legfrissebb verziót adja: ha módosítod a listát vagy a dalait, a zenésztársaid ugyanazt a linket újra megnyitva frissíthetik a saját példányukat. A <em>Beállítások → Megosztás</em> alatt minden megosztásod látható, a <em>Megosztás leállítása</em> pedig megszünteti a link működését.</p>
+		</details>
+		<h3 class="topic">Játék közben</h3>
+		<details>
+			<summary><h4>Működik a Campfire lapozópedállal?</h4></summary>
+			<p>Igen. Párosítsd a pedált a telefonoddal, a tableteddel vagy a számítógépeddel: a nyílbillentyűket küldő és a Page Up és Page Down billentyűt küldő pedálok is működnek. A fel és a le lépeget a dalban, listában pedig a balra és a jobbra az előző, illetve a következő dalra ugrik. Billentyűzettel ugyanez működik.</p>
+		</details>
+		<details>
+			<summary><h4>Melyik hangszerekhez vannak akkordábrák?</h4></summary>
+			<p>Gitárhoz, ukuleléhez, mandolinhoz, bendzsóhoz és billentyűs hangszerhez, normál hangolásban és az alkalmazás által mindegyikhez kínált más hangolásokban, például gitáron drop D vagy nyitott G hangolásban. A hangszert és a hangolást bármelyik dal tetején vagy az <em>Akkordok</em> fülön választhatod ki: egyetlen választás az egész alkalmazásra, és a hangoló is ezt használja. A hét- és nyolchúros gitárokhoz, a basszusgitárokhoz és a hegedűhöz van hangoló, de akkordábra nincs.</p>
+			<p>Ha egy akkordot másképp játszanál, koppints rá egy dalban vagy az <em>Akkordok</em> fülön, és válassz másik fogást. A kiválasztott fogás minden dalban megjelenik, hacsak egy dal nem határozza meg a sajátját.</p>
+		</details>
+		<details>
+			<summary><h4>Miért néz ki másképp egy tabulatúra, mint amit importáltam?</h4></summary>
+			<p>A tabulatúrák a hangszeredre és a hangolásodra kerülnek át, egy oktávval feljebb vagy lejjebb, ahol egy hang lekerülne a fogólapról, és a tabulatúra alatti sor leírja, mi történt. Ha egy dalban több hangszerre is van tabulatúra, csak a tiédet mutatja. Ha billentyűs hangszert vagy hegedűt választottál, a tabulatúrák rejtve maradnak; az <em>Egyéb</em> választásakor úgy jelennek meg, ahogy le vannak írva. A dal fájlja sosem módosul.</p>
+		</details>
+		<h3 class="topic">Hangoló</h3>
+		<details>
+			<summary><h4>Hogyan használom a hangolót?</h4></summary>
+			<p>Nyisd meg a <em>Hangoló</em> fület (az <em>Eszközök</em> alatt, ha nem fér ki minden fül), és válaszd ki a hangszered és a hangolását. Ha koppintással nyitod meg, első alkalommal engedélyt kér a mikrofon használatára; egyébként koppints a <em>Mikrofon használata</em> gombra. Egyszerre egy húrt szólaltass meg: a megszólaló hang mellett látod, hány centtel mélyebb vagy magasabb, és minden húr kipipálódik, amint tiszta. Ha inkább hallani szeretnéd egy húr hangját, koppints rá. A hangoló minden dal tetején is ott van gombként a hangszer és a hangolás mellett, így a dal elhagyása nélkül hangolhatsz. Az egész alkalmazásra egy hangszer érvényes, így az akkordábrák is ugyanazt a választást követik.</p>
+			<p>Az alaphangot a fülön 415 és 466 Hz között állíthatod be, ha a zenekarod nem A = 440 Hz-re hangol.</p>
+		</details>
+		<details>
+			<summary><h4>A hangoló nem hall engem.</h4></summary>
+			<p>A Campfire-nek engedély kell a mikrofon használatához. Ha elutasítottad, koppints a hangolón a <em>Beállítások megnyitása</em> vagy az <em>Újbóli kérés</em> gombra, és engedélyezd; böngészőben a cím melletti webhelybeállításokban engedélyezd a mikrofont. Ha a mikrofont egy hívás vagy egy másik alkalmazás használja, előbb azt fejezd be. Ha a hangoló szerint semmi sem hallható, ellenőrizd, hogy a mikrofon nincs-e lenémítva, számítógépen pedig azt is, hogy a rendszer hangbeállításaiban a megfelelő bemenet van-e kiválasztva. Windowson a hangjavítások zajként kiszűrhetik a kitartott hangot: koppints a hangolón a <em>Hangbeállítások megnyitása</em> gombra, és kapcsold ki őket a mikrofonodnál. A referenciahangok mikrofon nélkül is lejátszhatók.</p>
+		</details>
+		<details>
+			<summary><h4>Rögzíti a hangomat a hangoló?</h4></summary>
+			<p>Nem. A hangot az eszközöd a beérkezéskor elemzi, majd eldobja: semmit sem rögzít, ment vagy küld el sehová. A mikrofon csak addig van bekapcsolva, amíg a hangoló a képernyőn van, és az alkalmazás előtérben van, így a rendszer felvételjelzője pontosan ekkor világít. Ha sosem használod, kapcsold ki a <em>Hangoló</em> lehetőséget a <em>Beállítások → Funkciók</em> alatt, és a Campfire egyáltalán nem kéri a mikrofont.</p>
+		</details>
+		<h3 class="topic">Tárolás, szinkronizálás és biztonsági mentés</h3>
+		<details>
+			<summary><h4>Hol tárolódnak a dalaim?</h4></summary>
+			<p>Az eszközödön, az alkalmazás saját tárhelyén. A Campfire-höz nem kell fiók, és nincs szervere: a dalaid sosem hagyják el az eszközödet, hacsak meg nem osztod vagy nem exportálod őket, illetve be nem kapcsolod a szinkronizálást.</p>
+		</details>
+		<details>
+			<summary><h4>Hogyan menthetem el a könyvtáramat, vagy vihetem át egy másik eszközre?</h4></summary>
+			<p>Kétféleképpen:</p>
+			<ul>
+				<li><strong>Exportálás:</strong> válaszd a beállításokban a <em>Könyvtár exportálása zipként</em> lehetőséget, és mentsd az archívumot, ahová szeretnéd. Importáld a másik eszközön, vagy tartsd meg biztonsági mentésként. Az egyes dalokat és listákat inkább a saját menüjükből oszthatod meg.</li>
+				<li><strong>Szinkronizálás:</strong> csatlakoztasd a Dropbox-fiókodat a beállításokban, és a Campfire valós időben azonosan tartja a könyvtárat minden hozzá csatlakoztatott eszközön: az egyiken végzett módosítás másodperceken belül megjelenik a többin, amelyeken nyitva van a Campfire. A szinkronizálás addig ki van kapcsolva, amíg be nem kapcsolod.</li>
+			</ul>
+		</details>
+		<details>
+			<summary><h4>Hogyan működik a szinkronizálás, és mit lát a Campfire a Dropboxomból?</h4></summary>
+			<p>A Campfire csak a saját mappájához, az <em>Apps/Campfire Sync</em> mappához fér hozzá, a Dropboxod többi részéhez nem. A fájlok közvetlenül az eszközöd és a Dropbox között mozognak. Ha a beállításokban a <em>Leválasztás</em> lehetőséget választod, a szinkronizálás leáll, de semmi sem törlődik, sem az eszközödön, sem a Dropboxban. A részleteket az <a href="../privacy/">adatvédelmi irányelvek</a> tartalmazzák.</p>
+		</details>
+		<details>
+			<summary><h4>Egy szinkronizálás megkérdezi, hogy töröljön-e fájlokat. Mit tegyek?</h4></summary>
+			<p>A Campfire rákérdez, mielőtt olyan szinkronizálást hajtana végre, amely egyszerre sok fájlodat törölné, mert ez általában azt jelenti, hogy egy mappát véletlenül áthelyeztek vagy kiürítettek. Ha nem akartad törölni őket, válaszd azt a lehetőséget, amely megtartja őket, és visszamásolódnak.</p>
+		</details>
+		<details>
+			<summary><h4>Hogyan törölhetem az adataimat?</h4></summary>
+			<p>A teljes könyvtárad törléséhez nyisd meg a beállításokat, lépj a <em>Könyvtár</em> fülre, és az <em>Ezen az eszközön</em> részben koppints arra a sorra, amely a dalaid és listáid számát mutatja, majd írd be, hogy <em>DELETE</em>, és erősítsd meg. Ha a Dropbox-szinkronizálás csatlakoztatva van, ez a dalaidat és listáidat az <em>Apps/Campfire Sync</em> mappából és minden vele szinkronizált eszközről is törli, ezért ha csak ezt az eszközt szeretnéd üríteni, előbb válaszd a <em>Leválasztás</em> lehetőséget. Ugyanezen a képernyőn a <em>Borítóképek gyorsítótára</em> sorra koppintva törölheted az eszközön tárolt borítóképeket.</p>
+			<p>Az alkalmazás eltávolítása mindent töröl az eszközről. Ha használtad a szinkronizálást, és nem törölted előbb a könyvtáradat, a Dropboxodban az <em>Apps/Campfire Sync</em> mappát is töröld. Nekem nincs másolatom az adataidról, így nincs mit törölnöm.</p>
+		</details>
+		<h2>Adatvédelem</h2>
+		<p>A Campfire nem tartalmaz reklámot, analitikát és követést, és amit a hangoló hall, sosem hagyja el az eszközödet. További információt az <a href="../privacy/">adatvédelmi irányelvekben</a> találsz.</p>
+	</main>
+
+	<footer class="site-footer">
+		<div class="legal">
+			<p>© 2026 · <a href="https://pandulapeter.com" target="_blank" rel="noopener">Pandula Péter</a></p>
+			<a class="source" href="https://github.com/pandulapeter/campfire" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>Forráskód</a>
+			<ul class="language-links" translate="no" aria-label="Nyelv">
+				<li><a href="../../de/support/" hreflang="de" lang="de">Deutsch</a></li>
+				<li><a href="../../support/" hreflang="en" lang="en">English</a></li>
+				<li><a href="../../es/support/" hreflang="es" lang="es">Español</a></li>
+				<li><a href="../../fr/support/" hreflang="fr" lang="fr">Français</a></li>
+				<li><a href="./" hreflang="hu" lang="hu" aria-current="true">Magyar</a></li>
+				<li><a href="../../it/support/" hreflang="it" lang="it">Italiano</a></li>
+				<li><a href="../../ro/support/" hreflang="ro" lang="ro">Română</a></li>
+			</ul>
+		</div>
+	</footer>
+</div>
+</body>
+</html>

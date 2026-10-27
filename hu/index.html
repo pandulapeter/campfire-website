@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="hu">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script>
+		// The site is in the languages of the picker, each in a folder of its own, and the English pages, at the root,
+		// are also those of every other language. A visitor who lands on one of them is sent to the same page in the
+		// language they last picked in the picker, which is remembered, or else in the first of their browser's languages
+		// the site has. The picker is a <details>, closed by a click anywhere else or by Escape.
+		(function (d, l) {
+			var languages = ["de", "en", "es", "fr", "hu", "it", "ro"];
+			var picked = null;
+			try { picked = localStorage.getItem("language"); } catch (e) {}
+			d.addEventListener("click", function (event) {
+				var link = event.target.closest("a[hreflang]");
+				if (link) try { localStorage.setItem("language", link.hreflang); } catch (e) {}
+				d.querySelectorAll("details.languages[open]").forEach(function (picker) { if (!picker.contains(event.target)) picker.open = false; });
+			});
+			d.addEventListener("keydown", function (event) {
+				if (event.key === "Escape") d.querySelectorAll("details.languages[open]").forEach(function (picker) { picker.open = false; picker.querySelector("summary").focus(); });
+			});
+			if (d.documentElement.lang !== "en") return;
+			var preferred = [picked].concat((navigator.languages || [navigator.language]).map(function (tag) { return String(tag).slice(0, 2).toLowerCase(); }))
+				.filter(function (code) { return languages.indexOf(code) !== -1; })[0];
+			if (preferred && preferred !== "en") l.replace("/" + preferred + l.pathname + l.search + l.hash);
+		}(document, location));
+	</script>
+	<title>Campfire: daloskönyv és akkordok</title>
+	<meta name="description" content="Ingyenes daloskönyv-alkalmazás dalszövegekhez és akkordokhoz, listákkal, akkordábrákkal, metronómmal és hangolóval. Offline is működik telefonon, tableten és számítógépen.">
+	<link rel="canonical" href="https://campfire-songbook.com/hu/">
+	<link rel="alternate" hreflang="de" href="https://campfire-songbook.com/de/">
+	<link rel="alternate" hreflang="en" href="https://campfire-songbook.com/">
+	<link rel="alternate" hreflang="es" href="https://campfire-songbook.com/es/">
+	<link rel="alternate" hreflang="fr" href="https://campfire-songbook.com/fr/">
+	<link rel="alternate" hreflang="hu" href="https://campfire-songbook.com/hu/">
+	<link rel="alternate" hreflang="it" href="https://campfire-songbook.com/it/">
+	<link rel="alternate" hreflang="ro" href="https://campfire-songbook.com/ro/">
+	<link rel="alternate" hreflang="x-default" href="https://campfire-songbook.com/">
+	<meta name="theme-color" content="#FAF8FE" media="(prefers-color-scheme: light)">
+	<meta name="theme-color" content="#15121C" media="(prefers-color-scheme: dark)">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="Campfire">
+	<meta property="og:locale" content="hu_HU">
+	<meta property="og:url" content="https://campfire-songbook.com/hu/">
+	<meta property="og:title" content="Campfire: daloskönyv és akkordok">
+	<meta property="og:description" content="Ingyenes daloskönyv a dalszövegeidhez és akkordjaidhoz, a hangszeredre rajzolt akkordábrákkal és skálákkal, listákkal, a dalok tempójára állított metronómmal és hangolóval. Offline is működik telefonon, tableten és számítógépen, igény szerint valós idejű Dropbox-szinkronizálással.">
+	<meta property="og:image" content="https://campfire-songbook.com/assets/og-image.jpg?v=a569ced8">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:image:alt" content="A Campfire laptopon és telefonon">
+	<meta name="twitter:card" content="summary_large_image">
+	<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@graph": [
+			{
+				"@type": "WebSite",
+				"@id": "https://campfire-songbook.com/#website",
+				"url": "https://campfire-songbook.com/",
+				"name": "Campfire",
+				"alternateName": "Campfire Songbook",
+				"publisher": {"@id": "https://campfire-songbook.com/#author"}
+			},
+			{
+				"@type": "Person",
+				"@id": "https://campfire-songbook.com/#author",
+				"name": "Péter Pandula",
+				"url": "https://pandulapeter.com",
+				"sameAs": ["https://github.com/pandulapeter"]
+			},
+			{
+				"@type": "SoftwareApplication",
+				"@id": "https://campfire-songbook.com/#app",
+				"name": "Campfire",
+				"alternateName": "Campfire Songbook",
+				"url": "https://campfire-songbook.com/",
+				"description": "Ingyenes daloskönyv a dalszövegeidhez és akkordjaidhoz, a hangszeredre rajzolt akkordábrákkal és skálákkal, listákkal, a dalok tempójára állított metronómmal és hangolóval. Offline is működik telefonon, tableten és számítógépen, igény szerint valós idejű Dropbox-szinkronizálással.",
+				"applicationCategory": "MusicApplication",
+				"operatingSystem": "Android, iOS, iPadOS, Windows, macOS, Linux, Web",
+				"offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+				"isAccessibleForFree": true,
+				"license": "https://mozilla.org/MPL/2.0/",
+				"image": "https://campfire-songbook.com/assets/og-image.jpg?v=a569ced8",
+				"screenshot": [
+					"https://campfire-songbook.com/assets/screenshots/hu/laptop-setlists-light.webp?v=687ae98a",
+					"https://campfire-songbook.com/assets/screenshots/hu/tablet-song-light.webp?v=c292a4dc",
+					"https://campfire-songbook.com/assets/screenshots/hu/phone-songs-light.webp?v=3b92757f"
+				],
+				"featureList": [
+					"Dalszövegek és akkordok ChordPro formátumban",
+					"Akkordábrák gitárra, ukulelére, mandolinra, bendzsóra és billentyűs hangszerre",
+					"Skálák",
+					"Listák",
+					"Metronóm",
+					"Hangoló",
+					"Importálás PDF-ből, Word-dokumentumból és egyszerű szövegből",
+					"Offline is működik",
+					"Valós idejű Dropbox-szinkronizálás"
+				],
+				"author": {"@id": "https://campfire-songbook.com/#author"},
+				"sameAs": [
+					"https://play.google.com/store/apps/details?id=com.pandulapeter.campfire",
+					"https://apps.apple.com/app/id6815160850",
+					"https://apps.microsoft.com/detail/9MSR62F288M1",
+					"https://github.com/pandulapeter/campfire"
+				]
+			}
+		]
+	}
+	</script>
+	<link rel="icon" href="../assets/icon.svg?v=8ba29e56" type="image/svg+xml">
+	<link rel="apple-touch-icon" href="../assets/icon-192.png?v=0f2be8ac">
+	<link rel="preload" href="../assets/fonts/inter_bold.woff2?v=676dbe48" as="font" type="font/woff2" crossorigin>
+	<link rel="preload" href="../assets/fonts/inter_regular.woff2?v=0b354d6b" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" href="../assets/site.css?v=128df0b0">
+	<script>
+		// Every visitor is offered two versions: a phone or a tablet the app from its store first and the web app second,
+		// a computer the other way around. The script names the system: the stylesheet shows the elements marked
+		// for-mobile instead of for-desktop on a phone or a tablet, every link marked data-native goes to the system's own
+		// version, and one marked data-native-label is also named after it. iPadOS presents itself as a Mac, so an iPad is
+		// told apart by its touch screen. Without a match, the links lead to the list of every platform.
+		(function (d) {
+			var agent = navigator.userAgent;
+			var os = /Android/.test(agent) ? "android" : /iPhone|iPad|iPod/.test(agent) || (/Macintosh/.test(agent) && navigator.maxTouchPoints > 1) ? "ios" : /Windows/.test(agent) ? "windows" : /Macintosh/.test(agent) ? "macos" : /Linux/.test(agent) ? "linux" : "";
+			var native = {
+				android: ["https://play.google.com/store/apps/details?id=com.pandulapeter.campfire", "Töltsd le a Google Playről"],
+				ios: ["https://apps.apple.com/app/id6815160850", "Töltsd le az App Store-ból"],
+				windows: ["https://apps.microsoft.com/detail/9MSR62F288M1", "Letöltés Windowsra"],
+				macos: ["https://apps.apple.com/app/id6815160850", "Letöltés macOS-re"],
+				linux: ["https://github.com/pandulapeter/campfire/releases/latest", "Letöltés Linuxra"]
+			}[os];
+			if (!native) return;
+			d.documentElement.dataset.os = os;
+			if (os === "android" || os === "ios") d.documentElement.dataset.mobile = "";
+			d.addEventListener("DOMContentLoaded", function () {
+				d.querySelectorAll("[data-native]").forEach(function (link) {
+					link.href = native[0];
+					link.target = "_blank";
+					link.rel = "noopener";
+					if (link.hasAttribute("data-native-label")) link.textContent = native[1];
+				});
+			});
+		}(document));
+	</script>
+</head>
+<body>
+<a class="skip" href="#main">Ugrás a tartalomhoz</a>
+<header class="site-header">
+	<div class="wrap">
+		<a class="brand" translate="no" href="./"><img src="../assets/icon.svg?v=8ba29e56" alt="">Campfire</a>
+		<nav aria-label="Főmenü">
+			<a class="optional" href="#download">Letöltés</a>
+			<a class="optional" href="support/">Támogatás</a>
+			<a class="optional" href="privacy/">Adatvédelem</a>
+			<details class="languages" translate="no">
+				<summary aria-label="Nyelv: Magyar"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.8 3.9 6 3.9 9.5s-1.3 6.7-3.9 9.5c-2.6-2.8-3.9-6-3.9-9.5s1.3-6.7 3.9-9.5Z"/></svg><span>HU</span></summary>
+				<ul>
+					<li><a href="../de/" hreflang="de" lang="de">Deutsch</a></li>
+					<li><a href="../" hreflang="en" lang="en">English</a></li>
+					<li><a href="../es/" hreflang="es" lang="es">Español</a></li>
+					<li><a href="../fr/" hreflang="fr" lang="fr">Français</a></li>
+					<li><a href="./" hreflang="hu" lang="hu" aria-current="true">Magyar</a></li>
+					<li><a href="../it/" hreflang="it" lang="it">Italiano</a></li>
+					<li><a href="../ro/" hreflang="ro" lang="ro">Română</a></li>
+				</ul>
+			</details>
+			<a class="button small for-desktop" href="../app/" target="_blank" rel="noopener">Webalkalmazás</a>
+			<a class="button small for-mobile" href="#download" data-native>Letöltés</a>
+		</nav>
+	</div>
+</header>
+<div class="wrap">
+
+	<main id="main">
+		<div class="hero">
+			<div>
+				<p class="cue">Dalok <span>·</span> Listák <span>·</span> Metronóm <span>·</span> Hangoló <span>·</span> Akkordok <span>·</span> Skálák</p>
+				<h1>Ingyenes daloskönyv a dalszövegeidhez és akkordjaidhoz.</h1>
+				<p class="lede">A Campfire segít rendszerezni a repertoárodat, és próbán meg színpadon is kéznél tartja, bármilyen képernyőről játszol.</p>
+				<div class="actions">
+					<a class="button for-desktop" href="../app/" target="_blank" rel="noopener">Megnyitás a böngészőben</a>
+					<a class="button tonal for-desktop" href="#download" data-native data-native-label>Letöltés</a>
+					<a class="button for-mobile" href="#download" data-native data-native-label>Az alkalmazás letöltése</a>
+					<a class="button tonal for-mobile" href="../app/" target="_blank" rel="noopener">Megnyitás a böngészőben</a>
+				</div>
+				<p class="all-platforms"><a href="#download"><span>Az összes verzió</span></a></p>
+			</div>
+			<div class="stage">
+				<div class="laptop"><div class="lid"><picture class="screen">
+					<source srcset="../assets/screenshots/hu/laptop-setlists-dark.webp?v=fd7326d1" media="(prefers-color-scheme: dark)">
+					<img src="../assets/screenshots/hu/laptop-setlists-light.webp?v=687ae98a" width="1200" height="753" fetchpriority="high" alt="Listák MacBookon, mindegyik a dalaival, azok hangnemével, tempójával és hosszával, valamint a lista teljes játékidejével.">
+				</picture></div><div class="base"></div></div>
+				<div class="tablet"><div class="frame"><picture class="screen">
+					<source srcset="../assets/screenshots/hu/tablet-song-dark.webp?v=d2c0e063" media="(prefers-color-scheme: dark)">
+					<img src="../assets/screenshots/hu/tablet-song-light.webp?v=c292a4dc" width="1200" height="900" alt="Egy dal iPaden, az akkordábráival és a versszakaival hasábokban.">
+				</picture></div></div>
+				<div class="phone"><div class="frame"><picture class="screen">
+					<source srcset="../assets/screenshots/hu/phone-songs-dark.webp?v=08940919" media="(prefers-color-scheme: dark)">
+					<img src="../assets/screenshots/hu/phone-songs-light.webp?v=3b92757f" width="450" height="978" alt="A dallista iPhone-on, előadók szerint csoportosítva, minden dalon címkékkel.">
+				</picture></div></div>
+			</div>
+		</div>
+
+		<ul class="highlights">
+			<li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="14" height="10" rx="1.5"/><path d="M1 18.5h15"/><rect x="18" y="9" width="5" height="10" rx="1.2"/></svg><h2>Minden platformon</h2><p>Android, iOS, iPadOS, Windows, macOS, Linux és a böngésző.</p></li>
+			<li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 8.5a15 15 0 0 1 20 0M5.5 12a10 10 0 0 1 13 0M9 15.5a5 5 0 0 1 6 0M3 3l18 18"/><circle cx="12" cy="19.5" r="1"/></svg><h2>Offline is működik</h2><p>A dalok az eszközödön tárolódnak, így a térerő nélküli helyszín sem gond.</p></li>
+			<li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18c.9 0 1.5-.7 1.5-1.5 0-.9-.8-1.3-.8-2.2 0-.9.8-1.6 1.7-1.6H17a4 4 0 0 0 4-4C21 6.8 17 3 12 3Z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10.5" cy="7" r="1"/><circle cx="15" cy="7.5" r="1"/></svg><h2>Letisztult felület</h2><p>A képernyőn csak a dal van. Világos, sötét vagy szépia, az általad választott kiemelőszínnel.</p></li>
+			<li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 5 6v5.5c0 4.3 3 8 7 9.5 4-1.5 7-5.2 7-9.5V6Z"/><path d="m9 12 2 2 4-4"/></svg><h2>Se reklám, se fiók</h2><p>Követés, előfizetés, alkalmazáson belüli vásárlás és dallimit sincs.</p></li>
+		</ul>
+
+		<section class="split reverse media-wide" aria-labelledby="playing-title">
+			<div>
+				<h2 id="playing-title">Hasábok, amelyek a szövegmérethez igazodnak</h2>
+				<p class="lead">Állítsd a szöveget akkorára, amekkorán a kottatartóról is el tudod olvasni, és a dal annyi hasábba rendeződik, ahány ekkora méretben elfér.</p>
+				<ul class="points">
+					<li>Lapozz egy koppintással vagy lapozópedállal.</li>
+					<li>Az akkordábrák a dal tetején vannak.</li>
+					<li>Javasolt skálák improvizációhoz.</li>
+					<li>A Csak dalszöveg mód elrejti az akkordokat az énekesek elől.</li>
+				</ul>
+			</div>
+			<div>
+				<div class="laptop"><div class="lid"><div class="slides demo" id="text-size-slides">
+					<picture class="screen">
+						<source srcset="../assets/screenshots/hu/laptop-song-100-dark.webp?v=aa5b4c49" media="(prefers-color-scheme: dark)">
+						<img src="../assets/screenshots/hu/laptop-song-100-light.webp?v=d21dab6f" width="1200" height="753" loading="lazy" alt="Egy dal MacBookon, alapértelmezett szövegmérettel, négy hasábban, az akkordjainak ábrái alatt.">
+					</picture>
+					<picture class="screen" aria-hidden="true">
+						<source data-srcset="../assets/screenshots/hu/laptop-song-110-dark.webp?v=7224b9d7" media="(prefers-color-scheme: dark)">
+						<img data-src="../assets/screenshots/hu/laptop-song-110-light.webp?v=566cd669" width="1200" height="753" loading="lazy" alt="Ugyanaz a dal 110%-os szövegmérettel, négy hasábban.">
+					</picture>
+					<picture class="screen" aria-hidden="true">
+						<source data-srcset="../assets/screenshots/hu/laptop-song-120-dark.webp?v=2ae7f6f8" media="(prefers-color-scheme: dark)">
+						<img data-src="../assets/screenshots/hu/laptop-song-120-light.webp?v=97daa26a" width="1200" height="753" loading="lazy" alt="Ugyanaz a dal 120%-os szövegmérettel, három hasábban.">
+					</picture>
+					<picture class="screen" aria-hidden="true">
+						<source data-srcset="../assets/screenshots/hu/laptop-song-130-dark.webp?v=a3f2f1a6" media="(prefers-color-scheme: dark)">
+						<img data-src="../assets/screenshots/hu/laptop-song-130-light.webp?v=c2bd8979" width="1200" height="753" loading="lazy" alt="Ugyanaz a dal 130%-os szövegmérettel, három hasábban.">
+					</picture>
+					<picture class="screen" aria-hidden="true">
+						<source data-srcset="../assets/screenshots/hu/laptop-song-140-dark.webp?v=50116382" media="(prefers-color-scheme: dark)">
+						<img data-src="../assets/screenshots/hu/laptop-song-140-light.webp?v=83234f8b" width="1200" height="753" loading="lazy" alt="Ugyanaz a dal 140%-os szövegmérettel, három hasábban.">
+					</picture>
+					<picture class="screen" aria-hidden="true">
+						<source data-srcset="../assets/screenshots/hu/laptop-song-150-dark.webp?v=85c9e41c" media="(prefers-color-scheme: dark)">
+						<img data-src="../assets/screenshots/hu/laptop-song-150-light.webp?v=18c99485" width="1200" height="753" loading="lazy" alt="Ugyanaz a dal 150%-os szövegmérettel, három hasábban.">
+					</picture>
+					<picture class="screen" aria-hidden="true">
+						<source data-srcset="../assets/screenshots/hu/laptop-song-160-dark.webp?v=9e469f33" media="(prefers-color-scheme: dark)">
+						<img data-src="../assets/screenshots/hu/laptop-song-160-light.webp?v=4eed0d79" width="1200" height="753" loading="lazy" alt="Ugyanaz a dal 160%-os szövegmérettel, három hasábban.">
+					</picture>
+					<picture class="screen" aria-hidden="true">
+						<source data-srcset="../assets/screenshots/hu/laptop-song-170-dark.webp?v=e6979170" media="(prefers-color-scheme: dark)">
+						<img data-src="../assets/screenshots/hu/laptop-song-170-light.webp?v=372f43a0" width="1200" height="753" loading="lazy" alt="Ugyanaz a dal 170%-os szövegmérettel, három hasábban.">
+					</picture>
+					<picture class="screen" aria-hidden="true">
+						<source data-srcset="../assets/screenshots/hu/laptop-song-180-dark.webp?v=8812a135" media="(prefers-color-scheme: dark)">
+						<img data-src="../assets/screenshots/hu/laptop-song-180-light.webp?v=e3256986" width="1200" height="753" loading="lazy" alt="Ugyanaz a dal 180%-os szövegmérettel, három hasábban.">
+					</picture>
+					<picture class="screen" aria-hidden="true">
+						<source data-srcset="../assets/screenshots/hu/laptop-song-190-dark.webp?v=4262587a" media="(prefers-color-scheme: dark)">
+						<img data-src="../assets/screenshots/hu/laptop-song-190-light.webp?v=45083da4" width="1200" height="753" loading="lazy" alt="Ugyanaz a dal 190%-os szövegmérettel, három hasábban.">
+					</picture>
+					<picture class="screen" aria-hidden="true">
+						<source data-srcset="../assets/screenshots/hu/laptop-song-200-dark.webp?v=ddeb3b2f" media="(prefers-color-scheme: dark)">
+						<img data-src="../assets/screenshots/hu/laptop-song-200-light.webp?v=a262f3a9" width="1200" height="753" loading="lazy" alt="Ugyanaz a dal 200%-os szövegmérettel, két hasábban.">
+					</picture>
+					<picture class="screen" aria-hidden="true">
+						<source data-srcset="../assets/screenshots/hu/laptop-song-210-dark.webp?v=0fb8888a" media="(prefers-color-scheme: dark)">
+						<img data-src="../assets/screenshots/hu/laptop-song-210-light.webp?v=7e95f833" width="1200" height="753" loading="lazy" alt="Ugyanaz a dal 210%-os szövegmérettel, két hasábban.">
+					</picture>
+					<picture class="screen" aria-hidden="true">
+						<source data-srcset="../assets/screenshots/hu/laptop-song-220-dark.webp?v=ef8a31c5" media="(prefers-color-scheme: dark)">
+						<img data-src="../assets/screenshots/hu/laptop-song-220-light.webp?v=9c95949d" width="1200" height="753" loading="lazy" alt="Ugyanaz a dal 220%-os szövegmérettel, két hasábban.">
+					</picture>
+					<picture class="screen" aria-hidden="true">
+						<source data-srcset="../assets/screenshots/hu/laptop-song-230-dark.webp?v=c1cd1297" media="(prefers-color-scheme: dark)">
+						<img data-src="../assets/screenshots/hu/laptop-song-230-light.webp?v=ed866659" width="1200" height="753" loading="lazy" alt="Ugyanaz a dal 230%-os szövegmérettel, két hasábban.">
+					</picture>
+				</div></div><div class="base"></div></div>
+				<div class="slider" role="group" aria-label="Szövegméret">
+					<span class="slider-label" id="text-size-label">A szövegméret módosítása a csúszkával</span>
+					<input type="range" min="0" max="13" step="1" value="0" aria-labelledby="text-size-label" aria-controls="text-size-slides" aria-valuetext="100%" data-values="100%,110%,120%,130%,140%,150%,160%,170%,180%,190%,200%,210%,220%,230%">
+				</div>
+			</div>
+		</section>
+
+		<section class="split media-wide" aria-labelledby="editor-title">
+			<div>
+				<h2 id="editor-title">Importálás és szerkesztés</h2>
+				<p class="lead">Illessz be egy bármelyik weboldalról kimásolt dalt, akármilyen rendezetlen is, és a szerkesztőben nyílik meg: az akkordok a dalszöveg fölé igazítva, a versszakok és a refrének felismerve.</p>
+				<ul class="points">
+					<li>Importálhatsz szövegfájlokat, PDF-eket, Word-dokumentumokat, zip archívumokat és más alkalmazások biztonsági mentéseit.</li>
+					<li>A szerkesztő jelzi a hibákat, és gépelés közben élő előnézetet mutat.</li>
+					<li>Egy dal albumát, évét, szerzőit és borítóképét online is megkeresheted.</li>
+				</ul>
+			</div>
+			<div>
+				<div class="laptop"><div class="lid"><picture class="screen">
+					<source srcset="../assets/screenshots/hu/laptop-import-dark.webp?v=f3a1032d" media="(prefers-color-scheme: dark)">
+					<img src="../assets/screenshots/hu/laptop-import-light.webp?v=dc8d20bc" width="1200" height="753" loading="lazy" alt="Egy importált dal a szerkesztőben MacBookon, egy megjelölt hibával, mellette az élő előnézettel.">
+				</picture></div><div class="base"></div></div>
+			</div>
+		</section>
+
+		<section class="split reverse media-wide" aria-labelledby="setlists-title">
+			<div>
+				<h2 id="setlists-title">Listák és megosztás</h2>
+				<p class="lead">Játszd végig a listát sorrendben, a következő dal mindig egy koppintásnyira van.</p>
+				<ul class="points">
+					<li>A lista minden dalához eltárolja a hangnemet, a capót és a tempót.</li>
+					<li>Az alkalmazás visszaszámol a koncert napjáig, és összeadja a játékidőt.</li>
+					<li>Nyomtass dalokat vagy a teljes listát PDF-ből, a sorrenddel együtt.</li>
+					<li>Küldd el a listát más Campfire-felhasználóknak zip fájlként, vagy linkként, egy QR-kóddal, amelyet beolvasva megnyithatják.</li>
+				</ul>
+			</div>
+			<div class="pair">
+				<div class="tablet"><div class="frame"><picture class="screen">
+					<source srcset="../assets/screenshots/hu/tablet-export-dark.webp?v=b2d03550" media="(prefers-color-scheme: dark)">
+					<img src="../assets/screenshots/hu/tablet-export-light.webp?v=7ec9c7bf" width="1200" height="900" loading="lazy" alt="Egy PDF-ként megosztott dal iPaden, az oldal előnézete a beállítások mellett.">
+				</picture></div></div>
+				<div class="phone"><div class="frame"><picture class="screen">
+					<source srcset="../assets/screenshots/hu/phone-setlist-dark.webp?v=11f098d8" media="(prefers-color-scheme: dark)">
+					<img src="../assets/screenshots/hu/phone-setlist-light.webp?v=df344a5b" width="450" height="978" loading="lazy" alt="Egy lista iPhone-on, minden dal hangnemével, tempójával és hosszával, a lista játékidejével és a koncertig hátralévő napokkal.">
+				</picture></div></div>
+			</div>
+		</section>
+
+		<section class="split media-wide" aria-labelledby="metronome-title">
+			<div>
+				<h2 id="metronome-title">Metronóm és hangoló</h2>
+				<p class="lead">Minden dal tárolja a tempóját, az ütemmutatóját és a hangsúlyos ütéseit, így a metronóm egy koppintással indul a dal képernyőjéről.</p>
+				<ul class="points">
+					<li>Listában a következő ütemnél vált a következő dal tempójára.</li>
+					<li>A dalba írt tempóváltásokat is követi.</li>
+					<li>A hangoló a soron következő dal fölött nyílik meg, és kipipál minden húrt, amint az tiszta.</li>
+					<li>A hangot az eszközöd elemzi, és soha nem rögzíti.</li>
+				</ul>
+			</div>
+			<div>
+				<div class="slides" id="practice-slides">
+					<div class="pair flip">
+						<div class="tablet"><div class="frame"><picture class="screen">
+							<source srcset="../assets/screenshots/hu/tablet-song-metronome-dark.webp?v=c9c72cb9" media="(prefers-color-scheme: dark)">
+							<img src="../assets/screenshots/hu/tablet-song-metronome-light.webp?v=f67e897f" width="1200" height="900" loading="lazy" alt="Egy dal iPaden, a címe alatt a nyitott metronómpanellel.">
+						</picture><span class="beats" style="--beats-light: url(/assets/screenshots/hu/tablet-song-metronome-beats-light.webp?v=2e5a5e1a); --beats-dark: url(/assets/screenshots/hu/tablet-song-metronome-beats-dark.webp?v=8946d6e0)" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div></div>
+						<div class="phone"><div class="frame"><picture class="screen">
+							<source srcset="../assets/screenshots/hu/phone-metronome-dark.webp?v=9e08bc95" media="(prefers-color-scheme: dark)">
+							<img src="../assets/screenshots/hu/phone-metronome-light.webp?v=e76202ec" width="450" height="978" loading="lazy" alt="A Metronóm fül iPhone-on, a tempóval, az ütem ütéseivel és a beállításaival.">
+						</picture><span class="beats" style="--beats-light: url(/assets/screenshots/hu/phone-metronome-beats-light.webp?v=de1b96f3); --beats-dark: url(/assets/screenshots/hu/phone-metronome-beats-dark.webp?v=50e671a1)" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div></div>
+					</div>
+					<div class="pair flip" aria-hidden="true">
+						<div class="tablet"><div class="frame"><picture class="screen">
+							<source srcset="../assets/screenshots/hu/tablet-song-tuner-dark.webp?v=289af827" media="(prefers-color-scheme: dark)">
+							<img src="../assets/screenshots/hu/tablet-song-tuner-light.webp?v=b7d8a7ef" width="1200" height="900" loading="lazy" alt="Egy dal iPaden, fölötte a nyitott hangolóval, amely 9 centtel magasnak hallja a gitár mély E húrját.">
+						</picture></div></div>
+						<div class="phone"><div class="frame"><picture class="screen">
+							<source srcset="../assets/screenshots/hu/phone-tuner-dark.webp?v=a71c2719" media="(prefers-color-scheme: dark)">
+							<img src="../assets/screenshots/hu/phone-tuner-light.webp?v=2c96cc16" width="450" height="978" loading="lazy" alt="A Hangoló fül iPhone-on: a gitár A húrja 14 centtel mély, a mély E húr már tiszta.">
+						</picture></div></div>
+					</div>
+				</div>
+				<div class="slides-nav" role="group" aria-label="Képernyőképek"><span>
+					<button type="button" aria-controls="practice-slides" aria-pressed="true">Metronóm</button>
+					<button type="button" aria-controls="practice-slides" aria-pressed="false">Hangoló</button>
+				</span></div>
+			</div>
+		</section>
+
+		<section class="split reverse media-wide" aria-labelledby="instrument-title">
+			<div>
+				<h2 id="instrument-title">Akkordok és skálák</h2>
+				<p class="lead">Egyszer választod ki a hangszered, és minden dal akkordábrái arra készülnek: gitárra, ukulelére, mandolinra, bendzsóra vagy billentyűs hangszerre.</p>
+				<ul class="points">
+					<li>Az ábrák és a tabulatúrák a hangolásodhoz igazodnak, a drop D-től a nyitott G-ig.</li>
+					<li>Keress az akkordtárban hangnem vagy név szerint, és nézd meg az egyes akkordokhoz javasolt skálákat.</li>
+					<li>A Skálák fül bármelyik hangnemben megrajzol minden skálát és modust, a pentatontól és a bluestól a bebopig, a szimmetrikus és a világzenei skálákig, bármilyen fogólapon és hangolásban, vagy billentyűzeten.</li>
+				</ul>
+			</div>
+			<div>
+				<div class="slides" id="instrument-slides">
+					<div class="pair">
+						<div class="tablet"><div class="frame"><picture class="screen">
+							<source srcset="../assets/screenshots/hu/tablet-song-chord-shape-dark.webp?v=360b1f97" media="(prefers-color-scheme: dark)">
+							<img src="../assets/screenshots/hu/tablet-song-chord-shape-light.webp?v=bb659490" width="1200" height="900" loading="lazy" alt="Az I’m Gonna Be (500 Miles) iPaden, a dal fölött egy B akkord gitáros fogásaival.">
+						</picture></div></div>
+						<div class="phone"><div class="frame"><picture class="screen">
+							<source srcset="../assets/screenshots/hu/phone-chords-dark.webp?v=99d698c9" media="(prefers-color-scheme: dark)">
+							<img src="../assets/screenshots/hu/phone-chords-light.webp?v=a383b105" width="450" height="978" loading="lazy" alt="Az Akkordok fül iPhone-on, a C akkordjaival ukulelén.">
+						</picture></div></div>
+					</div>
+					<div class="pair" aria-hidden="true">
+						<div class="tablet"><div class="frame"><picture class="screen">
+							<source srcset="../assets/screenshots/hu/tablet-song-scales-dark.webp?v=e84992e6" media="(prefers-color-scheme: dark)">
+							<img src="../assets/screenshots/hu/tablet-song-scales-light.webp?v=03549f53" width="1200" height="900" loading="lazy" alt="Az I’m Gonna Be (500 Miles) iPaden, az akkordjai alatt a Skálák résszel, a dal fölött gitárnyakra rajzolt E-dúr skálával.">
+						</picture></div></div>
+						<div class="phone"><div class="frame"><picture class="screen">
+							<source srcset="../assets/screenshots/hu/phone-scales-dark.webp?v=c8b5793c" media="(prefers-color-scheme: dark)">
+							<img src="../assets/screenshots/hu/phone-scales-light.webp?v=f6a8da9a" width="450" height="978" loading="lazy" alt="A Skálák fül iPhone-on, az A gyakori skáláival gitáron.">
+						</picture></div></div>
+					</div>
+				</div>
+				<div class="slides-nav" role="group" aria-label="Képernyőképek"><span>
+					<button type="button" aria-controls="instrument-slides" aria-pressed="true">Akkordok</button>
+					<button type="button" aria-controls="instrument-slides" aria-pressed="false">Skálák</button>
+				</span></div>
+			</div>
+		</section>
+
+		<section aria-labelledby="chords-title">
+			<h2 id="chords-title">Akkordjelölés</h2>
+			<p class="lead">Az akkordokat betűkkel, német vagy latin jelöléssel, Nashville-számokkal vagy római számokkal is mutathatod, bármelyik hangnemben. A háttérben minden dal egy egyszerű <a href="https://www.chordpro.org" target="_blank" rel="noopener">ChordPro</a> szövegfájl, így nem vagy egy alkalmazáshoz kötve. Próbáld ki az alábbi példán.</p>
+			<div class="chordpro">
+				<div class="source">
+					<pre id="chordpro-source"># Nyers .cho fájl
+{title: Amazing Grace}
+{artist: John Newton}
+{key: G}
+
+{start_of_verse}
+[G]Amazing [G7]grace, how [C]sweet the [G]sound
+That [G]saved a wretch like [D]me
+{end_of_verse}</pre>
+				</div>
+				<span class="conversion-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h16m-6-6 6 6-6 6"/></svg></span>
+				<div class="rendered">
+					<div class="song-heading">
+						<div translate="no">
+							<p class="song-title">Amazing Grace</p>
+							<p class="song-artist">John Newton</p>
+						</div>
+						<span class="transpose" role="group" aria-label="A példa transzponálása" hidden>
+							<button type="button" data-step="-1" aria-label="Transzponálás lefelé">−</button>
+							<button type="button" class="reset" id="transpose-value" aria-label="Transzponálás visszaállítása" aria-live="polite">-3 · E</button>
+							<button type="button" data-step="1" aria-label="Transzponálás felfelé">+</button>
+						</span>
+						<span class="notation" role="group" aria-label="A példa akkordjelölése" hidden>
+							<button type="button" data-notation="standard" aria-pressed="true">Szabványos</button>
+							<button type="button" data-notation="german" aria-pressed="false">Német</button>
+							<button type="button" data-notation="latin" aria-pressed="false">Latin</button>
+							<button type="button" data-notation="nashville" aria-pressed="false">Nashville</button>
+							<button type="button" data-notation="roman" aria-pressed="false">Római</button>
+						</span>
+					</div>
+					<div class="sheet" id="chordpro-sheet"><p class="section-label">Versszak</p><div class="line" translate="no"><span class="segment"><b>E</b>Amazing </span><span class="segment"><b>E7</b>grace, how </span><span class="segment"><b>A</b>sweet the </span><span class="segment"><b>E</b>sound</span></div><div class="line" translate="no"><span class="segment"><b></b>That </span><span class="segment"><b>E</b>saved a wretch like </span><span class="segment"><b>B</b>me</span></div></div>
+				</div>
+			</div>
+		</section>
+
+		<section id="features" aria-labelledby="features-title">
+			<h2 id="features-title">Mi van még benne</h2>
+			<p class="lead">Minden, ami egy daloskönyvhöz kell, és semmi, ami útban lenne.</p>
+			<ul class="features">
+				<li>
+					<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5M7.5 10.5h6M10.5 7.5v6"/></svg>
+					<h3>Keresés és szűrés</h3>
+					<p>Keress cím, előadó vagy címke szerint, elöl a legjobb találatokkal. Rendezz és szűrj címkék vagy nyelvek szerint.</p>
+				</li>
+				<li>
+					<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h8l10 10-8 8L3 11Z"/><circle cx="7.5" cy="7.5" r="1"/></svg>
+					<h3>Címkék és csoportos szerkesztés</h3>
+					<p>Hozz létre saját színes címkéket. Jelölj ki egyszerre több dalt, hogy felcímkézd, listához add vagy megoszd őket.</p>
+				</li>
+				<li>
+					<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h18m-4-4 4 4-4 4M21 17H3m4-4-4 4 4 4"/></svg>
+					<h3>Megosztás</h3>
+					<p>Küldj dalokat és listákat a zenésztársaidnak zip fájlként vagy linkként, amelyet bármelyik Campfire-felhasználó megnyithat.</p>
+				</li>
+				<li>
+					<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 9a8 8 0 0 0-14-3L3 9m0-5v5h5M4 15a8 8 0 0 0 14 3l3-3m0 5v-5h-5"/></svg>
+					<h3>Valós idejű Dropbox-szinkronizálás</h3>
+					<p>Szerkessz egy dalt a laptopodon, és egy pillanattal később a telefonodon is látod a változást. Minden a saját Dropbox-mappádban tárolódik.</p>
+				</li>
+				<li>
+					<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+					<h3>Csak olvasás mód</h3>
+					<p>Egy egyszerű kapcsolóval zárolhatod a szerkesztést a színpadon, így egy véletlen koppintás nem módosíthat dalt vagy listát a fellépés közepén.</p>
+				</li>
+				<li>
+					<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="7" width="20" height="10" rx="5"/><circle cx="16" cy="12" r="2"/></svg>
+					<h3>Rejtsd el, amit nem használsz</h3>
+					<p>Kapcsold ki a funkciókat, amelyekre nincs szükséged, és a Campfire elrejti őket, hogy a felület egyszerű maradjon, és semmi ne vonja el a figyelmed.</p>
+				</li>
+			</ul>
+		</section>
+
+		<section id="download" aria-labelledby="download-title">
+			<h2 id="download-title">A Campfire letöltése</h2>
+			<p class="lead">Ugyanaz az alkalmazás minden platformon, és a böngészőben, telepítés nélkül.</p>
+			<div class="platforms">
+				<a href="https://play.google.com/store/apps/details?id=com.pandulapeter.campfire" target="_blank" rel="noopener">
+					<svg viewBox="0 0 24 24" aria-hidden="true"><defs><clipPath id="google-play"><path d="M4 5.5Q4 2.5 6.6 4l11.3 6.5q2.6 1.5 0 3L6.6 20Q4 21.5 4 18.5Z"/></clipPath></defs><g clip-path="url(#google-play)"><path fill="#4285F4" d="M4 2.5 12.6 12 4 21.5Z"/><path fill="#34A853" d="M4 2.5 14.2 8.4 12.6 12Z"/><path fill="#EA4335" d="M4 21.5 12.6 12l1.6 3.6Z"/><path fill="#FBBC04" d="m14.2 8.4 6.3 3.6-6.3 3.6-1.6-3.6Z"/></g></svg>
+					<span><strong>Android</strong>Google Play</span>
+				</a>
+				<a href="https://apps.apple.com/app/id6815160850" target="_blank" rel="noopener">
+					<svg viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="app-store" x2="0" y2="1"><stop offset="0" stop-color="#1AC4FC"/><stop offset="1" stop-color="#1D6FF2"/></linearGradient></defs><rect width="24" height="24" rx="5.4" fill="url(#app-store)"/><path fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" d="M10.9 6l6.5 11.3M13.1 6l-4.8 8.4m-1.1 2-.7 1.2M6 14.4h7.9m2 0H18"/></svg>
+					<span><strong>iOS és iPadOS</strong>App Store</span>
+				</a>
+				<a href="../app/" target="_blank" rel="noopener">
+					<img src="../assets/icon.svg?v=8ba29e56" width="40" height="40" alt="">
+					<span><strong>Böngésző</strong>Telepítés nélkül</span>
+				</a>
+				<a href="https://apps.microsoft.com/detail/9MSR62F288M1" target="_blank" rel="noopener">
+					<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="#8A8886" stroke-width="1.6" d="M8.5 7.5V6a3.5 3.5 0 0 1 7 0v1.5"/><rect x="2.8" y="7" width="18.4" height="15" rx="2.4" fill="#F3F2F1" stroke="#C8C6C4" stroke-width=".8"/><path fill="#F25022" d="M7.6 10.2h4v4h-4z"/><path fill="#7FBA00" d="M12.4 10.2h4v4h-4z"/><path fill="#00A4EF" d="M7.6 15h4v4h-4z"/><path fill="#FFB900" d="M12.4 15h4v4h-4z"/></svg>
+					<span><strong>Windows</strong>Microsoft Store</span>
+				</a>
+				<a href="https://apps.apple.com/app/id6815160850" target="_blank" rel="noopener">
+					<svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="5.4" fill="url(#app-store)"/><path fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" d="M10.9 6l6.5 11.3M13.1 6l-4.8 8.4m-1.1 2-.7 1.2M6 14.4h7.9m2 0H18"/></svg>
+					<span><strong>macOS</strong>Mac App Store</span>
+				</a>
+				<a href="https://github.com/pandulapeter/campfire/releases/latest" target="_blank" rel="noopener">
+					<svg class="github" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>
+					<span><strong>Linux</strong>GitHub</span>
+				</a>
+			</div>
+			<p class="release-note">Néhány funkció még nem érhető el minden platformon. A böngészős verzió mindig a legfrissebb, a többi néhány napon belül utoléri.</p>
+		</section>
+	</main>
+
+	<footer class="site-footer">
+		<div class="coffee">
+			<a href="https://pandulapeter.com" target="_blank" rel="noopener" aria-label="Pandula Péter weboldala"><img src="../assets/peter.webp?v=70634f3d" width="480" height="480" loading="lazy" alt="Péter elektromos gitáron játszik a színpadon."></a>
+			<div>
+				<h2>Tartsd életben a tábortüzet</h2>
+				<p>Szia, Péter vagyok. A Campfire az az alkalmazás, amelyet a saját kottatartómon szerettem volna látni, ezért megcsináltam. Ingyenes és <a href="https://github.com/pandulapeter/campfire" target="_blank" rel="noopener">nyílt forráskódú</a>, és ez így is marad. Ha a te kottatartódon is kiérdemelte a helyét, egy kávéval segítesz, hogy folytathassam.</p>
+			</div>
+			<a class="button" href="https://buymeacoffee.com/pandulapeter" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h13v5a6 6 0 0 1-6 6h-1a6 6 0 0 1-6-6V8Zm13 1h1.5a2.5 2.5 0 0 1 0 5H17M8 2.5v2.5M11 2.5v2.5M14 2.5v2.5"/></svg>Hívj meg egy kávéra</a>
+		</div>
+		<div class="legal">
+			<p>© 2026 · <a href="https://pandulapeter.com" target="_blank" rel="noopener">Pandula Péter</a></p>
+			<nav aria-label="Lábléc">
+				<a href="support/">Támogatás</a>
+				<a href="privacy/">Adatvédelem</a>
+				<a class="source" href="https://github.com/pandulapeter/campfire" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>Forráskód</a>
+			</nav>
+			<ul class="language-links" translate="no" aria-label="Nyelv">
+				<li><a href="../de/" hreflang="de" lang="de">Deutsch</a></li>
+				<li><a href="../" hreflang="en" lang="en">English</a></li>
+				<li><a href="../es/" hreflang="es" lang="es">Español</a></li>
+				<li><a href="../fr/" hreflang="fr" lang="fr">Français</a></li>
+				<li><a href="./" hreflang="hu" lang="hu" aria-current="true">Magyar</a></li>
+				<li><a href="../it/" hreflang="it" lang="it">Italiano</a></li>
+				<li><a href="../ro/" hreflang="ro" lang="ro">Română</a></li>
+			</ul>
+		</div>
+	</footer>
+</div>
+<script src="../assets/home.js?v=f5f66237"></script>
+</body>
+</html>

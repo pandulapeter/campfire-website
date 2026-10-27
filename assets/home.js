@@ -17,6 +17,8 @@
 	var sheet = document.getElementById("chordpro-sheet");
 	var value = document.getElementById("transpose-value");
 	var source = sourceElement.textContent;
+	// The name of a section without one, in the page's language, as the page first shows it.
+	var verse = sheet.querySelector(".section-label").textContent;
 	var key = "G";
 	// The example opens transposed to E, a key whose fifth, B, is spelled differently in every notation (H in German).
 	var offset = -3;
@@ -73,7 +75,7 @@
 		source.split("\n").forEach(function (line) {
 			var section = line.match(/^\{(?:start_of_verse|sov)(?::\s*(.*?))?\}$/);
 			if (section) {
-				html += '<p class="section-label">' + escape(section[1] || "Verse") + "</p>";
+				html += '<p class="section-label">' + escape(section[1] || verse) + "</p>";
 				return;
 			}
 			if (line.charAt(0) === "{" || line.charAt(0) === "#" || line.trim() === "") return;
