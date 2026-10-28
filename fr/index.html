@@ -9,7 +9,7 @@
 		// language they last picked in the picker, which is remembered, or else in the first of their browser's languages
 		// the site has. The picker is a <details>, closed by a click anywhere else or by Escape. A page in another language
 		// has the same elements in the same order, only with longer or shorter text, so a visitor who picks one is kept at
-		// the element at the top of the window, as far into it as they were.
+		// the element at the top of the window, as far into it as they were, or at the bottom of the page if they were there.
 		(function (d, l) {
 			var languages = ["de", "en", "es", "fr", "hu", "it", "ro"];
 			var picked = null;
@@ -23,7 +23,8 @@
 					sessionStorage.removeItem("position");
 					var line = top();
 					var elements = d.querySelectorAll(blocks);
-					for (var index = 0; scrollY && index < elements.length; index++) {
+					if (scrollY && scrollY + innerHeight >= d.documentElement.scrollHeight - 1) sessionStorage.setItem("position", JSON.stringify([link.pathname, -1, 0]));
+					else for (var index = 0; scrollY && index < elements.length; index++) {
 						var box = elements[index].getBoundingClientRect();
 						if (box.height && box.bottom > line && !elements[index].closest(".site-header")) {
 							sessionStorage.setItem("position", JSON.stringify([link.pathname, index, (line - box.top) / box.height]));
@@ -42,6 +43,11 @@
 				var scrolled = null;
 				var restore = function () {
 					if (scrolled !== null && scrolled !== scrollY) return;
+					if (position[1] < 0) {
+						scrollTo(0, d.documentElement.scrollHeight);
+						scrolled = scrollY;
+						return;
+					}
 					var element = d.querySelectorAll(blocks)[position[1]];
 					if (!element) return;
 					var box = element.getBoundingClientRect();
