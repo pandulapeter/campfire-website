@@ -261,6 +261,7 @@ section h2 { font-size: clamp(30px, 3.8vw, 42px); letter-spacing: -0.03em; margi
 section > .lead { margin-bottom: 40px; }
 section > .lead:has(+ .lead) { margin-bottom: 20px; }
 .split .lead:last-child { margin-bottom: 0; }
+#download > .lead { max-width: none; text-wrap: wrap; }
 
 /* The points of a feature under its lead, one line each where they fit, each marked with a dot in the app's accent */
 .points { list-style: none; margin: 0; padding: 0; font-size: 17px; color: var(--muted); }
