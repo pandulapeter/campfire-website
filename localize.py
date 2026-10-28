@@ -313,6 +313,7 @@ def sitemap():
 	urls = []
 	for path in PAGES:
 		links = "".join(f'\n\t\t<xhtml:link rel="alternate" hreflang="{code}" href="{SITE}{page_address(code, path).lstrip("/")}"/>' for code in LANGUAGES)
+		links += f'\n\t\t<xhtml:link rel="alternate" hreflang="x-default" href="{SITE}{path.lstrip("/")}"/>'
 		for code in LANGUAGES:
 			urls.append(f"\t<url>\n\t\t<loc>{SITE}{page_address(code, path).lstrip('/')}</loc>{links}\n\t</url>")
 	return (
