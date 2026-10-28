@@ -341,7 +341,6 @@ section > .lead:has(+ .lead) { margin-bottom: 20px; }
 .platforms a::after { content: "↗"; content: "↗" / ""; margin-left: auto; color: var(--muted); font-size: 18px; }
 @media (hover: hover) and (pointer: fine) { .platforms a:hover { background: color-mix(in srgb, var(--primary) 8%, var(--container-low)); border-color: var(--outline); } }
 @media (hover: none) { .platforms a:active { background: color-mix(in srgb, var(--primary) 18%, var(--container-low)); border-color: var(--primary); transform: scale(0.98); } }
-.release-note { margin: 20px 0 0; color: var(--muted); font-size: 14px; }
 
 /* Privacy policy, support and the 404 page */
 
