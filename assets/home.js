@@ -1,3 +1,18 @@
+// What the visitor set the page's controls to, carried over to the same page in the language they pick in the picker,
+// as the head script carries over how far down they were: that page has the same controls in the same order. The
+// controls below start from what was carried over, and keep the state up to date as they change.
+var state = { slides: {} };
+var carried = {};
+try {
+	carried = JSON.parse(sessionStorage.getItem("controls")) || {};
+	sessionStorage.removeItem("controls");
+	if (carried.page !== location.pathname) carried = {};
+} catch (e) {}
+document.addEventListener("click", function (event) {
+	var link = event.target.closest("a[hreflang]");
+	if (link) try { sessionStorage.setItem("controls", JSON.stringify(Object.assign({ page: link.pathname }, state))); } catch (e) {}
+});
+
 // Renders the ChordPro example the way the app lays it out, chords above the syllables they belong to, and
 // transposes it and shows it in another notation. The file on the left is left alone, as it is in the app.
 (function () {
@@ -21,8 +36,8 @@
 	var verse = sheet.querySelector(".section-label").textContent;
 	var key = "G";
 	// The example opens transposed to E, a key whose fifth, B, is spelled differently in every notation (H in German).
-	var offset = -3;
-	var notation = "standard";
+	var offset = typeof carried.offset === "number" ? carried.offset : -3;
+	var notation = carried.notation || "standard";
 
 	function noteName(index, notation) {
 		var major = (indices[key.charAt(0)] + offset + (/m$/.test(key) ? 3 : 0) + 120) % 12;
@@ -92,6 +107,8 @@
 			html += "</div>";
 		});
 		sheet.innerHTML = html;
+		state.offset = offset;
+		state.notation = notation;
 		// Keys stay in letters under Nashville numbers and Roman numerals, which mean nothing without one.
 		value.textContent = (offset > 0 ? "+" : "") + offset + " · " + signs(transposeChord(key, notation === "nashville" || notation === "roman" ? "standard" : notation));
 	}
@@ -102,6 +119,7 @@
 	document.querySelector(".transpose").hidden = false;
 	document.querySelector(".notation").hidden = false;
 	document.querySelectorAll(".notation button").forEach(function (button, _, buttons) {
+		button.setAttribute("aria-pressed", button.dataset.notation === notation);
 		button.addEventListener("click", function () {
 			notation = button.dataset.notation;
 			buttons.forEach(function (other) { other.setAttribute("aria-pressed", other === button); });
@@ -131,8 +149,11 @@ document.querySelectorAll(".slides:not(.demo)").forEach(function (slides) {
 		button.addEventListener("click", function () {
 			frames.forEach(function (frame, i) { frame.setAttribute("aria-hidden", i !== index); });
 			buttons.forEach(function (button, i) { button.setAttribute("aria-pressed", i === index); });
+			state.slides[slides.id] = index;
 		});
 	});
+	var shown = (carried.slides || {})[slides.id];
+	if (buttons[shown]) buttons[shown].click();
 });
 
 // The text size demo: one song at every size the slider stops at, which the slider picks, named for screen readers by
@@ -140,7 +161,8 @@ document.querySelectorAll(".slides:not(.demo)").forEach(function (slides) {
 // lays out under the first would be fetched as early as a visible one, and are fetched together once a quarter of the
 // demo is in view, so that a visitor who never scrolls to it never downloads them. The slider stays disabled until
 // every one of them is there, so that a drag never lands on a screenshot still loading.
-// It starts at the first whatever position the browser kept from an earlier visit.
+// It starts at the first whatever position the browser kept from an earlier visit, unless a language was just picked
+// with another one shown, which it then moves to once it is enabled.
 (function () {
 	var slides = document.querySelector(".slides.demo");
 	if (!slides) return;
@@ -149,15 +171,18 @@ document.querySelectorAll(".slides:not(.demo)").forEach(function (slides) {
 	var values = range.dataset.values.split(",");
 	var images = frames.map(function (frame) { return frame.querySelector("img"); });
 
+	function show(index) {
+		frames.forEach(function (frame, i) { frame.setAttribute("aria-hidden", i !== index); });
+		range.setAttribute("aria-valuetext", values[index]);
+		range.style.setProperty("--fill", index / (frames.length - 1) * 100 + "%");
+		state.textSize = index;
+	}
+
 	function start() {
 		range.disabled = false;
-		range.value = 0;
-		range.addEventListener("input", function () {
-			var index = Number(range.value);
-			frames.forEach(function (frame, i) { frame.setAttribute("aria-hidden", i !== index); });
-			range.setAttribute("aria-valuetext", values[index]);
-			range.style.setProperty("--fill", index / (frames.length - 1) * 100 + "%");
-		});
+		range.value = frames[carried.textSize] ? carried.textSize : 0;
+		show(Number(range.value));
+		range.addEventListener("input", function () { show(Number(range.value)); });
 	}
 
 	range.disabled = true;
