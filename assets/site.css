@@ -10,6 +10,9 @@
 @font-face { font-family: "JetBrains Mono"; src: url("fonts/jetbrains_mono_bold.woff2?v=884a2224") format("woff2"); font-weight: 700; font-display: swap; }
 @font-face { font-family: "Noto Sans Hebrew"; src: url("fonts/noto_sans_hebrew_regular.woff2?v=5bf74a22") format("woff2"); font-weight: 400; font-display: swap; unicode-range: U+0590-05FF, U+FB1D-FB4F; }
 @font-face { font-family: "Noto Sans Hebrew"; src: url("fonts/noto_sans_hebrew_bold.woff2?v=43803ef7") format("woff2"); font-weight: 700; font-display: swap; unicode-range: U+0590-05FF, U+FB1D-FB4F; }
+/* abc2svg's music font, cut down to the symbols the example's staves use, which are drawn with nothing in their place
+   until it is there. */
+@font-face { font-family: "abc2svg music"; src: url("fonts/abc2svg_music.woff2?v=cf86a8d9") format("woff2"); font-display: block; }
 
 :root {
 	color-scheme: light dark;
@@ -278,7 +281,8 @@ section h2 { font-size: clamp(30px, 3.8vw, 42px); letter-spacing: -0.03em; margi
 section > .lead { margin-bottom: 40px; }
 section > .lead:has(+ .lead) { margin-bottom: 20px; }
 .split .lead:last-child { margin-bottom: 0; }
-#download > .lead { max-width: none; text-wrap: wrap; }
+/* A section without a column beside its line lets the line run across the whole page. */
+section > .lead { max-width: none; text-wrap: wrap; }
 
 /* The points of a feature under its lead, one line each where they fit, each marked with a dot in the app's accent */
 .points { list-style: none; margin: 0; padding: 0; font-size: 17px; color: var(--muted); }
@@ -333,6 +337,23 @@ section > .lead:has(+ .lead) { margin-bottom: 20px; }
 .sheet .segment b { color: var(--chord); font-weight: 700; padding-inline-end: 1ch; }
 /* Keep unchorded words aligned with the lyrics under the chords. */
 .sheet .segment b:empty::before { content: "\200B"; }
+.sheet .section-label:not(:first-child) { margin-top: 16px; }
+/* The staves abc2svg engraved (see engrave.js), styled the way the app draws them: the music symbols in abc2svg's music
+   font, the words in the page's, chord symbols bold in the chords' color and as large as the lyrics, which the 16 units of
+   a staff 460 wide are in the example's column. */
+.staff svg { display: block; width: 100%; height: auto; overflow: visible; font: 24px "abc2svg music"; fill: currentColor; stroke-width: 0.7; }
+.staff text { white-space: pre; }
+.staff .gch { font: 700 16px var(--sans); fill: var(--chord); }
+.staff .lyr { font: 16px var(--sans); }
+.sheet .abc { margin: 0; font: 13px/1.7 var(--mono); white-space: pre-wrap; }
+/* The tab, in SVG units of 16 to the lyrics' em (see TabEngraving.kt in the app's repository). A fret number breaks the
+   string under it with an outline in the background's color. */
+.tab svg { display: block; max-width: 100%; overflow: visible; fill: currentColor; stroke: currentColor; stroke-width: 0.7; }
+.tab text { stroke: none; }
+.tab .string, .tab .fret { font: 11.2px var(--sans); font-variant-numeric: tabular-nums; }
+.tab .string { text-anchor: end; }
+.tab .fret { font-weight: 700; text-anchor: middle; paint-order: stroke; stroke: var(--background); stroke-width: 4px; stroke-linejoin: round; }
+.tab .chord { font: 700 16px var(--sans); fill: var(--chord); }
 .transpose, .notation { display: inline-flex; flex-shrink: 0; align-items: center; background: var(--container-high); border-radius: 20px; font-size: 13px; font-weight: 400; color: var(--on-background); }
 .transpose { margin-inline-start: auto; }
 .notation { flex-basis: 100%; flex-wrap: wrap; }

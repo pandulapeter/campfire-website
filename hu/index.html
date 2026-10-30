@@ -152,7 +152,7 @@
 	<link rel="apple-touch-icon" href="../assets/icon-192.png?v=0f2be8ac">
 	<link rel="preload" href="../assets/fonts/inter_bold.woff2?v=676dbe48" as="font" type="font/woff2" crossorigin>
 	<link rel="preload" href="../assets/fonts/inter_regular.woff2?v=0b354d6b" as="font" type="font/woff2" crossorigin>
-	<link rel="stylesheet" href="../assets/site.css?v=2b1bea56">
+	<link rel="stylesheet" href="../assets/site.css?v=fc10ea3e">
 	<script>
 		// Every visitor is offered two versions: a phone or a tablet the app from its store first and the web app second,
 		// a computer the other way around. The script names the system: the stylesheet shows the elements marked
@@ -410,18 +410,33 @@
 
 		<section aria-labelledby="chords-title">
 			<h2 id="chords-title">Akkordjelölés</h2>
-			<p class="lead">Az akkordokat betűkkel, német vagy latin jelöléssel, Nashville-számokkal vagy római számokkal is mutathatod, bármelyik hangnemben. A háttérben minden dal egy egyszerű <a href="https://www.chordpro.org" target="_blank" rel="noopener">ChordPro</a> szövegfájl, így nem vagy egy alkalmazáshoz kötve. Próbáld ki az alábbi példán.</p>
+			<p class="lead">Az akkordokat betűkkel, német vagy latin jelöléssel, Nashville-számokkal vagy római számokkal is mutathatod, bármelyik hangnemben. Az ABC-notációban írt dallamok kottaként jelennek meg, a tabokban pedig a hangnemmel együtt mozdulnak a bundok. A háttérben minden dal egy egyszerű <a href="https://www.chordpro.org" target="_blank" rel="noopener">ChordPro</a> szövegfájl, így nem vagy egy alkalmazáshoz kötve. Próbáld ki az alábbi példán.</p>
 			<div class="chordpro">
 				<div class="source">
 					<pre id="chordpro-source"># Nyers .cho fájl
 {title: Amazing Grace}
 {artist: John Newton}
 {key: G}
-
+{start_of_abc}
+X:1
+M:3/4
+K:G
+D2|"G"G4BG|"G7"B4A2|"C"G4E2|
+w:A-ma-zing_ grace how sweet the
+"G"D4D2|G4BG|"Em"B4A2|"D"d6|]
+w:sound that saved a_ wretch like me
+{end_of_abc}
 {start_of_verse}
-[G]Amazing [G7]grace, how [C]sweet the [G]sound
-That [G]saved a wretch like [D]me
-{end_of_verse}</pre>
+I [G]once was [G7]lost, but [C]now am [G]found
+Was [G]blind, but [D7]now I [G]see
+{end_of_verse}
+{start_of_tab: Outro}
+   G       C       D7      G
+G|-------|-------|-------|----|
+D|-5-----|-----5-|---7---|----|
+A|---5---|---7---|-5---9-|-10-|
+E|-----7-|-8-----|-------|----|
+{end_of_tab}</pre>
 				</div>
 				<span class="conversion-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h16m-6-6 6 6-6 6"/></svg></span>
 				<div class="rendered">
@@ -443,7 +458,7 @@ That [G]saved a wretch like [D]me
 							<button type="button" data-notation="roman" aria-pressed="false">Római</button>
 						</span>
 					</div>
-					<div class="sheet" id="chordpro-sheet"><p class="section-label">Versszak</p><div class="line" translate="no"><span class="segment"><b>E</b>Amazing </span><span class="segment"><b>E7</b>grace, how </span><span class="segment"><b>A</b>sweet the </span><span class="segment"><b>E</b>sound</span></div><div class="line" translate="no"><span class="segment"><b></b>That </span><span class="segment"><b>E</b>saved a wretch like </span><span class="segment"><b>B</b>me</span></div></div>
+					<div class="sheet" id="chordpro-sheet"><p class="section-label" data-section="abc">Kotta</p><div class="staff" translate="no"><svg viewBox="0 0 460 81.36"><defs><path id="stdef" fill="none" stroke="currentColor" d="m0 0h458.0m-458.0 -6.00h458.0m-458.0 -6.00h458.0m-458.0 -6.00h458.0m-458.0 -6.00h458.0"/></defs><use x="0.0" y="47.0" href="#stdef"/><path fill="none" stroke="currentColor" stroke-width="1" d="M76.7 53.0m-6.11 0h12.22m333.26 0h12.22"/><path fill="none" stroke="currentColor" stroke-width="1" d="M112.5 47.0v-24.0M238.9 47.0v-24.0M348.5 47.0v-24.0M458.0 47.0v-24.0"/><path d="m185.2 21.0l30.9 4.1v3.2l-30.9 -4.1z"/><text x="4.0,25.0,30.5,36.0,41.5,53.0,53.0,73.0,121.5,178.3,208.5,252.1,308.9,361.7,418.5"y="41.0,23.0,32.0,20.0,29.0,29.0,41.0,56.0,47.0,41.0,47.0,41.0,44.0,47.0,53.0">&#xe050;&#xe262;&#xe262;&#xe262;&#xe262;&#xe083;&#xe084;&#xe0a4;&#xe0a3;&#xe0a4;&#xe0a4;&#xe0a3;&#xe0a4;&#xe0a3;&#xe0a4;</text><path fill="none" stroke="currentColor" d="M80.2 56.0v-21.0M128.8 47.0v-21.0M185.5 41.0v-19.0M215.7 47.0v-21.0M259.4 41.0v-21.0M316.1 44.0v-21.0M369.0 47.0v-21.0M425.7 53.0v-21.0"/><g transform="translate(0,47.0)"><text class="lyr" x="72.0" y="28.5">A</text><text class="lyr" x="97.63" y="28.49">-</text><text class="lyr" x="115.5" y="28.5">ma</text><text class="lyr" x="152.54" y="28.49">-</text><text class="lyr" x="169.1" y="28.5">zing</text><path fill="none" stroke="currentColor" stroke-width="0.8" d="m204.4 27.5h17.6"/><text class="lyr" x="241.9" y="28.5">grace</text><text class="lyr" x="299.7" y="28.5">how</text><text class="lyr" x="351.5" y="28.5">sweet</text><text class="lyr" x="412.4" y="28.5">the</text><text class="gch" x="121.0" y="-32.5">E</text><text class="gch" x="248.1" y="-32.5">E7</text><text class="gch" x="361.2" y="-32.5">A</text></g></svg><svg viewBox="0 0 460 87.36"><g transform="translate(0.0, 53.0)"><path fill="none" stroke="currentColor" d="m0 0h450.9m-450.9 -6.00h450.9m-450.9 -6.00h450.9m-450.9 -6.00h450.9m-450.9 -6.00h450.9"/></g><path fill="none" stroke="currentColor" stroke-width="1" d="M66.0 59.0m-6.50 0h13.00m42.49 0h12.22"/><path fill="none" stroke="currentColor" stroke-width="1" d="M155.9 53.0v-24.0M283.3 53.0v-24.0M390.2 53.0v-24.0M444.9 53.0v-24.0"/><path fill="none" stroke="currentColor" stroke-width="3" d="M449.4 53.0v-24.0"/><path d="m231.1 27.0l30.0 4.1v3.2l-30.0 -4.1z"/><text x="4.0,25.0,30.5,36.0,41.5,62.2,117.4,169.1,224.3,253.6,296.5,351.7,399.1,408.5"y="47.0,29.0,38.0,26.0,35.0,62.0,62.0,53.0,47.0,53.0,47.0,50.0,41.0,38.0">&#xe050;&#xe262;&#xe262;&#xe262;&#xe262;&#xe0a3;&#xe0a4;&#xe0a3;&#xe0a4;&#xe0a4;&#xe0a3;&#xe0a4;&#xe0a3;&#xe1e7;</text><path fill="none" stroke="currentColor" d="M69.5 62.0v-21.0M124.6 62.0v-21.0M176.4 53.0v-21.0M231.5 47.0v-19.0M260.8 53.0v-21.0M303.8 47.0v-21.0M358.9 50.0v-21.0M406.4 41.0v-21.0"/><g transform="translate(0,53.0)"><text class="lyr" x="52.0" y="28.5">sound</text><text class="lyr" x="109.4" y="28.5">that</text><text class="lyr" x="158.9" y="28.5">saved</text><text class="lyr" x="224.1" y="28.5">a</text><path fill="none" stroke="currentColor" stroke-width="0.8" d="m236.9 27.5h30.2"/><text class="lyr" x="286.3" y="28.5">wretch</text><text class="lyr" x="344.8" y="28.5">like</text><text class="lyr" x="393.2" y="28.5">me</text><text class="gch" x="61.7" y="-38.5">E</text><text class="gch" x="292.3" y="-38.5">C&#x266f;m</text><text class="gch" x="398.7" y="-38.5">B</text></g></svg></div><p class="section-label" data-section="verse">Versszak</p><div class="line" translate="no"><span class="segment"><b></b>I </span><span class="segment"><b>E</b>once was </span><span class="segment"><b>E7</b>lost, but </span><span class="segment"><b>A</b>now am </span><span class="segment"><b>E</b>found</span></div><div class="line" translate="no"><span class="segment"><b></b>Was </span><span class="segment"><b>E</b>blind, but </span><span class="segment"><b>B7</b>now I </span><span class="segment"><b>E</b>see</span></div><p class="section-label" translate="no">Outro</p><div class="tab" translate="no"><svg viewBox="0 0 260.4 58.8" style="width: 16.27em"><text class="chord" x="26.0" y="12">E</text><text class="chord" x="95.5" y="12">A</text><text class="chord" x="164.9" y="12">B7</text><text class="chord" x="234.4" y="12">E</text><text class="string" x="10.0" y="28.0">G</text><path d="M13.0 24.0H256.1"></path><text class="string" x="10.0" y="37.6">D</text><path d="M13.0 33.6H256.1"></path><text class="string" x="10.0" y="47.2">A</text><path d="M13.0 43.2H256.1"></path><text class="string" x="10.0" y="56.8">E</text><path d="M13.0 52.8H256.1"></path><path d="M13.0 24V52.8"></path><path d="M82.5 24V52.8"></path><path d="M151.9 24V52.8"></path><path d="M221.3 24V52.8"></path><path d="M256.1 24V52.8"></path><text class="fret" x="30.4" y="37.6">2</text><text class="fret" x="134.5" y="37.6">2</text><text class="fret" x="186.6" y="37.6">4</text><text class="fret" x="47.7" y="47.2">2</text><text class="fret" x="117.2" y="47.2">4</text><text class="fret" x="169.3" y="47.2">2</text><text class="fret" x="204.0" y="47.2">6</text><text class="fret" x="238.7" y="47.2">7</text><text class="fret" x="65.1" y="56.8">4</text><text class="fret" x="99.8" y="56.8">5</text></svg></div></div>
 				</div>
 			</div>
 		</section>
@@ -454,18 +469,18 @@ That [G]saved a wretch like [D]me
 			<ul class="features">
 				<li>
 					<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5M7.5 10.5h6M10.5 7.5v6"/></svg>
-					<h3>Keresés, szűrés és címkék</h3>
-					<p>Keress cím, előadó vagy címke szerint, elöl a legjobb találatokkal, és szűrj címkék vagy nyelvek szerint. Jelölj ki egyszerre több dalt, hogy saját színes címkéket adj nekik, listához add vagy megoszd őket.</p>
+					<h3>Keresés és szűrés</h3>
+					<p>Keress cím, előadó vagy címke szerint, elöl a legjobb találatokkal, és szűrj nyelv szerint. Jelölj ki egyszerre több dalt, hogy listához add vagy megoszd őket.</p>
+				</li>
+				<li>
+					<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4v7l10 10 8-8L11 3H4a1 1 0 0 0-1 1Z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg>
+					<h3>Címkék</h3>
+					<p>Adj a dalaidnak saját címkéket 14 színben, akár egyszerre többnek is, és listázd azokat, amelyeken a kiválasztott címkék bármelyike vagy mindegyike rajta van. A címkék a dalfájlokban tárolódnak.</p>
 				</li>
 				<li>
 					<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h18m-4-4 4 4-4 4M21 17H3m4-4-4 4 4 4"/></svg>
 					<h3>Megosztás</h3>
 					<p>Küldj dalokat és listákat a zenésztársaidnak zip fájlként vagy linkként, amelyet bármelyik Campfire-felhasználó megnyithat.</p>
-				</li>
-				<li>
-					<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
-					<h3>Kotta</h3>
-					<p>Az ABC-notációban írt dallamok kottaként jelennek meg, a dallal együtt transzponálódnak, és a PDF-be is bekerülnek.</p>
 				</li>
 				<li>
 					<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 9a8 8 0 0 0-14-3L3 9m0-5v5h5M4 15a8 8 0 0 0 14 3l3-3m0 5v-5h-5"/></svg>
@@ -546,6 +561,7 @@ That [G]saved a wretch like [D]me
 		</div>
 	</footer>
 </div>
-<script src="../assets/home.js?v=272e2044"></script>
+<script src="../assets/staves.js?v=70125646"></script>
+<script src="../assets/home.js?v=03798cbe"></script>
 </body>
 </html>

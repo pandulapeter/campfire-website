@@ -32,8 +32,9 @@ document.addEventListener("click", function (event) {
 	var sheet = document.getElementById("chordpro-sheet");
 	var value = document.getElementById("transpose-value");
 	var source = sourceElement.textContent;
-	// The name of a section without one, in the page's language, as the page first shows it.
-	var verse = sheet.querySelector(".section-label").textContent;
+	// The names of the sections without one of their own, in the page's language, as the page first shows them.
+	var labels = {};
+	sheet.querySelectorAll(".section-label").forEach(function (label) { labels[label.dataset.section] = label.textContent; });
 	var key = "G";
 	// The example opens transposed to E, a key whose fifth, B, is spelled differently in every notation (H in German).
 	var offset = typeof carried.offset === "number" ? carried.offset : -3;
@@ -85,12 +86,93 @@ document.addEventListener("click", function (event) {
 		return text.replace(/&/g, "&amp;").replace(/</g, "&lt;");
 	}
 
+	// The sheet music, as the app draws it: the staves abc2svg engraved at this transposition (written by engrave.js into
+	// staves.js), with every chord symbol named as the lyrics' chords are, in order. Without them it stays its text, as a
+	// tune the app cannot render does.
+	function sheetMusic(lines) {
+		var html = '<p class="section-label" data-section="abc">' + escape(labels.abc) + "</p>";
+		if (typeof staves === "undefined") return html + '<pre class="abc" translate="no">' + escape(lines.join("\n")) + "</pre>";
+		var chords = [];
+		lines.forEach(function (line) {
+			if (!/^[A-Za-z]:/.test(line)) line.replace(/"([^"^_<>@][^"]*)"/g, function (_, chord) { chords.push(chord); });
+		});
+		var staff = document.createElement("div");
+		staff.className = "staff";
+		staff.setAttribute("translate", "no");
+		staff.innerHTML = staves[offset];
+		staff.querySelectorAll(".gch").forEach(function (symbol, index) {
+			if (chords[index]) symbol.textContent = signs(transposeChord(chords[index], notation));
+		});
+		return html + staff.outerHTML;
+	}
+
+	// The tab, engraved in the proportions the app uses (TabEngraving.kt, in SVG units of 16 to the lyrics' em): the
+	// strings as lines, broken by the fret numbers on them, the bar lines across them, the strings' names in front, and
+	// the row of chords above. Transposing moves the frets and leaves the tuning, as the app does; the example's stay on
+	// the neck at every offset, so none of it ever moves by an octave instead. A column widens or narrows on every string by
+	// what its widest fret gained or lost in digits, which moves what follows, chords included.
+	function tab(lines, label) {
+		var fretSize = 11.2, stringSpacing = 9.6, column = fretSize * 0.62 * 1.25, chordSize = 16, top = 24;
+		var staffLines = lines.filter(function (line) { return /-/.test(line) && /\|/.test(line); });
+		var chordLines = lines.filter(function (line) { return staffLines.indexOf(line) === -1 && line.trim() !== ""; });
+		var gained = [];
+		var frets = staffLines.map(function (line) {
+			var moved = [];
+			line.replace(/\d+/g, function (digits, at) {
+				var text = String(Number(digits) + offset);
+				moved.push({ at: at, text: text });
+				gained[at] = Math.max(at in gained ? gained[at] : -Infinity, text.length - digits.length);
+			});
+			return moved;
+		});
+		function x(at) {
+			var columns = at;
+			for (var i = 0; i < at; i++) columns += gained[i] || 0;
+			return columns * column;
+		}
+		var length = Math.max.apply(null, staffLines.map(function (line) { return line.length; }));
+		var width = x(length), bottom = top + (staffLines.length - 1) * stringSpacing, svg = "";
+		chordLines.forEach(function (line) {
+			line.replace(/\S+/g, function (chord, at) {
+				svg += '<text class="chord" x="' + x(at).toFixed(1) + '" y="' + (top - 12) + '">' + signs(transposeChord(chord, notation)) + "</text>";
+			});
+		});
+		staffLines.forEach(function (line, string) {
+			var y = top + string * stringSpacing, nameEnd = line.search(/[-|]/);
+			svg += '<text class="string" x="' + (x(nameEnd) + column / 2 - 3).toFixed(1) + '" y="' + (y + 4).toFixed(1) + '">' + escape(line.slice(0, nameEnd)) + "</text>";
+			svg += '<path d="M' + (x(nameEnd) + column / 2).toFixed(1) + " " + y.toFixed(1) + "H" + (x(line.length - 1) + column / 2).toFixed(1) + '"/>';
+		});
+		staffLines[0].replace(/\|/g, function (_, at) {
+			svg += '<path d="M' + (x(at) + column / 2).toFixed(1) + " " + top + "V" + bottom.toFixed(1) + '"/>';
+		});
+		frets.forEach(function (moved, string) {
+			moved.forEach(function (fret) {
+				svg += '<text class="fret" x="' + (x(fret.at) + fret.text.length * column / 2).toFixed(1) + '" y="' + (top + string * stringSpacing + 4).toFixed(1) + '">' + fret.text + "</text>";
+			});
+		});
+		return '<p class="section-label"' + (label ? ' translate="no"' : ' data-section="tab"') + ">" + escape(label || labels.tab) + '</p><div class="tab" translate="no"><svg viewBox="0 0 ' + width.toFixed(1) + " " + (bottom + 6).toFixed(1) +
+			'" style="width: ' + (width / chordSize).toFixed(2) + 'em">' + svg + "</svg></div>";
+	}
+
 	function render() {
-		var html = "";
+		var html = "", environment = null, environmentLabel, environmentLines = [];
 		source.split("\n").forEach(function (line) {
+			if (environment) {
+				if (line !== "{end_of_" + environment + "}") return environmentLines.push(line);
+				html += environment === "abc" ? sheetMusic(environmentLines) : tab(environmentLines, environmentLabel);
+				environment = null;
+				return;
+			}
+			var start = line.match(/^\{start_of_(abc|tab)(?::\s*(.*?))?\}$/);
+			if (start) {
+				environment = start[1];
+				environmentLabel = start[2];
+				environmentLines = [];
+				return;
+			}
 			var section = line.match(/^\{(?:start_of_verse|sov)(?::\s*(.*?))?\}$/);
 			if (section) {
-				html += '<p class="section-label">' + escape(section[1] || verse) + "</p>";
+				html += '<p class="section-label"' + (section[1] ? "" : ' data-section="verse"') + ">" + escape(section[1] || labels.verse) + "</p>";
 				return;
 			}
 			if (line.charAt(0) === "{" || line.charAt(0) === "#" || line.trim() === "") return;

@@ -21,7 +21,8 @@ s/index.html          the landing page of a shared song or setlist link, see Sha
 .well-known/          assetlinks.json and apple-app-site-association, which let the Android and iOS apps open those links
 assets/site.css       the one stylesheet every page shares
 assets/home.js        the home page's ChordPro example, its slideshows of screenshots and the text size demo, and the placeholder of a screenshot that is missing
-assets/fonts/         Inter, JetBrains Mono, and Noto Sans Hebrew, the fonts the app itself uses, as WOFF2 cut down to Latin and Hebrew, with their licenses
+assets/staves.js      the staves of the ChordPro example's sheet music at every transposition, written by engrave.js, see The ChordPro example
+assets/fonts/         Inter, JetBrains Mono, and Noto Sans Hebrew, the fonts the app itself uses, as WOFF2 cut down to Latin and Hebrew, and abc2svg's music font, with their licenses
 assets/screenshots/   the screenshots of the home page, in a light and a dark version, those of the other languages in a folder per language
 assets/icon.svg       the app icon, for the header and the browser tab
 assets/peter.webp     the photo of the author in the donation card, cropped square to 480 × 480
@@ -32,6 +33,7 @@ robots.txt            points search engines to the sitemap
 llms.txt              a plain-text summary of the app and its links, for AI assistants (llmstxt.org)
 sitemap.xml           the pages search engines should list: the home page, support, and privacy, in every language, written by localize.py
 localize.py           writes the pages of the other languages from the English ones and their translations, see Languages
+engrave.js            engraves the ChordPro example's sheet music with the app's abc2svg, see The ChordPro example
 stamp.py              runs localize.py, marks the links to every file in assets/ with the file's hash, and writes the support pages' FAQ for search engines, see Publishing
 .githooks/pre-commit  runs stamp.py before every commit
 ```
@@ -76,6 +78,30 @@ each beat lit, side by side on a transparent strip, and the stylesheet fades the
 its own. The screenshots of the other languages are in `assets/screenshots/<language>/` under the same names. One that
 is not there is shown in English, which is how a screenshot with nothing translated in it is kept: once. `og-image.jpg` (1200 × 630) is the preview image for links shared on
 social media.
+
+## The ChordPro example
+
+The example under *Notation* is a short `.cho` file and the song the app makes of it: the first two lines of a verse as
+sheet music in ABC notation, the other two as lyrics with chords, and a closing bass line as a tab. `home.js` lays the song out from the file, transposes it, and shows it in every notation, as the
+app does. The verse's chords and the tab are worked out in the browser, the tab's frets moved on the neck and its
+tuning left alone. The staves are not: abc2svg runs only in the app, so `engrave.js` engraves them once for every
+transposition the example offers, with the abc2svg of the app's repository and the header lines the app puts in front
+of a tune (`AbcRendererImpl.kt`), into `assets/staves.js`. `home.js` swaps between them and names their chord symbols as
+it names the verse's. Run it after changing the example's ABC, with the app's repository next to this one or named:
+
+```
+node engrave.js ../Campfire
+```
+
+The page also shows the example as it first opens, transposed to E, for the moment before `home.js` runs: change it
+with the file. The staves draw their music symbols in abc2svg's music font, which `site.css` loads from
+`assets/fonts/abc2svg_music.woff2`, cut down to the symbols `engrave.js` lists when it is done. Should that list change,
+cut the font again from the one inside `abc2svg-1.js` (the base64 TrueType font of its `@font-face`):
+
+```
+pyftsubset abc2svg.ttf --unicodes="U+E050,U+E083,U+E084,U+E0A3,U+E0A4,U+E1E7,U+E260,U+E262" --flavor=woff2 \
+    --output-file=abc2svg_music.woff2
+```
 
 ## Shared links
 
@@ -166,6 +192,6 @@ git config core.hooksPath .githooks
 
 ## Credits
 
-The store badges are copies of the ones in `documentation/images` in the app's repository. Inter, JetBrains Mono, and Noto Sans Hebrew are licensed under
-the SIL Open Font License 1.1, included next to them. The name Campfire and the app icon belong to
+The store badges are copies of the ones in `documentation/images` in the app's repository. Inter, JetBrains Mono, Noto Sans Hebrew, and abc2svg's
+music font are licensed under the SIL Open Font License 1.1, included next to them. The name Campfire and the app icon belong to
 [Péter Pandula](https://pandulapeter.com), as described in the app's repository.
