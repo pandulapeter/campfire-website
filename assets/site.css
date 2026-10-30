@@ -1,11 +1,15 @@
 /* The colors are the app's own (CampfireColorScheme.kt in the app's repository): a lavender paper in the light scheme,
    a violet night in the dark one, purple for the interface and orange for the chords. */
 
-/* The fonts are cut down to the Latin letters, punctuation and arrows, and compressed as WOFF2. */
+/* The fonts are cut down to the Latin letters, punctuation and arrows, and compressed as WOFF2. Hebrew, which Inter and
+   JetBrains Mono lack, is drawn in Noto Sans Hebrew, as in the app, cut down to the Hebrew letters and points; its
+   unicode-range keeps a page with no Hebrew in it from downloading it. */
 @font-face { font-family: Inter; src: url("fonts/inter_regular.woff2?v=0b354d6b") format("woff2"); font-weight: 400; font-display: swap; }
 @font-face { font-family: Inter; src: url("fonts/inter_bold.woff2?v=676dbe48") format("woff2"); font-weight: 700; font-display: swap; }
 @font-face { font-family: "JetBrains Mono"; src: url("fonts/jetbrains_mono_regular.woff2?v=05f8eec0") format("woff2"); font-weight: 400; font-display: swap; }
 @font-face { font-family: "JetBrains Mono"; src: url("fonts/jetbrains_mono_bold.woff2?v=884a2224") format("woff2"); font-weight: 700; font-display: swap; }
+@font-face { font-family: "Noto Sans Hebrew"; src: url("fonts/noto_sans_hebrew_regular.woff2?v=5bf74a22") format("woff2"); font-weight: 400; font-display: swap; unicode-range: U+0590-05FF, U+FB1D-FB4F; }
+@font-face { font-family: "Noto Sans Hebrew"; src: url("fonts/noto_sans_hebrew_bold.woff2?v=43803ef7") format("woff2"); font-weight: 700; font-display: swap; unicode-range: U+0590-05FF, U+FB1D-FB4F; }
 
 :root {
 	color-scheme: light dark;
@@ -22,8 +26,8 @@
 	--outline: #7A7488;
 	--outline-variant: #C9C3D9;
 	--chord: #A04F03;
-	--sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-	--mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+	--sans: Inter, "Noto Sans Hebrew", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+	--mono: "JetBrains Mono", "Noto Sans Hebrew", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -44,6 +48,9 @@
 	}
 }
 
+/* A page written from the right (dir="rtl", Hebrew) is the mirror image of the others: the layout is set in logical
+   properties (inline-start and inline-end), so that what stands on the left of an English page stands on the right of
+   it. Only the device frames keep their buttons and cameras where the devices have them. */
 * { box-sizing: border-box; }
 /* Touch screens get feedback of their own while pressed instead of the browser's gray tap overlay. Hover effects only
    apply to precise pointers, as a tap would otherwise leave them stuck on until the next tap elsewhere. A press shows
@@ -61,10 +68,18 @@ a, button { transition: opacity 0.2s, background-color 0.2s, color 0.2s, border-
 /* Without any weight of its own, so buttons, cards, and pill links keep their own shape around the focus ring. */
 :where(a, button):focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; border-radius: 4px; }
 h1, h2, h3, h4 { line-height: 1.2; letter-spacing: -0.02em; text-wrap: balance; }
+/* Hebrew is set without the tightening the Latin headings get. */
+:lang(he) :is(h1, h2, h3, h4) { letter-spacing: normal; }
 p, figcaption { text-wrap: pretty; }
 code, kbd { font-family: var(--mono); font-size: 0.9em; }
+/* An emphasis or a piece of code inside a sentence takes the direction of its own first letter, so that a file name or a
+   folder (.cho, Apps/Campfire Sync) keeps its dot and slashes in place in a sentence written from the right. */
+[dir="rtl"] :is(em, code, kbd) { unicode-bidi: plaintext; }
+/* Hebrew has no italics, which a browser would only fake by slanting the letters: an emphasis stays upright, in the
+   color of the text around it at full strength. */
+:lang(he) em { font-style: normal; color: var(--on-background); }
 
-.skip { position: absolute; left: 16px; top: -60px; padding: 8px 14px; background: var(--primary); color: var(--on-primary); border-radius: 8px; z-index: 101; }
+.skip { position: absolute; inset-inline-start: 16px; top: -60px; padding: 8px 14px; background: var(--primary); color: var(--on-primary); border-radius: 8px; z-index: 101; }
 .skip:focus { top: 12px; }
 
 .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
@@ -84,7 +99,7 @@ html { scroll-padding-top: 73px; }
 @media (hover: none) { .site-header nav a:not(.button):active { background: color-mix(in srgb, var(--on-background) 12%, transparent); color: var(--on-background); } }
 .site-header nav a[aria-current] { color: var(--on-background); font-weight: 700; }
 /* The language picker: a globe and the language's code, opening a list of every language under it. The list is
-   anchored to the picker's right edge, which on a phone is close to the screen's. */
+   anchored to the picker's outer edge, which on a phone is close to the screen's. */
 .languages { position: relative; }
 .languages summary { display: flex; align-items: center; gap: 6px; height: 36px; padding: 0 12px; border-radius: 20px; color: var(--muted); font-size: 14px; font-weight: 700; cursor: pointer; list-style: none; transition: background-color 0.2s, color 0.2s; }
 .languages summary::-webkit-details-marker { display: none; }
@@ -93,7 +108,7 @@ html { scroll-padding-top: 73px; }
 .languages[open] summary { background: var(--container); color: var(--on-background); }
 @media (hover: hover) and (pointer: fine) { .languages summary:hover { background: var(--container); color: var(--on-background); } }
 @media (hover: none) { .languages summary:active { background: color-mix(in srgb, var(--on-background) 12%, transparent); color: var(--on-background); transition-duration: 0s; } }
-.languages ul { position: absolute; top: calc(100% + 8px); right: 0; z-index: 1; min-width: 168px; margin: 0; padding: 8px; list-style: none; border-radius: 16px; background: var(--container-low); border: 1px solid var(--outline-variant); box-shadow: 0 8px 24px rgb(0 0 0 / 0.16); }
+.languages ul { position: absolute; top: calc(100% + 8px); inset-inline-end: 0; z-index: 1; min-width: 168px; margin: 0; padding: 8px; list-style: none; border-radius: 16px; background: var(--container-low); border: 1px solid var(--outline-variant); box-shadow: 0 8px 24px rgb(0 0 0 / 0.16); }
 .site-header nav .languages a { display: block; padding: 8px 12px; border-radius: 10px; color: var(--on-background); }
 .site-header nav .languages a[aria-current] { color: var(--primary); }
 
@@ -212,9 +227,9 @@ html:not([data-os]) .all-platforms { display: none; }
 /* Under a pair, the pills move up into the room the phone leaves under the tablet, the same 24px below it as under any
    other device, and center under the tablet. They stand over the pairs, which reach down there, while the phone beside
    them stays clear of their row. */
-.slides:has(> .pair) + .slides-nav { position: relative; z-index: 2; margin-top: calc(24px - 10%); padding-right: 14%; pointer-events: none; }
+.slides:has(> .pair) + .slides-nav { position: relative; z-index: 2; margin-top: calc(24px - 10%); padding-inline-end: 14%; pointer-events: none; }
 .slides:has(> .pair) + .slides-nav > span { pointer-events: auto; }
-.slides:has(> .pair.flip) + .slides-nav { padding-right: 0; padding-left: 14%; }
+.slides:has(> .pair.flip) + .slides-nav { padding-inline-end: 0; padding-inline-start: 14%; }
 .slides-nav button[aria-pressed="true"] { background: var(--primary-container); color: var(--on-primary-container); }
 
 /* The text size demo under its laptop: a slider for a setting that has a slider in the app. Dragging it shows the
@@ -224,11 +239,13 @@ html:not([data-os]) .all-platforms { display: none; }
 .slider { display: flex; flex-direction: column; align-items: center; margin-top: 24px; }
 .slider-label { font-size: 13px; font-weight: 700; }
 /* The slider is drawn like the app's Material 3 one: a track filled up to a round thumb. The script fills the track by
-   setting --fill, as the browsers draw the part behind the thumb in the track's own color. */
-.slider input { -webkit-appearance: none; appearance: none; width: min(320px, 100%); height: 40px; margin: 0; background: none; cursor: pointer; --fill: 0%; }
-.slider input::-webkit-slider-runnable-track { height: 6px; border-radius: 3px; background: linear-gradient(to right, var(--primary) var(--fill), var(--container-high) var(--fill)); }
+   setting --fill, as the browsers draw the part behind the thumb in the track's own color. In a page written from the
+   right, the slider starts from the right, and its fill with it. */
+.slider input { -webkit-appearance: none; appearance: none; width: min(320px, 100%); height: 40px; margin: 0; background: none; cursor: pointer; --fill: 0%; --toward: right; }
+[dir="rtl"] .slider input { --toward: left; }
+.slider input::-webkit-slider-runnable-track { height: 6px; border-radius: 3px; background: linear-gradient(to var(--toward), var(--primary) var(--fill), var(--container-high) var(--fill)); }
 .slider input::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; margin-top: -7px; border: 0; border-radius: 50%; background: var(--primary); box-shadow: 0 0 0 4px var(--background); }
-.slider input::-moz-range-track { height: 6px; border-radius: 3px; background: linear-gradient(to right, var(--primary) var(--fill), var(--container-high) var(--fill)); }
+.slider input::-moz-range-track { height: 6px; border-radius: 3px; background: linear-gradient(to var(--toward), var(--primary) var(--fill), var(--container-high) var(--fill)); }
 .slider input::-moz-range-thumb { width: 20px; height: 20px; border: 0; border-radius: 50%; background: var(--primary); box-shadow: 0 0 0 4px var(--background); }
 .slider input:focus-visible { outline-offset: -2px; }
 /* Until every screenshot of the demo has arrived, the slider waits, dimmed. */
@@ -241,9 +258,9 @@ html:not([data-os]) .all-platforms { display: none; }
 /* Three devices in layers over a glow in the colors of the app icon, each nearer one smaller and standing lower: the
    laptop at the back, the tablet in front of its lower left, and the phone at the front, across them both */
 .stage { position: relative; aspect-ratio: 1.35; isolation: isolate; }
-.stage .laptop { position: absolute; top: 0; right: 0; width: 92%; }
-.stage .tablet { position: absolute; bottom: 6%; left: 0; width: 64%; }
-.stage .phone { position: absolute; bottom: 0; left: 55%; width: 22%; }
+.stage .laptop { position: absolute; top: 0; inset-inline-end: 0; width: 92%; }
+.stage .tablet { position: absolute; bottom: 6%; inset-inline-start: 0; width: 64%; }
+.stage .phone { position: absolute; bottom: 0; inset-inline-start: 55%; width: 22%; }
 
 /* What Campfire is about, right under the hero */
 .highlights { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px 32px; margin: 0; padding: 32px 0 0; list-style: none; border-top: 1px solid var(--outline-variant); }
@@ -265,9 +282,9 @@ section > .lead:has(+ .lead) { margin-bottom: 20px; }
 
 /* The points of a feature under its lead, one line each where they fit, each marked with a dot in the app's accent */
 .points { list-style: none; margin: 0; padding: 0; font-size: 17px; color: var(--muted); }
-.points li { position: relative; padding-left: 22px; }
+.points li { position: relative; padding-inline-start: 22px; }
 .points li + li { margin-top: 8px; }
-.points li::before { content: ""; position: absolute; left: 1px; top: 0.72em; width: 7px; height: 7px; border-radius: 50%; background: var(--primary); }
+.points li::before { content: ""; position: absolute; inset-inline-start: 1px; top: 0.72em; width: 7px; height: 7px; border-radius: 50%; background: var(--primary); }
 
 /* Text next to a picture. The sections take turns, while the text always comes first for screen readers and phones. */
 .split { display: grid; grid-template-columns: 6fr 5fr; gap: 56px; align-items: center; }
@@ -281,45 +298,50 @@ section > .lead:has(+ .lead) { margin-bottom: 20px; }
 .pair { position: relative; padding-bottom: 10%; }
 .pair .tablet { width: 86%; }
 .pair .laptop { width: 90%; }
-.split .pair .phone { position: absolute; right: 0; bottom: 0; width: 25%; margin: 0; }
-.pair.flip .tablet, .pair.flip .laptop { margin-left: auto; }
-.split .pair.flip .phone { right: auto; left: 0; }
+.split .pair .phone { position: absolute; inset-inline-end: 0; bottom: 0; width: 25%; margin: 0; }
+.pair.flip .tablet, .pair.flip .laptop { margin-inline-start: auto; }
+.split .pair.flip .phone { inset-inline-end: auto; inset-inline-start: 0; }
 /* With the text beside it, the phone of every pair stands on the middle of the page, so that the phones of the sections
    line up one under the other. In a 7fr column next to a 5fr one, 56px apart, the middle is 1.786% of the column, less
    half the gap, past where the phone's center would be. */
 @media (min-width: 861px) {
-	.split.media-wide .pair .phone { right: calc(1.786% - 28px); }
-	.split.media-wide .pair.flip .phone { right: auto; left: calc(1.786% - 28px); }
+	.split.media-wide .pair .phone { inset-inline-end: calc(1.786% - 28px); }
+	.split.media-wide .pair.flip .phone { inset-inline-end: auto; inset-inline-start: calc(1.786% - 28px); }
 }
 
-/* A short ChordPro excerpt keeps the source and transposable result easy to compare. */
+/* A short ChordPro excerpt keeps the source and transposable result easy to compare. The file comes first in the
+   page's own direction, with the arrow pointing on to the result, and the controls follow the page as the app's do. The
+   song is in English, which the app lays out from the left in any language, so the file and the song's lines read from
+   the left on every page. */
 .chordpro { display: grid; grid-template-columns: minmax(0, 1fr) 48px minmax(0, 1fr); }
 .chordpro > div { padding: 16px 24px 20px; min-width: 0; border: 1px solid var(--outline-variant); border-radius: 20px; }
 .chordpro .source { background: var(--container-low); }
 .conversion-arrow { display: grid; place-items: center; color: var(--primary); }
 .conversion-arrow svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
-.chordpro pre { margin: 0; font: 13px/1.7 var(--mono); white-space: pre-wrap; overflow-wrap: anywhere; }
+[dir="rtl"] .conversion-arrow svg { transform: scaleX(-1); }
+.chordpro pre { margin: 0; font: 13px/1.7 var(--mono); white-space: pre-wrap; overflow-wrap: anywhere; direction: ltr; }
 .chordpro pre .directive { color: var(--primary); }
 .chordpro pre .chord { color: var(--chord); }
 .song-heading { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
 .song-heading > div { flex: 1 1 140px; }
 .song-title { font-weight: 700; font-size: 16px; margin: 0; }
 .song-artist { color: var(--muted); font-size: 14px; margin: 4px 0 0; }
-.sheet { font-size: 15px; }
+.sheet { font-size: 15px; direction: ltr; }
 .sheet .section-label { color: var(--primary); font-size: 13px; font-weight: 700; margin: 0 0 4px; }
 .sheet .line { display: flex; flex-wrap: wrap; margin-bottom: 4px; }
 .sheet .segment { display: inline-flex; flex-direction: column; white-space: pre; }
-.sheet .segment b { color: var(--chord); font-weight: 700; padding-right: 1ch; }
+.sheet .segment b { color: var(--chord); font-weight: 700; padding-inline-end: 1ch; }
 /* Keep unchorded words aligned with the lyrics under the chords. */
 .sheet .segment b:empty::before { content: "\200B"; }
 .transpose, .notation { display: inline-flex; flex-shrink: 0; align-items: center; background: var(--container-high); border-radius: 20px; font-size: 13px; font-weight: 400; color: var(--on-background); }
-.transpose { margin-left: auto; }
+.transpose { margin-inline-start: auto; }
 .notation { flex-basis: 100%; flex-wrap: wrap; }
 .transpose[hidden], .notation[hidden] { display: none; }
 .notation button { flex: 1 1 auto; height: 40px; padding: 0 8px; border: 0; border-radius: 20px; background: none; color: inherit; font: inherit; font-weight: 700; cursor: pointer; }
 .notation button[aria-pressed="true"] { background: var(--primary-container); color: var(--on-primary-container); }
 .transpose button { width: 40px; height: 40px; border: 0; border-radius: 20px; background: none; color: inherit; font: inherit; font-size: 18px; cursor: pointer; }
-.transpose button.reset { width: auto; min-width: 7ch; padding: 0 6px; font-size: inherit; font-variant-numeric: tabular-nums; }
+/* The offset and the key between − and + read from the left in every language, so that -3 keeps its minus in front. */
+.transpose button.reset { width: auto; min-width: 7ch; padding: 0 6px; font-size: inherit; font-variant-numeric: tabular-nums; direction: ltr; }
 @media (hover: hover) and (pointer: fine) { .transpose button:hover, :is(.notation, .slides-nav) button[aria-pressed="false"]:hover { background: color-mix(in srgb, var(--on-background) 8%, transparent); } }
 .transpose button:active, :is(.notation, .slides-nav) button[aria-pressed="false"]:active { background: color-mix(in srgb, var(--on-background) 12%, transparent); }
 @media (hover: none) { .transpose button:active, :is(.notation, .slides-nav) button[aria-pressed="false"]:active { background: color-mix(in srgb, var(--on-background) 18%, transparent); } }
@@ -339,7 +361,8 @@ section > .lead:has(+ .lead) { margin-bottom: 20px; }
 .platforms .github { fill: currentColor; }
 .platforms span { color: var(--muted); }
 .platforms strong { display: block; color: var(--on-background); font-size: 16px; }
-.platforms a::after { content: "↗"; content: "↗" / ""; margin-left: auto; color: var(--muted); font-size: 18px; }
+.platforms a::after { content: "↗"; content: "↗" / ""; margin-inline-start: auto; color: var(--muted); font-size: 18px; }
+[dir="rtl"] .platforms a::after { content: "↖"; content: "↖" / ""; }
 @media (hover: hover) and (pointer: fine) { .platforms a:hover { background: color-mix(in srgb, var(--primary) 8%, var(--container-low)); border-color: var(--outline); } }
 @media (hover: none) { .platforms a:active { background: color-mix(in srgb, var(--primary) 18%, var(--container-low)); border-color: var(--primary); transform: scale(0.98); } }
 
@@ -360,7 +383,7 @@ section > .lead:has(+ .lead) { margin-bottom: 20px; }
 .document summary + * { margin-top: 0; }
 .document summary { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 0; cursor: pointer; list-style: none; }
 .document summary::-webkit-details-marker { display: none; }
-.document summary::after { content: ""; flex: none; width: 8px; height: 8px; margin-right: 12px; border: solid var(--muted); border-width: 0 2px 2px 0; transform: translateY(-3px) rotate(45deg); transition: transform 0.2s; }
+.document summary::after { content: ""; flex: none; width: 8px; height: 8px; margin-inline-end: 12px; border: solid var(--muted); border-width: 0 2px 2px 0; transform: translateY(-3px) rotate(45deg); transition: transform 0.2s; }
 .document details[open] > summary::after { transform: translateY(2px) rotate(-135deg); }
 .document summary h4 { margin: 0; }
 .document summary:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; border-radius: 4px; }
@@ -380,7 +403,7 @@ section > .lead:has(+ .lead) { margin-bottom: 20px; }
 	.features { grid-template-columns: 1fr 1fr; gap: 28px 32px; }
 	.chordpro { grid-template-columns: 1fr; }
 	.conversion-arrow { height: 40px; }
-	.conversion-arrow svg { transform: rotate(90deg); }
+	.conversion-arrow svg, [dir="rtl"] .conversion-arrow svg { transform: rotate(90deg); }
 	.platforms { grid-template-columns: 1fr 1fr; }
 	.coffee { flex-direction: column; align-items: flex-start; padding: 28px; }
 	.coffee img { width: 120px; height: 120px; }
@@ -416,8 +439,8 @@ section > .lead:has(+ .lead) { margin-bottom: 20px; }
 	.highlights h2 { font-size: 16px; }
 	.highlights p { font-size: 15px; }
 	.features { grid-template-columns: 1fr; gap: 24px; }
-	.features svg { float: left; margin: 0; }
-	.features h3, .features p { margin-left: 44px; }
+	.features svg { float: inline-start; margin: 0; }
+	.features h3, .features p { margin-inline-start: 44px; }
 	.features p { font-size: 15px; }
 	.chordpro > div { padding: 16px; }
 	.sheet { font-size: 14px; }
@@ -429,6 +452,6 @@ section > .lead:has(+ .lead) { margin-bottom: 20px; }
 	.notation { font-size: 12px; }
 	.notation button { padding: 0 4px; }
 	/* The pills under a pair keep clear of its phone. */
-	.slides:has(> .pair) + .slides-nav { padding-right: 20%; }
-	.slides:has(> .pair.flip) + .slides-nav { padding-right: 0; padding-left: 20%; }
+	.slides:has(> .pair) + .slides-nav { padding-inline-end: 20%; }
+	.slides:has(> .pair.flip) + .slides-nav { padding-inline-end: 0; padding-inline-start: 20%; }
 }

@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script>
+		// The site is in the languages of the picker, each in a folder of its own, and the English pages, at the root,
+		// are also those of every other language. A visitor who lands on one of them is sent to the same page in the
+		// language they last picked in the picker, which is remembered, or else in the first of their browser's languages
+		// the site has. The picker is a <details>, closed by a click anywhere else or by Escape. A page in another language
+		// has the same elements in the same order, only with longer or shorter text, so a visitor who picks one is kept at
+		// the element at the top of the window, as far into it as they were, or at the bottom of the page if they were there.
+		(function (d, l) {
+			var languages = ["de", "en", "es", "fr", "he", "hu", "it", "ro"];
+			var picked = null;
+			var blocks = "h1, h2, h3, p, li, dt, dd, summary, figure, pre, img";
+			function top() { var header = d.querySelector(".site-header"); return header ? header.getBoundingClientRect().bottom : 0; }
+			try { picked = localStorage.getItem("language"); } catch (e) {}
+			d.addEventListener("click", function (event) {
+				var link = event.target.closest("a[hreflang]");
+				if (link) try {
+					localStorage.setItem("language", link.hreflang);
+					sessionStorage.removeItem("position");
+					var line = top();
+					var elements = d.querySelectorAll(blocks);
+					if (scrollY && scrollY + innerHeight >= d.documentElement.scrollHeight - 1) sessionStorage.setItem("position", JSON.stringify([link.pathname, -1, 0]));
+					else for (var index = 0; scrollY && index < elements.length; index++) {
+						var box = elements[index].getBoundingClientRect();
+						if (box.height && box.bottom > line && !elements[index].closest(".site-header")) {
+							sessionStorage.setItem("position", JSON.stringify([link.pathname, index, (line - box.top) / box.height]));
+							break;
+						}
+					}
+				} catch (e) {}
+				d.querySelectorAll("details.languages[open]").forEach(function (picker) { if (!picker.contains(event.target)) picker.open = false; });
+			});
+			d.addEventListener("keydown", function (event) {
+				if (event.key === "Escape") d.querySelectorAll("details.languages[open]").forEach(function (picker) { picker.open = false; picker.querySelector("summary").focus(); });
+			});
+			var position = null;
+			try { position = JSON.parse(sessionStorage.getItem("position")); sessionStorage.removeItem("position"); } catch (e) {}
+			if (position && position[0] === l.pathname && !l.hash) {
+				var scrolled = null;
+				var restore = function () {
+					if (scrolled !== null && scrolled !== scrollY) return;
+					if (position[1] < 0) {
+						scrollTo(0, d.documentElement.scrollHeight);
+						scrolled = scrollY;
+						return;
+					}
+					var element = d.querySelectorAll(blocks)[position[1]];
+					if (!element) return;
+					var box = element.getBoundingClientRect();
+					scrollBy(0, box.top + position[2] * box.height - top());
+					scrolled = scrollY;
+				};
+				d.addEventListener("DOMContentLoaded", restore);
+				addEventListener("load", restore);
+			}
+			if (d.documentElement.lang !== "en") return;
+			// Older browsers still name Hebrew by its retired code, iw.
+			var preferred = [picked].concat((navigator.languages || [navigator.language]).map(function (tag) { return String(tag).slice(0, 2).toLowerCase().replace("iw", "he"); }))
+				.filter(function (code) { return languages.indexOf(code) !== -1; })[0];
+			if (preferred && preferred !== "en") l.replace("/" + preferred + l.pathname + l.search + l.hash);
+		}(document, location));
+	</script>
+	<title>תמיכה – Campfire</title>
+	<meta name="description" content="תשובות לשאלות נפוצות על Campfire, ואיך ליצור קשר.">
+	<link rel="canonical" href="https://campfire-songbook.com/he/support/">
+	<link rel="alternate" hreflang="en" href="https://campfire-songbook.com/support/">
+	<link rel="alternate" hreflang="de" href="https://campfire-songbook.com/de/support/">
+	<link rel="alternate" hreflang="es" href="https://campfire-songbook.com/es/support/">
+	<link rel="alternate" hreflang="fr" href="https://campfire-songbook.com/fr/support/">
+	<link rel="alternate" hreflang="he" href="https://campfire-songbook.com/he/support/">
+	<link rel="alternate" hreflang="hu" href="https://campfire-songbook.com/hu/support/">
+	<link rel="alternate" hreflang="it" href="https://campfire-songbook.com/it/support/">
+	<link rel="alternate" hreflang="ro" href="https://campfire-songbook.com/ro/support/">
+	<link rel="alternate" hreflang="x-default" href="https://campfire-songbook.com/support/">
+	<meta name="theme-color" content="#FAF8FE" media="(prefers-color-scheme: light)">
+	<meta name="theme-color" content="#15121C" media="(prefers-color-scheme: dark)">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="Campfire">
+	<meta property="og:locale" content="he_IL">
+	<meta property="og:url" content="https://campfire-songbook.com/he/support/">
+	<meta property="og:title" content="תמיכה – Campfire">
+	<meta property="og:description" content="תשובות לשאלות נפוצות על Campfire, ואיך ליצור קשר.">
+	<meta property="og:image" content="https://campfire-songbook.com/assets/og-image.jpg?v=a61c2901">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:image:alt" content="Campfire על מחשב נייד ועל טלפון">
+	<meta name="twitter:card" content="summary_large_image">
+	<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "FAQPage",
+		"mainEntity": [
+			{
+				"@type": "Question",
+				"name": "האם Campfire חינמי?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "כן. אין בו פרסומות, מנוי, רכישות מתוך האפליקציה או הגבלה על מספר השירים, ואין חשבון להירשם אליו. הוא קוד פתוח ברישיון Mozilla Public License 2.0, עם קוד המקור ב־GitHub, ותרומות עוזרות לו להמשיך."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "על אילו פלטפורמות Campfire עובד?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Android, iOS, iPadOS, Windows, macOS ו־Linux, וגם כל דפדפן מודרני, בלי להתקין כלום. זו אותה אפליקציה בכולן, וספרייה שמסונכרנת דרך Dropbox נשארת זהה בכולן. גרסת הדפדפן מקבלת תכונות חדשות ראשונה, ולאחרות זה יכול לקחת כמה ימים. אזור ההורדות מקשר לכל הגרסאות."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "האם Campfire עובד אופליין?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "כן. השירים והסט־ליסטים שלכם שמורים במכשיר, כך שכל מה שאתם צריכים על הבמה עובד בלי חיבור, כולל המטרונום והטיונר. גם גרסת הדפדפן נפתחת אופליין, אחרי שנפתחה פעם אחת עם חיבור. חיבור נדרש רק לסנכרון Dropbox, לקישורי שיתוף ולחיפוש פרטי שירים ותמונות עטיפה."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "איך עוברים שוב על שאלות ההגדרה?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "בחרו הגדרת Campfire מחדש בראש הגדרות ← כללי כדי לבחור צעד אחר צעד את המראה, הכלי, כתיב האקורדים והתכונות."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "אפשר להסתיר חלקים של האפליקציה שלא משתמשים בהם?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "כן. הגדרות ← תכונות מפעיל ומכבה את האקורדים, את דיאגרמות האקורדים (ואיתן את הלשונית אקורדים), את המטרונום, את הטיונר, את הסט־ליסטים, את תמונות העטיפה ואת חיפוש פרטי השיר ברשת. כיבוי רק מסתיר: שום דבר לא נמחק, והכול חוזר כמו שהיה כשמפעילים שוב."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "איך מוסיפים שירים?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "יש ארבע דרכים: הדבקה: העתיקו את האקורדים והמילים של שיר מכל אתר, מבולגן ככל שיהיה, ובחרו הדבקה מהלוח בתפריט שיר חדש של רשימת השירים, או הקישו שם Ctrl+V (או Cmd+V ב־Mac). האפליקציה מסדרת את הטקסט לשיר ופותח אותו בעורך: בדקו את השם ואת האמן, ואז שמרו. שיתוף: ב־Android, iOS ו־iPadOS, שתפו ל־Campfire את הטקסט של דף אקורדים, או קובץ, מאפליקציה אחרת. כתובת אתר ששותפה לא נפתחת, אז שתפו במקום זאת את הטקסט של הדף. ייבוא: בחרו ייבוא שירים, מסמכים או ארכיוני zip… בלשונית ספרייה בהגדרות, או גררו קבצים אל האפליקציה. Campfire קורא קובצי ChordPro (.cho, .chopro, .chordpro, .crd, .chord ו־.pro), קובצי .txt רגילים, מסמכי PDF ו־Word .docx, ארכיוני zip שמכילים אותם, וגיבויים שיוצאו מאפליקציות שירון אחרות. לפני שמשהו נכתב, תראו מה יש בייבוא, תוכלו להשאיר קבצים בחוץ, ותבחרו אם שיר ששמו כבר תפוס יקבל מספר או יחליף את שלכם. כתיבה: צרו שיר בעורך המובנה של האפליקציה."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "אפשר להעביר את הספרייה שלי מאפליקציית שירון אחרת?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "כן. Campfire מייבא את הגיבויים וקובצי השירים של אפליקציות שירון אחרות, כמו גיבויי .sbpbackup, סטים של .sbp, קובצי .onsong ושירים מייצואי JSON, וגם מנגינות ABC וקובצי ChordPro מכל אפליקציה. שימו הרבה קבצים בארכיון zip כדי להעביר אותם בבת אחת. כל שיר הופך לקובץ ChordPro, וסטים הופכים לסט־ליסטים."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "אפשר לייבא דף אקורדים מ־PDF או מ־Word?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "כן. ייבאו קובץ .pdf או .docx דרך בוחר הקבצים, בגרירה או בארכיון zip; ב־Android, iOS ו־iPadOS אפשר גם לשתף אותו ל־Campfire. קובצי טקסט רגילים, וטקסט שאתם מדביקים או משתפים, עוברים את אותה המרה. Campfire מחלץ את הטקסט ועושה כמיטב יכולתו כדי למקם את האקורדים מעל המילים ולזהות קטעים, שם והוראות נגינה. הכול קורה במכשיר שלכם, בלי שירות חיצוני ובלי מודל AI. המסמך המקורי לא נשמר. התוצאה היא שיר רגיל בספרייה שלכם, והודעת הייבוא מציינת כמה שירים הומרו. כדאי לבדוק אותם בעורך, במיוחד כשהפריסה המקורית חריגה. מסמך עם כמה שירים שיש להם כותרות ברורות עשוי להתפצל לכמה שירים. דפים סרוקים, קובצי PDF מוגנים וקובצי .doc ישנים לא ניתנים לקריאה: השתמשו ב־PDF עם טקסט שאפשר לסמן, או שמרו את קובץ ה־Word כ־.docx. קובצי ה־PDF ש־Campfire משתף הם תמונות להדפסה, אז כדי להעביר שירים בין ספריות, שתפו אותם כקובצי ChordPro או zip."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "מחקתי את שירי ההדגמה ורוצה אותם בחזרה.",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "בחרו הוספת ספריית ההדגמה בלשונית ספרייה בהגדרות."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "איך משנים הרבה שירים בבת אחת?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "פתחו את התפריט של אחד מהם (הקישו על שלוש הנקודות שלו, לחצו עליו לחיצה ארוכה, או לחצו עליו בלחצן הימני במחשב) ובחרו בחירה מרובה. סמנו את האחרים, או השתמשו בבחירת הכול על מה שהחיפוש והמסננים מציגים, ואז תייגו אותם, הוסיפו אותם לסט־ליסטים, הגדירו את השפה שלהם או שתפו אותם יחד. בחרו סיום כשתסיימו. שירים אף פעם לא נמחקים בבת אחת."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "איך ממלאים את האלבום, השנה או הכותבים של שיר?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "בחרו עריכת פרטי השיר בתפריט של השיר, ואז חיפוש פרטי השיר ברשת. Campfire מחפש ב־MusicBrainz וב־iTunes הקלטות שתואמות לשם ולאמן, ומילוי מעתיק לטופס את זו שבחרתם; שום דבר לא משתנה עד שתשמרו. אם אתם מעדיפים שזה לא יוצע לכם, כבו את פרטי שיר מהרשת בהגדרות ← תכונות."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "איך שולחים סט־ליסט ללהקה?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "שתפו אותו כקישור. בחרו שיתוף הסט־ליסט בתפריט של הסט־ליסט, בחרו קישור ואז יצירת קישור, ושלחו את הקישור או הציגו את קוד ה־QR שלו. כל אחד יכול לפתוח אותו: אם Campfire מותקן, הקישור פותח את הייבוא, שמציג את הסט־ליסט ואת השירים שלו לפני שמשהו נוסף; בלי Campfire, הדף של הקישור עוזר להתקין אותו במכשיר, או פותח את הסט־ליסט בגרסת הדפדפן. שיר בודד משותף באותה דרך, עם שיתוף השיר. הקישורים נוצרים מה־Dropbox שלכם, ולכן הראשון מבקש לחבר אותו, מה שגם מסנכרן את הספרייה. קישור תמיד מביא את הגרסה האחרונה: כשאתם משנים את הסט־ליסט או את השירים שלו, חברי הלהקה פותחים שוב את אותו קישור כדי לעדכן את העותקים שלהם. הגדרות ← שיתוף מציג את כל מה שאתם משתפים, והפסקת השיתוף משביתה קישור."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "האם Campfire עובד עם דוושת דפדוף?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "כן. צמדו את הדוושה לטלפון, לטאבלט או למחשב: גם דוושות ששולחות את מקשי החיצים וגם דוושות ששולחות Page Up ו־Page Down עובדות. למעלה ולמטה מתקדמים בשיר, ובסט־ליסט ימינה ושמאלה עוברים בין השיר הקודם לשיר הבא. מקלדת עושה אותו דבר."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "לאילו כלים יש דיאגרמות אקורדים?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "גיטרה, יוקלילי, מנדולינה, בנג׳ו וקלידים, בכיוון סטנדרטי ובכיוונים האחרים שהאפליקציה מציעה לכל אחד מהם, כמו Drop D או Open G בגיטרה. בחרו את הכלי ואת הכיוון בראש כל שיר או בלשונית אקורדים: זו בחירה אחת לכל האפליקציה, וגם הטיונר משתמש בה. לגיטרות בנות שבעה ושמונה מיתרים, לבסים ולכינור יש טיונר, אבל אין דיאגרמות אקורדים. כדי לנגן אקורד בדרך אחרת, הקישו עליו בשיר או בלשונית אקורדים ובחרו צורה אחרת. הצורה שתבחרו משמשת בכל השירים, אלא אם שיר מגדיר צורה משלו."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "למה טאב נראה שונה מזה שייבאתי?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "טאבים מועברים לכלי ולכיוון שלכם, אוקטבה למעלה או למטה כשתו היה יוצא מהצוואר, ושורה מתחת לטאב מסבירה מה נעשה. שיר עם טאבים לכמה כלים מציג רק את זה של הכלי שלכם. כשנבחרו קלידים או כינור, הטאבים מוסתרים; עם אחר, הם מוצגים כפי שנכתבו. קובץ השיר אף פעם לא משתנה."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "איך משתמשים בטיונר?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "פתחו את הטיונר (מאחורי כלים כשאין מקום לכל הלשוניות) ובחרו את הכלי ואת הכיוון שלו. כשפותחים אותו בהקשה, בפעם הראשונה הוא מבקש להשתמש במיקרופון; אחרת הקישו שימוש במיקרופון. נגנו מיתר אחד בכל פעם: התו שאתם מנגנים מוצג עם מספר הסנטים שבהם הוא נמוך או גבוה מדי, וכל מיתר מסומן ברגע שהוא מכוון. אפשר גם להקיש על מיתר כדי לשמוע את התו שלו. הטיונר הוא גם כפתור ליד הכלי והכיוון בראש כל שיר, כך שאפשר לכוון בלי לצאת ממנו. זה כלי אחד לכל האפליקציה, ולכן דיאגרמות האקורדים עוקבות אחרי אותה בחירה. את צליל הייחוס אפשר לקבוע בלשונית בין 415 ל־466 הרץ, אם הלהקה שלכם לא מכוונת ל־A = 440 הרץ."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "הטיונר לא שומע אותי.",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Campfire צריך את ההרשאה שלכם כדי להשתמש במיקרופון. אם סירבתם, הקישו פתיחת ההגדרות או בקשה חוזרת בטיונר ואשרו; בדפדפן, אשרו את המיקרופון בהגדרות האתר שליד הכתובת. אם המיקרופון תפוס בשיחה או באפליקציה אחרת, סיימו אותה קודם. אם הטיונר אומר שלא נשמע כלום, בדקו שהמיקרופון לא מושתק, ובמחשב, שנבחר הקלט הנכון בהגדרות הקול של המערכת. ב־Windows, שיפורי השמע (Audio enhancements) עלולים להסיר צליל מתמשך כרעש: הקישו פתיחת הגדרות הקול בטיונר וכבו אותם עבור המיקרופון. אפשר לנגן את צלילי הייחוס גם בלי מיקרופון."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "האם הטיונר מקליט אותי?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "לא. הצליל מנותח במכשיר שלכם ברגע שהוא מגיע ואז נזרק: שום דבר לא מוקלט, נשמר או נשלח לשום מקום. המיקרופון פועל רק כשהטיונר על המסך והאפליקציה בחזית, כך שמחוון ההקלטה של המערכת דולק בדיוק אז. אם אתם אף פעם לא משתמשים בו, כבו את טיונר בהגדרות ← תכונות, ו־Campfire לא יבקש את המיקרופון בכלל."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "איפה השירים שלי שמורים?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "במכשיר שלכם, באחסון של האפליקציה עצמה. ל־Campfire אין חשבון ואין שרת: השירים שלכם לא יוצאים מהמכשיר אלא אם תשתפו או תייצאו אותם, או תפעילו סנכרון."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "איך מגבים את הספרייה או מעבירים אותה למכשיר אחר?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "יש שתי דרכים: ייצוא: בחרו ייצוא הספרייה כ־zip בהגדרות ושמרו את הארכיון איפה שתרצו. ייבאו את הארכיון במכשיר האחר, או שמרו אותו כגיבוי. שירים וסט־ליסטים בודדים משותפים במקום זאת מהתפריטים שלהם. סנכרון: חברו את חשבון ה־Dropbox שלכם בהגדרות, ו־Campfire ישמור על הספרייה זהה בכל מכשיר שמחובר אליו, בזמן אמת: שינוי שנעשה באחד מופיע תוך שניות באחרים שבהם Campfire פתוח. הסנכרון כבוי עד שתפעילו אותו."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "איך הסנכרון עובד, ומה Campfire רואה ב־Dropbox שלי?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "ל־Campfire יש גישה רק לתיקייה שלו, Apps/Campfire Sync, ולשום דבר אחר ב־Dropbox שלכם. הקבצים עוברים ישירות בין המכשיר שלכם ל־Dropbox. בחירה בניתוק בהגדרות עוצרת את הסנכרון בלי למחוק שום דבר, לא במכשיר ולא ב־Dropbox. הפרטים נמצאים במדיניות הפרטיות."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "סנכרון שואל אם למחוק קבצים. מה לעשות?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Campfire שואל לפני שהוא מבצע סנכרון שימחק הרבה מהקבצים שלכם בבת אחת, כי בדרך כלל זה אומר שתיקייה הועברה או רוקנה בטעות. אם לא התכוונתם למחוק אותם, בחרו באפשרות ששומרת אותם, והם יועתקו בחזרה."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "איך מוחקים את הנתונים שלי?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "כדי למחוק את כל הספרייה, פתחו את ההגדרות, עברו ללשונית ספרייה, ותחת במכשיר הזה הקישו על השורה שמציגה כמה שירים וסט־ליסטים יש לכם, ואז הקלידו DELETE ואשרו. אם סנכרון Dropbox מחובר, זה מוחק את השירים והסט־ליסטים גם מהתיקייה Apps/Campfire Sync ומכל מכשיר אחר שמסונכרן איתה, אז אם אתם רוצים לנקות רק את המכשיר הזה, בחרו קודם ניתוק. הקשה על מטמון תמונות העטיפה באותו מסך מוחקת את תמונות העטיפה שנשמרו במכשיר. הסרת האפליקציה מוחקת הכול מהמכשיר. אם השתמשתם בסנכרון בלי למחוק קודם את הספרייה, מחקו גם את התיקייה Apps/Campfire Sync ב־Dropbox שלכם. אין אצלי עותק של הנתונים שלכם, כך שאין לי מה למחוק."
+				}
+			}
+		]
+	}
+	</script>
+	<link rel="icon" href="../../assets/icon.svg?v=8ba29e56" type="image/svg+xml">
+	<link rel="apple-touch-icon" href="../../assets/icon-192.png?v=0f2be8ac">
+	<link rel="stylesheet" href="../../assets/site.css?v=2b1bea56">
+	<script>
+		// Every visitor is offered two versions: a phone or a tablet the app from its store first and the web app second,
+		// a computer the other way around. The script names the system: the stylesheet shows the elements marked
+		// for-mobile instead of for-desktop on a phone or a tablet, every link marked data-native goes to the system's own
+		// version, and one marked data-native-label is also named after it. iPadOS presents itself as a Mac, so an iPad is
+		// told apart by its touch screen. Without a match, the links lead to the list of every platform.
+		(function (d) {
+			var agent = navigator.userAgent;
+			var os = /Android/.test(agent) ? "android" : /iPhone|iPad|iPod/.test(agent) || (/Macintosh/.test(agent) && navigator.maxTouchPoints > 1) ? "ios" : /Windows/.test(agent) ? "windows" : /Macintosh/.test(agent) ? "macos" : /Linux/.test(agent) ? "linux" : "";
+			var native = {
+				android: ["https://play.google.com/store/apps/details?id=com.pandulapeter.campfire", "זמין ב־Google Play"],
+				ios: ["https://apps.apple.com/app/id6815160850", "להורדה מה־App Store"],
+				windows: ["https://apps.microsoft.com/detail/9MSR62F288M1", "הורדה ל־Windows"],
+				macos: ["https://apps.apple.com/app/id6815160850", "הורדה ל־macOS"],
+				linux: ["https://github.com/pandulapeter/campfire/releases/latest", "הורדה ל־Linux"]
+			}[os];
+			if (!native) return;
+			d.documentElement.dataset.os = os;
+			if (os === "android" || os === "ios") d.documentElement.dataset.mobile = "";
+			d.addEventListener("DOMContentLoaded", function () {
+				d.querySelectorAll("[data-native]").forEach(function (link) {
+					link.href = native[0];
+					link.target = "_blank";
+					link.rel = "noopener";
+					if (link.hasAttribute("data-native-label")) link.textContent = native[1];
+				});
+			});
+		}(document));
+	</script>
+</head>
+<body>
+<a class="skip" href="#main">דילוג לתוכן</a>
+<header class="site-header">
+	<div class="wrap">
+		<a class="brand" translate="no" href="../"><img src="../../assets/icon.svg?v=8ba29e56" alt="">Campfire</a>
+		<nav aria-label="ראשי">
+			<a class="optional" href="../#download">הורדה</a>
+			<a class="optional" href="./" aria-current="page">תמיכה</a>
+			<a class="optional" href="../privacy/">פרטיות</a>
+			<details class="languages" translate="no">
+				<summary aria-label="שפה: עברית"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.8 3.9 6 3.9 9.5s-1.3 6.7-3.9 9.5c-2.6-2.8-3.9-6-3.9-9.5s1.3-6.7 3.9-9.5Z"/></svg><span>HE</span></summary>
+				<ul>
+					<li><a href="../../support/" hreflang="en" lang="en">English</a></li>
+					<li><a href="../../de/support/" hreflang="de" lang="de">Deutsch</a></li>
+					<li><a href="../../es/support/" hreflang="es" lang="es">Español</a></li>
+					<li><a href="../../fr/support/" hreflang="fr" lang="fr">Français</a></li>
+					<li><a href="./" hreflang="he" lang="he" aria-current="true">עברית</a></li>
+					<li><a href="../../hu/support/" hreflang="hu" lang="hu">Magyar</a></li>
+					<li><a href="../../it/support/" hreflang="it" lang="it">Italiano</a></li>
+					<li><a href="../../ro/support/" hreflang="ro" lang="ro">Română</a></li>
+				</ul>
+			</details>
+			<a class="button small for-desktop" href="../../app/" target="_blank" rel="noopener">פתיחה בדפדפן</a>
+			<a class="button small for-mobile" href="../#download" data-native>הורדת האפליקציה</a>
+		</nav>
+	</div>
+</header>
+<div class="wrap">
+
+	<main class="document" id="main">
+		<h1>תמיכה</h1>
+		<p>Campfire הוא אפליקציה חינמית לצפייה ולעריכה של מילים ואקורדים של שירים, שזמינה ל־Android, iOS, iPadOS, macOS, Windows, Linux ובדפדפן. בדף הזה יש תשובות לשאלות הנפוצות ביותר, ודרך להשיג אותי אם השאלה שלכם לא ביניהן.</p>
+		<div class="contact">
+		<h2>צרו קשר</h2>
+		<p>אם יש לכם שאלה, מצאתם בעיה או יש לכם רעיון לאפליקציה, <a href="mailto:pandulapeter@gmail.com?Subject=Campfire%20support" target="_top">שלחו לי מייל לכתובת pandulapeter@gmail.com</a>. ציינו בבקשה את המכשיר ואת גרסת Campfire שבה אתם משתמשים (היא מופיעה בלשונית “אודות” בהגדרות האפליקציה). אקרא כל הודעה, ובדרך כלל אענה תוך כמה ימים.</p>
+		<p>אם יש לכם חשבון GitHub, אפשר גם <a href="https://github.com/pandulapeter/campfire/issues" target="_blank" rel="noopener">לדווח על בעיה ב־GitHub</a>, שם נמצא גם קוד המקור של האפליקציה.</p>
+		</div>
+		<h2 id="faq">שאלות נפוצות</h2>
+		<h3 class="topic">צעדים ראשונים</h3>
+		<details>
+			<summary><h4>האם Campfire חינמי?</h4></summary>
+			<p>כן. אין בו פרסומות, מנוי, רכישות מתוך האפליקציה או הגבלה על מספר השירים, ואין חשבון להירשם אליו. הוא קוד פתוח ברישיון <a href="https://mozilla.org/MPL/2.0/" target="_blank" rel="noopener">Mozilla Public License 2.0</a>, עם <a href="https://github.com/pandulapeter/campfire" target="_blank" rel="noopener">קוד המקור ב־GitHub</a>, ותרומות עוזרות לו להמשיך.</p>
+		</details>
+		<details>
+			<summary><h4>על אילו פלטפורמות Campfire עובד?</h4></summary>
+			<p>Android, iOS, iPadOS, Windows, macOS ו־Linux, וגם כל דפדפן מודרני, בלי להתקין כלום. זו אותה אפליקציה בכולן, וספרייה שמסונכרנת דרך Dropbox נשארת זהה בכולן. גרסת הדפדפן מקבלת תכונות חדשות ראשונה, ולאחרות זה יכול לקחת כמה ימים. <a href="../#download">אזור ההורדות</a> מקשר לכל הגרסאות.</p>
+		</details>
+		<details>
+			<summary><h4>האם Campfire עובד אופליין?</h4></summary>
+			<p>כן. השירים והסט־ליסטים שלכם שמורים במכשיר, כך שכל מה שאתם צריכים על הבמה עובד בלי חיבור, כולל המטרונום והטיונר. גם גרסת הדפדפן נפתחת אופליין, אחרי שנפתחה פעם אחת עם חיבור. חיבור נדרש רק לסנכרון Dropbox, לקישורי שיתוף ולחיפוש פרטי שירים ותמונות עטיפה.</p>
+		</details>
+		<details>
+			<summary><h4>איך עוברים שוב על שאלות ההגדרה?</h4></summary>
+			<p>בחרו <em>הגדרת Campfire מחדש</em> בראש <em>הגדרות ← כללי</em> כדי לבחור צעד אחר צעד את המראה, הכלי, כתיב האקורדים והתכונות.</p>
+		</details>
+		<details>
+			<summary><h4>אפשר להסתיר חלקים של האפליקציה שלא משתמשים בהם?</h4></summary>
+			<p>כן. <em>הגדרות ← תכונות</em> מפעיל ומכבה את האקורדים, את דיאגרמות האקורדים (ואיתן את הלשונית <em>אקורדים</em>), את המטרונום, את הטיונר, את הסט־ליסטים, את תמונות העטיפה ואת חיפוש פרטי השיר ברשת. כיבוי רק מסתיר: שום דבר לא נמחק, והכול חוזר כמו שהיה כשמפעילים שוב.</p>
+		</details>
+		<h3 class="topic">הוספת שירים</h3>
+		<details>
+			<summary><h4>איך מוסיפים שירים?</h4></summary>
+			<p>יש ארבע דרכים:</p>
+			<ul>
+				<li><strong>הדבקה:</strong> העתיקו את האקורדים והמילים של שיר מכל אתר, מבולגן ככל שיהיה, ובחרו <em>הדבקה מהלוח</em> בתפריט <em>שיר חדש</em> של רשימת השירים, או הקישו שם Ctrl+V (או Cmd+V ב־Mac). האפליקציה מסדרת את הטקסט לשיר ופותח אותו בעורך: בדקו את השם ואת האמן, ואז שמרו.</li>
+				<li><strong>שיתוף:</strong> ב־Android, iOS ו־iPadOS, שתפו ל־Campfire את הטקסט של דף אקורדים, או קובץ, מאפליקציה אחרת. כתובת אתר ששותפה לא נפתחת, אז שתפו במקום זאת את הטקסט של הדף.</li>
+				<li><strong>ייבוא:</strong> בחרו <em>ייבוא שירים, מסמכים או ארכיוני zip…</em> בלשונית <em>ספרייה</em> בהגדרות, או גררו קבצים אל האפליקציה. Campfire קורא קובצי <a href="https://www.chordpro.org" target="_blank" rel="noopener">ChordPro</a> (<em>.cho</em>, <em>.chopro</em>, <em>.chordpro</em>, <em>.crd</em>, <em>.chord</em> ו־<em>.pro</em>), קובצי <em>.txt</em> רגילים, מסמכי PDF ו־Word <em>.docx</em>, ארכיוני zip שמכילים אותם, וגיבויים שיוצאו מאפליקציות שירון אחרות. לפני שמשהו נכתב, תראו מה יש בייבוא, תוכלו להשאיר קבצים בחוץ, ותבחרו אם שיר ששמו כבר תפוס יקבל מספר או יחליף את שלכם.</li>
+				<li><strong>כתיבה:</strong> צרו שיר בעורך המובנה של האפליקציה.</li>
+			</ul>
+		</details>
+		<details>
+			<summary><h4>אפשר להעביר את הספרייה שלי מאפליקציית שירון אחרת?</h4></summary>
+			<p>כן. Campfire מייבא את הגיבויים וקובצי השירים של אפליקציות שירון אחרות, כמו גיבויי <em>.sbpbackup</em>, סטים של <em>.sbp</em>, קובצי <em>.onsong</em> ושירים מייצואי JSON, וגם מנגינות ABC וקובצי ChordPro מכל אפליקציה. שימו הרבה קבצים בארכיון zip כדי להעביר אותם בבת אחת. כל שיר הופך לקובץ ChordPro, וסטים הופכים לסט־ליסטים.</p>
+		</details>
+		<details>
+			<summary><h4>אפשר לייבא דף אקורדים מ־PDF או מ־Word?</h4></summary>
+			<p>כן. ייבאו קובץ <em>.pdf</em> או <em>.docx</em> דרך בוחר הקבצים, בגרירה או בארכיון zip; ב־Android, iOS ו־iPadOS אפשר גם לשתף אותו ל־Campfire. קובצי טקסט רגילים, וטקסט שאתם מדביקים או משתפים, עוברים את אותה המרה. Campfire מחלץ את הטקסט ועושה כמיטב יכולתו כדי למקם את האקורדים מעל המילים ולזהות קטעים, שם והוראות נגינה. הכול קורה במכשיר שלכם, בלי שירות חיצוני ובלי מודל AI. המסמך המקורי לא נשמר.</p>
+			<p>התוצאה היא שיר רגיל בספרייה שלכם, והודעת הייבוא מציינת כמה שירים הומרו. כדאי לבדוק אותם בעורך, במיוחד כשהפריסה המקורית חריגה. מסמך עם כמה שירים שיש להם כותרות ברורות עשוי להתפצל לכמה שירים. דפים סרוקים, קובצי PDF מוגנים וקובצי <em>.doc</em> ישנים לא ניתנים לקריאה: השתמשו ב־PDF עם טקסט שאפשר לסמן, או שמרו את קובץ ה־Word כ־<em>.docx</em>. קובצי ה־PDF ש־Campfire משתף הם תמונות להדפסה, אז כדי להעביר שירים בין ספריות, שתפו אותם כקובצי ChordPro או zip.</p>
+		</details>
+		<details>
+			<summary><h4>מחקתי את שירי ההדגמה ורוצה אותם בחזרה.</h4></summary>
+			<p>בחרו <em>הוספת ספריית ההדגמה</em> בלשונית <em>ספרייה</em> בהגדרות.</p>
+		</details>
+		<h3 class="topic">ניהול שירים וסט־ליסטים</h3>
+		<details>
+			<summary><h4>איך משנים הרבה שירים בבת אחת?</h4></summary>
+			<p>פתחו את התפריט של אחד מהם (הקישו על שלוש הנקודות שלו, לחצו עליו לחיצה ארוכה, או לחצו עליו בלחצן הימני במחשב) ובחרו <em>בחירה מרובה</em>. סמנו את האחרים, או השתמשו ב<em>בחירת הכול</em> על מה שהחיפוש והמסננים מציגים, ואז תייגו אותם, הוסיפו אותם לסט־ליסטים, הגדירו את השפה שלהם או שתפו אותם יחד. בחרו <em>סיום</em> כשתסיימו. שירים אף פעם לא נמחקים בבת אחת.</p>
+		</details>
+		<details>
+			<summary><h4>איך ממלאים את האלבום, השנה או הכותבים של שיר?</h4></summary>
+			<p>בחרו <em>עריכת פרטי השיר</em> בתפריט של השיר, ואז <em>חיפוש פרטי השיר ברשת</em>. Campfire מחפש ב־MusicBrainz וב־iTunes הקלטות שתואמות לשם ולאמן, ו<em>מילוי</em> מעתיק לטופס את זו שבחרתם; שום דבר לא משתנה עד שתשמרו. אם אתם מעדיפים שזה לא יוצע לכם, כבו את <em>פרטי שיר מהרשת</em> ב<em>הגדרות ← תכונות</em>.</p>
+		</details>
+		<details>
+			<summary><h4>איך שולחים סט־ליסט ללהקה?</h4></summary>
+			<p>שתפו אותו כקישור. בחרו <em>שיתוף הסט־ליסט</em> בתפריט של הסט־ליסט, בחרו <em>קישור</em> ואז <em>יצירת קישור</em>, ושלחו את הקישור או הציגו את קוד ה־QR שלו. כל אחד יכול לפתוח אותו: אם Campfire מותקן, הקישור פותח את הייבוא, שמציג את הסט־ליסט ואת השירים שלו לפני שמשהו נוסף; בלי Campfire, הדף של הקישור עוזר להתקין אותו במכשיר, או פותח את הסט־ליסט בגרסת הדפדפן. שיר בודד משותף באותה דרך, עם <em>שיתוף השיר</em>.</p>
+			<p>הקישורים נוצרים מה־Dropbox שלכם, ולכן הראשון מבקש לחבר אותו, מה שגם מסנכרן את הספרייה. קישור תמיד מביא את הגרסה האחרונה: כשאתם משנים את הסט־ליסט או את השירים שלו, חברי הלהקה פותחים שוב את אותו קישור כדי לעדכן את העותקים שלהם. <em>הגדרות ← שיתוף</em> מציג את כל מה שאתם משתפים, ו<em>הפסקת השיתוף</em> משביתה קישור.</p>
+		</details>
+		<h3 class="topic">נגינה</h3>
+		<details>
+			<summary><h4>האם Campfire עובד עם דוושת דפדוף?</h4></summary>
+			<p>כן. צמדו את הדוושה לטלפון, לטאבלט או למחשב: גם דוושות ששולחות את מקשי החיצים וגם דוושות ששולחות Page Up ו־Page Down עובדות. למעלה ולמטה מתקדמים בשיר, ובסט־ליסט ימינה ושמאלה עוברים בין השיר הקודם לשיר הבא. מקלדת עושה אותו דבר.</p>
+		</details>
+		<details>
+			<summary><h4>לאילו כלים יש דיאגרמות אקורדים?</h4></summary>
+			<p>גיטרה, יוקלילי, מנדולינה, בנג׳ו וקלידים, בכיוון סטנדרטי ובכיוונים האחרים שהאפליקציה מציעה לכל אחד מהם, כמו Drop D או Open G בגיטרה. בחרו את הכלי ואת הכיוון בראש כל שיר או בלשונית <em>אקורדים</em>: זו בחירה אחת לכל האפליקציה, וגם הטיונר משתמש בה. לגיטרות בנות שבעה ושמונה מיתרים, לבסים ולכינור יש טיונר, אבל אין דיאגרמות אקורדים.</p>
+			<p>כדי לנגן אקורד בדרך אחרת, הקישו עליו בשיר או בלשונית <em>אקורדים</em> ובחרו צורה אחרת. הצורה שתבחרו משמשת בכל השירים, אלא אם שיר מגדיר צורה משלו.</p>
+		</details>
+		<details>
+			<summary><h4>למה טאב נראה שונה מזה שייבאתי?</h4></summary>
+			<p>טאבים מועברים לכלי ולכיוון שלכם, אוקטבה למעלה או למטה כשתו היה יוצא מהצוואר, ושורה מתחת לטאב מסבירה מה נעשה. שיר עם טאבים לכמה כלים מציג רק את זה של הכלי שלכם. כשנבחרו קלידים או כינור, הטאבים מוסתרים; עם <em>אחר</em>, הם מוצגים כפי שנכתבו. קובץ השיר אף פעם לא משתנה.</p>
+		</details>
+		<h3 class="topic">טיונר</h3>
+		<details>
+			<summary><h4>איך משתמשים בטיונר?</h4></summary>
+			<p>פתחו את ה<em>טיונר</em> (מאחורי <em>כלים</em> כשאין מקום לכל הלשוניות) ובחרו את הכלי ואת הכיוון שלו. כשפותחים אותו בהקשה, בפעם הראשונה הוא מבקש להשתמש במיקרופון; אחרת הקישו <em>שימוש במיקרופון</em>. נגנו מיתר אחד בכל פעם: התו שאתם מנגנים מוצג עם מספר הסנטים שבהם הוא נמוך או גבוה מדי, וכל מיתר מסומן ברגע שהוא מכוון. אפשר גם להקיש על מיתר כדי לשמוע את התו שלו. הטיונר הוא גם כפתור ליד הכלי והכיוון בראש כל שיר, כך שאפשר לכוון בלי לצאת ממנו. זה כלי אחד לכל האפליקציה, ולכן דיאגרמות האקורדים עוקבות אחרי אותה בחירה.</p>
+			<p>את צליל הייחוס אפשר לקבוע בלשונית בין 415 ל־466 הרץ, אם הלהקה שלכם לא מכוונת ל־A = 440 הרץ.</p>
+		</details>
+		<details>
+			<summary><h4>הטיונר לא שומע אותי.</h4></summary>
+			<p>Campfire צריך את ההרשאה שלכם כדי להשתמש במיקרופון. אם סירבתם, הקישו <em>פתיחת ההגדרות</em> או <em>בקשה חוזרת</em> בטיונר ואשרו; בדפדפן, אשרו את המיקרופון בהגדרות האתר שליד הכתובת. אם המיקרופון תפוס בשיחה או באפליקציה אחרת, סיימו אותה קודם. אם הטיונר אומר שלא נשמע כלום, בדקו שהמיקרופון לא מושתק, ובמחשב, שנבחר הקלט הנכון בהגדרות הקול של המערכת. ב־Windows, שיפורי השמע (Audio enhancements) עלולים להסיר צליל מתמשך כרעש: הקישו <em>פתיחת הגדרות הקול</em> בטיונר וכבו אותם עבור המיקרופון. אפשר לנגן את צלילי הייחוס גם בלי מיקרופון.</p>
+		</details>
+		<details>
+			<summary><h4>האם הטיונר מקליט אותי?</h4></summary>
+			<p>לא. הצליל מנותח במכשיר שלכם ברגע שהוא מגיע ואז נזרק: שום דבר לא מוקלט, נשמר או נשלח לשום מקום. המיקרופון פועל רק כשהטיונר על המסך והאפליקציה בחזית, כך שמחוון ההקלטה של המערכת דולק בדיוק אז. אם אתם אף פעם לא משתמשים בו, כבו את <em>טיונר</em> ב<em>הגדרות ← תכונות</em>, ו־Campfire לא יבקש את המיקרופון בכלל.</p>
+		</details>
+		<h3 class="topic">אחסון, סנכרון וגיבוי</h3>
+		<details>
+			<summary><h4>איפה השירים שלי שמורים?</h4></summary>
+			<p>במכשיר שלכם, באחסון של האפליקציה עצמה. ל־Campfire אין חשבון ואין שרת: השירים שלכם לא יוצאים מהמכשיר אלא אם תשתפו או תייצאו אותם, או תפעילו סנכרון.</p>
+		</details>
+		<details>
+			<summary><h4>איך מגבים את הספרייה או מעבירים אותה למכשיר אחר?</h4></summary>
+			<p>יש שתי דרכים:</p>
+			<ul>
+				<li><strong>ייצוא:</strong> בחרו <em>ייצוא הספרייה כ־zip</em> בהגדרות ושמרו את הארכיון איפה שתרצו. ייבאו את הארכיון במכשיר האחר, או שמרו אותו כגיבוי. שירים וסט־ליסטים בודדים משותפים במקום זאת מהתפריטים שלהם.</li>
+				<li><strong>סנכרון:</strong> חברו את חשבון ה־Dropbox שלכם בהגדרות, ו־Campfire ישמור על הספרייה זהה בכל מכשיר שמחובר אליו, בזמן אמת: שינוי שנעשה באחד מופיע תוך שניות באחרים שבהם Campfire פתוח. הסנכרון כבוי עד שתפעילו אותו.</li>
+			</ul>
+		</details>
+		<details>
+			<summary><h4>איך הסנכרון עובד, ומה Campfire רואה ב־Dropbox שלי?</h4></summary>
+			<p>ל־Campfire יש גישה רק לתיקייה שלו, <em>Apps/Campfire Sync</em>, ולשום דבר אחר ב־Dropbox שלכם. הקבצים עוברים ישירות בין המכשיר שלכם ל־Dropbox. בחירה ב<em>ניתוק</em> בהגדרות עוצרת את הסנכרון בלי למחוק שום דבר, לא במכשיר ולא ב־Dropbox. הפרטים נמצאים ב<a href="../privacy/">מדיניות הפרטיות</a>.</p>
+		</details>
+		<details>
+			<summary><h4>סנכרון שואל אם למחוק קבצים. מה לעשות?</h4></summary>
+			<p>Campfire שואל לפני שהוא מבצע סנכרון שימחק הרבה מהקבצים שלכם בבת אחת, כי בדרך כלל זה אומר שתיקייה הועברה או רוקנה בטעות. אם לא התכוונתם למחוק אותם, בחרו באפשרות ששומרת אותם, והם יועתקו בחזרה.</p>
+		</details>
+		<details>
+			<summary><h4>איך מוחקים את הנתונים שלי?</h4></summary>
+			<p>כדי למחוק את כל הספרייה, פתחו את ההגדרות, עברו ללשונית <em>ספרייה</em>, ותחת <em>במכשיר הזה</em> הקישו על השורה שמציגה כמה שירים וסט־ליסטים יש לכם, ואז הקלידו <em>DELETE</em> ואשרו. אם סנכרון Dropbox מחובר, זה מוחק את השירים והסט־ליסטים גם מהתיקייה <em>Apps/Campfire Sync</em> ומכל מכשיר אחר שמסונכרן איתה, אז אם אתם רוצים לנקות רק את המכשיר הזה, בחרו קודם <em>ניתוק</em>. הקשה על <em>מטמון תמונות העטיפה</em> באותו מסך מוחקת את תמונות העטיפה שנשמרו במכשיר.</p>
+			<p>הסרת האפליקציה מוחקת הכול מהמכשיר. אם השתמשתם בסנכרון בלי למחוק קודם את הספרייה, מחקו גם את התיקייה <em>Apps/Campfire Sync</em> ב־Dropbox שלכם. אין אצלי עותק של הנתונים שלכם, כך שאין לי מה למחוק.</p>
+		</details>
+		<h2>פרטיות</h2>
+		<p>ב־Campfire אין פרסומות, אין אנליטיקה ואין מעקב, ומה שהטיונר שומע לא יוצא מהמכשיר שלכם. פרטים נוספים ב<a href="../privacy/">מדיניות הפרטיות</a>.</p>
+	</main>
+
+	<footer class="site-footer">
+		<div class="legal">
+			<p>© 2026 · <a href="https://pandulapeter.com" target="_blank" rel="noopener">Péter Pandula</a></p>
+			<a class="source" href="https://github.com/pandulapeter/campfire" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>קוד מקור</a>
+			<ul class="language-links" translate="no" aria-label="שפה">
+				<li><a href="../../support/" hreflang="en" lang="en">English</a></li>
+				<li><a href="../../de/support/" hreflang="de" lang="de">Deutsch</a></li>
+				<li><a href="../../es/support/" hreflang="es" lang="es">Español</a></li>
+				<li><a href="../../fr/support/" hreflang="fr" lang="fr">Français</a></li>
+				<li><a href="./" hreflang="he" lang="he" aria-current="true">עברית</a></li>
+				<li><a href="../../hu/support/" hreflang="hu" lang="hu">Magyar</a></li>
+				<li><a href="../../it/support/" hreflang="it" lang="it">Italiano</a></li>
+				<li><a href="../../ro/support/" hreflang="ro" lang="ro">Română</a></li>
+			</ul>
+		</div>
+	</footer>
+</div>
+</body>
+</html>

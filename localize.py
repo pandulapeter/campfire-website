@@ -35,10 +35,13 @@ LANGUAGES = {
 	"de": ("Deutsch", "Sprache", "de_DE"),
 	"es": ("Español", "Idioma", "es_ES"),
 	"fr": ("Français", "Langue", "fr_FR"),
+	"he": ("עברית", "שפה", "he_IL"),
 	"hu": ("Magyar", "Nyelv", "hu_HU"),
 	"it": ("Italiano", "Lingua", "it_IT"),
 	"ro": ("Română", "Limbă", "ro_RO"),
 }
+# The languages written from the right, whose pages are marked dir="rtl": the stylesheet mirrors the layout from that.
+RIGHT_TO_LEFT = {"he"}
 # The pages that are translated, by their address.
 PAGES = {"/": "index.html", "/support/": "support/index.html", "/privacy/": "privacy/index.html"}
 
@@ -288,9 +291,10 @@ def language_links(source_path, language, indent):
 
 
 def head_and_picker(text, source_path, language):
-	"""The page with its language, its addresses, its locale, and its picker written for language."""
+	"""The page with its language and direction, its addresses, its locale, and its picker written for language."""
 	address = SITE + page_address(language, source_path).lstrip("/")
-	text = re.sub(r'<html lang="[^"]*">', f'<html lang="{language}">', text, count=1)
+	direction = ' dir="rtl"' if language in RIGHT_TO_LEFT else ""
+	text = re.sub(r'<html lang="[^"]*"(?: dir="[^"]*")?>', f'<html lang="{language}"{direction}>', text, count=1)
 	text = re.sub(r'(<link rel="canonical" href=")[^"]*(">)', lambda match: match[1] + address + match[2], text, count=1)
 	text = re.sub(r'(<meta property="og:url" content=")[^"]*(">)', lambda match: match[1] + address + match[2], text, count=1)
 	text = re.sub(r'\t<link rel="alternate" hreflang="[^"]*" href="[^"]*">\n', "", text)

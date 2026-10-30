@@ -13,7 +13,7 @@
 	<meta property="og:url" content="https://campfire-songbook.com/s/">
 	<meta property="og:title" content="A song or setlist shared from Campfire">
 	<meta property="og:description" content="Open it in Campfire, the free songbook app for lyrics and chords.">
-	<meta property="og:image" content="https://campfire-songbook.com/assets/og-image.jpg?v=82916e38">
+	<meta property="og:image" content="https://campfire-songbook.com/assets/og-image.jpg?v=a61c2901">
 	<meta property="og:image:width" content="1200">
 	<meta property="og:image:height" content="630">
 	<meta property="og:image:alt" content="Campfire running on a laptop and a phone">
@@ -21,7 +21,7 @@
 	<meta name="apple-itunes-app" content="app-id=6815160850">
 	<link rel="icon" href="../assets/icon.svg?v=8ba29e56" type="image/svg+xml">
 	<link rel="apple-touch-icon" href="../assets/icon-192.png?v=0f2be8ac">
-	<link rel="stylesheet" href="../assets/site.css?v=e28400a6">
+	<link rel="stylesheet" href="../assets/site.css?v=2b1bea56">
 	<style>
 		/* The landing page of a shared link: a column in the middle of the page with the two ways to open it as cards, the
 		   first of them filled, the app's store under them, the file after a line, and what Campfire is at the bottom. */
@@ -35,7 +35,8 @@
 		.choice svg { flex-shrink: 0; width: 28px; height: 28px; color: var(--primary); fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
 		.choice strong { display: block; font-size: 17px; color: inherit; }
 		.choice span { color: var(--muted); font-size: 15px; }
-		.choice::after { content: "→"; content: "→" / ""; margin-left: auto; padding-left: 8px; font-size: 20px; color: var(--muted); }
+		.choice::after { content: "→"; content: "→" / ""; margin-inline-start: auto; padding-inline-start: 8px; font-size: 20px; color: var(--muted); }
+		[dir="rtl"] .choice::after { content: "←"; content: "←" / ""; }
 		.choice.main { background: var(--primary); border-color: var(--primary); color: var(--on-primary); }
 		.choice.main svg, .choice.main span, .choice.main::after { color: inherit; }
 		.choice.main span { opacity: 0.85; }
@@ -142,7 +143,7 @@
 <div class="wrap">
 	<main class="document shared" id="main">
 		<p class="cue" id="kind">Shared from Campfire</p>
-		<h1 id="title">A song or setlist shared from Campfire</h1>
+		<h1 id="title" dir="auto">A song or setlist shared from Campfire</h1>
 		<p class="lede" id="lede">This page needs JavaScript to open the link. Campfire itself is on the <a href="../#download">home page</a>.</p>
 		<div id="actions"></div>
 		<aside class="about">
@@ -164,8 +165,9 @@
 		var language = (function () {
 			var picked = null;
 			try { picked = localStorage.getItem("language"); } catch (e) {}
-			var codes = [picked].concat((navigator.languages || [navigator.language]).map(function (tag) { return String(tag).slice(0, 2).toLowerCase(); }));
-			return codes.filter(function (code) { return /^(de|en|es|fr|hu|it|ro)$/.test(code); })[0] || "en";
+			// Older browsers still name Hebrew by its retired code, iw.
+			var codes = [picked].concat((navigator.languages || [navigator.language]).map(function (tag) { return String(tag).slice(0, 2).toLowerCase().replace("iw", "he"); }));
+			return codes.filter(function (code) { return /^(de|en|es|fr|he|hu|it|ro)$/.test(code); })[0] || "en";
 		}());
 		var texts = {
 			de: {
@@ -280,6 +282,34 @@
 				platform: { android: "Campfire pour Android", ios: "Campfire pour iOS", ipados: "Campfire pour iPadOS", windows: "Campfire pour Windows", macos: "Campfire pour macOS", linux: "Campfire pour Linux", "": "S’il est installé sur cet appareil" },
 				store: { android: "Disponible sur Google Play", ios: "Télécharger dans l’App Store", windows: "Obtenir sur le Microsoft Store", macos: "Télécharger dans le Mac App Store", linux: "Télécharger sur GitHub", "": "Choisis ta plateforme" }
 			},
+			he: {
+				song: "שיר משותף",
+				setlist: "סט־ליסט משותף",
+				untitled: "שותף מ־Campfire",
+				untitledSong: "שיר ללא שם",
+				untitledSetlist: "סט־ליסט ללא שם",
+				ledeSong: "פתחו אותו ב־Campfire כדי להוסיף אותו לשירים שלכם.",
+				ledeSetlist: "פתחו אותו ב־Campfire כדי להוסיף את הסט־ליסט ואת השירים שלו לספרייה שלכם.",
+				newer: "הקישור הזה נוצר בגרסה חדשה יותר של Campfire. גרסת הדפדפן תמיד מעודכנת, והאפליקציה המותקנת צריכה עדכון כדי לפתוח אותו.",
+				incomplete: "הקישור הזה לא שלם.",
+				askAgain: "בקשו אותו שוב ממי ששלח אותו.",
+				openApp: "פתיחה באפליקציה",
+				getApp: "הורדת האפליקציה",
+				openWeb: "פתיחה בגרסת הדפדפן",
+				openWebPlain: "פתיחת גרסת הדפדפן",
+				web: "פועלת בדפדפן הזה, בלי להתקין כלום",
+				notInstalled: "לא מותקן?",
+				outdated: "צריך עדכון?",
+				afterInstall: "Campfire יפתח את הקישור אחרי ההתקנה.",
+				copied: "העתקנו את הקישור, כדי ש־Campfire יוכל לפתוח אותו אחרי ההתקנה.",
+				download: "הורדת הקובץ",
+				downloadHint: "אפשר גם לייבא אותו ידנית אחרי שפותחים את האפליקציה.",
+				inAppBrowser: "אם הכפתורים לא עובדים, פתחו את הדף הזה בדפדפן שלכם.",
+				about: "Campfire הוא אפליקציית שירון חינמית למילים ולאקורדים, בכל פלטפורמה ובדפדפן.",
+				aboutLink: "למעבר ל־campfire-songbook.com",
+				platform: { android: "Campfire ל־Android", ios: "Campfire ל־iOS", ipados: "Campfire ל־iPadOS", windows: "Campfire ל־Windows", macos: "Campfire ל־macOS", linux: "Campfire ל־Linux", "": "אם הוא מותקן במכשיר הזה" },
+				store: { android: "זמין ב־Google Play", ios: "להורדה מה־App Store", windows: "להורדה מ־Microsoft Store", macos: "להורדה מה־Mac App Store", linux: "להורדה מ־GitHub", "": "בחרו את הפלטפורמה שלכם" }
+			},
 			hu: {
 				song: "Megosztott dal",
 				setlist: "Megosztott lista",
@@ -389,6 +419,8 @@
 		var link = sharedLink.link;
 		var actions = d.getElementById("actions");
 		d.documentElement.lang = language;
+		// Hebrew is laid out from the right, while the title, the sharer's own text, takes the direction of its language.
+		if (language === "he") d.documentElement.dir = "rtl";
 		d.getElementById("about-link").href = home;
 		d.getElementById("about").textContent = text.about;
 		d.getElementById("about-link").textContent = text.aboutLink;

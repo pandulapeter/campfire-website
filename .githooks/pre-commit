@@ -6,7 +6,7 @@
 # from has changes left unstaged, which would put those changes in the other languages before they are in the commit.
 cd "$(git rev-parse --show-toplevel)" || exit 1
 pages="assets/site.css index.html support/index.html privacy/index.html 404.html s/index.html sitemap.xml"
-languages="de es fr hu it ro"
+languages="de es fr he hu it ro"
 unstaged=$(git diff --name-only -- $pages i18n)
 before=$(for page in $pages; do echo "$page $(git hash-object "$page")"; done)
 python3 stamp.py > /dev/null || exit 1

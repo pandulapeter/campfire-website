@@ -11,7 +11,7 @@
 		// has the same elements in the same order, only with longer or shorter text, so a visitor who picks one is kept at
 		// the element at the top of the window, as far into it as they were, or at the bottom of the page if they were there.
 		(function (d, l) {
-			var languages = ["de", "en", "es", "fr", "hu", "it", "ro"];
+			var languages = ["de", "en", "es", "fr", "he", "hu", "it", "ro"];
 			var picked = null;
 			var blocks = "h1, h2, h3, p, li, dt, dd, summary, figure, pre, img";
 			function top() { var header = d.querySelector(".site-header"); return header ? header.getBoundingClientRect().bottom : 0; }
@@ -58,7 +58,8 @@
 				addEventListener("load", restore);
 			}
 			if (d.documentElement.lang !== "en") return;
-			var preferred = [picked].concat((navigator.languages || [navigator.language]).map(function (tag) { return String(tag).slice(0, 2).toLowerCase(); }))
+			// Older browsers still name Hebrew by its retired code, iw.
+			var preferred = [picked].concat((navigator.languages || [navigator.language]).map(function (tag) { return String(tag).slice(0, 2).toLowerCase().replace("iw", "he"); }))
 				.filter(function (code) { return languages.indexOf(code) !== -1; })[0];
 			if (preferred && preferred !== "en") l.replace("/" + preferred + l.pathname + l.search + l.hash);
 		}(document, location));
@@ -70,6 +71,7 @@
 	<link rel="alternate" hreflang="de" href="https://campfire-songbook.com/de/">
 	<link rel="alternate" hreflang="es" href="https://campfire-songbook.com/es/">
 	<link rel="alternate" hreflang="fr" href="https://campfire-songbook.com/fr/">
+	<link rel="alternate" hreflang="he" href="https://campfire-songbook.com/he/">
 	<link rel="alternate" hreflang="hu" href="https://campfire-songbook.com/hu/">
 	<link rel="alternate" hreflang="it" href="https://campfire-songbook.com/it/">
 	<link rel="alternate" hreflang="ro" href="https://campfire-songbook.com/ro/">
@@ -82,7 +84,7 @@
 	<meta property="og:url" content="https://campfire-songbook.com/hu/">
 	<meta property="og:title" content="Campfire: Daloskönyv, akkordok">
 	<meta property="og:description" content="Ingyenes daloskönyv a dalszövegeidhez és akkordjaidhoz, a hangszeredre rajzolt akkordábrákkal és skálákkal, listákkal, a dalok tempójára állított metronómmal és hangolóval. Offline is működik telefonon, tableten és számítógépen, igény szerint valós idejű Dropbox-szinkronizálással.">
-	<meta property="og:image" content="https://campfire-songbook.com/assets/og-image.jpg?v=82916e38">
+	<meta property="og:image" content="https://campfire-songbook.com/assets/og-image.jpg?v=a61c2901">
 	<meta property="og:image:width" content="1200">
 	<meta property="og:image:height" content="630">
 	<meta property="og:image:alt" content="A Campfire laptopon és telefonon">
@@ -118,10 +120,10 @@
 				"offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
 				"isAccessibleForFree": true,
 				"license": "https://mozilla.org/MPL/2.0/",
-				"image": "https://campfire-songbook.com/assets/og-image.jpg?v=82916e38",
+				"image": "https://campfire-songbook.com/assets/og-image.jpg?v=a61c2901",
 				"screenshot": [
-					"https://campfire-songbook.com/assets/screenshots/hu/laptop-setlists-light.webp?v=687ae98a",
-					"https://campfire-songbook.com/assets/screenshots/hu/tablet-song-light.webp?v=c292a4dc",
+					"https://campfire-songbook.com/assets/screenshots/hu/laptop-setlists-light.webp?v=3f6dd9e6",
+					"https://campfire-songbook.com/assets/screenshots/hu/tablet-song-light.webp?v=5120837c",
 					"https://campfire-songbook.com/assets/screenshots/hu/phone-songs-light.webp?v=aa6e5662"
 				],
 				"featureList": [
@@ -150,7 +152,7 @@
 	<link rel="apple-touch-icon" href="../assets/icon-192.png?v=0f2be8ac">
 	<link rel="preload" href="../assets/fonts/inter_bold.woff2?v=676dbe48" as="font" type="font/woff2" crossorigin>
 	<link rel="preload" href="../assets/fonts/inter_regular.woff2?v=0b354d6b" as="font" type="font/woff2" crossorigin>
-	<link rel="stylesheet" href="../assets/site.css?v=e28400a6">
+	<link rel="stylesheet" href="../assets/site.css?v=2b1bea56">
 	<script>
 		// Every visitor is offered two versions: a phone or a tablet the app from its store first and the web app second,
 		// a computer the other way around. The script names the system: the stylesheet shows the elements marked
@@ -197,6 +199,7 @@
 					<li><a href="../de/" hreflang="de" lang="de">Deutsch</a></li>
 					<li><a href="../es/" hreflang="es" lang="es">Español</a></li>
 					<li><a href="../fr/" hreflang="fr" lang="fr">Français</a></li>
+					<li><a href="../he/" hreflang="he" lang="he">עברית</a></li>
 					<li><a href="./" hreflang="hu" lang="hu" aria-current="true">Magyar</a></li>
 					<li><a href="../it/" hreflang="it" lang="it">Italiano</a></li>
 					<li><a href="../ro/" hreflang="ro" lang="ro">Română</a></li>
@@ -225,12 +228,12 @@
 			</div>
 			<div class="stage">
 				<div class="laptop"><div class="lid"><picture class="screen">
-					<source srcset="../assets/screenshots/hu/laptop-setlists-dark.webp?v=fd7326d1" media="(prefers-color-scheme: dark)">
-					<img src="../assets/screenshots/hu/laptop-setlists-light.webp?v=687ae98a" width="1200" height="753" fetchpriority="high" alt="Listák MacBookon, mindegyik a dalaival, azok hangnemével, tempójával és hosszával, valamint a lista teljes játékidejével.">
+					<source srcset="../assets/screenshots/hu/laptop-setlists-dark.webp?v=4358d404" media="(prefers-color-scheme: dark)">
+					<img src="../assets/screenshots/hu/laptop-setlists-light.webp?v=3f6dd9e6" width="1200" height="753" fetchpriority="high" alt="Listák MacBookon, mindegyik a dalaival, azok hangnemével, tempójával és hosszával, valamint a lista teljes játékidejével.">
 				</picture></div><div class="base"></div></div>
 				<div class="tablet"><div class="frame"><picture class="screen">
-					<source srcset="../assets/screenshots/hu/tablet-song-dark.webp?v=d2c0e063" media="(prefers-color-scheme: dark)">
-					<img src="../assets/screenshots/hu/tablet-song-light.webp?v=c292a4dc" width="1200" height="900" alt="Egy dal iPaden, az akkordábráival és a versszakaival hasábokban.">
+					<source srcset="../assets/screenshots/hu/tablet-song-dark.webp?v=9fd57d8d" media="(prefers-color-scheme: dark)">
+					<img src="../assets/screenshots/hu/tablet-song-light.webp?v=5120837c" width="1200" height="900" alt="Egy dal iPaden, az akkordábráival és a versszakaival hasábokban.">
 				</picture></div></div>
 				<div class="phone"><div class="frame"><picture class="screen">
 					<source srcset="../assets/screenshots/hu/phone-songs-dark.webp?v=95abdd7c" media="(prefers-color-scheme: dark)">
@@ -260,20 +263,20 @@
 			<div>
 				<div class="laptop"><div class="lid"><div class="slides demo" id="text-size-slides">
 					<picture class="screen">
-						<source srcset="../assets/screenshots/hu/laptop-song-100-dark.webp?v=aa5b4c49" media="(prefers-color-scheme: dark)">
-						<img src="../assets/screenshots/hu/laptop-song-100-light.webp?v=d21dab6f" width="1200" height="753" loading="lazy" alt="Egy dal MacBookon, alapértelmezett szövegmérettel, négy hasábban, az akkordjainak ábrái alatt.">
+						<source srcset="../assets/screenshots/hu/laptop-song-100-dark.webp?v=52f47837" media="(prefers-color-scheme: dark)">
+						<img src="../assets/screenshots/hu/laptop-song-100-light.webp?v=d4e612c4" width="1200" height="753" loading="lazy" alt="Egy dal MacBookon, alapértelmezett szövegmérettel, négy hasábban, az akkordjainak ábrái alatt.">
 					</picture>
 					<picture class="screen" aria-hidden="true">
-						<source data-srcset="../assets/screenshots/hu/laptop-song-120-dark.webp?v=2ae7f6f8" media="(prefers-color-scheme: dark)">
-						<img data-src="../assets/screenshots/hu/laptop-song-120-light.webp?v=97daa26a" width="1200" height="753" loading="lazy" alt="Ugyanaz a dal 120%-os szövegmérettel, három hasábban.">
+						<source data-srcset="../assets/screenshots/hu/laptop-song-120-dark.webp?v=dd97122a" media="(prefers-color-scheme: dark)">
+						<img data-src="../assets/screenshots/hu/laptop-song-120-light.webp?v=e9ed88e0" width="1200" height="753" loading="lazy" alt="Ugyanaz a dal 120%-os szövegmérettel, három hasábban.">
 					</picture>
 					<picture class="screen" aria-hidden="true">
-						<source data-srcset="../assets/screenshots/hu/laptop-song-150-dark.webp?v=85c9e41c" media="(prefers-color-scheme: dark)">
-						<img data-src="../assets/screenshots/hu/laptop-song-150-light.webp?v=18c99485" width="1200" height="753" loading="lazy" alt="Ugyanaz a dal 150%-os szövegmérettel, három hasábban.">
+						<source data-srcset="../assets/screenshots/hu/laptop-song-150-dark.webp?v=8dd74b23" media="(prefers-color-scheme: dark)">
+						<img data-src="../assets/screenshots/hu/laptop-song-150-light.webp?v=fb8de9ee" width="1200" height="753" loading="lazy" alt="Ugyanaz a dal 150%-os szövegmérettel, három hasábban.">
 					</picture>
 					<picture class="screen" aria-hidden="true">
-						<source data-srcset="../assets/screenshots/hu/laptop-song-200-dark.webp?v=ddeb3b2f" media="(prefers-color-scheme: dark)">
-						<img data-src="../assets/screenshots/hu/laptop-song-200-light.webp?v=a262f3a9" width="1200" height="753" loading="lazy" alt="Ugyanaz a dal 200%-os szövegmérettel, két hasábban.">
+						<source data-srcset="../assets/screenshots/hu/laptop-song-200-dark.webp?v=15603716" media="(prefers-color-scheme: dark)">
+						<img data-src="../assets/screenshots/hu/laptop-song-200-light.webp?v=bbbf0f6f" width="1200" height="753" loading="lazy" alt="Ugyanaz a dal 200%-os szövegmérettel, két hasábban.">
 					</picture>
 				</div></div><div class="base"></div></div>
 				<div class="slider" role="group" aria-label="Szövegméret">
@@ -295,8 +298,8 @@
 			</div>
 			<div>
 				<div class="laptop"><div class="lid"><picture class="screen">
-					<source srcset="../assets/screenshots/hu/laptop-import-dark.webp?v=1797a535" media="(prefers-color-scheme: dark)">
-					<img src="../assets/screenshots/hu/laptop-import-light.webp?v=0fb01748" width="1200" height="753" loading="lazy" alt="Egy importált dal a szerkesztőben MacBookon, egy megjelölt hibával, mellette az élő előnézettel.">
+					<source srcset="../assets/screenshots/hu/laptop-import-dark.webp?v=15125dba" media="(prefers-color-scheme: dark)">
+					<img src="../assets/screenshots/hu/laptop-import-light.webp?v=c698bc39" width="1200" height="753" loading="lazy" alt="Egy importált dal a szerkesztőben MacBookon, egy megjelölt hibával, mellette az élő előnézettel.">
 				</picture></div><div class="base"></div></div>
 			</div>
 		</section>
@@ -314,12 +317,12 @@
 			</div>
 			<div class="pair">
 				<div class="tablet"><div class="frame"><picture class="screen">
-					<source srcset="../assets/screenshots/hu/tablet-export-dark.webp?v=b2d03550" media="(prefers-color-scheme: dark)">
-					<img src="../assets/screenshots/hu/tablet-export-light.webp?v=7ec9c7bf" width="1200" height="900" loading="lazy" alt="Egy PDF-ként megosztott dal iPaden, az oldal előnézete a beállítások mellett.">
+					<source srcset="../assets/screenshots/hu/tablet-export-dark.webp?v=e169176d" media="(prefers-color-scheme: dark)">
+					<img src="../assets/screenshots/hu/tablet-export-light.webp?v=4dbac1c7" width="1200" height="900" loading="lazy" alt="Egy PDF-ként megosztott dal iPaden, az oldal előnézete a beállítások mellett.">
 				</picture></div></div>
 				<div class="phone"><div class="frame"><picture class="screen">
-					<source srcset="../assets/screenshots/hu/phone-setlist-dark.webp?v=11a4a875" media="(prefers-color-scheme: dark)">
-					<img src="../assets/screenshots/hu/phone-setlist-light.webp?v=a3e0d895" width="450" height="978" loading="lazy" alt="Egy lista iPhone-on, minden dal hangnemével, tempójával és hosszával, a lista játékidejével és a koncertig hátralévő napokkal.">
+					<source srcset="../assets/screenshots/hu/phone-setlist-dark.webp?v=6187a522" media="(prefers-color-scheme: dark)">
+					<img src="../assets/screenshots/hu/phone-setlist-light.webp?v=5b6cf728" width="450" height="978" loading="lazy" alt="Egy lista iPhone-on, minden dal hangnemével, tempójával és hosszával, a lista játékidejével és a koncertig hátralévő napokkal.">
 				</picture></div></div>
 			</div>
 		</section>
@@ -339,9 +342,9 @@
 				<div class="slides" id="practice-slides">
 					<div class="pair flip">
 						<div class="tablet"><div class="frame"><picture class="screen">
-							<source srcset="../assets/screenshots/hu/tablet-song-metronome-dark.webp?v=c9c72cb9" media="(prefers-color-scheme: dark)">
-							<img src="../assets/screenshots/hu/tablet-song-metronome-light.webp?v=f67e897f" width="1200" height="900" loading="lazy" alt="Egy dal iPaden, a címe alatt a nyitott metronómpanellel.">
-						</picture><span class="beats" style="--beats-light: url(/assets/screenshots/hu/tablet-song-metronome-beats-light.webp?v=2e5a5e1a); --beats-dark: url(/assets/screenshots/hu/tablet-song-metronome-beats-dark.webp?v=8946d6e0)" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div></div>
+							<source srcset="../assets/screenshots/hu/tablet-song-metronome-dark.webp?v=6bc86e62" media="(prefers-color-scheme: dark)">
+							<img src="../assets/screenshots/hu/tablet-song-metronome-light.webp?v=c7e45fbb" width="1200" height="900" loading="lazy" alt="Egy dal iPaden, a címe alatt a nyitott metronómpanellel.">
+						</picture><span class="beats" style="--beats-light: url(/assets/screenshots/hu/tablet-song-metronome-beats-light.webp?v=d4f79f23); --beats-dark: url(/assets/screenshots/hu/tablet-song-metronome-beats-dark.webp?v=6adf9953)" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div></div>
 						<div class="phone"><div class="frame"><picture class="screen">
 							<source srcset="../assets/screenshots/hu/phone-metronome-dark.webp?v=def0e974" media="(prefers-color-scheme: dark)">
 							<img src="../assets/screenshots/hu/phone-metronome-light.webp?v=edfdeee6" width="450" height="978" loading="lazy" alt="A Metronóm fül iPhone-on, a tempóval, az ütem ütéseivel és a beállításaival.">
@@ -349,12 +352,12 @@
 					</div>
 					<div class="pair flip" aria-hidden="true">
 						<div class="tablet"><div class="frame"><picture class="screen">
-							<source srcset="../assets/screenshots/hu/tablet-song-tuner-dark.webp?v=289af827" media="(prefers-color-scheme: dark)">
-							<img src="../assets/screenshots/hu/tablet-song-tuner-light.webp?v=b7d8a7ef" width="1200" height="900" loading="lazy" alt="Egy dal iPaden, fölötte a nyitott hangolóval, amely 9 centtel magasnak hallja a gitár mély E húrját.">
+							<source srcset="../assets/screenshots/hu/tablet-song-tuner-dark.webp?v=91b8de1d" media="(prefers-color-scheme: dark)">
+							<img src="../assets/screenshots/hu/tablet-song-tuner-light.webp?v=d928e222" width="1200" height="900" loading="lazy" alt="Egy dal iPaden, fölötte a nyitott hangolóval, amely 9 centtel magasnak hallja a gitár mély E húrját.">
 						</picture></div></div>
 						<div class="phone"><div class="frame"><picture class="screen">
-							<source srcset="../assets/screenshots/hu/phone-tuner-dark.webp?v=2863f67f" media="(prefers-color-scheme: dark)">
-							<img src="../assets/screenshots/hu/phone-tuner-light.webp?v=0578f9ab" width="450" height="978" loading="lazy" alt="A Hangoló fül iPhone-on: a gitár A húrja 14 centtel mély, a mély E húr már tiszta.">
+							<source srcset="../assets/screenshots/hu/phone-tuner-dark.webp?v=8b2cd9de" media="(prefers-color-scheme: dark)">
+							<img src="../assets/screenshots/hu/phone-tuner-light.webp?v=e12cb794" width="450" height="978" loading="lazy" alt="A Hangoló fül iPhone-on: a gitár A húrja 14 centtel mély, a mély E húr már tiszta.">
 						</picture></div></div>
 					</div>
 				</div>
@@ -379,22 +382,22 @@
 				<div class="slides" id="instrument-slides">
 					<div class="pair">
 						<div class="tablet"><div class="frame"><picture class="screen">
-							<source srcset="../assets/screenshots/hu/tablet-song-chord-shape-dark.webp?v=360b1f97" media="(prefers-color-scheme: dark)">
-							<img src="../assets/screenshots/hu/tablet-song-chord-shape-light.webp?v=bb659490" width="1200" height="900" loading="lazy" alt="Az I’m Gonna Be (500 Miles) iPaden, a dal fölött egy B akkord gitáros fogásaival.">
+							<source srcset="../assets/screenshots/hu/tablet-song-chord-shape-dark.webp?v=bf3b45ea" media="(prefers-color-scheme: dark)">
+							<img src="../assets/screenshots/hu/tablet-song-chord-shape-light.webp?v=8facbcd2" width="1200" height="900" loading="lazy" alt="Az I’m Gonna Be (500 Miles) iPaden, a dal fölött egy B akkord gitáros fogásaival.">
 						</picture></div></div>
 						<div class="phone"><div class="frame"><picture class="screen">
-							<source srcset="../assets/screenshots/hu/phone-chords-dark.webp?v=792c059b" media="(prefers-color-scheme: dark)">
-							<img src="../assets/screenshots/hu/phone-chords-light.webp?v=3d3d4eeb" width="450" height="978" loading="lazy" alt="Az Akkordok fül iPhone-on, a C akkordjaival ukulelén.">
+							<source srcset="../assets/screenshots/hu/phone-chords-dark.webp?v=f8895a81" media="(prefers-color-scheme: dark)">
+							<img src="../assets/screenshots/hu/phone-chords-light.webp?v=b4ff48f7" width="450" height="978" loading="lazy" alt="Az Akkordok fül iPhone-on, a C akkordjaival ukulelén.">
 						</picture></div></div>
 					</div>
 					<div class="pair" aria-hidden="true">
 						<div class="tablet"><div class="frame"><picture class="screen">
-							<source srcset="../assets/screenshots/hu/tablet-song-scales-dark.webp?v=e84992e6" media="(prefers-color-scheme: dark)">
-							<img src="../assets/screenshots/hu/tablet-song-scales-light.webp?v=03549f53" width="1200" height="900" loading="lazy" alt="Az I’m Gonna Be (500 Miles) iPaden, az akkordjai alatt a Skálák résszel, a dal fölött gitárnyakra rajzolt E-dúr skálával.">
+							<source srcset="../assets/screenshots/hu/tablet-song-scales-dark.webp?v=c27b0f7c" media="(prefers-color-scheme: dark)">
+							<img src="../assets/screenshots/hu/tablet-song-scales-light.webp?v=4cd8b355" width="1200" height="900" loading="lazy" alt="Az I’m Gonna Be (500 Miles) iPaden, az akkordjai alatt a Skálák résszel, a dal fölött gitárnyakra rajzolt E-dúr skálával.">
 						</picture></div></div>
 						<div class="phone"><div class="frame"><picture class="screen">
-							<source srcset="../assets/screenshots/hu/phone-scales-dark.webp?v=65a02220" media="(prefers-color-scheme: dark)">
-							<img src="../assets/screenshots/hu/phone-scales-light.webp?v=593f55ad" width="450" height="978" loading="lazy" alt="A Skálák fül iPhone-on, az A gyakori skáláival gitáron.">
+							<source srcset="../assets/screenshots/hu/phone-scales-dark.webp?v=251d8549" media="(prefers-color-scheme: dark)">
+							<img src="../assets/screenshots/hu/phone-scales-light.webp?v=d8eb5cf7" width="450" height="978" loading="lazy" alt="A Skálák fül iPhone-on, az A gyakori skáláival gitáron.">
 						</picture></div></div>
 					</div>
 				</div>
@@ -535,6 +538,7 @@ That [G]saved a wretch like [D]me
 				<li><a href="../de/" hreflang="de" lang="de">Deutsch</a></li>
 				<li><a href="../es/" hreflang="es" lang="es">Español</a></li>
 				<li><a href="../fr/" hreflang="fr" lang="fr">Français</a></li>
+				<li><a href="../he/" hreflang="he" lang="he">עברית</a></li>
 				<li><a href="./" hreflang="hu" lang="hu" aria-current="true">Magyar</a></li>
 				<li><a href="../it/" hreflang="it" lang="it">Italiano</a></li>
 				<li><a href="../ro/" hreflang="ro" lang="ro">Română</a></li>

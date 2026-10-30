@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script>
+		// The site is in the languages of the picker, each in a folder of its own, and the English pages, at the root,
+		// are also those of every other language. A visitor who lands on one of them is sent to the same page in the
+		// language they last picked in the picker, which is remembered, or else in the first of their browser's languages
+		// the site has. The picker is a <details>, closed by a click anywhere else or by Escape. A page in another language
+		// has the same elements in the same order, only with longer or shorter text, so a visitor who picks one is kept at
+		// the element at the top of the window, as far into it as they were, or at the bottom of the page if they were there.
+		(function (d, l) {
+			var languages = ["de", "en", "es", "fr", "he", "hu", "it", "ro"];
+			var picked = null;
+			var blocks = "h1, h2, h3, p, li, dt, dd, summary, figure, pre, img";
+			function top() { var header = d.querySelector(".site-header"); return header ? header.getBoundingClientRect().bottom : 0; }
+			try { picked = localStorage.getItem("language"); } catch (e) {}
+			d.addEventListener("click", function (event) {
+				var link = event.target.closest("a[hreflang]");
+				if (link) try {
+					localStorage.setItem("language", link.hreflang);
+					sessionStorage.removeItem("position");
+					var line = top();
+					var elements = d.querySelectorAll(blocks);
+					if (scrollY && scrollY + innerHeight >= d.documentElement.scrollHeight - 1) sessionStorage.setItem("position", JSON.stringify([link.pathname, -1, 0]));
+					else for (var index = 0; scrollY && index < elements.length; index++) {
+						var box = elements[index].getBoundingClientRect();
+						if (box.height && box.bottom > line && !elements[index].closest(".site-header")) {
+							sessionStorage.setItem("position", JSON.stringify([link.pathname, index, (line - box.top) / box.height]));
+							break;
+						}
+					}
+				} catch (e) {}
+				d.querySelectorAll("details.languages[open]").forEach(function (picker) { if (!picker.contains(event.target)) picker.open = false; });
+			});
+			d.addEventListener("keydown", function (event) {
+				if (event.key === "Escape") d.querySelectorAll("details.languages[open]").forEach(function (picker) { picker.open = false; picker.querySelector("summary").focus(); });
+			});
+			var position = null;
+			try { position = JSON.parse(sessionStorage.getItem("position")); sessionStorage.removeItem("position"); } catch (e) {}
+			if (position && position[0] === l.pathname && !l.hash) {
+				var scrolled = null;
+				var restore = function () {
+					if (scrolled !== null && scrolled !== scrollY) return;
+					if (position[1] < 0) {
+						scrollTo(0, d.documentElement.scrollHeight);
+						scrolled = scrollY;
+						return;
+					}
+					var element = d.querySelectorAll(blocks)[position[1]];
+					if (!element) return;
+					var box = element.getBoundingClientRect();
+					scrollBy(0, box.top + position[2] * box.height - top());
+					scrolled = scrollY;
+				};
+				d.addEventListener("DOMContentLoaded", restore);
+				addEventListener("load", restore);
+			}
+			if (d.documentElement.lang !== "en") return;
+			// Older browsers still name Hebrew by its retired code, iw.
+			var preferred = [picked].concat((navigator.languages || [navigator.language]).map(function (tag) { return String(tag).slice(0, 2).toLowerCase().replace("iw", "he"); }))
+				.filter(function (code) { return languages.indexOf(code) !== -1; })[0];
+			if (preferred && preferred !== "en") l.replace("/" + preferred + l.pathname + l.search + l.hash);
+		}(document, location));
+	</script>
+	<title>מדיניות פרטיות – Campfire</title>
+	<meta name="description" content="איך Campfire מטפל בנתונים שלכם: בלי חשבון, בלי שרת, ובלי פרסומות או מעקב.">
+	<link rel="canonical" href="https://campfire-songbook.com/he/privacy/">
+	<link rel="alternate" hreflang="en" href="https://campfire-songbook.com/privacy/">
+	<link rel="alternate" hreflang="de" href="https://campfire-songbook.com/de/privacy/">
+	<link rel="alternate" hreflang="es" href="https://campfire-songbook.com/es/privacy/">
+	<link rel="alternate" hreflang="fr" href="https://campfire-songbook.com/fr/privacy/">
+	<link rel="alternate" hreflang="he" href="https://campfire-songbook.com/he/privacy/">
+	<link rel="alternate" hreflang="hu" href="https://campfire-songbook.com/hu/privacy/">
+	<link rel="alternate" hreflang="it" href="https://campfire-songbook.com/it/privacy/">
+	<link rel="alternate" hreflang="ro" href="https://campfire-songbook.com/ro/privacy/">
+	<link rel="alternate" hreflang="x-default" href="https://campfire-songbook.com/privacy/">
+	<meta name="theme-color" content="#FAF8FE" media="(prefers-color-scheme: light)">
+	<meta name="theme-color" content="#15121C" media="(prefers-color-scheme: dark)">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="Campfire">
+	<meta property="og:locale" content="he_IL">
+	<meta property="og:url" content="https://campfire-songbook.com/he/privacy/">
+	<meta property="og:title" content="מדיניות פרטיות – Campfire">
+	<meta property="og:description" content="איך Campfire מטפל בנתונים שלכם: בלי חשבון, בלי שרת, ובלי פרסומות או מעקב.">
+	<meta property="og:image" content="https://campfire-songbook.com/assets/og-image.jpg?v=a61c2901">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:image:alt" content="Campfire על מחשב נייד ועל טלפון">
+	<meta name="twitter:card" content="summary_large_image">
+	<link rel="icon" href="../../assets/icon.svg?v=8ba29e56" type="image/svg+xml">
+	<link rel="apple-touch-icon" href="../../assets/icon-192.png?v=0f2be8ac">
+	<link rel="stylesheet" href="../../assets/site.css?v=2b1bea56">
+	<script>
+		// Every visitor is offered two versions: a phone or a tablet the app from its store first and the web app second,
+		// a computer the other way around. The script names the system: the stylesheet shows the elements marked
+		// for-mobile instead of for-desktop on a phone or a tablet, every link marked data-native goes to the system's own
+		// version, and one marked data-native-label is also named after it. iPadOS presents itself as a Mac, so an iPad is
+		// told apart by its touch screen. Without a match, the links lead to the list of every platform.
+		(function (d) {
+			var agent = navigator.userAgent;
+			var os = /Android/.test(agent) ? "android" : /iPhone|iPad|iPod/.test(agent) || (/Macintosh/.test(agent) && navigator.maxTouchPoints > 1) ? "ios" : /Windows/.test(agent) ? "windows" : /Macintosh/.test(agent) ? "macos" : /Linux/.test(agent) ? "linux" : "";
+			var native = {
+				android: ["https://play.google.com/store/apps/details?id=com.pandulapeter.campfire", "זמין ב־Google Play"],
+				ios: ["https://apps.apple.com/app/id6815160850", "להורדה מה־App Store"],
+				windows: ["https://apps.microsoft.com/detail/9MSR62F288M1", "הורדה ל־Windows"],
+				macos: ["https://apps.apple.com/app/id6815160850", "הורדה ל־macOS"],
+				linux: ["https://github.com/pandulapeter/campfire/releases/latest", "הורדה ל־Linux"]
+			}[os];
+			if (!native) return;
+			d.documentElement.dataset.os = os;
+			if (os === "android" || os === "ios") d.documentElement.dataset.mobile = "";
+			d.addEventListener("DOMContentLoaded", function () {
+				d.querySelectorAll("[data-native]").forEach(function (link) {
+					link.href = native[0];
+					link.target = "_blank";
+					link.rel = "noopener";
+					if (link.hasAttribute("data-native-label")) link.textContent = native[1];
+				});
+			});
+		}(document));
+	</script>
+</head>
+<body>
+<a class="skip" href="#main">דילוג לתוכן</a>
+<header class="site-header">
+	<div class="wrap">
+		<a class="brand" translate="no" href="../"><img src="../../assets/icon.svg?v=8ba29e56" alt="">Campfire</a>
+		<nav aria-label="ראשי">
+			<a class="optional" href="../#download">הורדה</a>
+			<a class="optional" href="../support/">תמיכה</a>
+			<a class="optional" href="./" aria-current="page">פרטיות</a>
+			<details class="languages" translate="no">
+				<summary aria-label="שפה: עברית"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.8 3.9 6 3.9 9.5s-1.3 6.7-3.9 9.5c-2.6-2.8-3.9-6-3.9-9.5s1.3-6.7 3.9-9.5Z"/></svg><span>HE</span></summary>
+				<ul>
+					<li><a href="../../privacy/" hreflang="en" lang="en">English</a></li>
+					<li><a href="../../de/privacy/" hreflang="de" lang="de">Deutsch</a></li>
+					<li><a href="../../es/privacy/" hreflang="es" lang="es">Español</a></li>
+					<li><a href="../../fr/privacy/" hreflang="fr" lang="fr">Français</a></li>
+					<li><a href="./" hreflang="he" lang="he" aria-current="true">עברית</a></li>
+					<li><a href="../../hu/privacy/" hreflang="hu" lang="hu">Magyar</a></li>
+					<li><a href="../../it/privacy/" hreflang="it" lang="it">Italiano</a></li>
+					<li><a href="../../ro/privacy/" hreflang="ro" lang="ro">Română</a></li>
+				</ul>
+			</details>
+			<a class="button small for-desktop" href="../../app/" target="_blank" rel="noopener">פתיחה בדפדפן</a>
+			<a class="button small for-mobile" href="../#download" data-native>הורדת האפליקציה</a>
+		</nav>
+	</div>
+</header>
+<div class="wrap">
+
+	<main class="document" id="main">
+		<h1>מדיניות פרטיות</h1>
+		<p>בהורדה ובשימוש ב־Campfire, התנאים האלה חלים עליכם אוטומטית; לכן כדאי לקרוא אותם בעיון.</p>
+		<p>האפליקציה מסופקת לכם על ידי Péter Pandula ללא עלות, ומיועדת לשימוש כפי שהיא.</p>
+		<p class="updated"><em>עדכון אחרון: 27 באוקטובר 2026. הגרסה הזו חלה על Campfire 4.0 ואילך; תמונות העטיפה ומחיקת כל הספרייה מההגדרות נוספו ב־Campfire 4.5, סנכרון צורות האקורדים שנבחרו והטרנספוזיציה, הקאפו והטמפו של כל שיר ב־Campfire 4.7, הטיונר, שמשתמש במיקרופון, וסנכרון צבעי התגיות והדגשות המטרונום של כל שיר ב־Campfire 4.7.1, חיפוש פרטי השיר ברשת, הדבקת שירים ושיתופם לאפליקציה ב־Campfire 4.9, קישורים לשירים ולסט־ליסטים ב־Campfire 5.0, והיומן של האפליקציה ב־Campfire 5.0.1.</em></p>
+		<h2>סקירה כללית</h2>
+		<p>הדף הזה נועד ליידע אתכם לגבי המדיניות שלי בנוגע לאיסוף, לשימוש ולחשיפה של מידע אישי, אם מישהו מחליט להשתמש בשירות שלי.</p>
+		<p>Campfire הוא אפליקציה לצפייה ולעריכה של מילים ואקורדים של שירים, שעובדת אופליין. השירים והסט־ליסטים שלכם הם קובצי טקסט <a href="https://www.chordpro.org" target="_blank" rel="noopener">ChordPro</a> רגילים שנשמרים באחסון של האפליקציה במכשיר שלכם, ובגרסת הדפדפן באחסון הפרטי של הדפדפן עבור האתר. אין חשבון Campfire, ואין שום שרת שלי שמעורב בשום שלב: השירים שלכם, ההגדרות שלכם וכל דבר אחר על אופן השימוש שלכם באפליקציה לא מגיעים אליי לעולם. Campfire מתחבר לאינטרנט רק לסנכרון בענן ולקישורים שהוא משתף, לפתיחת קישור משותף, לתמונות עטיפה ולחיפוש פרטי שירים, וכל אלה מתוארים בהמשך. הטיונר משתמש במיקרופון, אבל מה שהוא שומע לא יוצא מהמכשיר שלכם, כפי שמתואר גם כן בהמשך. Campfire גם שומר במכשיר יומן של מה שהוא עשה, שמגיע אליי רק אם תשלחו לי אותו בעצמכם, כמתואר ב<a href="#log">היומן של האפליקציה</a>.</p>
+		<p>ב־Campfire אין פרסומות, אין אנליטיקה ואין מעקב מכל סוג שהוא.</p>
+		<h2>איסוף מידע ושימוש בו</h2>
+		<p>ב־Campfire לא משולב שום פתרון לאיסוף נתונים; לכן לא נאסף ממכם במכוון שום מידע מזהה אישי. עם זאת, חשוב לזכור שחלק ממנגנוני איסוף הנתונים אינם בשליטתי. לדוגמה, עצם ההורדה של האפליקציה מחנות Google Play משתפת אוטומטית נתוני שימוש מוגבלים ויומני קריסות איתי, כמי שפיתח את האפליקציה, וגם עם Google. הסכמתם לכך כשאישרתם את הסכם הרישיון של Play Services, שאין לי עליו שום שליטה.</p>
+		<h2>סנכרון בענן</h2>
+		<p>Campfire יכול לשמור על הספרייה שלכם זהה בכמה מהמכשירים שלכם על ידי שמירתה בתיקיית ענן ששייכת לכם. <strong>האפשרות הזו כבויה עד שתפעילו אותה.</strong> עד שתחברו חשבון בהגדרות האפליקציה, הסנכרון לא שולח שום בקשה לרשת, ואם לא תחברו חשבון אף פעם, שום דבר בסעיף הזה לא נוגע לכם.</p>
+		<p>הסנכרון תומך כרגע ב־<a href="https://www.dropbox.com/privacy" target="_blank" rel="noopener">Dropbox</a>. כשאתם מחברים אותו:</p>
+		<ul>
+			<li><strong>הקבצים שלכם עוברים ל־Dropbox שלכם, לא אליי.</strong> השירים והסט־ליסטים מועברים ישירות בין המכשיר שלכם ל־Dropbox. אין לי שרת, ושום עותק של הספרייה שלכם לא מגיע אליי לעולם.</li>
+			<li><strong>Campfire רואה רק את התיקייה שלו.</strong> האפליקציה מבקשת מ־Dropbox את הרשאת “תיקיית האפליקציה”, שמגבילה את הגישה שלה לתיקייה אחת בשם <em>Apps/Campfire Sync</em> שנוצרת עבורה. שאר ה־Dropbox שלכם בלתי נראה לאפליקציה.</li>
+			<li><strong>רק הספרייה שלכם, ואופן הנגינה שלה, מסונכרנים.</strong> כלומר קובצי השירים וקובצי הסט־ליסטים שלכם, ובקובץ <em>preferences.json</em> לידם באותה תיקייה, הטרנספוזיציה, הקאפו, הטמפו והדגשות המטרונום שקבעתם לשירים, צורות האקורדים שבחרתם לכל כלי וכיוון, והצבעים של התגיות שלכם. שאר ההגדרות שלכם, כמו ערכת הנושא, השפה וגודל הטקסט, אף פעם לא מועלות בסנכרון ונשארות במכשיר שבו הגדרתם אותן (הגיבוי של המכשיר עצמו עדיין יכול להעביר אותן למכשיר חדש, ראו <em>גיבוי המכשיר</em> בהמשך).</li>
+			<li><strong>מה Campfire קורא על החשבון שלכם.</strong> אחרי החיבור, האפליקציה מבקשת מ־Dropbox את שם התצוגה ואת כתובת המייל של החשבון, רק כדי שמסך ההגדרות יוכל להראות לכם לאיזה חשבון הספרייה הולכת, והיא שומרת את מזהה ה־Dropbox של החשבון, כדי לזהות אותו גם אחרי שתשנו את השם או את כתובת המייל. הנתונים האלה נשמרים במכשיר שלכם ולא נשלחים לשום מקום אחר.</li>
+			<li><strong>איך ההתחברות עובדת.</strong> ההרשאה משתמשת בתהליך OAuth 2.0 הסטנדרטי עם PKCE, בדף ההסכמה של Dropbox עצמה שנפתח בדפדפן. הסיסמה שלכם ל־Dropbox אף פעם לא מוקלדת ב־Campfire ולא עוברת דרכו. אסימוני הגישה והרענון שמתקבלים נשמרים רק באחסון הפרטי של האפליקציה במכשיר שלכם (ב־Android מוצפנים במפתח שהמערכת מחזיקה, ב־iOS וב־iPadOS ב־Keychain של המערכת), ולא נשלחים לשום מקום מלבד Dropbox.</li>
+			<li><strong>ניתוק.</strong> בחירה ב“ניתוק” בהגדרות מבקשת מ־Dropbox לבטל את האסימון ומוחקת אותו מהמכשיר. הקבצים שלכם נשארים כמו שהם, גם במכשיר וגם ב־Dropbox, וכך גם הקישורים המשותפים שלכם, שממשיכים לעבוד: אם אתם רוצים שהם ייעלמו, הפסיקו קודם לשתף אותם. אפשר גם להסיר את הגישה של Campfire בכל עת מדף האפליקציות המחוברות בחשבון ה־Dropbox שלכם.</li>
+		</ul>
+		<p>כל מה שנשמר ב־Dropbox שלכם כפוף למדיניות הפרטיות ולתנאים של Dropbox עצמה, שהם בינכם לבין Dropbox. אם בעתיד Campfire יתמוך בשירות ענן נוסף, אותם עקרונות יחולו גם עליו, והדף הזה יעודכן ויציין אותו.</p>
+		<h2 id="links">קישורים לשירים ולסט־ליסטים</h2>
+		<p>אפשר לשתף שיר או סט־ליסט כקישור שכל אחד יכול לפתוח. יצירת קישור דורשת סנכרון בענן עם Dropbox, שמתואר למעלה; פתיחת קישור לא דורשת חשבון.</p>
+		<ul>
+			<li><strong>שיתוף שם עותק ציבורי ב־Dropbox שלכם.</strong> כשאתם יוצרים קישור, Campfire שומר את השיר, או את הסט־ליסט עם השירים שלו, כקובץ zip בתיקייה <em>shared</em> בתוך <em>Apps/Campfire Sync</em>, ומבקש מ־Dropbox קישור ציבורי אליו. כל מי שיש לו את הקישור יכול להוריד את הקובץ. כל עוד הסנכרון מחובר, Campfire מעדכן את הקובץ כשאתם משנים את השיר או את הסט־ליסט, עד שתפסיקו לשתף אותו. לשם כך האפליקציה מבקשת מ־Dropbox גם הרשאה ליצור קישורים משותפים ולהציג אותם, והיא חלה רק על התיקייה שלה. רשימת מה שאתם משתפים, עם השם, שם הקובץ, הקישור והיום שבו שותף כל פריט, נשמרת בקובץ <em>shared-links.json</em> באותה תיקייה, כך שכל מכשיר שמחובר אליה מציג את אותה רשימה.</li>
+			<li><strong>הפסקה.</strong> <em>הפסקת השיתוף</em>, במסך <em>שיתוף</em> או ב<em>הגדרות ← שיתוף</em>, מוחקת את הקובץ מה־Dropbox שלכם, וכך גם מחיקת השיר או הסט־ליסט ב־Campfire. מאותו רגע הקישור מפסיק לעבוד לכולם. עותקים שאנשים כבר ייבאו שייכים להם, ו־Campfire לא יכול להגיע אליהם.</li>
+			<li><strong>פתיחת קישור מורידה את הקובץ מ־Dropbox.</strong> האפליקציה מורידה אותו ישירות מ־Dropbox, מראה לכם מה יש בו, ולא כותבת שום דבר עד שתייבאו אותו. Dropbox רואה הורדה רגילה מכתובת האינטרנט של המכשיר שלכם, ושום דבר לא נשלח אליי.</li>
+			<li><strong>הדף של הקישור לא שולח כלום.</strong> קישור מוביל לדף באתר הזה, שקורא את הקישור בדפדפן שלכם. החלק בקישור שמציין את הקובץ בא אחרי <em>#</em>, שדפדפנים אף פעם לא שולחים לשרת, כך שלא האתר הזה ולא התצוגה המקדימה של הקישור באפליקציית מסרים רואים אותו. הדף עצמו לא מוריד שום דבר; הכפתורים שלו פותחים את Campfire, את החנות שלו, את גרסת הדפדפן או את ההורדה של הקובץ.</li>
+			<li><strong>התקנה מקישור.</strong> ב־Android, כש־Campfire מותקן מ־Google Play דרך הכפתור בדף, Google Play מעביר את הקישור לאפליקציה בהפעלה הראשונה. ב־iOS וב־iPadOS, הכפתור <em>הורדת האפליקציה</em> בדף מעתיק את הקישור; בהפעלה הראשונה, Campfire בודק אם יש בלוח כתובת אינטרנט, בלי לקרוא אותה, וקורא אותה רק אם תקישו <em>פתיחה</em>. Campfire מתעלם מכל מה שאינו קישור של Campfire.</li>
+		</ul>
+		<h2>המיקרופון והטיונר</h2>
+		<p>ב־Campfire יש טיונר שמאזין לכלי שלכם דרך המיקרופון. <strong>שום דבר ממה שהוא שומע לא מוקלט, נשמר או נשלח לשום מקום.</strong></p>
+		<ul>
+			<li><strong>רק כשאתם מבקשים.</strong> האפליקציה אף פעם לא מבקשת את המיקרופון כשהיא נפתחת. היא מבקשת כשאתם מקישים כדי לפתוח את הטיונר (הלשונית “טיונר”, או כפתור הטיונר או פריט התפריט שלו בשיר), או כשאתם מקישים <em>שימוש במיקרופון</em> בטיונר שהוצג בלי הקשה, למשל כזה שהאפליקציה פותחת מחדש איפה שעזבתם אותו. Android, iOS, iPadOS, macOS והדפדפן שלכם מבקשים קודם את ההרשאה שלכם, ואפשר לבטל אותה בכל עת בהגדרות שלהם. במחשב, שבו האפליקציה לא יכולה לדעת אם ניתנה הרשאה, היא זוכרת שהקשתם על הכפתור פעם אחת, ומאז פותחת את המיקרופון בכל פעם שהטיונר מוצג.</li>
+			<li><strong>רק כשהטיונר על המסך.</strong> המיקרופון פתוח רק כשהלשונית “טיונר” או הטיונר שמעל שיר מוצגים והאפליקציה בחזית. הוא נסגר ברגע שאתם עוזבים את הטיונר, עוברים לאפליקציה אחרת או נועלים את המסך, כך שמחוון ההקלטה של המכשיר דולק בדיוק כשהטיונר מאזין.</li>
+			<li><strong>מנותח במכשיר, ואז נזרק.</strong> הצליל מעובד במכשיר שלכם ברגע שהוא מגיע, רק כדי למצוא את גובה הצליל של התו שמנוגן, ואז נזרק. שום שמע, ושום דבר שנגזר ממנו, לא נשמר, מסונכרן, נכלל בגיבוי או נשלח אליי או לכל אחד אחר.</li>
+			<li><strong>כיבוי.</strong> המתג “טיונר” בהגדרות האפליקציה מסיר את הטיונר, ואיתו כל דרך שבה האפליקציה יכולה לבקש את המיקרופון.</li>
+		</ul>
+		<h2>תמונות עטיפה</h2>
+		<p>שיר יכול לציין עטיפת אלבום שתוצג לידו, ככתובת אינטרנט של תמונה שכתובה בקובץ של השיר עצמו. את הכתובת בחרתם אתם או מי שכתב את השיר, ול־Campfire אין השפעה על האתר שאליו היא מפנה.</p>
+		<ul>
+			<li><strong>הצגת עטיפה.</strong> בפעם הראשונה ששיר עם עטיפה מוצג, האפליקציה מורידה את התמונה מהכתובת הזו ושומרת עותק במכשיר שלכם, כדי שלא תורד שוב. האתר שמגיש את התמונה רואה בקשה רגילה עבורה מכתובת האינטרנט של המכשיר שלכם, כמו מדפדפן. עותקים ששום שיר כבר לא מציין נמחקים על ידי האפליקציה, והם אף פעם לא מסונכרנים או נכללים בגיבוי של המכשיר. אפשר למחוק את כולם בכל עת בהקשה על <em>מטמון תמונות העטיפה</em> תחת <em>ספרייה</em> בהגדרות האפליקציה.</li>
+			<li><strong>חיפוש עטיפה.</strong> רק כשאתם פותחים את חיפוש העטיפה של שיר, האמן, האלבום והשם שבשדות החיפוש שלו נשלחים ל־<a href="https://musicbrainz.org/doc/About/Privacy_Policy" target="_blank" rel="noopener">MusicBrainz</a> ול־<a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener">iTunes Search API</a> של Apple, והתמונות הממוזערות של התקליטים שהם מוצאים מורדות מ־<a href="https://coverartarchive.org" target="_blank" rel="noopener">Cover Art Archive</a> ומ־Apple. שום דבר אחר עליכם או על הספרייה שלכם לא נשלח, ואין חשבון באף אחד מהם. הבקשות האלה כפופות למדיניות הפרטיות של השירותים האלה.</li>
+			<li><strong>הקלדת כתובת.</strong> אם אתם מזינים בעצמכם כתובת של תמונה, היא מורדת מהכתובת הזו כדי להציג לכם תצוגה מקדימה.</li>
+			<li><strong>כיבוי.</strong> המתג “תמונות עטיפה” בהגדרות האפליקציה מכבה את כל זה: שום עטיפה לא מורדת או מוצגת, והחיפוש לא מוצע.</li>
+		</ul>
+		<h2>חיפוש פרטי שירים</h2>
+		<p>בזמן שאתם עורכים את פרטי השיר, Campfire יכול לחפש ברשת את האמן, האלבום, השנה והכותבים שלו.</p>
+		<ul>
+			<li><strong>רק כשאתם מבקשים.</strong> שום דבר לא נשלח עד שאתם פותחים את <em>חיפוש פרטי השיר ברשת</em> עבור שיר. אז השם, האמן והאלבום שבשדות החיפוש שלו נשלחים ל־<a href="https://musicbrainz.org/doc/About/Privacy_Policy" target="_blank" rel="noopener">MusicBrainz</a> ול־<a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener">iTunes Search API</a> של Apple, ו־MusicBrainz מתבקש גם לתת את הכותבים של הקלטה שנמצאה. שום דבר אחר עליכם או על הספרייה שלכם לא נשלח, ואין חשבון באף אחד מהם. הבקשות האלה כפופות למדיניות הפרטיות של השירותים האלה.</li>
+			<li><strong>שום דבר לא נשמר, ושום דבר לא נכתב עד שאתם שומרים.</strong> מה שהחיפוש מוצא רק ממלא את הטופס. קובץ השיר משתנה רק כשאתם מקישים על “שמירה”, והתוצאות לא נשמרות.</li>
+			<li><strong>כיבוי.</strong> המתג “פרטי שיר מהרשת” בהגדרות האפליקציה מסיר את החיפוש.</li>
+		</ul>
+		<h2>הדבקה ושיתוף של שירים</h2>
+		<ul>
+			<li><strong>הלוח נקרא רק כשאתם מדביקים.</strong> Campfire קורא אותו כשאתם מקישים <em>הדבקה מהלוח</em> או לוחצים Ctrl+V (או Cmd+V ב־Mac), או <em>פתיחה</em> בהפעלה הראשונה אחרי התקנה מקישור ב־iOS וב־iPadOS (ראו <a href="#links">קישורים לשירים ולסט־ליסטים</a>), אף פעם לא מעצמו. ב־iOS וב־iPadOS, ובחלק מהדפדפנים, המערכת שואלת אתכם קודם.</li>
+			<li><strong>שירים ששותפו או נגררו נשארים במכשיר שלכם.</strong> טקסט וקבצים שאתם משתפים ל־Campfire מאפליקציה אחרת ב־Android, ב־iOS או ב־iPadOS, או גוררים אליו, נקראים ומומרים במכשיר שלכם. כתובת אינטרנט ביניהם אף פעם לא נפתחת. ב־iOS וב־iPadOS, שיתוף ממתין בתיקייה משותפת לאפליקציה ולתוסף השיתוף שלה עד ש־Campfire לוקח אותו, ואז נמחק.</li>
+			<li><strong>שום דבר לא נשמר עד שאתם שומרים אותו.</strong> שיר שהודבק או שותף נפתח בעורך והופך לקובץ בספרייה רק כשאתם מקישים על “שמירה”. עד אז העורך שומר את הטקסט שלא נשמר רק במכשיר שלכם, כדי שלא ילך לאיבוד אם האפליקציה נסגרת.</li>
+		</ul>
+		<h2 id="log">היומן של האפליקציה</h2>
+		<p>Campfire שומר יומן של מה שהוא עשה לאחרונה, כדי שכשמשהו משתבש, תוכלו לשלוח לי אותו ואוכל לברר למה. זו לא אנליטיקה: הוא נשאר במכשיר שלכם, שום דבר לא שולח אותו לשום מקום מעצמו, והוא מגיע אליי רק אם תבחרו לשלוח אותו.</p>
+		<ul>
+			<li><strong>מה יש בו.</strong> מתי האפליקציה הופעלה, הגרסה שלה ובאיזה סוג מכשיר היא רצה; אילו מסכים ותיבות דו־שיח פתחתם, לפי הסוג בלבד (למשל “פרטי השיר”, אף פעם לא השיר עצמו); מה עשיתם, בכמה מילים, כמו שמירת שיר, הוספת שירים לסט־ליסט, שינוי הגדרה (השם שלה, לא הערך שבחרתם), פתיחת חיפוש (אף פעם לא מה שהקלדתם), הפעלת המטרונום או הטיונר, ייבוא, ייצוא, שיתוף ואיך עבר כל סנכרון, במספרים; וההודעות שהאפליקציה כותבת על מה שעשתה ועל שגיאות, שיכולות לציין את הקבצים של השירים והסט־ליסטים שלכם. כל שורה נושאת את השעה שבה נכתבה. הוא אף פעם לא מכיל את הטקסט של השירים שלכם, את ההגדרות שלכם, את חשבון ה־Dropbox שלכם או את מה שהטיונר שומע.</li>
+			<li><strong>איפה הוא נשמר.</strong> רק במכשיר שלכם, באחסון של האפליקציה עצמה, ואף פעם לא מסונכרן. הוא מוגבל לכחצי מגה־בייט, ושורות ישנות נמחקות כשנכתבות חדשות.</li>
+			<li><strong>השליחה בידיים שלכם.</strong> בהגדרות, שורת היומן בלשונית <em>אודות</em> מציגה קודם מה יש ביומן, ואז, אם תמשיכו, מצרפת אותו למייל חדש אליי ב־Android, וב־iOS וב־iPadOS כשלאפליקציית Mail יש חשבון. אפשר לקרוא את המייל ואת היומן לפני השליחה, או לא לשלוח בכלל. במקומות אחרים Campfire מציע לשתף או לשמור את הקובץ, ואתם שולחים אותו בעצמכם. במחשב, שם המשתמש שלכם בנתיבי התיקיות שהיומן מזכיר מוחלף לפני שהוא יוצא מהאפליקציה.</li>
+			<li><strong>אחרי קריסה.</strong> ב־Android, ב־iOS, ב־iPadOS ובמחשב, אם האפליקציה נעצרה בגלל שגיאה, היא שואלת פעם אחת, בפעם הבאה שתפתחו אותה, אם תרצו לשלוח לי את היומן. בחירה ב<em>לא עכשיו</em> לא שולחת כלום.</li>
+			<li><strong>אם תשלחו לי אותו,</strong> אשתמש בו רק כדי למצוא ולתקן את הבעיה שנתקלתם בה.</li>
+		</ul>
+		<h2>גיבוי המכשיר</h2>
+		<p>טלפונים וטאבלטים עם Android, מכשירי iPhone ו־iPad יכולים לגבות את הנתונים של האפליקציות שעליהם ולהעביר אותם למכשיר חדש. אם האפשרות הזו מופעלת אצלכם, הספרייה של Campfire והגדרות האפליקציה הן חלק מהגיבוי: ב־Android בגיבוי של Google או בהעברה ישירה לטלפון חדש, ב־iOS וב־iPadOS בגיבוי iCloud או בהעברה מהמכשיר הישן. את העותק הזה יוצרת מערכת ההפעלה לפי הגדרות הגיבוי של המכשיר, וגיבוי נשמר בחשבון Google או Apple שלכם, לפי מדיניות הפרטיות של Google או של Apple. האפליקציה לא מבקשת אותו, והוא אף פעם לא מגיע אליי. אפשר לכבות אותו בהגדרות המכשיר. תמונות העטיפה, היומן של האפליקציה, טקסט שלא נשמר בעורך ושיתופים שממתינים בתוסף השיתוף של iOS לא נכללים בו.</p>
+		<p>אם אתם משתמשים בסנכרון בענן, החיבור ל־Dropbox והרישום של הסנכרון האחרון לא נכללים בגיבוי באף מכשיר, כך שטלפון או טאבלט משוחזר או חדש מתחיל במצב מנותק, ותתחברו שוב ל־Dropbox.</p>
+		<p>במחשב, הספרייה והיומן של האפליקציה נשמרים בתיקייה של Campfire בין נתוני האפליקציות של חשבון המשתמש שלכם, וכל גיבוי שתעשו למחשב, כמו Time Machine או היסטוריית הקבצים, עשוי לכלול אותם. בגרסת הדפדפן, הספרייה והיומן נמצאים באחסון של הדפדפן עבור האתר. הם לא חלק מאף גיבוי, ומחיקת נתוני האתר מסירה אותם.</p>
+		<h2 id="data-deletion">מחיקת הנתונים שלכם</h2>
+		<p>אין אצלי עותק של שום דבר שאתם שומרים ב־Campfire, כך שאין לי מה למחוק ואין בקשה לשלוח: כל עותק נמצא במקום שבשליטתכם, ואתם יכולים להסיר אותו בעצמכם בכל עת.</p>
+		<ul>
+			<li><strong>כל הספרייה, מתוך האפליקציה:</strong> פתחו את ההגדרות, עברו ללשונית <em>ספרייה</em>, תחת <em>במכשיר הזה</em> הקישו על השורה שמציגה כמה שירים וסט־ליסטים יש לכם, הקלידו <em>DELETE</em> ואשרו. כל השירים והסט־ליסטים נמחקים מהמכשיר. <strong>אם סנכרון Dropbox מחובר, הם נמחקים גם מהתיקייה <em>Apps/Campfire Sync</em> ומכל מכשיר אחר שמסונכרן איתה</strong>; תיבת הדו־שיח אומרת זאת לפני שאתם מאשרים. כדי למחוק אותם רק מהמכשיר הזה, בחרו קודם ב“ניתוק”. העותקים של תמונות העטיפה נמחקים מאותו מסך, עם <em>מטמון תמונות העטיפה</em>. מחיקת הספרייה גם מפסיקה את השיתוף של כל שיר וסט־ליסט, כך שכל הקישורים שלכם מפסיקים לעבוד.</li>
+			<li><strong>הקישורים המשותפים שלכם, מתוך האפליקציה:</strong> בהגדרות, <em>הפסקת השיתוף של הכול</em> בלשונית <em>שיתוף</em> מוחקת מה־Dropbox שלכם כל עותק משותף, וכל קישור מפסיק לעבוד. הספרייה שלכם נשארת כמו שהיא.</li>
+			<li><strong>כל מה שבמכשיר שלכם:</strong> הסירו את האפליקציה, וזה מסיר מהמכשיר את הספרייה, ההגדרות, תמונות העטיפה, היומן של האפליקציה והחיבור ל־Dropbox. בגרסת הדפדפן, מחיקת נתוני האתר בדפדפן עושה אותו דבר.</li>
+			<li><strong>ב־Dropbox שלכם, אם השתמשתם בסנכרון:</strong> מחיקת הספרייה בזמן שהחשבון מחובר, כמו למעלה, מסירה את השירים והסט־ליסטים מהתיקייה <em>Apps/Campfire Sync</em>, ומשאירה רק את הקובץ <em>preferences.json</em> עם צורות האקורדים וצבעי התגיות שבחרתם, ואם אי פעם שיתפתם משהו, את הרשימה <em>shared-links.json</em>, ריקה. כדי להסיר הכול, בחרו ב“ניתוק” בהגדרות האפליקציה, ואז מחקו את התיקייה <em>Apps/Campfire Sync</em> ב־Dropbox. אפשר גם להסיר את הגישה של Campfire מדף האפליקציות המחוברות בחשבון ה־Dropbox שלכם.</li>
+			<li><strong>בגיבוי של המכשיר:</strong> מחקו את הגיבוי, או כבו את הגיבוי של האפליקציה, בהגדרות המכשיר או בחשבון Google או iCloud שלכם.</li>
+		</ul>
+		<p>אם משהו לא ברור, <a href="mailto:pandulapeter@gmail.com?Subject=Campfire" target="_top">צרו איתי קשר</a> ואשמח לעזור.</p>
+		<h2 id="website">האתר הזה</h2>
+		<p>האתר הזה לא שומר עוגיות, ואין בו גם פרסומות, אנליטיקה או מעקב.</p>
+		<ul>
+			<li><strong>השפה שלכם.</strong> כשאתם בוחרים שפה מהתפריט בראש הדף, הדפדפן שלכם זוכר אותה, כך שהאתר נפתח בשפה הזו בפעם הבאה. הבחירה נשמרת באחסון של הדפדפן עבור האתר, אף פעם לא נשלחת לשום מקום, ונשכחת כשמוחקים את נתוני האתר. עד שתבחרו שפה, האתר עוקב אחרי השפה של הדפדפן שלכם.</li>
+			<li><strong>אירוח.</strong> האתר מתארח ב־GitHub Pages. כמו כל שרת אינטרנט, הוא רואה את כתובת האינטרנט של המכשיר שלכם כשהדפדפן טוען דף, ו־GitHub מתעדת אותה למטרות אבטחה, לפי <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">הצהרת הפרטיות הכללית של GitHub</a>. שום דבר מזה לא מגיע אליי.</li>
+		</ul>
+		<h2>פרטיות של ילדים</h2>
+		<p>השירותים האלה אינם מיועדים לאף אחד מתחת לגיל 13. מידע מזהה אישי של ילדים מתחת לגיל 13 לא נאסף ביודעין. אם אתם הורים או אפוטרופוסים ואתם יודעים שהילד שלכם מסר לי מידע אישי, צרו איתי קשר כדי שאוכל לעשות את מה שנדרש.</p>
+		<h2>שינויים במדיניות הפרטיות</h2>
+		<p>ייתכן שאעדכן את מדיניות הפרטיות שלי מעת לעת. לכן מומלץ לעיין בדף הזה מדי פעם כדי לראות אם היו שינויים. אודיע על כל שינוי על ידי פרסום מדיניות הפרטיות החדשה בדף הזה. השינויים נכנסים לתוקף מיד עם פרסומם.</p>
+		<h2>צרו קשר</h2>
+		<p>אם יש לכם שאלות או הצעות לגבי מדיניות הפרטיות שלי, אל תהססו <a href="mailto:pandulapeter@gmail.com?Subject=Campfire" target="_top">ליצור איתי קשר</a>.</p>
+	</main>
+
+	<footer class="site-footer">
+		<div class="legal">
+			<p>© 2026 · <a href="https://pandulapeter.com" target="_blank" rel="noopener">Péter Pandula</a></p>
+			<a class="source" href="https://github.com/pandulapeter/campfire" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>קוד מקור</a>
+			<ul class="language-links" translate="no" aria-label="שפה">
+				<li><a href="../../privacy/" hreflang="en" lang="en">English</a></li>
+				<li><a href="../../de/privacy/" hreflang="de" lang="de">Deutsch</a></li>
+				<li><a href="../../es/privacy/" hreflang="es" lang="es">Español</a></li>
+				<li><a href="../../fr/privacy/" hreflang="fr" lang="fr">Français</a></li>
+				<li><a href="./" hreflang="he" lang="he" aria-current="true">עברית</a></li>
+				<li><a href="../../hu/privacy/" hreflang="hu" lang="hu">Magyar</a></li>
+				<li><a href="../../it/privacy/" hreflang="it" lang="it">Italiano</a></li>
+				<li><a href="../../ro/privacy/" hreflang="ro" lang="ro">Română</a></li>
+			</ul>
+		</div>
+	</footer>
+</div>
+</body>
+</html>

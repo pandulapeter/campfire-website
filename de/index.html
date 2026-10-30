@@ -11,7 +11,7 @@
 		// has the same elements in the same order, only with longer or shorter text, so a visitor who picks one is kept at
 		// the element at the top of the window, as far into it as they were, or at the bottom of the page if they were there.
 		(function (d, l) {
-			var languages = ["de", "en", "es", "fr", "hu", "it", "ro"];
+			var languages = ["de", "en", "es", "fr", "he", "hu", "it", "ro"];
 			var picked = null;
 			var blocks = "h1, h2, h3, p, li, dt, dd, summary, figure, pre, img";
 			function top() { var header = d.querySelector(".site-header"); return header ? header.getBoundingClientRect().bottom : 0; }
@@ -58,7 +58,8 @@
 				addEventListener("load", restore);
 			}
 			if (d.documentElement.lang !== "en") return;
-			var preferred = [picked].concat((navigator.languages || [navigator.language]).map(function (tag) { return String(tag).slice(0, 2).toLowerCase(); }))
+			// Older browsers still name Hebrew by its retired code, iw.
+			var preferred = [picked].concat((navigator.languages || [navigator.language]).map(function (tag) { return String(tag).slice(0, 2).toLowerCase().replace("iw", "he"); }))
 				.filter(function (code) { return languages.indexOf(code) !== -1; })[0];
 			if (preferred && preferred !== "en") l.replace("/" + preferred + l.pathname + l.search + l.hash);
 		}(document, location));
@@ -70,6 +71,7 @@
 	<link rel="alternate" hreflang="de" href="https://campfire-songbook.com/de/">
 	<link rel="alternate" hreflang="es" href="https://campfire-songbook.com/es/">
 	<link rel="alternate" hreflang="fr" href="https://campfire-songbook.com/fr/">
+	<link rel="alternate" hreflang="he" href="https://campfire-songbook.com/he/">
 	<link rel="alternate" hreflang="hu" href="https://campfire-songbook.com/hu/">
 	<link rel="alternate" hreflang="it" href="https://campfire-songbook.com/it/">
 	<link rel="alternate" hreflang="ro" href="https://campfire-songbook.com/ro/">
@@ -82,7 +84,7 @@
 	<meta property="og:url" content="https://campfire-songbook.com/de/">
 	<meta property="og:title" content="Campfire: Liederbuch &amp; Akkorde">
 	<meta property="og:description" content="Ein kostenloses Songbook für deine Songtexte und Akkorde, mit Akkorddiagrammen und Tonleitern für dein Instrument, Setlists, einem Metronom im Tempo jedes Songs und einem Stimmgerät. Funktioniert offline auf Smartphone, Tablet und Computer, auf Wunsch mit Dropbox-Synchronisierung in Echtzeit.">
-	<meta property="og:image" content="https://campfire-songbook.com/assets/og-image.jpg?v=82916e38">
+	<meta property="og:image" content="https://campfire-songbook.com/assets/og-image.jpg?v=a61c2901">
 	<meta property="og:image:width" content="1200">
 	<meta property="og:image:height" content="630">
 	<meta property="og:image:alt" content="Campfire auf einem Laptop und einem Smartphone">
@@ -118,10 +120,10 @@
 				"offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
 				"isAccessibleForFree": true,
 				"license": "https://mozilla.org/MPL/2.0/",
-				"image": "https://campfire-songbook.com/assets/og-image.jpg?v=82916e38",
+				"image": "https://campfire-songbook.com/assets/og-image.jpg?v=a61c2901",
 				"screenshot": [
-					"https://campfire-songbook.com/assets/screenshots/de/laptop-setlists-light.webp?v=76aa062c",
-					"https://campfire-songbook.com/assets/screenshots/de/tablet-song-light.webp?v=d9110781",
+					"https://campfire-songbook.com/assets/screenshots/de/laptop-setlists-light.webp?v=841e0685",
+					"https://campfire-songbook.com/assets/screenshots/de/tablet-song-light.webp?v=38666dd5",
 					"https://campfire-songbook.com/assets/screenshots/de/phone-songs-light.webp?v=1c68138e"
 				],
 				"featureList": [
@@ -150,7 +152,7 @@
 	<link rel="apple-touch-icon" href="../assets/icon-192.png?v=0f2be8ac">
 	<link rel="preload" href="../assets/fonts/inter_bold.woff2?v=676dbe48" as="font" type="font/woff2" crossorigin>
 	<link rel="preload" href="../assets/fonts/inter_regular.woff2?v=0b354d6b" as="font" type="font/woff2" crossorigin>
-	<link rel="stylesheet" href="../assets/site.css?v=e28400a6">
+	<link rel="stylesheet" href="../assets/site.css?v=2b1bea56">
 	<script>
 		// Every visitor is offered two versions: a phone or a tablet the app from its store first and the web app second,
 		// a computer the other way around. The script names the system: the stylesheet shows the elements marked
@@ -197,6 +199,7 @@
 					<li><a href="./" hreflang="de" lang="de" aria-current="true">Deutsch</a></li>
 					<li><a href="../es/" hreflang="es" lang="es">Español</a></li>
 					<li><a href="../fr/" hreflang="fr" lang="fr">Français</a></li>
+					<li><a href="../he/" hreflang="he" lang="he">עברית</a></li>
 					<li><a href="../hu/" hreflang="hu" lang="hu">Magyar</a></li>
 					<li><a href="../it/" hreflang="it" lang="it">Italiano</a></li>
 					<li><a href="../ro/" hreflang="ro" lang="ro">Română</a></li>
@@ -225,12 +228,12 @@
 			</div>
 			<div class="stage">
 				<div class="laptop"><div class="lid"><picture class="screen">
-					<source srcset="../assets/screenshots/de/laptop-setlists-dark.webp?v=2f097d7d" media="(prefers-color-scheme: dark)">
-					<img src="../assets/screenshots/de/laptop-setlists-light.webp?v=76aa062c" width="1200" height="753" fetchpriority="high" alt="Setlists auf einem MacBook, jede mit ihren Songs, deren Tonart, Tempo und Länge sowie der Spielzeit des Sets.">
+					<source srcset="../assets/screenshots/de/laptop-setlists-dark.webp?v=2e862062" media="(prefers-color-scheme: dark)">
+					<img src="../assets/screenshots/de/laptop-setlists-light.webp?v=841e0685" width="1200" height="753" fetchpriority="high" alt="Setlists auf einem MacBook, jede mit ihren Songs, deren Tonart, Tempo und Länge sowie der Spielzeit des Sets.">
 				</picture></div><div class="base"></div></div>
 				<div class="tablet"><div class="frame"><picture class="screen">
-					<source srcset="../assets/screenshots/de/tablet-song-dark.webp?v=19ac8cd5" media="(prefers-color-scheme: dark)">
-					<img src="../assets/screenshots/de/tablet-song-light.webp?v=d9110781" width="1200" height="900" alt="Ein Song auf einem iPad, Akkorddiagramme und Strophen in Spalten.">
+					<source srcset="../assets/screenshots/de/tablet-song-dark.webp?v=833dfb62" media="(prefers-color-scheme: dark)">
+					<img src="../assets/screenshots/de/tablet-song-light.webp?v=38666dd5" width="1200" height="900" alt="Ein Song auf einem iPad, Akkorddiagramme und Strophen in Spalten.">
 				</picture></div></div>
 				<div class="phone"><div class="frame"><picture class="screen">
 					<source srcset="../assets/screenshots/de/phone-songs-dark.webp?v=097797c8" media="(prefers-color-scheme: dark)">
@@ -260,20 +263,20 @@
 			<div>
 				<div class="laptop"><div class="lid"><div class="slides demo" id="text-size-slides">
 					<picture class="screen">
-						<source srcset="../assets/screenshots/de/laptop-song-100-dark.webp?v=5df13196" media="(prefers-color-scheme: dark)">
-						<img src="../assets/screenshots/de/laptop-song-100-light.webp?v=d85be808" width="1200" height="753" loading="lazy" alt="Ein Song auf einem MacBook in der Standard-Textgröße, in vier Spalten unter den Diagrammen seiner Akkorde.">
+						<source srcset="../assets/screenshots/de/laptop-song-100-dark.webp?v=802a67f4" media="(prefers-color-scheme: dark)">
+						<img src="../assets/screenshots/de/laptop-song-100-light.webp?v=4bc7ca64" width="1200" height="753" loading="lazy" alt="Ein Song auf einem MacBook in der Standard-Textgröße, in vier Spalten unter den Diagrammen seiner Akkorde.">
 					</picture>
 					<picture class="screen" aria-hidden="true">
-						<source data-srcset="../assets/screenshots/de/laptop-song-120-dark.webp?v=a09099e3" media="(prefers-color-scheme: dark)">
-						<img data-src="../assets/screenshots/de/laptop-song-120-light.webp?v=c62a65d7" width="1200" height="753" loading="lazy" alt="Derselbe Song mit Text auf 120 %, in drei Spalten.">
+						<source data-srcset="../assets/screenshots/de/laptop-song-120-dark.webp?v=5568112f" media="(prefers-color-scheme: dark)">
+						<img data-src="../assets/screenshots/de/laptop-song-120-light.webp?v=6f489b9d" width="1200" height="753" loading="lazy" alt="Derselbe Song mit Text auf 120 %, in drei Spalten.">
 					</picture>
 					<picture class="screen" aria-hidden="true">
-						<source data-srcset="../assets/screenshots/de/laptop-song-150-dark.webp?v=e0200812" media="(prefers-color-scheme: dark)">
-						<img data-src="../assets/screenshots/de/laptop-song-150-light.webp?v=dfbdee38" width="1200" height="753" loading="lazy" alt="Derselbe Song mit Text auf 150 %, in drei Spalten.">
+						<source data-srcset="../assets/screenshots/de/laptop-song-150-dark.webp?v=72c061cb" media="(prefers-color-scheme: dark)">
+						<img data-src="../assets/screenshots/de/laptop-song-150-light.webp?v=37b425d8" width="1200" height="753" loading="lazy" alt="Derselbe Song mit Text auf 150 %, in drei Spalten.">
 					</picture>
 					<picture class="screen" aria-hidden="true">
-						<source data-srcset="../assets/screenshots/de/laptop-song-200-dark.webp?v=795a1dbf" media="(prefers-color-scheme: dark)">
-						<img data-src="../assets/screenshots/de/laptop-song-200-light.webp?v=6b8ad8f7" width="1200" height="753" loading="lazy" alt="Derselbe Song mit Text auf 200 %, in zwei Spalten.">
+						<source data-srcset="../assets/screenshots/de/laptop-song-200-dark.webp?v=39b224ec" media="(prefers-color-scheme: dark)">
+						<img data-src="../assets/screenshots/de/laptop-song-200-light.webp?v=af0259c4" width="1200" height="753" loading="lazy" alt="Derselbe Song mit Text auf 200 %, in zwei Spalten.">
 					</picture>
 				</div></div><div class="base"></div></div>
 				<div class="slider" role="group" aria-label="Textgröße">
@@ -295,8 +298,8 @@
 			</div>
 			<div>
 				<div class="laptop"><div class="lid"><picture class="screen">
-					<source srcset="../assets/screenshots/de/laptop-import-dark.webp?v=12d8ba69" media="(prefers-color-scheme: dark)">
-					<img src="../assets/screenshots/de/laptop-import-light.webp?v=597ba6e2" width="1200" height="753" loading="lazy" alt="Ein importierter Song im Editor auf einem MacBook, mit einem markierten Fehler und der Live-Vorschau daneben.">
+					<source srcset="../assets/screenshots/de/laptop-import-dark.webp?v=7a3be65c" media="(prefers-color-scheme: dark)">
+					<img src="../assets/screenshots/de/laptop-import-light.webp?v=ec4d1ee3" width="1200" height="753" loading="lazy" alt="Ein importierter Song im Editor auf einem MacBook, mit einem markierten Fehler und der Live-Vorschau daneben.">
 				</picture></div><div class="base"></div></div>
 			</div>
 		</section>
@@ -314,12 +317,12 @@
 			</div>
 			<div class="pair">
 				<div class="tablet"><div class="frame"><picture class="screen">
-					<source srcset="../assets/screenshots/de/tablet-export-dark.webp?v=1e0647d8" media="(prefers-color-scheme: dark)">
-					<img src="../assets/screenshots/de/tablet-export-light.webp?v=c8b1f5db" width="1200" height="900" loading="lazy" alt="Ein als PDF geteilter Song auf einem iPad, die Seitenvorschau neben den Optionen.">
+					<source srcset="../assets/screenshots/de/tablet-export-dark.webp?v=ef9068da" media="(prefers-color-scheme: dark)">
+					<img src="../assets/screenshots/de/tablet-export-light.webp?v=69869430" width="1200" height="900" loading="lazy" alt="Ein als PDF geteilter Song auf einem iPad, die Seitenvorschau neben den Optionen.">
 				</picture></div></div>
 				<div class="phone"><div class="frame"><picture class="screen">
-					<source srcset="../assets/screenshots/de/phone-setlist-dark.webp?v=41ac8be6" media="(prefers-color-scheme: dark)">
-					<img src="../assets/screenshots/de/phone-setlist-light.webp?v=59b805a5" width="450" height="978" loading="lazy" alt="Eine Setlist auf einem iPhone, mit Tonart, Tempo und Länge jedes Songs, der Spielzeit und den Tagen bis zum Gig.">
+					<source srcset="../assets/screenshots/de/phone-setlist-dark.webp?v=eafdf2c8" media="(prefers-color-scheme: dark)">
+					<img src="../assets/screenshots/de/phone-setlist-light.webp?v=6caf1160" width="450" height="978" loading="lazy" alt="Eine Setlist auf einem iPhone, mit Tonart, Tempo und Länge jedes Songs, der Spielzeit und den Tagen bis zum Gig.">
 				</picture></div></div>
 			</div>
 		</section>
@@ -339,9 +342,9 @@
 				<div class="slides" id="practice-slides">
 					<div class="pair flip">
 						<div class="tablet"><div class="frame"><picture class="screen">
-							<source srcset="../assets/screenshots/de/tablet-song-metronome-dark.webp?v=d6cfe7a4" media="(prefers-color-scheme: dark)">
-							<img src="../assets/screenshots/de/tablet-song-metronome-light.webp?v=7e9ae54d" width="1200" height="900" loading="lazy" alt="Ein Song auf einem iPad, das Metronom-Panel unter dem Titel geöffnet.">
-						</picture><span class="beats" style="--beats-light: url(/assets/screenshots/de/tablet-song-metronome-beats-light.webp?v=2e5a5e1a); --beats-dark: url(/assets/screenshots/de/tablet-song-metronome-beats-dark.webp?v=8946d6e0)" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div></div>
+							<source srcset="../assets/screenshots/de/tablet-song-metronome-dark.webp?v=fcd72632" media="(prefers-color-scheme: dark)">
+							<img src="../assets/screenshots/de/tablet-song-metronome-light.webp?v=b8bdf15e" width="1200" height="900" loading="lazy" alt="Ein Song auf einem iPad, das Metronom-Panel unter dem Titel geöffnet.">
+						</picture><span class="beats" style="--beats-light: url(/assets/screenshots/de/tablet-song-metronome-beats-light.webp?v=d4f79f23); --beats-dark: url(/assets/screenshots/de/tablet-song-metronome-beats-dark.webp?v=6adf9953)" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div></div>
 						<div class="phone"><div class="frame"><picture class="screen">
 							<source srcset="../assets/screenshots/de/phone-metronome-dark.webp?v=519bcd75" media="(prefers-color-scheme: dark)">
 							<img src="../assets/screenshots/de/phone-metronome-light.webp?v=6d436658" width="450" height="978" loading="lazy" alt="Der Tab „Metronom“ auf einem iPhone, mit Tempo, den Schlägen des Takts und den Einstellungen.">
@@ -349,12 +352,12 @@
 					</div>
 					<div class="pair flip" aria-hidden="true">
 						<div class="tablet"><div class="frame"><picture class="screen">
-							<source srcset="../assets/screenshots/de/tablet-song-tuner-dark.webp?v=7a4ea0d7" media="(prefers-color-scheme: dark)">
-							<img src="../assets/screenshots/de/tablet-song-tuner-light.webp?v=b5af682e" width="1200" height="900" loading="lazy" alt="Ein Song auf einem iPad mit geöffnetem Stimmgerät darüber, die tiefe E-Saite einer Gitarre 9 Cent zu hoch.">
+							<source srcset="../assets/screenshots/de/tablet-song-tuner-dark.webp?v=a9412de1" media="(prefers-color-scheme: dark)">
+							<img src="../assets/screenshots/de/tablet-song-tuner-light.webp?v=387e7ad5" width="1200" height="900" loading="lazy" alt="Ein Song auf einem iPad mit geöffnetem Stimmgerät darüber, die tiefe E-Saite einer Gitarre 9 Cent zu hoch.">
 						</picture></div></div>
 						<div class="phone"><div class="frame"><picture class="screen">
-							<source srcset="../assets/screenshots/de/phone-tuner-dark.webp?v=29ae0704" media="(prefers-color-scheme: dark)">
-							<img src="../assets/screenshots/de/phone-tuner-light.webp?v=5969ba6f" width="450" height="978" loading="lazy" alt="Der Tab „Stimmgerät“ auf einem iPhone, die A-Saite einer Gitarre 14 Cent zu tief und die tiefe E-Saite schon gestimmt.">
+							<source srcset="../assets/screenshots/de/phone-tuner-dark.webp?v=c9b9e9cc" media="(prefers-color-scheme: dark)">
+							<img src="../assets/screenshots/de/phone-tuner-light.webp?v=795ddf58" width="450" height="978" loading="lazy" alt="Der Tab „Stimmgerät“ auf einem iPhone, die A-Saite einer Gitarre 14 Cent zu tief und die tiefe E-Saite schon gestimmt.">
 						</picture></div></div>
 					</div>
 				</div>
@@ -379,22 +382,22 @@
 				<div class="slides" id="instrument-slides">
 					<div class="pair">
 						<div class="tablet"><div class="frame"><picture class="screen">
-							<source srcset="../assets/screenshots/de/tablet-song-chord-shape-dark.webp?v=d8836b24" media="(prefers-color-scheme: dark)">
-							<img src="../assets/screenshots/de/tablet-song-chord-shape-light.webp?v=021c4dac" width="1200" height="900" loading="lazy" alt="I’m Gonna Be (500 Miles) auf einem iPad, mit den Griffen eines B-Akkords auf der Gitarre über dem Song.">
+							<source srcset="../assets/screenshots/de/tablet-song-chord-shape-dark.webp?v=753e5580" media="(prefers-color-scheme: dark)">
+							<img src="../assets/screenshots/de/tablet-song-chord-shape-light.webp?v=82e74171" width="1200" height="900" loading="lazy" alt="I’m Gonna Be (500 Miles) auf einem iPad, mit den Griffen eines B-Akkords auf der Gitarre über dem Song.">
 						</picture></div></div>
 						<div class="phone"><div class="frame"><picture class="screen">
-							<source srcset="../assets/screenshots/de/phone-chords-dark.webp?v=46bf802f" media="(prefers-color-scheme: dark)">
-							<img src="../assets/screenshots/de/phone-chords-light.webp?v=51ca5999" width="450" height="978" loading="lazy" alt="Der Tab „Akkorde“ auf einem iPhone mit den Akkorden von C auf einer Ukulele.">
+							<source srcset="../assets/screenshots/de/phone-chords-dark.webp?v=c89cab3d" media="(prefers-color-scheme: dark)">
+							<img src="../assets/screenshots/de/phone-chords-light.webp?v=392fbe10" width="450" height="978" loading="lazy" alt="Der Tab „Akkorde“ auf einem iPhone mit den Akkorden von C auf einer Ukulele.">
 						</picture></div></div>
 					</div>
 					<div class="pair" aria-hidden="true">
 						<div class="tablet"><div class="frame"><picture class="screen">
-							<source srcset="../assets/screenshots/de/tablet-song-scales-dark.webp?v=febf1a34" media="(prefers-color-scheme: dark)">
-							<img src="../assets/screenshots/de/tablet-song-scales-light.webp?v=fd30fb47" width="1200" height="900" loading="lazy" alt="I'm Gonna Be (500 Miles) auf einem iPad, der Abschnitt „Tonleitern“ unter den Akkorden, mit der E-Dur-Tonleiter auf einem Gitarrenhals über dem Song.">
+							<source srcset="../assets/screenshots/de/tablet-song-scales-dark.webp?v=749746ea" media="(prefers-color-scheme: dark)">
+							<img src="../assets/screenshots/de/tablet-song-scales-light.webp?v=a2251c0c" width="1200" height="900" loading="lazy" alt="I'm Gonna Be (500 Miles) auf einem iPad, der Abschnitt „Tonleitern“ unter den Akkorden, mit der E-Dur-Tonleiter auf einem Gitarrenhals über dem Song.">
 						</picture></div></div>
 						<div class="phone"><div class="frame"><picture class="screen">
-							<source srcset="../assets/screenshots/de/phone-scales-dark.webp?v=698dda5e" media="(prefers-color-scheme: dark)">
-							<img src="../assets/screenshots/de/phone-scales-light.webp?v=1c4ec535" width="450" height="978" loading="lazy" alt="Der Tab „Tonleitern“ auf einem iPhone mit den gängigen Tonleitern von A auf einer Gitarre.">
+							<source srcset="../assets/screenshots/de/phone-scales-dark.webp?v=d562e89f" media="(prefers-color-scheme: dark)">
+							<img src="../assets/screenshots/de/phone-scales-light.webp?v=fab0cf8c" width="450" height="978" loading="lazy" alt="Der Tab „Tonleitern“ auf einem iPhone mit den gängigen Tonleitern von A auf einer Gitarre.">
 						</picture></div></div>
 					</div>
 				</div>
@@ -535,6 +538,7 @@ That [G]saved a wretch like [D]me
 				<li><a href="./" hreflang="de" lang="de" aria-current="true">Deutsch</a></li>
 				<li><a href="../es/" hreflang="es" lang="es">Español</a></li>
 				<li><a href="../fr/" hreflang="fr" lang="fr">Français</a></li>
+				<li><a href="../he/" hreflang="he" lang="he">עברית</a></li>
 				<li><a href="../hu/" hreflang="hu" lang="hu">Magyar</a></li>
 				<li><a href="../it/" hreflang="it" lang="it">Italiano</a></li>
 				<li><a href="../ro/" hreflang="ro" lang="ro">Română</a></li>
