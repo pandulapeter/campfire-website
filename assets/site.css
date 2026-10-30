@@ -221,16 +221,16 @@ html:not([data-os]) .all-platforms { display: none; }
    when one of the pills under them, which name them, is picked. The first is shown before the script runs, as the
    others start out hidden in the page. Each slide has an opaque page-colour backing, extending beyond its drop
    shadows. That keeps the device chrome and its soft edges from being composited twice while the screenshots fade. */
-.slides { display: grid; }
-.slides > * { grid-area: 1 / 1; z-index: 1; background: var(--background); box-shadow: 0 0 48px 48px var(--background); transition: opacity 0.3s; }
+.slides { display: grid; isolation: isolate; }
+.slides > * { grid-area: 1 / 1; z-index: 1; background: var(--background); box-shadow: 0 18px 8px 26px var(--background); transition: opacity 0.3s; }
 .slides > [aria-hidden="true"] { z-index: 0; opacity: 0; transition: opacity 0s 0.3s; }
-.slides-nav { display: flex; justify-content: center; margin-top: 24px; }
+.slides-nav { position: relative; z-index: 1; display: flex; justify-content: center; margin-top: 24px; }
 .slides-nav > span { display: inline-flex; flex-wrap: wrap; justify-content: center; background: var(--container-high); border-radius: 20px; font-size: 13px; }
 .slides-nav button { height: 40px; padding: 0 16px; border: 0; border-radius: 20px; background: none; color: var(--on-background); font: inherit; font-weight: 700; cursor: pointer; }
 /* Under a pair, the pills move up into the room the phone leaves under the tablet, the same 24px below it as under any
    other device, and center under the tablet. They stand over the pairs, which reach down there, while the phone beside
    them stays clear of their row. */
-.slides:has(> .pair) + .slides-nav { position: relative; z-index: 2; margin-top: calc(24px - 10%); padding-inline-end: 14%; pointer-events: none; }
+.slides:has(> .pair) + .slides-nav { margin-top: calc(24px - 10%); padding-inline-end: 14%; pointer-events: none; }
 .slides:has(> .pair) + .slides-nav > span { pointer-events: auto; }
 .slides:has(> .pair.flip) + .slides-nav { padding-inline-end: 0; padding-inline-start: 14%; }
 .slides-nav button[aria-pressed="true"] { background: var(--primary-container); color: var(--on-primary-container); }
@@ -292,6 +292,7 @@ section > .lead { max-width: none; text-wrap: wrap; }
 
 /* Text next to a picture. The sections take turns, while the text always comes first for screen readers and phones. */
 .split { display: grid; grid-template-columns: 6fr 5fr; gap: 56px; align-items: center; }
+.hero > :not(.stage), .split > :first-child { z-index: 1; }
 .split.reverse { grid-template-columns: 5fr 6fr; }
 .split.reverse > :first-child { order: 1; }
 .split .phone { width: min(300px, 100%); margin: 0 auto; }
