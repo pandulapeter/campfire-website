@@ -195,9 +195,28 @@ document.addEventListener("click", function (event) {
 		value.textContent = (offset > 0 ? "+" : "") + offset + " · " + signs(transposeChord(key, notation === "nashville" || notation === "roman" ? "standard" : notation));
 	}
 
-	sourceElement.innerHTML = escape(source)
-		.replace(/\{[^}]*\}/g, '<span class="directive">$&</span>')
-		.replace(/\[[^\]]*\]/g, '<span class="chord">$&</span>');
+	var sourceEnvironment = null;
+	sourceElement.innerHTML = source.split("\n").map(function (line) {
+		if (sourceEnvironment) {
+			if (line === "{end_of_" + sourceEnvironment + "}") {
+				sourceEnvironment = null;
+				return '<span class="directive">' + escape(line) + "</span>";
+			}
+			if (sourceEnvironment === "abc") {
+				return /^[A-Za-z]:/.test(line) ? escape(line) : line.split(/("[^"^_<>@][^"]*")/).map(function (part, index) {
+					return index % 2 ? '<span class="chord">' + escape(part) + "</span>" : escape(part);
+				}).join("");
+			}
+			return /-/.test(line) && /\|/.test(line) ? escape(line) : line.split(/(\S+)/).map(function (part, index) {
+				return index % 2 ? '<span class="chord">' + escape(part) + "</span>" : part;
+			}).join("");
+		}
+		var start = line.match(/^\{start_of_(abc|tab)(?::\s*.*?)?\}$/);
+		if (start) sourceEnvironment = start[1];
+		return escape(line)
+			.replace(/\{[^}]*\}/g, '<span class="directive">$&</span>')
+			.replace(/\[[^\]]*\]/g, '<span class="chord">$&</span>');
+	}).join("\n");
 	document.querySelector(".transpose").hidden = false;
 	document.querySelector(".notation").hidden = false;
 	document.querySelectorAll(".notation button").forEach(function (button, _, buttons) {
