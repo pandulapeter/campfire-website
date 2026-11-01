@@ -17,8 +17,8 @@
 :root {
 	color-scheme: light dark;
 	--background: #FAF8FE;
-	--on-background: #1D1A23;
-	--muted: #494456;
+	--on-background: #2B2733;
+	--muted: #625C6E;
 	--primary: #5A49CA;
 	--on-primary: #FFFFFF;
 	--primary-container: #E7DEFE;
@@ -36,8 +36,8 @@
 @media (prefers-color-scheme: dark) {
 	:root {
 		--background: #15121C;
-		--on-background: #E3E1EA;
-		--muted: #C9C3D9;
+		--on-background: #D6D2DE;
+		--muted: #A8A2B6;
 		--primary: #D0BCFF;
 		--on-primary: #3D2068;
 		--primary-container: #573190;
