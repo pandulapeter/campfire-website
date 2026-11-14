@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="cs">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script>
+		// The site is in the languages of the picker, each in a folder of its own, and the English pages, at the root,
+		// are also those of every other language. A visitor who lands on one of them is sent to the same page in the
+		// language they last picked in the picker, which is remembered, or else in the first of their browser's languages
+		// the site has. The picker is a <details>, closed by a click anywhere else or by Escape. A page in another language
+		// has the same elements in the same order, only with longer or shorter text, so a visitor who picks one is kept at
+		// the element at the top of the window, as far into it as they were, or at the bottom of the page if they were there.
+		(function (d, l) {
+			var languages = ["cs", "de", "en", "es", "fr", "he", "hu", "it", "pl", "pt", "ro"];
+			var picked = null;
+			var blocks = "h1, h2, h3, p, li, dt, dd, summary, figure, pre, img";
+			function top() { var header = d.querySelector(".site-header"); return header ? header.getBoundingClientRect().bottom : 0; }
+			try { picked = localStorage.getItem("language"); } catch (e) {}
+			d.addEventListener("click", function (event) {
+				var link = event.target.closest("a[hreflang]");
+				if (link) try {
+					localStorage.setItem("language", link.hreflang);
+					sessionStorage.removeItem("position");
+					var line = top();
+					var elements = d.querySelectorAll(blocks);
+					if (scrollY && scrollY + innerHeight >= d.documentElement.scrollHeight - 1) sessionStorage.setItem("position", JSON.stringify([link.pathname, -1, 0]));
+					else for (var index = 0; scrollY && index < elements.length; index++) {
+						var box = elements[index].getBoundingClientRect();
+						if (box.height && box.bottom > line && !elements[index].closest(".site-header")) {
+							sessionStorage.setItem("position", JSON.stringify([link.pathname, index, (line - box.top) / box.height]));
+							break;
+						}
+					}
+				} catch (e) {}
+				d.querySelectorAll("details.languages[open]").forEach(function (picker) { if (!picker.contains(event.target)) picker.open = false; });
+			});
+			d.addEventListener("keydown", function (event) {
+				if (event.key === "Escape") d.querySelectorAll("details.languages[open]").forEach(function (picker) { picker.open = false; picker.querySelector("summary").focus(); });
+			});
+			var position = null;
+			try { position = JSON.parse(sessionStorage.getItem("position")); sessionStorage.removeItem("position"); } catch (e) {}
+			if (position && position[0] === l.pathname && !l.hash) {
+				var scrolled = null;
+				var restore = function () {
+					if (scrolled !== null && scrolled !== scrollY) return;
+					if (position[1] < 0) {
+						scrollTo(0, d.documentElement.scrollHeight);
+						scrolled = scrollY;
+						return;
+					}
+					var element = d.querySelectorAll(blocks)[position[1]];
+					if (!element) return;
+					var box = element.getBoundingClientRect();
+					scrollBy(0, box.top + position[2] * box.height - top());
+					scrolled = scrollY;
+				};
+				d.addEventListener("DOMContentLoaded", restore);
+				addEventListener("load", restore);
+			}
+			if (d.documentElement.lang !== "en") return;
+			// Older browsers still name Hebrew by its retired code, iw.
+			var preferred = [picked].concat((navigator.languages || [navigator.language]).map(function (tag) { return String(tag).slice(0, 2).toLowerCase().replace("iw", "he"); }))
+				.filter(function (code) { return languages.indexOf(code) !== -1; })[0];
+			if (preferred && preferred !== "en") l.replace("/" + preferred + l.pathname + l.search + l.hash);
+		}(document, location));
+	</script>
+	<title>Zásady ochrany osobních údajů – Campfire</title>
+	<meta name="description" content="Jak Campfire nakládá s tvými daty: žádný účet, žádný server, žádné reklamy ani sledování.">
+	<link rel="canonical" href="https://campfire-songbook.com/cs/privacy/">
+	<link rel="alternate" hreflang="en" href="https://campfire-songbook.com/privacy/">
+	<link rel="alternate" hreflang="cs" href="https://campfire-songbook.com/cs/privacy/">
+	<link rel="alternate" hreflang="de" href="https://campfire-songbook.com/de/privacy/">
+	<link rel="alternate" hreflang="es" href="https://campfire-songbook.com/es/privacy/">
+	<link rel="alternate" hreflang="fr" href="https://campfire-songbook.com/fr/privacy/">
+	<link rel="alternate" hreflang="he" href="https://campfire-songbook.com/he/privacy/">
+	<link rel="alternate" hreflang="hu" href="https://campfire-songbook.com/hu/privacy/">
+	<link rel="alternate" hreflang="it" href="https://campfire-songbook.com/it/privacy/">
+	<link rel="alternate" hreflang="pl" href="https://campfire-songbook.com/pl/privacy/">
+	<link rel="alternate" hreflang="pt" href="https://campfire-songbook.com/pt/privacy/">
+	<link rel="alternate" hreflang="ro" href="https://campfire-songbook.com/ro/privacy/">
+	<link rel="alternate" hreflang="x-default" href="https://campfire-songbook.com/privacy/">
+	<meta name="theme-color" content="#FAF8FE" media="(prefers-color-scheme: light)">
+	<meta name="theme-color" content="#15121C" media="(prefers-color-scheme: dark)">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="Campfire">
+	<meta property="og:locale" content="cs_CZ">
+	<meta property="og:url" content="https://campfire-songbook.com/cs/privacy/">
+	<meta property="og:title" content="Zásady ochrany osobních údajů – Campfire">
+	<meta property="og:description" content="Jak Campfire nakládá s tvými daty: žádný účet, žádný server, žádné reklamy ani sledování.">
+	<meta property="og:image" content="https://campfire-songbook.com/assets/og-image.jpg?v=be8639b0">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:image:alt" content="Campfire na notebooku a telefonu">
+	<meta name="twitter:card" content="summary_large_image">
+	<link rel="icon" href="../../assets/icon.svg?v=8ba29e56" type="image/svg+xml">
+	<link rel="apple-touch-icon" href="../../assets/icon-192.png?v=0f2be8ac">
+	<link rel="stylesheet" href="../../assets/site.css?v=440cc522">
+	<script>
+		// Every visitor is offered two versions: a phone or a tablet the app from its store first and the web app second,
+		// a computer the other way around. The script names the system: the stylesheet shows the elements marked
+		// for-mobile instead of for-desktop on a phone or a tablet, every link marked data-native goes to the system's own
+		// version, and one marked data-native-label is also named after it. iPadOS presents itself as a Mac, so an iPad is
+		// told apart by its touch screen. Without a match, the links lead to the list of every platform.
+		(function (d) {
+			var agent = navigator.userAgent;
+			var os = /Android/.test(agent) ? "android" : /iPhone|iPad|iPod/.test(agent) || (/Macintosh/.test(agent) && navigator.maxTouchPoints > 1) ? "ios" : /Windows/.test(agent) ? "windows" : /Macintosh/.test(agent) ? "macos" : /Linux/.test(agent) ? "linux" : "";
+			var native = {
+				android: ["https://play.google.com/store/apps/details?id=com.pandulapeter.campfire", "Stáhnout z Google Play"],
+				ios: ["https://apps.apple.com/app/id6815160850", "Stáhnout v App Storu"],
+				windows: ["https://apps.microsoft.com/detail/9MSR62F288M1", "Stáhnout pro Windows"],
+				macos: ["https://apps.apple.com/app/id6815160850", "Stáhnout pro macOS"],
+				linux: ["https://github.com/pandulapeter/campfire/releases/latest", "Stáhnout pro Linux"]
+			}[os];
+			if (!native) return;
+			d.documentElement.dataset.os = os;
+			if (os === "android" || os === "ios") d.documentElement.dataset.mobile = "";
+			d.addEventListener("DOMContentLoaded", function () {
+				d.querySelectorAll("[data-native]").forEach(function (link) {
+					link.href = native[0];
+					link.target = "_blank";
+					link.rel = "noopener";
+					if (link.hasAttribute("data-native-label")) link.textContent = native[1];
+				});
+			});
+		}(document));
+	</script>
+</head>
+<body>
+<a class="skip" href="#main">Přeskočit na obsah</a>
+<header class="site-header">
+	<div class="wrap">
+		<a class="brand" translate="no" href="../"><img src="../../assets/icon.svg?v=8ba29e56" alt="">Campfire</a>
+		<nav aria-label="Hlavní navigace">
+			<a class="optional" href="../#download">Stáhnout</a>
+			<a class="optional" href="../support/">Podpora</a>
+			<a class="optional" href="./" aria-current="page">Soukromí</a>
+			<details class="languages" translate="no">
+				<summary aria-label="Jazyk: Čeština"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.8 3.9 6 3.9 9.5s-1.3 6.7-3.9 9.5c-2.6-2.8-3.9-6-3.9-9.5s1.3-6.7 3.9-9.5Z"/></svg><span>CS</span></summary>
+				<ul>
+					<li><a href="../../privacy/" hreflang="en" lang="en">English</a></li>
+					<li><a href="./" hreflang="cs" lang="cs" aria-current="true">Čeština</a></li>
+					<li><a href="../../de/privacy/" hreflang="de" lang="de">Deutsch</a></li>
+					<li><a href="../../es/privacy/" hreflang="es" lang="es">Español</a></li>
+					<li><a href="../../fr/privacy/" hreflang="fr" lang="fr">Français</a></li>
+					<li><a href="../../he/privacy/" hreflang="he" lang="he">עברית</a></li>
+					<li><a href="../../hu/privacy/" hreflang="hu" lang="hu">Magyar</a></li>
+					<li><a href="../../it/privacy/" hreflang="it" lang="it">Italiano</a></li>
+					<li><a href="../../pl/privacy/" hreflang="pl" lang="pl">Polski</a></li>
+					<li><a href="../../pt/privacy/" hreflang="pt" lang="pt">Português</a></li>
+					<li><a href="../../ro/privacy/" hreflang="ro" lang="ro">Română</a></li>
+				</ul>
+			</details>
+			<a class="button small for-desktop" href="../../app/" target="_blank" rel="noopener">Otevřít webovou aplikaci</a>
+			<a class="button small for-mobile" href="../#download" data-native>Stáhnout aplikaci</a>
+		</nav>
+	</div>
+</header>
+<div class="wrap">
+
+	<main class="document" id="main">
+		<h1>Zásady ochrany osobních údajů</h1>
+		<p>Stažením a používáním Campfire se na tebe automaticky vztahují tyto podmínky; proto si je pozorně přečti.</p>
+		<p>Tuto aplikaci ti poskytuje Péter Pandula zdarma a je určena k používání tak, jak je.</p>
+		<p class="updated"><em>Poslední aktualizace: 27. října 2026. Tato verze se vztahuje na Campfire 4.0 a novější; obaly a mazání celé knihovny z nastavení přibyly v Campfire 4.5, synchronizace zvolených hmatů akordů a transpozice, kapodastru a tempa jednotlivých písní v Campfire 4.7, ladička, která používá mikrofon, a synchronizace barev štítků a akcentů metronomu u každé písně v Campfire 4.7.1, vyhledávání údajů o písních online, vkládání písní a jejich sdílení do aplikace v Campfire 4.9, odkazy na písně a setlisty v Campfire 5.0 a protokol aplikace v Campfire 5.0.1.</em></p>
+		<h2>Obecný přehled</h2>
+		<p>Tato stránka tě informuje o mých zásadách týkajících se shromažďování, používání a zveřejňování osobních údajů, pokud se někdo rozhodne používat mou službu.</p>
+		<p>Campfire je aplikace pro zobrazování a úpravy textů a akordů písní, která funguje offline. Tvoje písně a setlisty jsou obyčejné textové soubory <a href="https://www.chordpro.org" target="_blank" rel="noopener">ChordPro</a> uložené ve vlastním úložišti aplikace ve tvém zařízení, na webu v soukromém úložišti tvého prohlížeče pro tento web. Neexistuje žádný účet Campfire a nikde není zapojený žádný můj server: nikdy nedostávám tvoje písně, nastavení ani nic jiného o tom, jak aplikaci používáš. Campfire se připojuje k internetu jen kvůli cloudové synchronizaci a odkazům, které sdílí, kvůli otevření sdíleného odkazu, kvůli obalům a kvůli vyhledávání údajů o písních, jak je vše popsáno níže. Ladička používá tvůj mikrofon, ale to, co slyší, nikdy neopustí tvoje zařízení, jak je také popsáno níže. Campfire si ve tvém zařízení vede i protokol o tom, co dělal, a ten se ke mně dostane, jen když mi ho pošleš ty, jak popisuje oddíl <a href="#log">Protokol aplikace</a>.</p>
+		<p>Campfire neobsahuje žádné reklamy, žádnou analytiku a žádné sledování jakéhokoli druhu.</p>
+		<h2>Shromažďování a používání informací</h2>
+		<p>Campfire nemá integrované žádné řešení pro sběr dat; proto záměrně neshromažďuji žádné osobní identifikovatelné údaje. Měj však na paměti, že některé mechanismy sběru dat jsou mimo moji kontrolu. Například už jen stažením aplikace z Obchodu Google Play automaticky sdílíš některá omezená data o používání a protokoly o pádech se mnou jako vývojářem i se společností Google. Souhlas s tím dáváš přijetím licenční smlouvy Služeb Google Play, nad kterou nemám žádnou kontrolu.</p>
+		<h2>Cloudová synchronizace</h2>
+		<p>Campfire může udržovat tvou knihovnu stejnou na několika tvých zařízeních tím, že ji ukládá do cloudové složky, která patří tobě. <strong>Tato funkce je vypnutá, dokud ji nezapneš.</strong> Dokud v nastavení aplikace nepřipojíš účet, synchronizace neprovádí vůbec žádné síťové požadavky, a pokud žádný nikdy nepřipojíš, nic z tohoto oddílu se tě netýká.</p>
+		<p>Synchronizace v současnosti podporuje <a href="https://www.dropbox.com/privacy" target="_blank" rel="noopener">Dropbox</a>. Když ho připojíš:</p>
+		<ul>
+			<li><strong>Tvoje soubory jdou do tvého vlastního Dropboxu, ne ke mně.</strong> Písně a setlisty se přenášejí přímo mezi tvým zařízením a Dropboxem. Neprovozuji žádný server a žádná kopie tvé knihovny se ke mně nikdy nedostane.</li>
+			<li><strong>Campfire vidí jen svou vlastní složku.</strong> Aplikace žádá Dropbox o oprávnění „složka aplikace“, které omezuje její přístup na jedinou složku nazvanou <em>Apps/Campfire Sync</em>, vytvořenou právě pro ni. Zbytek tvého Dropboxu je pro aplikaci neviditelný.</li>
+			<li><strong>Synchronizuje se jen tvoje knihovna a to, jak ji hraješ.</strong> To znamená soubory tvých písní a setlistů a v souboru <em>preferences.json</em> vedle nich ve stejné složce transpozici, kapodastr, tempo a akcenty metronomu nastavené u písní, hmaty akordů zvolené pro každý nástroj a ladění a barvy tvých štítků. Ostatní nastavení aplikace, například zvolený motiv, jazyk a velikost textu, synchronizace nikdy nenahrává a zůstávají v zařízení, kde je máš nastavená (vlastní záloha zařízení je ale může přenést do nového zařízení, viz <em>Zálohování zařízení</em> níže).</li>
+			<li><strong>Co Campfire čte o tvém účtu.</strong> Po připojení si aplikace od Dropboxu vyžádá zobrazované jméno a e-mailovou adresu účtu, jen aby ti obrazovka nastavení mohla ukázat, do kterého účtu se tvoje knihovna ukládá, a uchová si Dropbox ID účtu, aby účet poznala i poté, co změníš jeho jméno nebo e-mailovou adresu. Tyto údaje zůstávají ve tvém zařízení a nikdy se nikam jinam neposílají.</li>
+			<li><strong>Jak funguje přihlášení.</strong> Autorizace používá standardní tok OAuth 2.0 s PKCE na vlastní stránce Dropboxu pro udělení souhlasu, otevřené v tvém prohlížeči. Heslo k Dropboxu se do Campfire nikdy nezadává a nikdy jím neprochází. Výsledné přístupové a obnovovací tokeny se ukládají jen v soukromém úložišti aplikace ve tvém zařízení (na Androidu šifrované klíčem, který drží systém, na iOS a iPadOS v systémové Klíčence) a nikdy se neposílají nikam jinam než do Dropboxu.</li>
+			<li><strong>Odpojení.</strong> Volba „Odpojit“ v nastavení požádá Dropbox o zneplatnění tokenu a smaže ho z tvého zařízení. Tvoje soubory zůstanou nedotčené, v zařízení i na Dropboxu, stejně jako tvoje sdílené odkazy, které dál fungují: pokud chceš, aby zmizely, nejdřív je přestaň sdílet. Přístup Campfire můžeš také kdykoli odebrat na stránce připojených aplikací ve svém účtu Dropbox.</li>
+		</ul>
+		<p>Na vše, co je uložené na tvém Dropboxu, se vztahují vlastní zásady ochrany osobních údajů a podmínky Dropboxu, které platí mezi tebou a Dropboxem. Pokud Campfire v budoucnu získá podporu další cloudové služby, budou pro ni platit stejné zásady a tato stránka bude aktualizována, aby ji uváděla.</p>
+		<h2 id="links">Odkazy na písně a setlisty</h2>
+		<p>Píseň nebo setlist lze sdílet jako odkaz, který může otevřít kdokoli. K vytvoření odkazu je potřeba cloudová synchronizace s Dropboxem popsaná výše; k otevření žádný účet potřeba není.</p>
+		<ul>
+			<li><strong>Sdílení uloží veřejnou kopii do tvého vlastního Dropboxu.</strong> Když vytvoříš odkaz, Campfire uloží píseň, nebo setlist s jeho písněmi, jako soubor zip do složky <em>shared</em> uvnitř <em>Apps/Campfire Sync</em> a požádá Dropbox o veřejný odkaz na něj. Kdokoli, kdo má odkaz, si ten soubor může stáhnout. Dokud je synchronizace připojená, Campfire soubor průběžně aktualizuje podle změn písně nebo setlistu, dokud ho nepřestaneš sdílet. Kvůli tomu aplikace také žádá Dropbox o oprávnění vytvářet a vypisovat sdílené odkazy, které se týká jen její vlastní složky. Seznam toho, co sdílíš, s názvem, názvem souboru, odkazem a dnem sdílení u každé položky, se uchovává v souboru <em>shared-links.json</em> ve stejné složce, aby všechna zařízení k ní připojená ukazovala stejný seznam.</li>
+			<li><strong>Ukončení.</strong> <em>Přestat sdílet</em> na obrazovce <em>Sdílet</em> nebo v <em>Nastavení → Sdílení</em> smaže soubor z tvého Dropboxu, stejně jako smazání písně nebo setlistu v Campfire. Odkaz pak přestane fungovat pro všechny. Kopie, které si lidé už importovali, patří jim a Campfire k nim nemá přístup.</li>
+			<li><strong>Otevření odkazu stáhne ten soubor z Dropboxu.</strong> Aplikace ho stáhne přímo z Dropboxu, ukáže ti, co obsahuje, a nic nezapíše, dokud ho neimportuješ. Dropbox vidí běžné stahování z internetové adresy tvého zařízení a ke mně se nic neposílá.</li>
+			<li><strong>Stránka odkazu nic neposílá.</strong> Odkaz vede na stránku tohoto webu, která odkaz přečte ve tvém prohlížeči. Část odkazu, která určuje soubor, je za znakem <em>#</em>, který prohlížeče nikdy neposílají na server, takže ji nevidí ani tento web, ani náhled odkazu v aplikaci pro zasílání zpráv. Stránka sama nic nestahuje; její tlačítka otevírají Campfire, jeho obchod, webovou aplikaci nebo stažení souboru.</li>
+			<li><strong>Instalace z odkazu.</strong> Když se na Androidu Campfire nainstaluje z Google Play tlačítkem na stránce, Google Play aplikaci při prvním spuštění předá odkaz. Na iOS a iPadOS tlačítko <em>Stáhnout aplikaci</em> na stránce zkopíruje odkaz; při prvním spuštění Campfire zkontroluje, jestli schránka obsahuje webovou adresu, aniž by ji četl, a přečte ji jen tehdy, když klepneš na <em>Otevřít</em>. Cokoli, co není odkaz Campfire, se ignoruje.</li>
+		</ul>
+		<h2>Mikrofon a ladička</h2>
+		<p>Campfire má ladičku, která poslouchá tvůj nástroj přes mikrofon. <strong>Nic z toho, co slyší, se nenahrává, neuchovává ani nikam neposílá.</strong></p>
+		<ul>
+			<li><strong>Jen když o to požádáš.</strong> Aplikace nikdy nežádá o mikrofon při spuštění. Požádá o něj, když klepnutím otevřeš ladičku (kartu Ladička nebo tlačítko či položku nabídky ladičky u písně), nebo když klepneš na <em>Použít mikrofon</em> u ladičky, která se zobrazila bez klepnutí, například takové, kterou aplikace znovu otevře tam, kde byla naposledy. Android, iOS, iPadOS, macOS a tvůj prohlížeč tě nejdřív požádají o svolení a to můžeš v jejich nastavení kdykoli odvolat. Na počítači, kde aplikace nepozná, jestli jí to bylo povoleno, si zapamatuje první klepnutí na tlačítko a od té doby otevře mikrofon pokaždé, když se ladička zobrazí.</li>
+			<li><strong>Jen dokud je ladička na obrazovce.</strong> Mikrofon je otevřený jen tehdy, když se zobrazuje karta Ladička nebo ladička nad písní a aplikace je v popředí. Zavře se, jakmile ladičku opustíš, přepneš do jiné aplikace nebo zamkneš obrazovku, takže indikátor nahrávání ve tvém zařízení svítí přesně tehdy, když ladička poslouchá.</li>
+			<li><strong>Analyzováno ve tvém zařízení, pak zahozeno.</strong> Zvuk se zpracovává ve tvém zařízení hned, jak přichází, jen kvůli zjištění výšky hraného tónu, a pak se zahodí. Žádný zvuk ani nic z něj odvozeného se neukládá, nesynchronizuje, nezahrnuje do zálohy ani se neposílá mně nebo komukoli jinému.</li>
+			<li><strong>Vypnutí.</strong> Přepínač „Ladička“ v nastavení aplikace odstraní ladičku a s ní i každý způsob, jak by aplikace mohla o mikrofon požádat.</li>
+		</ul>
+		<h2>Obaly</h2>
+		<p>Píseň může uvádět obal alba, který se zobrazí vedle ní, jako webovou adresu obrázku zapsanou ve vlastním souboru písně. Adresu volíš ty nebo ten, kdo píseň zapsal, a Campfire nemá vliv na to, na který web vede.</p>
+		<ul>
+			<li><strong>Zobrazení obalu.</strong> Když se píseň s obalem zobrazí poprvé, aplikace stáhne obrázek z té adresy a uloží si jeho kopii ve tvém zařízení, aby se nestahoval znovu. Web, který obrázek poskytuje, vidí běžný požadavek z internetové adresy tvého zařízení, stejně jako od prohlížeče. Kopie, které už žádná píseň neuvádí, aplikace smaže a nikdy se nesynchronizují ani nezahrnují do zálohy zařízení. Všechny je můžeš kdykoli smazat klepnutím na <em>Mezipaměť obalů</em> v části <em>Knihovna</em> v nastavení aplikace.</li>
+			<li><strong>Hledání obalu.</strong> Jen když u písně otevřeš hledání obalu, odešlou se interpret, album a název z jeho vyhledávacích polí do <a href="https://musicbrainz.org/doc/About/Privacy_Policy" target="_blank" rel="noopener">MusicBrainz</a> a do <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener">iTunes Search API</a> společnosti Apple a náhledy nalezených alb se stáhnou z <a href="https://coverartarchive.org" target="_blank" rel="noopener">Cover Art Archive</a> a od Applu. Nic dalšího o tobě ani o tvé knihovně se neposílá a u žádné z těchto služeb nemáš účet. Na tyto požadavky se vztahují vlastní zásady ochrany osobních údajů těchto služeb.</li>
+			<li><strong>Zadání adresy.</strong> Pokud adresu obrázku zadáš ručně, obrázek se z ní stáhne, aby ti mohl být ukázán náhled.</li>
+			<li><strong>Vypnutí.</strong> Přepínač „Obaly“ v nastavení aplikace tohle vše vypne: žádný obal se nestahuje ani nezobrazuje a hledání se nenabízí.</li>
+		</ul>
+		<h2>Vyhledávání údajů o písni</h2>
+		<p>Když upravuješ údaje o písni, Campfire může online vyhledat jejího interpreta, album, rok a autory.</p>
+		<ul>
+			<li><strong>Jen když o to požádáš.</strong> Nic se neodešle, dokud u písně neotevřeš <em>Najít údaje o písni online</em>. Pak se název, interpret a album z jeho vyhledávacích polí odešlou do <a href="https://musicbrainz.org/doc/About/Privacy_Policy" target="_blank" rel="noopener">MusicBrainz</a> a do <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener">iTunes Search API</a> společnosti Apple a MusicBrainz se také zeptá na autory nalezené nahrávky. Nic dalšího o tobě ani o tvé knihovně se neposílá a u žádné z těchto služeb nemáš účet. Na tyto požadavky se vztahují vlastní zásady ochrany osobních údajů těchto služeb.</li>
+			<li><strong>Nic se neuchovává a nic se nezapíše, dokud neuložíš.</strong> To, co vyhledávání najde, jen vyplní formulář. Soubor písně se změní, až když klepneš na Uložit, a výsledky se neukládají.</li>
+			<li><strong>Vypnutí.</strong> Přepínač „Podrobnosti o písni online“ v nastavení aplikace vyhledávání odstraní.</li>
+		</ul>
+		<h2>Vkládání a sdílení písní</h2>
+		<ul>
+			<li><strong>Schránka se čte, jen když vkládáš.</strong> Campfire ji čte, když klepneš na <em>Vložit ze schránky</em> nebo stiskneš Ctrl+V (⌘V na Macu), nebo na <em>Otevřít</em> při prvním spuštění po instalaci z odkazu na iOS a iPadOS (viz <a href="#links">Odkazy na písně a setlisty</a>), nikdy sám od sebe. Na iOS a iPadOS a v některých prohlížečích se systém nejdřív zeptá tebe.</li>
+			<li><strong>Sdílené a přetažené písně zůstávají ve tvém zařízení.</strong> Text a soubory, které do Campfire nasdílíš z jiné aplikace na Androidu, iOS nebo iPadOS, nebo je do něj přetáhneš, se čtou a převádějí ve tvém zařízení. Webová adresa mezi nimi se nikdy neotevře. Na iOS a iPadOS čeká sdílený obsah ve složce, kterou má aplikace společnou se svým rozšířením pro sdílení, dokud si ho Campfire nepřevezme, a pak se smaže.</li>
+			<li><strong>Nic se neuloží, dokud to neuložíš.</strong> Vložená nebo sdílená píseň se otevře v editoru a souborem ve tvé knihovně se stane, až když klepneš na Uložit. Do té doby editor uchovává neuložený text jen ve tvém zařízení, aby se neztratil, když se aplikace zavře.</li>
+		</ul>
+		<h2 id="log">Protokol aplikace</h2>
+		<p>Campfire si vede protokol o tom, co v poslední době dělal, aby mi ho při nějakém problému šlo poslat a já mohl zjistit, proč k němu došlo. Není to analytika: zůstává ve tvém zařízení, nic ho samo nikam neposílá a ke mně se dostane, jen pokud se ho rozhodneš poslat.</p>
+		<ul>
+			<li><strong>Co obsahuje.</strong> Kdy se aplikace spustila, její verzi a na jakém druhu zařízení běží; které obrazovky a dialogy se otevřely, jen podle druhu (například „podrobnosti písně“, nikdy píseň samotná); co se dělo, několika slovy, například uložení písně, přidání písní do setlistu, změna nastavení (jeho název, ne nová hodnota), otevření hledání (nikdy to, co se psalo), spuštění metronomu nebo ladičky, import, export, sdílení a jak proběhla každá synchronizace, v počtech; a zprávy, které aplikace píše o tom, co udělala, a o chybách, které mohou uvádět soubory tvých písní a setlistů. U každého řádku je čas, kdy byl zapsán. Nikdy neobsahuje text tvých písní, tvoje nastavení, tvůj účet Dropbox ani to, co slyší ladička.</li>
+			<li><strong>Kde se uchovává.</strong> Jen ve tvém zařízení, ve vlastním úložišti aplikace, nikdy se nesynchronizuje. Je omezený přibližně na půl megabajtu a starší řádky se zahazují, jak přibývají nové.</li>
+			<li><strong>Odeslání je na tobě.</strong> V nastavení řádek protokolu na kartě <em>O aplikaci</em> nejdřív ukáže, co protokol obsahuje, a pokud pokračuješ, připojí ho k novému e-mailu pro mě, na Androidu a na iOS a iPadOS, pokud má aplikace Mail nastavený účet. E-mail i protokol si můžeš před odesláním přečíst, nebo je vůbec neposílat. Jinde Campfire nabídne soubor nasdílet nebo uložit a pošleš ho ty. Na počítači se tvoje uživatelské jméno v cestách ke složkám, které protokol uvádí, nahradí dřív, než protokol opustí aplikaci.</li>
+			<li><strong>Po pádu.</strong> Pokud se aplikace na Androidu, iOS, iPadOS nebo počítači zastavila kvůli chybě, při příštím otevření se jednou zeptá, jestli mi chceš poslat protokol. Volba <em>Teď ne</em> nic neodešle.</li>
+			<li><strong>Pokud mi ho pošleš,</strong> použiji ho jen k nalezení a opravě problému, který tě potkal.</li>
+		</ul>
+		<h2>Zálohování zařízení</h2>
+		<p>Telefony a tablety s Androidem, iPhony a iPady umí zálohovat data svých aplikací a přenést je do nového zařízení. Pokud to máš zapnuté, jsou toho součástí i tvoje knihovna Campfire a nastavení aplikace: na Androidu v záloze Google nebo při přímém přenosu do nového telefonu, na iOS a iPadOS v záloze na iCloudu nebo při přenosu ze starého zařízení. Tuto kopii vytváří operační systém podle nastavení zálohování tvého zařízení a záloha se ukládá ve tvém vlastním účtu Google nebo Apple podle zásad ochrany osobních údajů Googlu nebo Applu. Campfire o ni nijak nežádá a já ji nikdy nedostanu ani neuvidím. Vypnout ji můžeš v nastavení zařízení. Obrázky obalů, protokol aplikace, neuložený text v editoru a sdílený obsah čekající na převzetí z rozšíření pro sdílení na iOS do ní nepatří.</p>
+		<p>Pokud používáš cloudovou synchronizaci, připojení k Dropboxu a záznam o poslední synchronizaci se na žádném zařízení do zálohy nezahrnují, takže obnovený nebo nový telefon či tablet začíná odpojený a k Dropboxu se přihlásíš znovu.</p>
+		<p>Na počítači se knihovna a protokol aplikace ukládají ve složce Campfire mezi daty aplikací tvého uživatelského účtu a mohou je obsahovat jakékoli zálohy počítače, například Time Machine nebo Historie souborů. Na webu jsou knihovna a protokol v úložišti tvého prohlížeče pro tento web. Nejsou součástí žádné zálohy a vymazáním dat webu se odstraní.</p>
+		<h2 id="data-deletion">Smazání tvých dat</h2>
+		<p>Nemám žádnou kopii ničeho, co v Campfire uchováváš, takže nemám co mazat a není potřeba posílat žádnou žádost: každá kopie je na místě, které ovládáš ty, a kdykoli ji můžeš odstranit.</p>
+		<ul>
+			<li><strong>Celá knihovna, z aplikace:</strong> otevři nastavení, přejdi na kartu <em>Knihovna</em>, v části <em>V tomto zařízení</em> klepni na řádek, který ukazuje, kolik máš písní a setlistů, napiš <em>DELETE</em> a potvrď. Všechny písně a setlisty se ze zařízení smažou. <strong>Pokud je připojená synchronizace přes Dropbox, smažou se tím i ze tvé složky <em>Apps/Campfire Sync</em> a ze všech ostatních zařízení, která se s ní synchronizují</strong>; dialog na to upozorní dřív, než potvrdíš. Pokud je chceš smazat jen z tohoto zařízení, zvol nejdřív „Odpojit“. Kopie obrázků obalů se mažou na stejné obrazovce volbou <em>Mezipaměť obalů</em>. Smazáním knihovny se také přestanou sdílet všechny písně a setlisty, takže všechny tvoje odkazy přestanou fungovat.</li>
+			<li><strong>Tvoje sdílené odkazy, z aplikace:</strong> v nastavení na kartě <em>Sdílení</em> smaže volba <em>Přestat sdílet vše</em> z tvého Dropboxu všechny sdílené kopie a všechny odkazy přestanou fungovat. Tvoje knihovna zůstane, jak je.</li>
+			<li><strong>Vše ve tvém zařízení:</strong> odinstaluj aplikaci, čímž se ze zařízení odstraní knihovna, nastavení, obrázky obalů, protokol aplikace a připojení k Dropboxu. Na webu udělá totéž vymazání dat webu v prohlížeči.</li>
+			<li><strong>Na tvém Dropboxu, pokud používáš synchronizaci:</strong> smazáním knihovny při připojeném účtu, jak je popsáno výše, se tvoje písně a setlisty odstraní ze složky <em>Apps/Campfire Sync</em> a zůstane jen soubor <em>preferences.json</em> se zvolenými hmaty akordů a barvami štítků a, pokud se někdy něco sdílelo, seznam <em>shared-links.json</em>, tou dobou už prázdný. Pokud chceš odstranit vše, zvol v nastavení aplikace „Odpojit“ a pak na Dropboxu smaž složku <em>Apps/Campfire Sync</em>. Přístup Campfire můžeš také odebrat na stránce připojených aplikací ve svém účtu Dropbox.</li>
+			<li><strong>V záloze zařízení:</strong> smaž zálohu nebo vypni zálohování aplikace v nastavení zařízení nebo ve svém účtu Google či iCloud.</li>
+		</ul>
+		<p>Pokud je cokoli nejasné, <a href="mailto:pandulapeter@gmail.com?Subject=Campfire" target="_top">kontaktuj mě</a> a pomůžu ti.</p>
+		<h2 id="website">Tento web</h2>
+		<p>Tento web nenastavuje žádné cookies a neobsahuje ani reklamy, analytiku nebo sledování.</p>
+		<ul>
+			<li><strong>Tvůj jazyk.</strong> Když si vybereš jazyk z nabídky nahoře na stránce, prohlížeč si ho zapamatuje, takže se web příště otevře v tomto jazyce. Volba se uchovává v úložišti tvého prohlížeče pro tento web, nikdy se nikam neposílá a zapomene se, když vymažeš data webu. Dokud žádný nevybereš, web se řídí jazykem tvého prohlížeče.</li>
+			<li><strong>Hosting.</strong> Web hostuje GitHub Pages. Jako každý webový server vidí internetovou adresu tvého zařízení, když prohlížeč načítá stránku, a GitHub ji z bezpečnostních důvodů zaznamenává podle dokumentu <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">GitHub General Privacy Statement</a>. Nic z toho nedostávám.</li>
+		</ul>
+		<h2>Ochrana soukromí dětí</h2>
+		<p>Tyto služby nejsou určeny nikomu mladšímu 13 let. Vědomě neshromažďuji osobní identifikovatelné údaje od dětí mladších 13 let. Pokud jsi rodič nebo zákonný zástupce a víš, že mi tvoje dítě poskytlo osobní údaje, kontaktuj mě, abych mohl provést potřebné kroky.</p>
+		<h2>Změny těchto zásad ochrany osobních údajů</h2>
+		<p>Své zásady ochrany osobních údajů mohu čas od času aktualizovat. Proto ti doporučuji tuto stránku pravidelně kontrolovat. O všech změnách tě budu informovat zveřejněním nových zásad na této stránce. Změny platí okamžitě po zveřejnění.</p>
+		<h2>Kontaktuj mě</h2>
+		<p>Pokud máš k mým zásadám ochrany osobních údajů jakékoli dotazy nebo návrhy, neváhej mě <a href="mailto:pandulapeter@gmail.com?Subject=Campfire" target="_top">kontaktovat</a>.</p>
+	</main>
+
+	<footer class="site-footer">
+		<div class="legal">
+			<p>© 2026 · <a href="https://pandulapeter.com" target="_blank" rel="noopener">Péter Pandula</a></p>
+			<a class="source" href="https://github.com/pandulapeter/campfire" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>Zdrojový kód</a>
+			<ul class="language-links" translate="no" aria-label="Jazyk">
+				<li><a href="../../privacy/" hreflang="en" lang="en">English</a></li>
+				<li><a href="./" hreflang="cs" lang="cs" aria-current="true">Čeština</a></li>
+				<li><a href="../../de/privacy/" hreflang="de" lang="de">Deutsch</a></li>
+				<li><a href="../../es/privacy/" hreflang="es" lang="es">Español</a></li>
+				<li><a href="../../fr/privacy/" hreflang="fr" lang="fr">Français</a></li>
+				<li><a href="../../he/privacy/" hreflang="he" lang="he">עברית</a></li>
+				<li><a href="../../hu/privacy/" hreflang="hu" lang="hu">Magyar</a></li>
+				<li><a href="../../it/privacy/" hreflang="it" lang="it">Italiano</a></li>
+				<li><a href="../../pl/privacy/" hreflang="pl" lang="pl">Polski</a></li>
+				<li><a href="../../pt/privacy/" hreflang="pt" lang="pt">Português</a></li>
+				<li><a href="../../ro/privacy/" hreflang="ro" lang="ro">Română</a></li>
+			</ul>
+		</div>
+	</footer>
+</div>
+</body>
+</html>

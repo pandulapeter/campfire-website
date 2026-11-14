@@ -32,6 +32,7 @@ SITE = "https://campfire-songbook.com/"
 # Graph, in the order of the picker: English first, then the others by code.
 LANGUAGES = {
 	"en": ("English", "Language", "en_US"),
+	"cs": ("Čeština", "Jazyk", "cs_CZ"),
 	"de": ("Deutsch", "Sprache", "de_DE"),
 	"es": ("Español", "Idioma", "es_ES"),
 	"fr": ("Français", "Langue", "fr_FR"),

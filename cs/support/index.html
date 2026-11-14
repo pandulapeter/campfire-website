@@ -1,0 +1,499 @@
+<!doctype html>
+<html lang="cs">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script>
+		// The site is in the languages of the picker, each in a folder of its own, and the English pages, at the root,
+		// are also those of every other language. A visitor who lands on one of them is sent to the same page in the
+		// language they last picked in the picker, which is remembered, or else in the first of their browser's languages
+		// the site has. The picker is a <details>, closed by a click anywhere else or by Escape. A page in another language
+		// has the same elements in the same order, only with longer or shorter text, so a visitor who picks one is kept at
+		// the element at the top of the window, as far into it as they were, or at the bottom of the page if they were there.
+		(function (d, l) {
+			var languages = ["cs", "de", "en", "es", "fr", "he", "hu", "it", "pl", "pt", "ro"];
+			var picked = null;
+			var blocks = "h1, h2, h3, p, li, dt, dd, summary, figure, pre, img";
+			function top() { var header = d.querySelector(".site-header"); return header ? header.getBoundingClientRect().bottom : 0; }
+			try { picked = localStorage.getItem("language"); } catch (e) {}
+			d.addEventListener("click", function (event) {
+				var link = event.target.closest("a[hreflang]");
+				if (link) try {
+					localStorage.setItem("language", link.hreflang);
+					sessionStorage.removeItem("position");
+					var line = top();
+					var elements = d.querySelectorAll(blocks);
+					if (scrollY && scrollY + innerHeight >= d.documentElement.scrollHeight - 1) sessionStorage.setItem("position", JSON.stringify([link.pathname, -1, 0]));
+					else for (var index = 0; scrollY && index < elements.length; index++) {
+						var box = elements[index].getBoundingClientRect();
+						if (box.height && box.bottom > line && !elements[index].closest(".site-header")) {
+							sessionStorage.setItem("position", JSON.stringify([link.pathname, index, (line - box.top) / box.height]));
+							break;
+						}
+					}
+				} catch (e) {}
+				d.querySelectorAll("details.languages[open]").forEach(function (picker) { if (!picker.contains(event.target)) picker.open = false; });
+			});
+			d.addEventListener("keydown", function (event) {
+				if (event.key === "Escape") d.querySelectorAll("details.languages[open]").forEach(function (picker) { picker.open = false; picker.querySelector("summary").focus(); });
+			});
+			var position = null;
+			try { position = JSON.parse(sessionStorage.getItem("position")); sessionStorage.removeItem("position"); } catch (e) {}
+			if (position && position[0] === l.pathname && !l.hash) {
+				var scrolled = null;
+				var restore = function () {
+					if (scrolled !== null && scrolled !== scrollY) return;
+					if (position[1] < 0) {
+						scrollTo(0, d.documentElement.scrollHeight);
+						scrolled = scrollY;
+						return;
+					}
+					var element = d.querySelectorAll(blocks)[position[1]];
+					if (!element) return;
+					var box = element.getBoundingClientRect();
+					scrollBy(0, box.top + position[2] * box.height - top());
+					scrolled = scrollY;
+				};
+				d.addEventListener("DOMContentLoaded", restore);
+				addEventListener("load", restore);
+			}
+			if (d.documentElement.lang !== "en") return;
+			// Older browsers still name Hebrew by its retired code, iw.
+			var preferred = [picked].concat((navigator.languages || [navigator.language]).map(function (tag) { return String(tag).slice(0, 2).toLowerCase().replace("iw", "he"); }))
+				.filter(function (code) { return languages.indexOf(code) !== -1; })[0];
+			if (preferred && preferred !== "en") l.replace("/" + preferred + l.pathname + l.search + l.hash);
+		}(document, location));
+	</script>
+	<title>Podpora – Campfire</title>
+	<meta name="description" content="Odpovědi na časté otázky o Campfire a jak se se mnou spojit.">
+	<link rel="canonical" href="https://campfire-songbook.com/cs/support/">
+	<link rel="alternate" hreflang="en" href="https://campfire-songbook.com/support/">
+	<link rel="alternate" hreflang="cs" href="https://campfire-songbook.com/cs/support/">
+	<link rel="alternate" hreflang="de" href="https://campfire-songbook.com/de/support/">
+	<link rel="alternate" hreflang="es" href="https://campfire-songbook.com/es/support/">
+	<link rel="alternate" hreflang="fr" href="https://campfire-songbook.com/fr/support/">
+	<link rel="alternate" hreflang="he" href="https://campfire-songbook.com/he/support/">
+	<link rel="alternate" hreflang="hu" href="https://campfire-songbook.com/hu/support/">
+	<link rel="alternate" hreflang="it" href="https://campfire-songbook.com/it/support/">
+	<link rel="alternate" hreflang="pl" href="https://campfire-songbook.com/pl/support/">
+	<link rel="alternate" hreflang="pt" href="https://campfire-songbook.com/pt/support/">
+	<link rel="alternate" hreflang="ro" href="https://campfire-songbook.com/ro/support/">
+	<link rel="alternate" hreflang="x-default" href="https://campfire-songbook.com/support/">
+	<meta name="theme-color" content="#FAF8FE" media="(prefers-color-scheme: light)">
+	<meta name="theme-color" content="#15121C" media="(prefers-color-scheme: dark)">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="Campfire">
+	<meta property="og:locale" content="cs_CZ">
+	<meta property="og:url" content="https://campfire-songbook.com/cs/support/">
+	<meta property="og:title" content="Podpora – Campfire">
+	<meta property="og:description" content="Odpovědi na časté otázky o Campfire a jak se se mnou spojit.">
+	<meta property="og:image" content="https://campfire-songbook.com/assets/og-image.jpg?v=be8639b0">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:image:alt" content="Campfire na notebooku a telefonu">
+	<meta name="twitter:card" content="summary_large_image">
+	<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "FAQPage",
+		"mainEntity": [
+			{
+				"@type": "Question",
+				"name": "Je Campfire zdarma?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Ano. Nemá reklamy, předplatné, nákupy v aplikaci ani omezení počtu písní a nemusíš si zakládat žádný účet. Je open source pod licencí Mozilla Public License 2.0, se zdrojovým kódem na GitHubu, a jeho vývoj podporují dary."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Na kterých platformách Campfire běží?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Android, iOS, iPadOS, Windows, macOS a Linux a také jakýkoli moderní prohlížeč, bez instalace. Všude je to stejná aplikace a knihovna synchronizovaná přes Dropbox je na všech stejná. Verze pro prohlížeč dostává nové funkce jako první a ostatním může pár dní trvat, než ji doženou. V sekci ke stažení najdeš odkazy na všechny verze."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Funguje Campfire offline?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Ano. Tvoje písně a setlisty jsou uložené ve tvém zařízení, takže vše, co používáš na pódiu, funguje bez připojení, včetně metronomu a ladičky. Webová aplikace se otevře offline také, jakmile ji jednou otevřeš online. Připojení je potřeba jen pro synchronizaci přes Dropbox, sdílené odkazy a vyhledávání údajů o písních a obalů."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Jak znovu projít úvodní otázky?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Zvol Nastavit Campfire znovu v části Nápověda v Nastavení → O aplikaci a krok za krokem si vyber vzhled, nástroj, zápis akordů a funkce."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Můžu skrýt části aplikace, které nepoužívám?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Ano. Nastavení → Funkce zapíná a vypíná akordy, diagramy akordů (a s nimi kartu Akordy), metronom, ladičku, setlisty, obaly a vyhledávání údajů o písni online. Vypnutím se funkce jen skryje: nic se nesmaže a po opětovném zapnutí se vrátí tak, jak byla."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Jak přidám písně?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Jsou čtyři způsoby: Vložení: zkopíruj akordy a text písně z jakéhokoli webu, ať jsou jakkoli neuspořádané, a v seznamu písní zvol v nabídce Nová píseň položku Vložit ze schránky, nebo tam stiskni Ctrl+V (⌘V na Macu). Campfire text uspořádá do písně a otevře ji v editoru: zkontroluj název a interpreta a pak ulož. Sdílení: na Androidu, iOS a iPadOS nasdílej do Campfire z jiné aplikace text s akordy nebo soubor. Sdílená webová adresa se neotevře, proto raději nasdílej text stránky. Import: zvol Importovat písně, dokumenty nebo archivy zip… na kartě Knihovna v nastavení, nebo přetáhni soubory do aplikace. Campfire čte soubory ChordPro (.cho, .chopro, .chordpro, .crd, .chord a .pro), prostý text .txt, dokumenty PDF a Word .docx, archivy zip, které je obsahují, a zálohy exportované z jiných zpěvníkových aplikací. Než se cokoli zapíše, uvidíš, co import obsahuje, můžeš soubory vynechat a zvolit, jestli se píseň, jejíž název už existuje, očísluje, nebo nahradí tu tvou. Psaní: vytvoř píseň ve vestavěném editoru aplikace."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Můžu přenést knihovnu z jiné zpěvníkové aplikace?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Ano. Campfire importuje zálohy a soubory písní z jiných zpěvníkových aplikací, například zálohy .sbpbackup, sady .sbp, soubory .onsong a písně z exportů JSON, a také melodie ABC a soubory ChordPro z jakékoli aplikace. Když dáš víc souborů do archivu zip, přeneseš je najednou. Z každé písně se stane soubor ChordPro a ze sad setlisty."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Můžu importovat zpěvník s akordy v PDF nebo ve Wordu?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Ano. Importuj .pdf nebo .docx přes výběr souborů, přetažením nebo v archivu zip; na Androidu, iOS a iPadOS ho můžeš do Campfire také nasdílet. Prosté textové soubory a text, který vložíš nebo nasdílíš, projdou stejným převodem. Campfire z dokumentu vytáhne text a pokusí se co nejlépe umístit akordy nad text a rozpoznat oddíly, název a pokyny ke hře. Vše probíhá ve tvém zařízení, bez externí služby nebo modelu AI. Původní dokument se neuchovává. Výsledkem je běžná píseň ve tvé knihovně a hlášení o importu ti řekne, kolik písní se převedlo. Vyplatí se je zkontrolovat v editoru, hlavně když je původní rozvržení neobvyklé. Dokument s několika jasně pojmenovanými písněmi se může rozdělit na víc písní. Naskenované stránky, chráněná PDF a staré soubory .doc přečíst nejde: použij PDF s označitelným textem nebo ulož soubor Wordu jako .docx. PDF, která Campfire sdílí, jsou obrázky pro tisk, takže pro přesun písní mezi knihovnami je sdílej jako soubory ChordPro nebo zip."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Smazané ukázkové písně chci zpátky.",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Zvol Přidat ukázkovou knihovnu na kartě Knihovna v nastavení."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Jak změním víc písní najednou?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Otevři nabídku jedné z nich (klepni na její tři tečky, podrž ji nebo na ni na počítači klikni pravým tlačítkem) a zvol Vybrat více. Zaškrtni další, nebo použij Vybrat vše na to, co ukazuje hledání a filtry, a pak jim přidej štítky, přidej je do setlistů, nastav jejich jazyk nebo je nasdílej společně. Až skončíš, zvol Hotovo. Písně se nikdy nemažou hromadně."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Jak vyplním album, rok nebo autory písně?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "V nabídce písně zvol Upravit údaje o písni a pak Najít údaje o písni online. Campfire v MusicBrainz a iTunes vyhledá nahrávky odpovídající názvu a interpretovi a Doplnit zkopíruje tu, kterou vybereš, do formuláře; nic se nezmění, dokud neuložíš. Pokud ti to nemá být nabízeno, vypni volbu Podrobnosti o písni online v Nastavení → Funkce."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Jak pošlu setlist kapele?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Nasdílej ho jako odkaz. V nabídce setlistu zvol Sdílet setlist, vyber Odkaz, pak Vytvořit odkaz a pošli odkaz nebo ukaž jeho QR kód. Otevřít ho může kdokoli: s nainstalovaným Campfire otevře import, který ukáže setlist a jeho písně dřív, než se cokoli přidá; bez Campfire pomůže stránka odkazu aplikaci získat do zařízení, nebo otevře setlist ve webové aplikaci. Jednotlivá píseň se sdílí stejně, přes Sdílet píseň. Odkazy se vytvářejí z tvého Dropboxu, takže první z nich tě požádá o jeho připojení, čímž se zároveň začne synchronizovat tvoje knihovna. Odkaz vždy vede na nejnovější verzi: když změníš setlist nebo jeho písně, spoluhráči otevřou stejný odkaz znovu a aktualizují si své kopie. Nastavení → Sdílení ukazuje vše, co sdílíš, a Přestat sdílet odkaz zneplatní."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Funguje Campfire s pedálem na otáčení stránek?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Ano. Spáruj pedál s telefonem, tabletem nebo počítačem: fungují pedály, které posílají šipky, i pedály, které posílají Page Up a Page Down. Nahoru a dolů se posouváš písní a v setlistu přejdeš vlevo a vpravo na předchozí a další píseň. Klávesnice dělá totéž a Ctrl+/ (⌘/ na Macu) zobrazí všechny klávesové zkratky."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Pro které nástroje jsou diagramy akordů?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Kytara, ukulele, mandolína, banjo a klávesy, ve standardním ladění i v dalších laděních, která aplikace pro každý nástroj nabízí, například drop D nebo open G na kytaře. Nástroj a ladění vyber nahoře u jakékoli písně nebo na kartě Akordy: je to jedna volba pro celou aplikaci a používá ji i ladička. Sedmi- a osmistrunné kytary, baskytary a housle mají ladičku, ale ne diagramy akordů. Chceš-li akord hrát jinak, klepni na něj v písni nebo na kartě Akordy a vyber jiný hmat. Ten, který zvolíš, se použije ve všech písních, pokud si píseň nedefinuje vlastní."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Proč tabulatura vypadá jinak než v importovaném souboru?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Tabulatury se přenášejí na tvůj nástroj a ladění, o oktávu výš nebo níž tam, kde by tón vyšel mimo hmatník, a řádek pod tabulaturou řekne, co se změnilo. Píseň s tabulaturami pro několik nástrojů ukazuje jen tu pro tvůj. Když máš vybrané klávesy nebo housle, tabulatury jsou skryté; s volbou Jiný se ukazují tak, jak jsou zapsané. Soubor písně se nikdy nemění."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Jak používat ladičku?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Otevři kartu Ladička (najdeš ji pod Pomůcky, když není místo pro všechny karty) a vyber nástroj a jeho ladění. Když ji otevřeš klepnutím, poprvé požádá o použití mikrofonu; jinak klepni na Použít mikrofon. Hraj vždy jednu strunu: zobrazí se tón, který hraješ, a o kolik centů je níž nebo výš, a každá struna se odškrtne, jakmile je naladěná. Klepnutím na strunu si místo toho poslechneš její tón. Ladička je také tlačítko vedle nástroje a ladění nahoře u každé písně, takže ladit můžeš přímo v ní. Je to jeden nástroj pro celou aplikaci, takže diagramy akordů se řídí stejnou volbou. Referenční ladění lze na kartě nastavit od 415 do 466 Hz, pokud tvoje kapela neladí na A = 440 Hz."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Ladička mě neslyší.",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Campfire potřebuje tvé povolení k použití mikrofonu. Pokud povolení chybí, klepni v ladičce na Otevřít nastavení nebo Zeptat se znovu a povol ho; v prohlížeči povol mikrofon v nastavení webu vedle adresy. Pokud mikrofon používá hovor nebo jiná aplikace, nejdřív je ukonči. Pokud ladička hlásí, že neslyší vůbec nic, zkontroluj, že mikrofon není ztlumený, a na počítači také, že je v nastavení zvuku systému vybraný správný vstup. Ve Windows může Vylepšení zvuku odstranit držený tón jako šum: klepni v ladičce na Otevřít nastavení zvuku a vypni ho pro svůj mikrofon. Referenční tóny lze přehrát i bez mikrofonu."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Nahrává mě ladička?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Ne. Zvuk se analyzuje ve tvém zařízení hned, jak přichází, a pak se zahodí: nic se nenahrává, neukládá ani nikam neposílá. Mikrofon je zapnutý jen tehdy, když je ladička na obrazovce a aplikace v popředí, takže indikátor nahrávání v systému svítí přesně v tu dobu. Pokud ladičku nikdy nepoužíváš, vypni přepínač Ladička v Nastavení → Funkce a Campfire o mikrofon nikdy nepožádá."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Kde jsou moje písně uložené?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Ve tvém zařízení, ve vlastním úložišti aplikace. Campfire nemá účet ani server: tvoje písně nikdy neopustí tvoje zařízení, pokud je nenasdílíš, nevyexportuješ nebo nezapneš synchronizaci."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Jak zálohovat knihovnu nebo ji přenést do jiného zařízení?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Jsou dva způsoby: Export: zvol v nastavení Exportovat knihovnu jako zip a ulož archiv, kam chceš. Na druhém zařízení ho importuj, nebo si ho nech jako zálohu. Jednotlivé písně a setlisty se místo toho sdílejí z jejich vlastních nabídek. Synchronizace: připoj v nastavení svůj účet Dropbox a Campfire bude v reálném čase udržovat knihovnu stejnou na všech zařízeních, která jsou k němu připojená: změna na jednom se během pár sekund objeví na ostatních, kde je Campfire otevřený. Synchronizace je vypnutá, dokud ji nezapneš."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Jak funguje synchronizace a co Campfire na mém Dropboxu vidí?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Campfire má přístup jen ke své vlastní složce Apps/Campfire Sync a k ničemu jinému na tvém Dropboxu. Soubory putují přímo mezi tvým zařízením a Dropboxem. Volba Odpojit v nastavení zastaví synchronizaci, aniž by cokoli smazala, ať už ve tvém zařízení, nebo na Dropboxu. Podrobnosti najdeš v zásadách ochrany osobních údajů."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Synchronizace se ptá, jestli smazat soubory. Co mám dělat?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Campfire se zeptá, než provede synchronizaci, která by najednou smazala mnoho tvých souborů, protože to obvykle znamená, že se nějaká složka omylem přesunula nebo vyprázdnila. Pokud je smazat nechceš, zvol možnost, která je zachová, a zkopírují se zpátky."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Jak smažu svá data?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Pokud chceš smazat celou knihovnu, otevři nastavení, přejdi na kartu Knihovna a v části V tomto zařízení klepni na řádek, který ukazuje, kolik máš písní a setlistů, pak napiš DELETE a potvrď. Pokud je připojená synchronizace přes Dropbox, smažou se tím tvoje písně a setlisty i ze složky Apps/Campfire Sync a ze všech ostatních zařízení, která se s ní synchronizují, takže pokud chceš vyčistit jen toto zařízení, zvol nejdřív Odpojit. Klepnutím na Mezipaměť obalů na stejné obrazovce smažeš obrázky obalů uložené v zařízení. Odinstalováním aplikace se ze zařízení odstraní vše. Pokud se používala synchronizace a knihovna se předtím nesmazala, smaž také složku Apps/Campfire Sync na svém Dropboxu. Nemám žádnou kopii tvých dat, takže nemám co mazat."
+				}
+			}
+		]
+	}
+	</script>
+	<link rel="icon" href="../../assets/icon.svg?v=8ba29e56" type="image/svg+xml">
+	<link rel="apple-touch-icon" href="../../assets/icon-192.png?v=0f2be8ac">
+	<link rel="stylesheet" href="../../assets/site.css?v=440cc522">
+	<script>
+		// Every visitor is offered two versions: a phone or a tablet the app from its store first and the web app second,
+		// a computer the other way around. The script names the system: the stylesheet shows the elements marked
+		// for-mobile instead of for-desktop on a phone or a tablet, every link marked data-native goes to the system's own
+		// version, and one marked data-native-label is also named after it. iPadOS presents itself as a Mac, so an iPad is
+		// told apart by its touch screen. Without a match, the links lead to the list of every platform.
+		(function (d) {
+			var agent = navigator.userAgent;
+			var os = /Android/.test(agent) ? "android" : /iPhone|iPad|iPod/.test(agent) || (/Macintosh/.test(agent) && navigator.maxTouchPoints > 1) ? "ios" : /Windows/.test(agent) ? "windows" : /Macintosh/.test(agent) ? "macos" : /Linux/.test(agent) ? "linux" : "";
+			var native = {
+				android: ["https://play.google.com/store/apps/details?id=com.pandulapeter.campfire", "Stáhnout z Google Play"],
+				ios: ["https://apps.apple.com/app/id6815160850", "Stáhnout v App Storu"],
+				windows: ["https://apps.microsoft.com/detail/9MSR62F288M1", "Stáhnout pro Windows"],
+				macos: ["https://apps.apple.com/app/id6815160850", "Stáhnout pro macOS"],
+				linux: ["https://github.com/pandulapeter/campfire/releases/latest", "Stáhnout pro Linux"]
+			}[os];
+			if (!native) return;
+			d.documentElement.dataset.os = os;
+			if (os === "android" || os === "ios") d.documentElement.dataset.mobile = "";
+			d.addEventListener("DOMContentLoaded", function () {
+				d.querySelectorAll("[data-native]").forEach(function (link) {
+					link.href = native[0];
+					link.target = "_blank";
+					link.rel = "noopener";
+					if (link.hasAttribute("data-native-label")) link.textContent = native[1];
+				});
+			});
+		}(document));
+	</script>
+</head>
+<body>
+<a class="skip" href="#main">Přeskočit na obsah</a>
+<header class="site-header">
+	<div class="wrap">
+		<a class="brand" translate="no" href="../"><img src="../../assets/icon.svg?v=8ba29e56" alt="">Campfire</a>
+		<nav aria-label="Hlavní navigace">
+			<a class="optional" href="../#download">Stáhnout</a>
+			<a class="optional" href="./" aria-current="page">Podpora</a>
+			<a class="optional" href="../privacy/">Soukromí</a>
+			<details class="languages" translate="no">
+				<summary aria-label="Jazyk: Čeština"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.8 3.9 6 3.9 9.5s-1.3 6.7-3.9 9.5c-2.6-2.8-3.9-6-3.9-9.5s1.3-6.7 3.9-9.5Z"/></svg><span>CS</span></summary>
+				<ul>
+					<li><a href="../../support/" hreflang="en" lang="en">English</a></li>
+					<li><a href="./" hreflang="cs" lang="cs" aria-current="true">Čeština</a></li>
+					<li><a href="../../de/support/" hreflang="de" lang="de">Deutsch</a></li>
+					<li><a href="../../es/support/" hreflang="es" lang="es">Español</a></li>
+					<li><a href="../../fr/support/" hreflang="fr" lang="fr">Français</a></li>
+					<li><a href="../../he/support/" hreflang="he" lang="he">עברית</a></li>
+					<li><a href="../../hu/support/" hreflang="hu" lang="hu">Magyar</a></li>
+					<li><a href="../../it/support/" hreflang="it" lang="it">Italiano</a></li>
+					<li><a href="../../pl/support/" hreflang="pl" lang="pl">Polski</a></li>
+					<li><a href="../../pt/support/" hreflang="pt" lang="pt">Português</a></li>
+					<li><a href="../../ro/support/" hreflang="ro" lang="ro">Română</a></li>
+				</ul>
+			</details>
+			<a class="button small for-desktop" href="../../app/" target="_blank" rel="noopener">Otevřít webovou aplikaci</a>
+			<a class="button small for-mobile" href="../#download" data-native>Stáhnout aplikaci</a>
+		</nav>
+	</div>
+</header>
+<div class="wrap">
+
+	<main class="document" id="main">
+		<h1>Podpora</h1>
+		<p>Campfire je bezplatná aplikace pro zobrazování a úpravy textů a akordů písní, dostupná pro Android, iOS, iPadOS, macOS, Windows, Linux a web. Tato stránka odpovídá na nejčastější otázky a říká, jak mě kontaktovat, pokud mezi nimi ta tvoje není.</p>
+		<div class="contact">
+		<h2>Kontaktuj mě</h2>
+		<p>Pokud máš otázku, problém nebo nápad na aplikaci, <a href="mailto:pandulapeter@gmail.com?Subject=Campfire%20support" target="_top">napiš mi e-mail na pandulapeter@gmail.com</a>. Uveď prosím zařízení a verzi Campfire, kterou používáš (najdeš ji na kartě O aplikaci v nastavení aplikace). Čtu každou zprávu a obvykle odpovím do několika dní.</p>
+		<p>Pokud máš účet na GitHubu, můžeš také <a href="https://github.com/pandulapeter/campfire/issues" target="_blank" rel="noopener">nahlásit problém na GitHubu</a>, kde je i zdrojový kód aplikace.</p>
+		</div>
+		<h2 id="faq">Často kladené otázky</h2>
+		<h3 class="topic">Začínáme</h3>
+		<details>
+			<summary><h4>Je Campfire zdarma?</h4></summary>
+			<p>Ano. Nemá reklamy, předplatné, nákupy v aplikaci ani omezení počtu písní a nemusíš si zakládat žádný účet. Je open source pod licencí <a href="https://mozilla.org/MPL/2.0/" target="_blank" rel="noopener">Mozilla Public License 2.0</a>, se <a href="https://github.com/pandulapeter/campfire" target="_blank" rel="noopener">zdrojovým kódem na GitHubu</a>, a jeho vývoj podporují dary.</p>
+		</details>
+		<details>
+			<summary><h4>Na kterých platformách Campfire běží?</h4></summary>
+			<p>Android, iOS, iPadOS, Windows, macOS a Linux a také jakýkoli moderní prohlížeč, bez instalace. Všude je to stejná aplikace a knihovna synchronizovaná přes Dropbox je na všech stejná. Verze pro prohlížeč dostává nové funkce jako první a ostatním může pár dní trvat, než ji doženou. V <a href="../#download">sekci ke stažení</a> najdeš odkazy na všechny verze.</p>
+		</details>
+		<details>
+			<summary><h4>Funguje Campfire offline?</h4></summary>
+			<p>Ano. Tvoje písně a setlisty jsou uložené ve tvém zařízení, takže vše, co používáš na pódiu, funguje bez připojení, včetně metronomu a ladičky. Webová aplikace se otevře offline také, jakmile ji jednou otevřeš online. Připojení je potřeba jen pro synchronizaci přes Dropbox, sdílené odkazy a vyhledávání údajů o písních a obalů.</p>
+		</details>
+		<details>
+			<summary><h4>Jak znovu projít úvodní otázky?</h4></summary>
+			<p>Zvol <em>Nastavit Campfire znovu</em> v části <em>Nápověda</em> v <em>Nastavení → O aplikaci</em> a krok za krokem si vyber vzhled, nástroj, zápis akordů a funkce.</p>
+		</details>
+		<details>
+			<summary><h4>Můžu skrýt části aplikace, které nepoužívám?</h4></summary>
+			<p>Ano. <em>Nastavení → Funkce</em> zapíná a vypíná akordy, diagramy akordů (a s nimi kartu <em>Akordy</em>), metronom, ladičku, setlisty, obaly a vyhledávání údajů o písni online. Vypnutím se funkce jen skryje: nic se nesmaže a po opětovném zapnutí se vrátí tak, jak byla.</p>
+		</details>
+		<h3 class="topic">Přidávání písní</h3>
+		<details>
+			<summary><h4>Jak přidám písně?</h4></summary>
+			<p>Jsou čtyři způsoby:</p>
+			<ul>
+				<li><strong>Vložení:</strong> zkopíruj akordy a text písně z jakéhokoli webu, ať jsou jakkoli neuspořádané, a v seznamu písní zvol v nabídce <em>Nová píseň</em> položku <em>Vložit ze schránky</em>, nebo tam stiskni Ctrl+V (⌘V na Macu). Campfire text uspořádá do písně a otevře ji v editoru: zkontroluj název a interpreta a pak ulož.</li>
+				<li><strong>Sdílení:</strong> na Androidu, iOS a iPadOS nasdílej do Campfire z jiné aplikace text s akordy nebo soubor. Sdílená webová adresa se neotevře, proto raději nasdílej text stránky.</li>
+				<li><strong>Import:</strong> zvol <em>Importovat písně, dokumenty nebo archivy zip…</em> na kartě <em>Knihovna</em> v nastavení, nebo přetáhni soubory do aplikace. Campfire čte soubory <a href="https://www.chordpro.org" target="_blank" rel="noopener">ChordPro</a> (<em>.cho</em>, <em>.chopro</em>, <em>.chordpro</em>, <em>.crd</em>, <em>.chord</em> a <em>.pro</em>), prostý text <em>.txt</em>, dokumenty PDF a Word <em>.docx</em>, archivy zip, které je obsahují, a zálohy exportované z jiných zpěvníkových aplikací. Než se cokoli zapíše, uvidíš, co import obsahuje, můžeš soubory vynechat a zvolit, jestli se píseň, jejíž název už existuje, očísluje, nebo nahradí tu tvou.</li>
+				<li><strong>Psaní:</strong> vytvoř píseň ve vestavěném editoru aplikace.</li>
+			</ul>
+		</details>
+		<details>
+			<summary><h4>Můžu přenést knihovnu z jiné zpěvníkové aplikace?</h4></summary>
+			<p>Ano. Campfire importuje zálohy a soubory písní z jiných zpěvníkových aplikací, například zálohy <em>.sbpbackup</em>, sady <em>.sbp</em>, soubory <em>.onsong</em> a písně z exportů JSON, a také melodie ABC a soubory ChordPro z jakékoli aplikace. Když dáš víc souborů do archivu zip, přeneseš je najednou. Z každé písně se stane soubor ChordPro a ze sad setlisty.</p>
+		</details>
+		<details>
+			<summary><h4>Můžu importovat zpěvník s akordy v PDF nebo ve Wordu?</h4></summary>
+			<p>Ano. Importuj <em>.pdf</em> nebo <em>.docx</em> přes výběr souborů, přetažením nebo v archivu zip; na Androidu, iOS a iPadOS ho můžeš do Campfire také nasdílet. Prosté textové soubory a text, který vložíš nebo nasdílíš, projdou stejným převodem. Campfire z dokumentu vytáhne text a pokusí se co nejlépe umístit akordy nad text a rozpoznat oddíly, název a pokyny ke hře. Vše probíhá ve tvém zařízení, bez externí služby nebo modelu AI. Původní dokument se neuchovává.</p>
+			<p>Výsledkem je běžná píseň ve tvé knihovně a hlášení o importu ti řekne, kolik písní se převedlo. Vyplatí se je zkontrolovat v editoru, hlavně když je původní rozvržení neobvyklé. Dokument s několika jasně pojmenovanými písněmi se může rozdělit na víc písní. Naskenované stránky, chráněná PDF a staré soubory <em>.doc</em> přečíst nejde: použij PDF s označitelným textem nebo ulož soubor Wordu jako <em>.docx</em>. PDF, která Campfire sdílí, jsou obrázky pro tisk, takže pro přesun písní mezi knihovnami je sdílej jako soubory ChordPro nebo zip.</p>
+		</details>
+		<details>
+			<summary><h4>Smazané ukázkové písně chci zpátky.</h4></summary>
+			<p>Zvol <em>Přidat ukázkovou knihovnu</em> na kartě <em>Knihovna</em> v nastavení.</p>
+		</details>
+		<h3 class="topic">Správa písní a setlistů</h3>
+		<details>
+			<summary><h4>Jak změním víc písní najednou?</h4></summary>
+			<p>Otevři nabídku jedné z nich (klepni na její tři tečky, podrž ji nebo na ni na počítači klikni pravým tlačítkem) a zvol <em>Vybrat více</em>. Zaškrtni další, nebo použij <em>Vybrat vše</em> na to, co ukazuje hledání a filtry, a pak jim přidej štítky, přidej je do setlistů, nastav jejich jazyk nebo je nasdílej společně. Až skončíš, zvol <em>Hotovo</em>. Písně se nikdy nemažou hromadně.</p>
+		</details>
+		<details>
+			<summary><h4>Jak vyplním album, rok nebo autory písně?</h4></summary>
+			<p>V nabídce písně zvol <em>Upravit údaje o písni</em> a pak <em>Najít údaje o písni online</em>. Campfire v MusicBrainz a iTunes vyhledá nahrávky odpovídající názvu a interpretovi a <em>Doplnit</em> zkopíruje tu, kterou vybereš, do formuláře; nic se nezmění, dokud neuložíš. Pokud ti to nemá být nabízeno, vypni volbu <em>Podrobnosti o písni online</em> v <em>Nastavení → Funkce</em>.</p>
+		</details>
+		<details>
+			<summary><h4>Jak pošlu setlist kapele?</h4></summary>
+			<p>Nasdílej ho jako odkaz. V nabídce setlistu zvol <em>Sdílet setlist</em>, vyber <em>Odkaz</em>, pak <em>Vytvořit odkaz</em> a pošli odkaz nebo ukaž jeho QR kód. Otevřít ho může kdokoli: s nainstalovaným Campfire otevře import, který ukáže setlist a jeho písně dřív, než se cokoli přidá; bez Campfire pomůže stránka odkazu aplikaci získat do zařízení, nebo otevře setlist ve webové aplikaci. Jednotlivá píseň se sdílí stejně, přes <em>Sdílet píseň</em>.</p>
+			<p>Odkazy se vytvářejí z tvého Dropboxu, takže první z nich tě požádá o jeho připojení, čímž se zároveň začne synchronizovat tvoje knihovna. Odkaz vždy vede na nejnovější verzi: když změníš setlist nebo jeho písně, spoluhráči otevřou stejný odkaz znovu a aktualizují si své kopie. <em>Nastavení → Sdílení</em> ukazuje vše, co sdílíš, a <em>Přestat sdílet</em> odkaz zneplatní.</p>
+		</details>
+		<h3 class="topic">Hraní</h3>
+		<details>
+			<summary><h4>Funguje Campfire s pedálem na otáčení stránek?</h4></summary>
+			<p>Ano. Spáruj pedál s telefonem, tabletem nebo počítačem: fungují pedály, které posílají šipky, i pedály, které posílají Page Up a Page Down. Nahoru a dolů se posouváš písní a v setlistu přejdeš vlevo a vpravo na předchozí a další píseň. Klávesnice dělá totéž a Ctrl+/ (⌘/ na Macu) zobrazí všechny klávesové zkratky.</p>
+		</details>
+		<details>
+			<summary><h4>Pro které nástroje jsou diagramy akordů?</h4></summary>
+			<p>Kytara, ukulele, mandolína, banjo a klávesy, ve standardním ladění i v dalších laděních, která aplikace pro každý nástroj nabízí, například drop D nebo open G na kytaře. Nástroj a ladění vyber nahoře u jakékoli písně nebo na kartě <em>Akordy</em>: je to jedna volba pro celou aplikaci a používá ji i ladička. Sedmi- a osmistrunné kytary, baskytary a housle mají ladičku, ale ne diagramy akordů.</p>
+			<p>Chceš-li akord hrát jinak, klepni na něj v písni nebo na kartě <em>Akordy</em> a vyber jiný hmat. Ten, který zvolíš, se použije ve všech písních, pokud si píseň nedefinuje vlastní.</p>
+		</details>
+		<details>
+			<summary><h4>Proč tabulatura vypadá jinak než v importovaném souboru?</h4></summary>
+			<p>Tabulatury se přenášejí na tvůj nástroj a ladění, o oktávu výš nebo níž tam, kde by tón vyšel mimo hmatník, a řádek pod tabulaturou řekne, co se změnilo. Píseň s tabulaturami pro několik nástrojů ukazuje jen tu pro tvůj. Když máš vybrané klávesy nebo housle, tabulatury jsou skryté; s volbou <em>Jiný</em> se ukazují tak, jak jsou zapsané. Soubor písně se nikdy nemění.</p>
+		</details>
+		<h3 class="topic">Ladička</h3>
+		<details>
+			<summary><h4>Jak používat ladičku?</h4></summary>
+			<p>Otevři kartu <em>Ladička</em> (najdeš ji pod <em>Pomůcky</em>, když není místo pro všechny karty) a vyber nástroj a jeho ladění. Když ji otevřeš klepnutím, poprvé požádá o použití mikrofonu; jinak klepni na <em>Použít mikrofon</em>. Hraj vždy jednu strunu: zobrazí se tón, který hraješ, a o kolik centů je níž nebo výš, a každá struna se odškrtne, jakmile je naladěná. Klepnutím na strunu si místo toho poslechneš její tón. Ladička je také tlačítko vedle nástroje a ladění nahoře u každé písně, takže ladit můžeš přímo v ní. Je to jeden nástroj pro celou aplikaci, takže diagramy akordů se řídí stejnou volbou.</p>
+			<p>Referenční ladění lze na kartě nastavit od 415 do 466 Hz, pokud tvoje kapela neladí na A = 440 Hz.</p>
+		</details>
+		<details>
+			<summary><h4>Ladička mě neslyší.</h4></summary>
+			<p>Campfire potřebuje tvé povolení k použití mikrofonu. Pokud povolení chybí, klepni v ladičce na <em>Otevřít nastavení</em> nebo <em>Zeptat se znovu</em> a povol ho; v prohlížeči povol mikrofon v nastavení webu vedle adresy. Pokud mikrofon používá hovor nebo jiná aplikace, nejdřív je ukonči. Pokud ladička hlásí, že neslyší vůbec nic, zkontroluj, že mikrofon není ztlumený, a na počítači také, že je v nastavení zvuku systému vybraný správný vstup. Ve Windows může Vylepšení zvuku odstranit držený tón jako šum: klepni v ladičce na <em>Otevřít nastavení zvuku</em> a vypni ho pro svůj mikrofon. Referenční tóny lze přehrát i bez mikrofonu.</p>
+		</details>
+		<details>
+			<summary><h4>Nahrává mě ladička?</h4></summary>
+			<p>Ne. Zvuk se analyzuje ve tvém zařízení hned, jak přichází, a pak se zahodí: nic se nenahrává, neukládá ani nikam neposílá. Mikrofon je zapnutý jen tehdy, když je ladička na obrazovce a aplikace v popředí, takže indikátor nahrávání v systému svítí přesně v tu dobu. Pokud ladičku nikdy nepoužíváš, vypni přepínač <em>Ladička</em> v <em>Nastavení → Funkce</em> a Campfire o mikrofon nikdy nepožádá.</p>
+		</details>
+		<h3 class="topic">Úložiště, synchronizace a zálohování</h3>
+		<details>
+			<summary><h4>Kde jsou moje písně uložené?</h4></summary>
+			<p>Ve tvém zařízení, ve vlastním úložišti aplikace. Campfire nemá účet ani server: tvoje písně nikdy neopustí tvoje zařízení, pokud je nenasdílíš, nevyexportuješ nebo nezapneš synchronizaci.</p>
+		</details>
+		<details>
+			<summary><h4>Jak zálohovat knihovnu nebo ji přenést do jiného zařízení?</h4></summary>
+			<p>Jsou dva způsoby:</p>
+			<ul>
+				<li><strong>Export:</strong> zvol v nastavení <em>Exportovat knihovnu jako zip</em> a ulož archiv, kam chceš. Na druhém zařízení ho importuj, nebo si ho nech jako zálohu. Jednotlivé písně a setlisty se místo toho sdílejí z jejich vlastních nabídek.</li>
+				<li><strong>Synchronizace:</strong> připoj v nastavení svůj účet Dropbox a Campfire bude v reálném čase udržovat knihovnu stejnou na všech zařízeních, která jsou k němu připojená: změna na jednom se během pár sekund objeví na ostatních, kde je Campfire otevřený. Synchronizace je vypnutá, dokud ji nezapneš.</li>
+			</ul>
+		</details>
+		<details>
+			<summary><h4>Jak funguje synchronizace a co Campfire na mém Dropboxu vidí?</h4></summary>
+			<p>Campfire má přístup jen ke své vlastní složce <em>Apps/Campfire Sync</em> a k ničemu jinému na tvém Dropboxu. Soubory putují přímo mezi tvým zařízením a Dropboxem. Volba <em>Odpojit</em> v nastavení zastaví synchronizaci, aniž by cokoli smazala, ať už ve tvém zařízení, nebo na Dropboxu. Podrobnosti najdeš v <a href="../privacy/">zásadách ochrany osobních údajů</a>.</p>
+		</details>
+		<details>
+			<summary><h4>Synchronizace se ptá, jestli smazat soubory. Co mám dělat?</h4></summary>
+			<p>Campfire se zeptá, než provede synchronizaci, která by najednou smazala mnoho tvých souborů, protože to obvykle znamená, že se nějaká složka omylem přesunula nebo vyprázdnila. Pokud je smazat nechceš, zvol možnost, která je zachová, a zkopírují se zpátky.</p>
+		</details>
+		<details>
+			<summary><h4>Jak smažu svá data?</h4></summary>
+			<p>Pokud chceš smazat celou knihovnu, otevři nastavení, přejdi na kartu <em>Knihovna</em> a v části <em>V tomto zařízení</em> klepni na řádek, který ukazuje, kolik máš písní a setlistů, pak napiš <em>DELETE</em> a potvrď. Pokud je připojená synchronizace přes Dropbox, smažou se tím tvoje písně a setlisty i ze složky <em>Apps/Campfire Sync</em> a ze všech ostatních zařízení, která se s ní synchronizují, takže pokud chceš vyčistit jen toto zařízení, zvol nejdřív <em>Odpojit</em>. Klepnutím na <em>Mezipaměť obalů</em> na stejné obrazovce smažeš obrázky obalů uložené v zařízení.</p>
+			<p>Odinstalováním aplikace se ze zařízení odstraní vše. Pokud se používala synchronizace a knihovna se předtím nesmazala, smaž také složku <em>Apps/Campfire Sync</em> na svém Dropboxu. Nemám žádnou kopii tvých dat, takže nemám co mazat.</p>
+		</details>
+		<h2>Soukromí</h2>
+		<p>Campfire neobsahuje žádné reklamy, analytiku ani sledování a to, co ladička slyší, nikdy neopustí tvoje zařízení. Víc se dočteš v <a href="../privacy/">zásadách ochrany osobních údajů</a>.</p>
+	</main>
+
+	<footer class="site-footer">
+		<div class="legal">
+			<p>© 2026 · <a href="https://pandulapeter.com" target="_blank" rel="noopener">Péter Pandula</a></p>
+			<a class="source" href="https://github.com/pandulapeter/campfire" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>Zdrojový kód</a>
+			<ul class="language-links" translate="no" aria-label="Jazyk">
+				<li><a href="../../support/" hreflang="en" lang="en">English</a></li>
+				<li><a href="./" hreflang="cs" lang="cs" aria-current="true">Čeština</a></li>
+				<li><a href="../../de/support/" hreflang="de" lang="de">Deutsch</a></li>
+				<li><a href="../../es/support/" hreflang="es" lang="es">Español</a></li>
+				<li><a href="../../fr/support/" hreflang="fr" lang="fr">Français</a></li>
+				<li><a href="../../he/support/" hreflang="he" lang="he">עברית</a></li>
+				<li><a href="../../hu/support/" hreflang="hu" lang="hu">Magyar</a></li>
+				<li><a href="../../it/support/" hreflang="it" lang="it">Italiano</a></li>
+				<li><a href="../../pl/support/" hreflang="pl" lang="pl">Polski</a></li>
+				<li><a href="../../pt/support/" hreflang="pt" lang="pt">Português</a></li>
+				<li><a href="../../ro/support/" hreflang="ro" lang="ro">Română</a></li>
+			</ul>
+		</div>
+	</footer>
+</div>
+</body>
+</html>

@@ -11,7 +11,7 @@
 		// has the same elements in the same order, only with longer or shorter text, so a visitor who picks one is kept at
 		// the element at the top of the window, as far into it as they were, or at the bottom of the page if they were there.
 		(function (d, l) {
-			var languages = ["de", "en", "es", "fr", "he", "hu", "it", "pl", "pt", "ro"];
+			var languages = ["cs", "de", "en", "es", "fr", "he", "hu", "it", "pl", "pt", "ro"];
 			var picked = null;
 			var blocks = "h1, h2, h3, p, li, dt, dd, summary, figure, pre, img";
 			function top() { var header = d.querySelector(".site-header"); return header ? header.getBoundingClientRect().bottom : 0; }
@@ -68,6 +68,7 @@
 	<meta name="description" content="Un recueil de chansons gratuit pour tes paroles et tes accords, avec setlists, diagrammes d’accords, métronome et accordeur. Fonctionne hors ligne sur téléphone, tablette et ordinateur.">
 	<link rel="canonical" href="https://campfire-songbook.com/fr/">
 	<link rel="alternate" hreflang="en" href="https://campfire-songbook.com/">
+	<link rel="alternate" hreflang="cs" href="https://campfire-songbook.com/cs/">
 	<link rel="alternate" hreflang="de" href="https://campfire-songbook.com/de/">
 	<link rel="alternate" hreflang="es" href="https://campfire-songbook.com/es/">
 	<link rel="alternate" hreflang="fr" href="https://campfire-songbook.com/fr/">
@@ -198,6 +199,7 @@
 				<summary aria-label="Langue: Français"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.8 3.9 6 3.9 9.5s-1.3 6.7-3.9 9.5c-2.6-2.8-3.9-6-3.9-9.5s1.3-6.7 3.9-9.5Z"/></svg><span>FR</span></summary>
 				<ul>
 					<li><a href="../" hreflang="en" lang="en">English</a></li>
+					<li><a href="../cs/" hreflang="cs" lang="cs">Čeština</a></li>
 					<li><a href="../de/" hreflang="de" lang="de">Deutsch</a></li>
 					<li><a href="../es/" hreflang="es" lang="es">Español</a></li>
 					<li><a href="./" hreflang="fr" lang="fr" aria-current="true">Français</a></li>
@@ -555,6 +557,7 @@ E|-----7-|-8-----|-------|----|
 			</nav>
 			<ul class="language-links" translate="no" aria-label="Langue">
 				<li><a href="../" hreflang="en" lang="en">English</a></li>
+				<li><a href="../cs/" hreflang="cs" lang="cs">Čeština</a></li>
 				<li><a href="../de/" hreflang="de" lang="de">Deutsch</a></li>
 				<li><a href="../es/" hreflang="es" lang="es">Español</a></li>
 				<li><a href="./" hreflang="fr" lang="fr" aria-current="true">Français</a></li>

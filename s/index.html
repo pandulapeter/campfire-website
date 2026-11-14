@@ -167,9 +167,37 @@
 			try { picked = localStorage.getItem("language"); } catch (e) {}
 			// Older browsers still name Hebrew by its retired code, iw.
 			var codes = [picked].concat((navigator.languages || [navigator.language]).map(function (tag) { return String(tag).slice(0, 2).toLowerCase().replace("iw", "he"); }));
-			return codes.filter(function (code) { return /^(de|en|es|fr|he|hu|it|pl|pt|ro)$/.test(code); })[0] || "en";
+			return codes.filter(function (code) { return /^(cs|de|en|es|fr|he|hu|it|pl|pt|ro)$/.test(code); })[0] || "en";
 		}());
 		var texts = {
+			cs: {
+				song: "Sdílená píseň",
+				setlist: "Sdílený setlist",
+				untitled: "Sdíleno z Campfire",
+				untitledSong: "Píseň bez názvu",
+				untitledSetlist: "Setlist bez názvu",
+				ledeSong: "Otevři ji v Campfire a přidej si ji mezi své písně.",
+				ledeSetlist: "Otevři ho v Campfire a přidej si setlist i jeho písně do své knihovny.",
+				newer: "Tento odkaz vytvořila novější verze Campfire. Webová aplikace je vždy aktuální, nainstalovanou aplikaci je potřeba aktualizovat, aby ho otevřela.",
+				incomplete: "Tento odkaz je neúplný.",
+				askAgain: "Požádej toho, kdo ti ho poslal, aby ho poslal znovu.",
+				openApp: "Otevřít v aplikaci",
+				getApp: "Stáhnout aplikaci",
+				openWeb: "Otevřít ve webové aplikaci",
+				openWebPlain: "Otevřít webovou aplikaci",
+				web: "Funguje v tomto prohlížeči, bez jakékoli instalace",
+				notInstalled: "Nemáš ji nainstalovanou?",
+				outdated: "Potřebuješ aktualizaci?",
+				afterInstall: "Campfire odkaz otevře po instalaci.",
+				copied: "Odkaz jsme zkopírovali, aby ho Campfire mohl po instalaci otevřít.",
+				download: "Stáhnout soubor",
+				downloadHint: "Po otevření aplikace ho můžeš importovat i ručně.",
+				inAppBrowser: "Pokud tlačítka nefungují, otevři tuto stránku v prohlížeči.",
+				about: "Campfire je bezplatný zpěvník s texty a akordy pro každou platformu i do prohlížeče.",
+				aboutLink: "Navštívit campfire-songbook.com",
+				platform: { android: "Campfire pro Android", ios: "Campfire pro iOS", ipados: "Campfire pro iPadOS", windows: "Campfire pro Windows", macos: "Campfire pro macOS", linux: "Campfire pro Linux", "": "Pokud je na tomto zařízení nainstalovaná" },
+				store: { android: "Nyní na Google Play", ios: "Stáhnout v App Storu", windows: "Stáhnout z Microsoft Storu", macos: "Stáhnout v Mac App Storu", linux: "Stáhnout z GitHubu", "": "Vyber svou platformu" }
+			},
 			de: {
 				song: "Geteilter Song",
 				setlist: "Geteilte Setlist",
