@@ -14,7 +14,7 @@ Plain HTML and CSS served by GitHub Pages straight from the root of `main`, with
 index.html            the home page, with the main features next to their screenshots, the text size demo, and an interactive ChordPro example
 support/index.html    support and frequently asked questions
 privacy/index.html    the privacy policy
-de/ es/ fr/ he/ hu/ it/ pt/ ro/  the three pages above in each of the other languages, written by localize.py, see Languages
+de/ es/ fr/ he/ hu/ it/ pl/ pt/ ro/  the three pages above in each of the other languages, written by localize.py, see Languages
 i18n/                 the translations of the English pages' texts, one file per language
 404.html              the page GitHub Pages serves for an address that does not exist
 s/index.html          the landing page of a shared song or setlist link, see Shared links
@@ -126,9 +126,9 @@ own CDN and keeps it for a day or more.
 
 ## Languages
 
-The site is in English, German, Spanish, French, Hebrew, Hungarian, Italian, Romanian, and Portuguese, the languages of the app. The English
+The site is in English, German, Spanish, French, Hebrew, Hungarian, Italian, Romanian, Portuguese, and Polish, the languages of the app. The English
 pages are at the root and are the only ones edited by hand; `localize.py` writes the others into `de/`, `es/`, `fr/`,
-`he/`, `hu/`, `it/`, `pt/`, and `ro/` from them. Every text of an English page, as its HTML has it (a link or an emphasis inside a
+`he/`, `hu/`, `it/`, `pl/`, `pt/`, and `ro/` from them. Every text of an English page, as its HTML has it (a link or an emphasis inside a
 sentence included), is looked up in `i18n/<language>.json` and replaced by its translation, which keeps the same tags in
 whatever order the language needs. Elements marked `translate="no"` (the brand, the ChordPro example's song) are left as
 they are. Links between the pages stay within the language, and a file in `assets/` is swapped for the one of the same
@@ -136,7 +136,7 @@ name in a folder named after the language beside it, where there is one: the scr
 `assets/<language>/og-image.jpg` should a language get its own link preview.
 
 A text with no translation stops the script, and with it the commit, listing what is missing, so a page never goes out
-half translated: change an English text and its eight translations together. `python3 localize.py --check hu` checks one
+half translated: change an English text and its nine translations together. `python3 localize.py --check hu` checks one
 language without writing anything, and a translation no page uses any more is reported. The UI names the pages mention
 (*Settings → Features*) are the app's own, from its `strings.xml` in each language.
 

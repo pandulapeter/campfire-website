@@ -38,6 +38,7 @@ LANGUAGES = {
 	"he": ("עברית", "שפה", "he_IL"),
 	"hu": ("Magyar", "Nyelv", "hu_HU"),
 	"it": ("Italiano", "Lingua", "it_IT"),
+	"pl": ("Polski", "Język", "pl_PL"),
 	"pt": ("Português", "Idioma", "pt_BR"),
 	"ro": ("Română", "Limbă", "ro_RO"),
 }

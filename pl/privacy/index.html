@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="pl">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script>
+		// The site is in the languages of the picker, each in a folder of its own, and the English pages, at the root,
+		// are also those of every other language. A visitor who lands on one of them is sent to the same page in the
+		// language they last picked in the picker, which is remembered, or else in the first of their browser's languages
+		// the site has. The picker is a <details>, closed by a click anywhere else or by Escape. A page in another language
+		// has the same elements in the same order, only with longer or shorter text, so a visitor who picks one is kept at
+		// the element at the top of the window, as far into it as they were, or at the bottom of the page if they were there.
+		(function (d, l) {
+			var languages = ["de", "en", "es", "fr", "he", "hu", "it", "pl", "pt", "ro"];
+			var picked = null;
+			var blocks = "h1, h2, h3, p, li, dt, dd, summary, figure, pre, img";
+			function top() { var header = d.querySelector(".site-header"); return header ? header.getBoundingClientRect().bottom : 0; }
+			try { picked = localStorage.getItem("language"); } catch (e) {}
+			d.addEventListener("click", function (event) {
+				var link = event.target.closest("a[hreflang]");
+				if (link) try {
+					localStorage.setItem("language", link.hreflang);
+					sessionStorage.removeItem("position");
+					var line = top();
+					var elements = d.querySelectorAll(blocks);
+					if (scrollY && scrollY + innerHeight >= d.documentElement.scrollHeight - 1) sessionStorage.setItem("position", JSON.stringify([link.pathname, -1, 0]));
+					else for (var index = 0; scrollY && index < elements.length; index++) {
+						var box = elements[index].getBoundingClientRect();
+						if (box.height && box.bottom > line && !elements[index].closest(".site-header")) {
+							sessionStorage.setItem("position", JSON.stringify([link.pathname, index, (line - box.top) / box.height]));
+							break;
+						}
+					}
+				} catch (e) {}
+				d.querySelectorAll("details.languages[open]").forEach(function (picker) { if (!picker.contains(event.target)) picker.open = false; });
+			});
+			d.addEventListener("keydown", function (event) {
+				if (event.key === "Escape") d.querySelectorAll("details.languages[open]").forEach(function (picker) { picker.open = false; picker.querySelector("summary").focus(); });
+			});
+			var position = null;
+			try { position = JSON.parse(sessionStorage.getItem("position")); sessionStorage.removeItem("position"); } catch (e) {}
+			if (position && position[0] === l.pathname && !l.hash) {
+				var scrolled = null;
+				var restore = function () {
+					if (scrolled !== null && scrolled !== scrollY) return;
+					if (position[1] < 0) {
+						scrollTo(0, d.documentElement.scrollHeight);
+						scrolled = scrollY;
+						return;
+					}
+					var element = d.querySelectorAll(blocks)[position[1]];
+					if (!element) return;
+					var box = element.getBoundingClientRect();
+					scrollBy(0, box.top + position[2] * box.height - top());
+					scrolled = scrollY;
+				};
+				d.addEventListener("DOMContentLoaded", restore);
+				addEventListener("load", restore);
+			}
+			if (d.documentElement.lang !== "en") return;
+			// Older browsers still name Hebrew by its retired code, iw.
+			var preferred = [picked].concat((navigator.languages || [navigator.language]).map(function (tag) { return String(tag).slice(0, 2).toLowerCase().replace("iw", "he"); }))
+				.filter(function (code) { return languages.indexOf(code) !== -1; })[0];
+			if (preferred && preferred !== "en") l.replace("/" + preferred + l.pathname + l.search + l.hash);
+		}(document, location));
+	</script>
+	<title>Polityka prywatności – Campfire</title>
+	<meta name="description" content="Jak Campfire obchodzi się z twoimi danymi: bez konta, bez serwera, bez reklam i śledzenia.">
+	<link rel="canonical" href="https://campfire-songbook.com/pl/privacy/">
+	<link rel="alternate" hreflang="en" href="https://campfire-songbook.com/privacy/">
+	<link rel="alternate" hreflang="de" href="https://campfire-songbook.com/de/privacy/">
+	<link rel="alternate" hreflang="es" href="https://campfire-songbook.com/es/privacy/">
+	<link rel="alternate" hreflang="fr" href="https://campfire-songbook.com/fr/privacy/">
+	<link rel="alternate" hreflang="he" href="https://campfire-songbook.com/he/privacy/">
+	<link rel="alternate" hreflang="hu" href="https://campfire-songbook.com/hu/privacy/">
+	<link rel="alternate" hreflang="it" href="https://campfire-songbook.com/it/privacy/">
+	<link rel="alternate" hreflang="pl" href="https://campfire-songbook.com/pl/privacy/">
+	<link rel="alternate" hreflang="pt" href="https://campfire-songbook.com/pt/privacy/">
+	<link rel="alternate" hreflang="ro" href="https://campfire-songbook.com/ro/privacy/">
+	<link rel="alternate" hreflang="x-default" href="https://campfire-songbook.com/privacy/">
+	<meta name="theme-color" content="#FAF8FE" media="(prefers-color-scheme: light)">
+	<meta name="theme-color" content="#15121C" media="(prefers-color-scheme: dark)">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="Campfire">
+	<meta property="og:locale" content="pl_PL">
+	<meta property="og:url" content="https://campfire-songbook.com/pl/privacy/">
+	<meta property="og:title" content="Polityka prywatności – Campfire">
+	<meta property="og:description" content="Jak Campfire obchodzi się z twoimi danymi: bez konta, bez serwera, bez reklam i śledzenia.">
+	<meta property="og:image" content="https://campfire-songbook.com/assets/og-image.jpg?v=be8639b0">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:image:alt" content="Campfire na laptopie i telefonie">
+	<meta name="twitter:card" content="summary_large_image">
+	<link rel="icon" href="../../assets/icon.svg?v=8ba29e56" type="image/svg+xml">
+	<link rel="apple-touch-icon" href="../../assets/icon-192.png?v=0f2be8ac">
+	<link rel="stylesheet" href="../../assets/site.css?v=440cc522">
+	<script>
+		// Every visitor is offered two versions: a phone or a tablet the app from its store first and the web app second,
+		// a computer the other way around. The script names the system: the stylesheet shows the elements marked
+		// for-mobile instead of for-desktop on a phone or a tablet, every link marked data-native goes to the system's own
+		// version, and one marked data-native-label is also named after it. iPadOS presents itself as a Mac, so an iPad is
+		// told apart by its touch screen. Without a match, the links lead to the list of every platform.
+		(function (d) {
+			var agent = navigator.userAgent;
+			var os = /Android/.test(agent) ? "android" : /iPhone|iPad|iPod/.test(agent) || (/Macintosh/.test(agent) && navigator.maxTouchPoints > 1) ? "ios" : /Windows/.test(agent) ? "windows" : /Macintosh/.test(agent) ? "macos" : /Linux/.test(agent) ? "linux" : "";
+			var native = {
+				android: ["https://play.google.com/store/apps/details?id=com.pandulapeter.campfire", "Pobierz z Google Play"],
+				ios: ["https://apps.apple.com/app/id6815160850", "Pobierz z App Store"],
+				windows: ["https://apps.microsoft.com/detail/9MSR62F288M1", "Pobierz na Windows"],
+				macos: ["https://apps.apple.com/app/id6815160850", "Pobierz na macOS"],
+				linux: ["https://github.com/pandulapeter/campfire/releases/latest", "Pobierz na Linuksa"]
+			}[os];
+			if (!native) return;
+			d.documentElement.dataset.os = os;
+			if (os === "android" || os === "ios") d.documentElement.dataset.mobile = "";
+			d.addEventListener("DOMContentLoaded", function () {
+				d.querySelectorAll("[data-native]").forEach(function (link) {
+					link.href = native[0];
+					link.target = "_blank";
+					link.rel = "noopener";
+					if (link.hasAttribute("data-native-label")) link.textContent = native[1];
+				});
+			});
+		}(document));
+	</script>
+</head>
+<body>
+<a class="skip" href="#main">Przejdź do treści</a>
+<header class="site-header">
+	<div class="wrap">
+		<a class="brand" translate="no" href="../"><img src="../../assets/icon.svg?v=8ba29e56" alt="">Campfire</a>
+		<nav aria-label="Menu główne">
+			<a class="optional" href="../#download">Pobierz</a>
+			<a class="optional" href="../support/">Pomoc</a>
+			<a class="optional" href="./" aria-current="page">Prywatność</a>
+			<details class="languages" translate="no">
+				<summary aria-label="Język: Polski"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.8 3.9 6 3.9 9.5s-1.3 6.7-3.9 9.5c-2.6-2.8-3.9-6-3.9-9.5s1.3-6.7 3.9-9.5Z"/></svg><span>PL</span></summary>
+				<ul>
+					<li><a href="../../privacy/" hreflang="en" lang="en">English</a></li>
+					<li><a href="../../de/privacy/" hreflang="de" lang="de">Deutsch</a></li>
+					<li><a href="../../es/privacy/" hreflang="es" lang="es">Español</a></li>
+					<li><a href="../../fr/privacy/" hreflang="fr" lang="fr">Français</a></li>
+					<li><a href="../../he/privacy/" hreflang="he" lang="he">עברית</a></li>
+					<li><a href="../../hu/privacy/" hreflang="hu" lang="hu">Magyar</a></li>
+					<li><a href="../../it/privacy/" hreflang="it" lang="it">Italiano</a></li>
+					<li><a href="./" hreflang="pl" lang="pl" aria-current="true">Polski</a></li>
+					<li><a href="../../pt/privacy/" hreflang="pt" lang="pt">Português</a></li>
+					<li><a href="../../ro/privacy/" hreflang="ro" lang="ro">Română</a></li>
+				</ul>
+			</details>
+			<a class="button small for-desktop" href="../../app/" target="_blank" rel="noopener">Otwórz aplikację internetową</a>
+			<a class="button small for-mobile" href="../#download" data-native>Pobierz aplikację</a>
+		</nav>
+	</div>
+</header>
+<div class="wrap">
+
+	<main class="document" id="main">
+		<h1>Polityka prywatności</h1>
+		<p>Pobierając Campfire i korzystając z niego, automatycznie podlegasz niniejszym warunkom; dlatego upewnij się, że przeczytasz je uważnie.</p>
+		<p>Ta aplikacja jest udostępniana przez Pétera Pandulę bezpłatnie i jest przeznaczona do użytku w obecnej postaci.</p>
+		<p class="updated"><em>Ostatnia aktualizacja: 27 października 2026. Ta wersja dotyczy Campfire 4.0 i nowszych; okładki i usuwanie całej biblioteki w ustawieniach pojawiły się w Campfire 4.5, synchronizacja wybranych chwytów akordów oraz transpozycji, kapodastra i tempa poszczególnych piosenek w Campfire 4.7, tuner, który korzysta z mikrofonu, oraz synchronizacja kolorów tagów i akcentów metronomu każdej piosenki w Campfire 4.7.1, wyszukiwanie szczegółów piosenek w sieci, wklejanie piosenek i udostępnianie ich do aplikacji w Campfire 4.9, linki do piosenek i setlist w Campfire 5.0, a dziennik aplikacji w Campfire 5.0.1.</em></p>
+		<h2>Informacje ogólne</h2>
+		<p>Ta strona informuje o moich zasadach dotyczących zbierania, wykorzystywania i ujawniania danych osobowych, jeśli ktoś zdecyduje się korzystać z mojej usługi.</p>
+		<p>Campfire to aplikacja do przeglądania i edytowania tekstów piosenek i akordów, która działa offline. Twoje piosenki i setlisty to zwykłe pliki tekstowe <a href="https://www.chordpro.org" target="_blank" rel="noopener">ChordPro</a> przechowywane we własnej pamięci aplikacji na twoim urządzeniu, a w wersji internetowej w prywatnej pamięci twojej przeglądarki przeznaczonej dla tej witryny. Nie istnieje żadne konto Campfire i nigdzie nie bierze udziału żaden mój serwer: nigdy nie otrzymuję twoich piosenek, twoich ustawień ani niczego innego na temat tego, jak korzystasz z aplikacji. Campfire łączy się z internetem wyłącznie na potrzeby synchronizacji w chmurze i udostępnianych przez siebie linków, otwarcia udostępnionego linku, okładek oraz wyszukiwania szczegółów piosenek, co opisano poniżej. Tuner korzysta z mikrofonu, ale to, co słyszy, nigdy nie opuszcza twojego urządzenia, co również opisano poniżej. Campfire prowadzi też na twoim urządzeniu dziennik tego, co robił, który trafia do mnie tylko wtedy, gdy samodzielnie mi go wyślesz, jak opisano w części <a href="#log">Dziennik aplikacji</a>.</p>
+		<p>Campfire nie zawiera żadnych reklam, analityki ani jakiegokolwiek śledzenia.</p>
+		<h2>Zbieranie i wykorzystywanie informacji</h2>
+		<p>Campfire nie ma zintegrowanego żadnego rozwiązania do zbierania danych; w związku z tym celowo nie zbieram żadnych danych umożliwiających identyfikację osoby. Pamiętaj jednak, że niektóre mechanizmy zbierania danych są poza moją kontrolą. Na przykład już samo pobranie aplikacji ze Sklepu Google Play oznacza automatyczne udostępnianie pewnych ograniczonych danych o użytkowaniu i dzienników awarii mnie jako deweloperowi, a także Google. Zgoda na to została wyrażona przy akceptacji umowy licencyjnej Usług Play, na którą nie mam żadnego wpływu.</p>
+		<h2>Synchronizacja w chmurze</h2>
+		<p>Campfire może utrzymywać taką samą bibliotekę na kilku twoich urządzeniach, przechowując ją w należącym do ciebie folderze w chmurze. <strong>Ta funkcja jest wyłączona, dopóki jej nie włączysz.</strong> Dopóki nie połączysz konta w ustawieniach aplikacji, synchronizacja nie wysyła żadnych żądań sieciowych, a jeśli nigdy go nie połączysz, nic z tej sekcji cię nie dotyczy.</p>
+		<p>Synchronizacja obsługuje obecnie <a href="https://www.dropbox.com/privacy" target="_blank" rel="noopener">Dropbox</a>. Gdy go połączysz:</p>
+		<ul>
+			<li><strong>Twoje pliki trafiają do twojego własnego Dropboksa, nie do mnie.</strong> Piosenki i setlisty są przesyłane bezpośrednio między twoim urządzeniem a Dropboksem. Nie prowadzę żadnego serwera i żadna kopia twojej biblioteki nigdy do mnie nie trafia.</li>
+			<li><strong>Campfire widzi tylko własny folder.</strong> Aplikacja prosi o uprawnienie Dropboksa „folder aplikacji”, które ogranicza jej dostęp do jednego folderu o nazwie <em>Apps/Campfire Sync</em>, utworzonego specjalnie dla niej. Reszta twojego Dropboksa jest dla aplikacji niewidoczna.</li>
+			<li><strong>Synchronizowana jest tylko twoja biblioteka i to, jak ją grasz.</strong> Oznacza to pliki twoich piosenek i setlist, a w pliku <em>preferences.json</em> obok nich, w tym samym folderze: transpozycję, kapodaster, tempo i akcenty metronomu ustawione dla piosenek, chwyty akordów wybrane dla każdego instrumentu i stroju oraz kolory twoich tagów. Pozostałe ustawienia aplikacji, takie jak wybrany motyw, język i rozmiar tekstu, nigdy nie są wysyłane przez synchronizację i zostają na urządzeniu, na którym je ustawiono (kopia zapasowa urządzenia może jednak przenieść je na nowe urządzenie, zob. <em>Kopia zapasowa urządzenia</em> poniżej).</li>
+			<li><strong>Co Campfire odczytuje o twoim koncie.</strong> Po połączeniu aplikacja pobiera z Dropboksa wyświetlaną nazwę i adres e-mail konta, wyłącznie po to, żeby ekran ustawień mógł pokazać, do którego konta trafia twoja biblioteka, oraz zachowuje identyfikator Dropbox konta, żeby rozpoznać je także po zmianie jego nazwy lub adresu e-mail. Te dane są przechowywane na twoim urządzeniu i nigdy nie są wysyłane nigdzie indziej.</li>
+			<li><strong>Jak działa logowanie.</strong> Autoryzacja korzysta ze standardowego przepływu OAuth 2.0 z PKCE, na własnej stronie zgody Dropboksa otwieranej w przeglądarce. Hasła do Dropboksa nigdy nie wpisuje się w Campfire i nigdy nie przechodzi ono przez aplikację. Uzyskane tokeny dostępu i odświeżania są przechowywane wyłącznie w prywatnej pamięci aplikacji na twoim urządzeniu (na Androidzie zaszyfrowane kluczem przechowywanym przez system, na iOS i iPadOS w systemowym pęku kluczy) i nigdy nie są wysyłane nigdzie poza Dropbox.</li>
+			<li><strong>Rozłączanie.</strong> Wybranie „Rozłącz” w ustawieniach prosi Dropbox o unieważnienie tokenu i usuwa go z urządzenia. Twoje pliki pozostają nietknięte, zarówno na urządzeniu, jak i w Dropboksie, podobnie jak twoje udostępnione linki, które nadal działają: jeśli chcesz, żeby zniknęły, najpierw zakończ ich udostępnianie. Dostęp Campfire możesz też w każdej chwili odebrać na stronie połączonych aplikacji na swoim koncie Dropbox.</li>
+		</ul>
+		<p>Wszystko, co jest przechowywane w twoim Dropboksie, podlega polityce prywatności i warunkom Dropboksa, które obowiązują między tobą a Dropboksem. Jeśli w przyszłości Campfire zacznie obsługiwać inną usługę chmurową, będą jej dotyczyć te same zasady, a ta strona zostanie zaktualizowana o jej nazwę.</p>
+		<h2 id="links">Linki do piosenek i setlist</h2>
+		<p>Piosenkę lub setlistę można udostępnić jako link, który każdy może otworzyć. Utworzenie linku wymaga synchronizacji w chmurze z Dropboksem, opisanej powyżej; otwarcie go nie wymaga żadnego konta.</p>
+		<ul>
+			<li><strong>Udostępnienie umieszcza publiczną kopię w twoim własnym Dropboksie.</strong> Gdy tworzysz link, Campfire zapisuje piosenkę albo setlistę razem z jej piosenkami jako plik zip w folderze <em>shared</em> wewnątrz <em>Apps/Campfire Sync</em> i prosi Dropbox o publiczny link do niego. Każdy, kto ma link, może pobrać ten plik. Dopóki synchronizacja jest połączona, Campfire aktualizuje plik, gdy zmieniasz piosenkę lub setlistę, aż do zakończenia udostępniania. W tym celu aplikacja prosi też Dropbox o uprawnienie do tworzenia udostępnionych linków i wyświetlania ich listy, które obejmuje tylko jej własny folder. Lista tego, co udostępniasz, z tytułem, nazwą pliku, linkiem i dniem udostępnienia każdej pozycji, jest przechowywana w pliku <em>shared-links.json</em> w tym samym folderze, żeby każde połączone z nim urządzenie pokazywało tę samą listę.</li>
+			<li><strong>Zakończenie.</strong> <em>Zakończ udostępnianie</em> na ekranie <em>Udostępnij</em> lub w <em>Ustawienia → Udostępnianie</em> usuwa plik z twojego Dropboksa; tak samo działa usunięcie piosenki lub setlisty w Campfire. Link przestaje wtedy działać dla wszystkich. Kopie, które ktoś już zaimportował, należą do tej osoby i Campfire nie ma do nich dostępu.</li>
+			<li><strong>Otwarcie linku pobiera ten plik z Dropboksa.</strong> Aplikacja pobiera go bezpośrednio z Dropboksa, pokazuje jego zawartość i niczego nie zapisuje, dopóki go nie zaimportujesz. Dropbox widzi zwykłe pobieranie z adresu IP twojego urządzenia, a do mnie nic nie jest wysyłane.</li>
+			<li><strong>Strona linku niczego nie wysyła.</strong> Link prowadzi do strony w tej witrynie, która odczytuje link w twojej przeglądarce. Część linku wskazująca plik znajduje się po znaku <em>#</em>, którego przeglądarki nigdy nie wysyłają do serwera, więc nie widzi jej ani ta witryna, ani podgląd linku w komunikatorze. Strona sama niczego nie pobiera; jej przyciski otwierają Campfire, jego sklep, aplikację internetową albo pobieranie pliku.</li>
+			<li><strong>Instalacja z linku.</strong> Na Androidzie, gdy Campfire zostanie zainstalowany z Google Play przyciskiem na stronie, Google Play przekazuje link aplikacji przy jej pierwszym uruchomieniu. Na iOS i iPadOS przycisk <em>Pobierz aplikację</em> na stronie kopiuje link; przy pierwszym uruchomieniu Campfire sprawdza, czy schowek zawiera adres internetowy, nie odczytując go, i odczytuje go tylko wtedy, gdy stukniesz <em>Otwórz</em>. Wszystko, co nie jest linkiem Campfire, jest ignorowane.</li>
+		</ul>
+		<h2>Mikrofon i tuner</h2>
+		<p>Campfire ma tuner, który słucha twojego instrumentu przez mikrofon. <strong>Nic z tego, co słyszy, nie jest nagrywane, przechowywane ani nigdzie wysyłane.</strong></p>
+		<ul>
+			<li><strong>Tylko gdy o to poprosisz.</strong> Aplikacja nigdy nie prosi o mikrofon przy uruchomieniu. Prosi o niego, gdy stukniesz, żeby otworzyć tuner (kartę Tuner albo przycisk tunera lub pozycję menu w piosence), albo gdy stukniesz <em>Użyj mikrofonu</em> w tunerze, który pojawił się bez stuknięcia, np. takim, który aplikacja ponownie otwiera tam, gdzie go zostawiono. Android, iOS, iPadOS, macOS i twoja przeglądarka najpierw proszą cię o zgodę, którą możesz w każdej chwili cofnąć w ich ustawieniach. Na komputerze, gdzie aplikacja nie może sprawdzić, czy otrzymała zgodę, zapamiętuje, że przycisk został raz stuknięty, i od tej pory otwiera mikrofon za każdym razem, gdy tuner jest wyświetlany.</li>
+			<li><strong>Tylko gdy tuner jest na ekranie.</strong> Mikrofon jest otwarty tylko wtedy, gdy wyświetlana jest karta Tuner lub tuner nad piosenką, a aplikacja jest na pierwszym planie. Zamyka się, gdy tylko opuścisz tuner, przełączysz się na inną aplikację albo zablokujesz ekran, więc wskaźnik nagrywania na urządzeniu świeci się dokładnie wtedy, gdy tuner słucha.</li>
+			<li><strong>Analizowany na urządzeniu, a potem odrzucany.</strong> Dźwięk jest przetwarzany na twoim urządzeniu na bieżąco, wyłącznie w celu ustalenia wysokości granego dźwięku, a potem odrzucany. Ani dźwięk, ani nic, co z niego uzyskano, nie jest zapisywane, synchronizowane, dołączane do kopii zapasowej ani wysyłane do mnie czy do kogokolwiek innego.</li>
+			<li><strong>Wyłączanie.</strong> Przełącznik „Tuner” w ustawieniach aplikacji usuwa tuner, a wraz z nim każdy sposób, w jaki aplikacja mogłaby poprosić o mikrofon.</li>
+		</ul>
+		<h2>Okładki</h2>
+		<p>Piosenka może wskazywać okładkę albumu wyświetlaną obok niej, jako adres internetowy obrazu zapisany w jej własnym pliku. Ten adres wybierasz ty lub ktokolwiek przygotował piosenkę, a Campfire nie ma wpływu na to, na jaką stronę wskazuje.</p>
+		<ul>
+			<li><strong>Wyświetlanie okładki.</strong> Gdy piosenka z okładką jest wyświetlana po raz pierwszy, aplikacja pobiera obraz z tego adresu i zachowuje kopię na twoim urządzeniu, żeby nie pobierać go ponownie. Witryna udostępniająca obraz widzi zwykłe żądanie z adresu IP twojego urządzenia, tak jak z przeglądarki. Kopie, których żadna piosenka już nie wskazuje, aplikacja usuwa; nigdy nie są one synchronizowane ani dołączane do kopii zapasowej urządzenia. Wszystkie możesz w każdej chwili usunąć, stukając <em>Pamięć podręczna okładek</em> w sekcji <em>Biblioteka</em> w ustawieniach aplikacji.</li>
+			<li><strong>Wyszukiwanie okładki.</strong> Tylko gdy otworzysz wyszukiwanie okładki dla piosenki, wykonawca, album i tytuł z jego pól wyszukiwania są wysyłane do <a href="https://musicbrainz.org/doc/About/Privacy_Policy" target="_blank" rel="noopener">MusicBrainz</a> i do <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener">iTunes Search API</a> firmy Apple, a miniatury znalezionych płyt są pobierane z <a href="https://coverartarchive.org" target="_blank" rel="noopener">Cover Art Archive</a> i od Apple. Nic więcej o tobie ani twojej bibliotece nie jest wysyłane i nie ma konta w żadnej z tych usług. Te żądania podlegają politykom prywatności tych usług.</li>
+			<li><strong>Wpisanie adresu.</strong> Jeśli samodzielnie wpiszesz adres obrazu, zostanie on pobrany z tego adresu, żeby pokazać ci podgląd.</li>
+			<li><strong>Wyłączanie.</strong> Przełącznik „Okładki” w ustawieniach aplikacji wyłącza to wszystko: żadna okładka nie jest pobierana ani wyświetlana, a wyszukiwanie nie jest oferowane.</li>
+		</ul>
+		<h2>Wyszukiwanie szczegółów piosenki</h2>
+		<p>Gdy edytujesz szczegóły piosenki, Campfire może wyszukać w sieci jej wykonawcę, album, rok i autorów.</p>
+		<ul>
+			<li><strong>Tylko gdy o to poprosisz.</strong> Nic nie jest wysyłane, dopóki nie otworzysz <em>Znajdź szczegóły piosenki w sieci</em> dla piosenki. Wtedy tytuł, wykonawca i album z pól wyszukiwania są wysyłane do <a href="https://musicbrainz.org/doc/About/Privacy_Policy" target="_blank" rel="noopener">MusicBrainz</a> i do <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener">iTunes Search API</a> firmy Apple, a MusicBrainz jest też pytany o autorów znalezionego nagrania. Nic więcej o tobie ani twojej bibliotece nie jest wysyłane i nie ma konta w żadnej z tych usług. Te żądania podlegają politykom prywatności tych usług.</li>
+			<li><strong>Nic nie jest przechowywane ani zapisywane, dopóki nie zapiszesz.</strong> To, co znajdzie wyszukiwanie, tylko uzupełnia formularz. Plik piosenki zmienia się dopiero, gdy stukniesz Zapisz, a wyniki nie są przechowywane.</li>
+			<li><strong>Wyłączanie.</strong> Przełącznik „Szczegóły piosenki z sieci” w ustawieniach aplikacji usuwa wyszukiwanie.</li>
+		</ul>
+		<h2>Wklejanie i udostępnianie piosenek</h2>
+		<ul>
+			<li><strong>Schowek jest odczytywany tylko podczas wklejania.</strong> Campfire odczytuje go, gdy stukniesz <em>Wklej ze schowka</em> lub naciśniesz Ctrl+V (⌘V na Macu) albo stukniesz <em>Otwórz</em> przy pierwszym uruchomieniu po instalacji z linku na iOS i iPadOS (zob. <a href="#links">Linki do piosenek i setlist</a>), nigdy sam z siebie. Na iOS i iPadOS oraz w niektórych przeglądarkach system najpierw cię o to pyta.</li>
+			<li><strong>Udostępnione i upuszczone piosenki zostają na twoim urządzeniu.</strong> Tekst i pliki, które udostępniasz do Campfire z innej aplikacji na Androidzie, iOS lub iPadOS albo upuszczasz na aplikację, są odczytywane i konwertowane na twoim urządzeniu. Adres internetowy wśród nich nigdy nie jest otwierany. Na iOS i iPadOS udostępniona zawartość czeka we wspólnym folderze aplikacji i jej rozszerzenia udostępniania, dopóki Campfire jej nie przejmie, a potem jest usuwana.</li>
+			<li><strong>Nic nie jest zapisywane, dopóki tego nie zapiszesz.</strong> Wklejona lub udostępniona piosenka otwiera się w edytorze i staje się plikiem w twojej bibliotece dopiero, gdy stukniesz Zapisz. Do tego czasu edytor przechowuje niezapisany tekst wyłącznie na twoim urządzeniu, żeby nie przepadł, jeśli aplikacja zostanie zamknięta.</li>
+		</ul>
+		<h2 id="log">Dziennik aplikacji</h2>
+		<p>Campfire prowadzi dziennik tego, co ostatnio robił, żeby w razie problemu można było mi go wysłać i żebym mógł ustalić jego przyczynę. To nie jest analityka: dziennik zostaje na twoim urządzeniu, nic nie wysyła go nigdzie samo z siebie i trafia do mnie tylko wtedy, gdy zdecydujesz się go wysłać.</p>
+		<ul>
+			<li><strong>Co zawiera.</strong> Kiedy aplikacja się uruchomiła, jej wersję i rodzaj urządzenia, na którym działa; jakie ekrany i okna dialogowe otwierasz, tylko według rodzaju (np. „szczegóły piosenki”, nigdy sama piosenka); co robisz, w kilku słowach, np. zapisanie piosenki, dodanie piosenek do setlisty, zmianę ustawienia (jego nazwę, nie wybraną wartość), otwarcie wyszukiwania (nigdy to, co wpisujesz), uruchomienie metronomu lub tunera, import, eksport, udostępnianie i przebieg każdej synchronizacji, w liczbach; oraz komunikaty, które aplikacja zapisuje o swoich działaniach i o błędach, a które mogą zawierać nazwy plików twoich piosenek i setlist. Każdy wiersz ma czas zapisu. Dziennik nigdy nie zawiera tekstu twoich piosenek, twoich ustawień, twojego konta Dropbox ani tego, co słyszy tuner.</li>
+			<li><strong>Gdzie jest przechowywany.</strong> Wyłącznie na twoim urządzeniu, we własnej pamięci aplikacji, nigdy nie jest synchronizowany. Jest ograniczony do około pół megabajta, a starsze wiersze są usuwane, gdy zapisywane są nowe.</li>
+			<li><strong>Wysłanie zależy od ciebie.</strong> W ustawieniach wiersz dziennika na karcie <em>O aplikacji</em> najpierw pokazuje, co zawiera dziennik, a potem, jeśli przejdziesz dalej, dołącza go do nowej wiadomości e-mail do mnie na Androidzie oraz na iOS i iPadOS, o ile aplikacja Mail ma skonfigurowane konto. Możesz przeczytać wiadomość i dziennik przed wysłaniem albo w ogóle jej nie wysyłać. Gdzie indziej Campfire proponuje udostępnienie lub zapisanie pliku, a wysyłasz go samodzielnie. Na komputerze twoja nazwa użytkownika w ścieżkach folderów wymienionych w dzienniku jest zastępowana, zanim dziennik opuści aplikację.</li>
+			<li><strong>Po awarii.</strong> Na Androidzie, iOS, iPadOS i komputerze, jeśli aplikacja zatrzymała się z powodu błędu, przy następnym otwarciu pyta jeden raz, czy chcesz wysłać mi dziennik. Wybranie <em>Nie teraz</em> niczego nie wysyła.</li>
+			<li><strong>Jeśli mi go wyślesz,</strong> używam go wyłącznie do znalezienia i naprawienia problemu, który u ciebie wystąpił.</li>
+		</ul>
+		<h2>Kopia zapasowa urządzenia</h2>
+		<p>Telefony i tablety z Androidem, iPhone’y i iPady mogą tworzyć kopię zapasową danych zainstalowanych aplikacji i przenosić je na nowe urządzenie. Jeśli masz to włączone, twoja biblioteka Campfire i ustawienia aplikacji są jej częścią: na Androidzie w kopii zapasowej Google lub przy bezpośrednim przenoszeniu danych na nowy telefon, na iOS i iPadOS w kopii zapasowej iCloud lub przy przenoszeniu danych ze starego urządzenia. Tę kopię tworzy system operacyjny zgodnie z ustawieniami kopii zapasowej urządzenia, a kopia zapasowa jest przechowywana na twoim własnym koncie Google lub Apple zgodnie z polityką prywatności Google lub Apple. Campfire w żaden sposób o nią nie prosi, a ja nigdy jej nie otrzymuję ani nie widzę. Możesz to wyłączyć w ustawieniach urządzenia. Okładki, dziennik aplikacji, niezapisany tekst w edytorze i udostępnione treści czekające na przejęcie z rozszerzenia udostępniania iOS są z niej wyłączone.</p>
+		<p>Jeśli korzystasz z synchronizacji w chmurze, połączenie z Dropboksem i zapis ostatniej synchronizacji są wyłączone z kopii zapasowej na każdym urządzeniu, więc przywrócony lub nowy telefon czy tablet zaczyna bez połączenia i logujesz się do Dropboksa ponownie.</p>
+		<p>Na komputerze biblioteka i dziennik aplikacji są przechowywane w folderze Campfire wśród danych aplikacji twojego konta użytkownika, a każda kopia zapasowa komputera, którą robisz, np. Time Machine lub Historia plików, może je obejmować. W wersji internetowej biblioteka i dziennik znajdują się w pamięci przeglądarki przeznaczonej dla tej witryny. Nie są częścią żadnej kopii zapasowej, a wyczyszczenie danych witryny je usuwa.</p>
+		<h2 id="data-deletion">Usuwanie danych</h2>
+		<p>Nie mam żadnej kopii niczego, co przechowujesz w Campfire, więc nie mam czego usuwać i nie trzeba wysyłać żadnej prośby: każda kopia jest w miejscu, nad którym masz kontrolę, i możesz ją w każdej chwili usunąć samodzielnie.</p>
+		<ul>
+			<li><strong>Cała biblioteka, z aplikacji:</strong> otwórz ustawienia, przejdź na kartę <em>Biblioteka</em>, w sekcji <em>Na tym urządzeniu</em> stuknij wiersz pokazujący, ile masz piosenek i setlist, wpisz <em>DELETE</em> i potwierdź. Każda piosenka i setlista zostanie usunięta z urządzenia. <strong>Jeśli synchronizacja z Dropboksem jest połączona, usuwa to je także z folderu <em>Apps/Campfire Sync</em> i ze wszystkich innych zsynchronizowanych z nim urządzeń</strong>; okno dialogowe informuje o tym przed potwierdzeniem. Aby usunąć je tylko z tego urządzenia, najpierw wybierz „Rozłącz”. Kopie okładek usuwa się na tym samym ekranie, przez <em>Pamięć podręczna okładek</em>. Usunięcie biblioteki kończy też udostępnianie wszystkich piosenek i setlist, więc wszystkie twoje linki przestają działać.</li>
+			<li><strong>Udostępnione linki, z aplikacji:</strong> w ustawieniach opcja <em>Zakończ całe udostępnianie</em> na karcie <em>Udostępnianie</em> usuwa wszystkie udostępnione kopie z twojego Dropboksa i każdy link przestaje działać. Twoja biblioteka pozostaje bez zmian.</li>
+			<li><strong>Wszystko na urządzeniu:</strong> odinstaluj aplikację, co usuwa z urządzenia bibliotekę, ustawienia, okładki, dziennik aplikacji i połączenie z Dropboksem. W wersji internetowej to samo robi wyczyszczenie danych witryny w przeglądarce.</li>
+			<li><strong>W Dropboksie, jeśli korzystano z synchronizacji:</strong> usunięcie biblioteki przy aktywnym połączeniu, jak wyżej, usuwa piosenki i setlisty z folderu <em>Apps/Campfire Sync</em>, zostawiając tylko plik <em>preferences.json</em> z wybranymi chwytami akordów i kolorami tagów oraz, jeśli kiedykolwiek coś udostępniono, listę <em>shared-links.json</em>, wtedy już pustą. Aby usunąć wszystko, wybierz „Rozłącz” w ustawieniach aplikacji, a potem usuń folder <em>Apps/Campfire Sync</em> w Dropboksie. Dostęp Campfire możesz też odebrać na stronie połączonych aplikacji na swoim koncie Dropbox.</li>
+			<li><strong>W kopii zapasowej urządzenia:</strong> usuń kopię zapasową albo wyłącz kopię zapasową aplikacji w ustawieniach urządzenia lub na swoim koncie Google lub iCloud.</li>
+		</ul>
+		<p>Jeśli coś jest niejasne, <a href="mailto:pandulapeter@gmail.com?Subject=Campfire" target="_top">napisz do mnie</a>, a pomogę.</p>
+		<h2 id="website">Ta witryna</h2>
+		<p>Ta witryna nie ustawia żadnych plików cookie i nie zawiera też reklam, analityki ani śledzenia.</p>
+		<ul>
+			<li><strong>Twój język.</strong> Gdy wybierzesz język z menu u góry strony, przeglądarka go zapamięta, więc następnym razem witryna otworzy się w tym języku. Wybór jest przechowywany w pamięci przeglądarki dla tej witryny, nigdy nie jest nigdzie wysyłany i znika po wyczyszczeniu danych witryny. Dopóki go nie wybierzesz, witryna używa języka przeglądarki.</li>
+			<li><strong>Hosting.</strong> Witryna jest hostowana przez GitHub Pages. Jak każdy serwer WWW widzi adres IP twojego urządzenia, gdy przeglądarka ładuje stronę, a GitHub rejestruje go ze względów bezpieczeństwa, zgodnie z <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">GitHub General Privacy Statement</a>. Ja nie otrzymuję z tego niczego.</li>
+		</ul>
+		<h2>Prywatność dzieci</h2>
+		<p>Te usługi nie są skierowane do osób poniżej 13. roku życia. Świadomie nie zbieram danych umożliwiających identyfikację od dzieci poniżej 13 lat. Jeśli jesteś rodzicem lub opiekunem i wiesz, że twoje dziecko przekazało mi dane osobowe, skontaktuj się ze mną, abym mógł podjąć niezbędne działania.</p>
+		<h2>Zmiany w polityce prywatności</h2>
+		<p>Mogę od czasu do czasu aktualizować moją politykę prywatności. Dlatego zalecam okresowe sprawdzanie tej strony pod kątem zmian. O wszelkich zmianach poinformuję, publikując nową politykę prywatności na tej stronie. Zmiany obowiązują natychmiast po ich opublikowaniu.</p>
+		<h2>Kontakt</h2>
+		<p>Jeśli masz pytania lub sugestie dotyczące mojej polityki prywatności, śmiało <a href="mailto:pandulapeter@gmail.com?Subject=Campfire" target="_top">skontaktuj się ze mną</a>.</p>
+	</main>
+
+	<footer class="site-footer">
+		<div class="legal">
+			<p>© 2026 · <a href="https://pandulapeter.com" target="_blank" rel="noopener">Péter Pandula</a></p>
+			<a class="source" href="https://github.com/pandulapeter/campfire" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>Kod źródłowy</a>
+			<ul class="language-links" translate="no" aria-label="Język">
+				<li><a href="../../privacy/" hreflang="en" lang="en">English</a></li>
+				<li><a href="../../de/privacy/" hreflang="de" lang="de">Deutsch</a></li>
+				<li><a href="../../es/privacy/" hreflang="es" lang="es">Español</a></li>
+				<li><a href="../../fr/privacy/" hreflang="fr" lang="fr">Français</a></li>
+				<li><a href="../../he/privacy/" hreflang="he" lang="he">עברית</a></li>
+				<li><a href="../../hu/privacy/" hreflang="hu" lang="hu">Magyar</a></li>
+				<li><a href="../../it/privacy/" hreflang="it" lang="it">Italiano</a></li>
+				<li><a href="./" hreflang="pl" lang="pl" aria-current="true">Polski</a></li>
+				<li><a href="../../pt/privacy/" hreflang="pt" lang="pt">Português</a></li>
+				<li><a href="../../ro/privacy/" hreflang="ro" lang="ro">Română</a></li>
+			</ul>
+		</div>
+	</footer>
+</div>
+</body>
+</html>

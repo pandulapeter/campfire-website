@@ -167,7 +167,7 @@
 			try { picked = localStorage.getItem("language"); } catch (e) {}
 			// Older browsers still name Hebrew by its retired code, iw.
 			var codes = [picked].concat((navigator.languages || [navigator.language]).map(function (tag) { return String(tag).slice(0, 2).toLowerCase().replace("iw", "he"); }));
-			return codes.filter(function (code) { return /^(de|en|es|fr|he|hu|it|pt|ro)$/.test(code); })[0] || "en";
+			return codes.filter(function (code) { return /^(de|en|es|fr|he|hu|it|pl|pt|ro)$/.test(code); })[0] || "en";
 		}());
 		var texts = {
 			de: {
@@ -365,6 +365,34 @@
 				aboutLink: "Visita campfire-songbook.com",
 				platform: { android: "Campfire per Android", ios: "Campfire per iOS", ipados: "Campfire per iPadOS", windows: "Campfire per Windows", macos: "Campfire per macOS", linux: "Campfire per Linux", "": "Se è installata su questo dispositivo" },
 				store: { android: "Disponibile su Google Play", ios: "Scarica su App Store", windows: "Scarica dal Microsoft Store", macos: "Scarica dal Mac App Store", linux: "Scarica da GitHub", "": "Scegli la tua piattaforma" }
+			},
+			pl: {
+				song: "Udostępniona piosenka",
+				setlist: "Udostępniona setlista",
+				untitled: "Udostępnione z Campfire",
+				untitledSong: "Piosenka bez tytułu",
+				untitledSetlist: "Setlista bez tytułu",
+				ledeSong: "Otwórz ją w Campfire, aby dodać ją do swoich piosenek.",
+				ledeSetlist: "Otwórz ją w Campfire, aby dodać setlistę i jej piosenki do swojej biblioteki.",
+				newer: "Ten link utworzyła nowsza wersja Campfire. Aplikacja internetowa jest zawsze aktualna, a zainstalowaną trzeba zaktualizować, aby go otworzyć.",
+				incomplete: "Ten link jest niekompletny.",
+				askAgain: "Poproś osobę, która go wysłała, o ponowne przesłanie.",
+				openApp: "Otwórz w aplikacji",
+				getApp: "Pobierz aplikację",
+				openWeb: "Otwórz w aplikacji internetowej",
+				openWebPlain: "Otwórz aplikację internetową",
+				web: "Działa w tej przeglądarce, bez instalowania czegokolwiek",
+				notInstalled: "Nie masz jej zainstalowanej?",
+				outdated: "Potrzebujesz aktualizacji?",
+				afterInstall: "Campfire otworzy link po zainstalowaniu.",
+				copied: "Link został skopiowany, aby Campfire mógł go otworzyć po zainstalowaniu.",
+				download: "Pobierz plik",
+				downloadHint: "Możesz go też zaimportować ręcznie po otwarciu aplikacji.",
+				inAppBrowser: "Jeśli przyciski nie działają, otwórz tę stronę w przeglądarce.",
+				about: "Campfire to darmowa aplikacja-śpiewnik z tekstami i akordami, na każdej platformie i w przeglądarce.",
+				aboutLink: "Odwiedź campfire-songbook.com",
+				platform: { android: "Campfire na Androida", ios: "Campfire na iOS", ipados: "Campfire na iPadOS", windows: "Campfire na Windows", macos: "Campfire na macOS", linux: "Campfire na Linuksa", "": "Jeśli jest zainstalowana na tym urządzeniu" },
+				store: { android: "Pobierz z Google Play", ios: "Pobierz z App Store", windows: "Pobierz z Microsoft Store", macos: "Pobierz z Mac App Store", linux: "Pobierz z GitHuba", "": "Wybierz swoją platformę" }
 			},
 			pt: {
 				song: "Música compartilhada",
