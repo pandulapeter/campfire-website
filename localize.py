@@ -38,6 +38,7 @@ LANGUAGES = {
 	"he": ("עברית", "שפה", "he_IL"),
 	"hu": ("Magyar", "Nyelv", "hu_HU"),
 	"it": ("Italiano", "Lingua", "it_IT"),
+	"pt": ("Português", "Idioma", "pt_BR"),
 	"ro": ("Română", "Limbă", "ro_RO"),
 }
 # The languages written from the right, whose pages are marked dir="rtl": the stylesheet mirrors the layout from that.

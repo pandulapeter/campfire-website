@@ -11,7 +11,7 @@
 		// has the same elements in the same order, only with longer or shorter text, so a visitor who picks one is kept at
 		// the element at the top of the window, as far into it as they were, or at the bottom of the page if they were there.
 		(function (d, l) {
-			var languages = ["de", "en", "es", "fr", "he", "hu", "it", "ro"];
+			var languages = ["de", "en", "es", "fr", "he", "hu", "it", "pt", "ro"];
 			var picked = null;
 			var blocks = "h1, h2, h3, p, li, dt, dd, summary, figure, pre, img";
 			function top() { var header = d.querySelector(".site-header"); return header ? header.getBoundingClientRect().bottom : 0; }
@@ -74,6 +74,7 @@
 	<link rel="alternate" hreflang="he" href="https://campfire-songbook.com/he/support/">
 	<link rel="alternate" hreflang="hu" href="https://campfire-songbook.com/hu/support/">
 	<link rel="alternate" hreflang="it" href="https://campfire-songbook.com/it/support/">
+	<link rel="alternate" hreflang="pt" href="https://campfire-songbook.com/pt/support/">
 	<link rel="alternate" hreflang="ro" href="https://campfire-songbook.com/ro/support/">
 	<link rel="alternate" hreflang="x-default" href="https://campfire-songbook.com/support/">
 	<meta name="theme-color" content="#FAF8FE" media="(prefers-color-scheme: light)">
@@ -333,6 +334,7 @@
 					<li><a href="./" hreflang="he" lang="he" aria-current="true">עברית</a></li>
 					<li><a href="../../hu/support/" hreflang="hu" lang="hu">Magyar</a></li>
 					<li><a href="../../it/support/" hreflang="it" lang="it">Italiano</a></li>
+					<li><a href="../../pt/support/" hreflang="pt" lang="pt">Português</a></li>
 					<li><a href="../../ro/support/" hreflang="ro" lang="ro">Română</a></li>
 				</ul>
 			</details>
@@ -481,6 +483,7 @@
 				<li><a href="./" hreflang="he" lang="he" aria-current="true">עברית</a></li>
 				<li><a href="../../hu/support/" hreflang="hu" lang="hu">Magyar</a></li>
 				<li><a href="../../it/support/" hreflang="it" lang="it">Italiano</a></li>
+				<li><a href="../../pt/support/" hreflang="pt" lang="pt">Português</a></li>
 				<li><a href="../../ro/support/" hreflang="ro" lang="ro">Română</a></li>
 			</ul>
 		</div>

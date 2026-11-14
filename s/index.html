@@ -167,7 +167,7 @@
 			try { picked = localStorage.getItem("language"); } catch (e) {}
 			// Older browsers still name Hebrew by its retired code, iw.
 			var codes = [picked].concat((navigator.languages || [navigator.language]).map(function (tag) { return String(tag).slice(0, 2).toLowerCase().replace("iw", "he"); }));
-			return codes.filter(function (code) { return /^(de|en|es|fr|he|hu|it|ro)$/.test(code); })[0] || "en";
+			return codes.filter(function (code) { return /^(de|en|es|fr|he|hu|it|pt|ro)$/.test(code); })[0] || "en";
 		}());
 		var texts = {
 			de: {
@@ -365,6 +365,34 @@
 				aboutLink: "Visita campfire-songbook.com",
 				platform: { android: "Campfire per Android", ios: "Campfire per iOS", ipados: "Campfire per iPadOS", windows: "Campfire per Windows", macos: "Campfire per macOS", linux: "Campfire per Linux", "": "Se è installata su questo dispositivo" },
 				store: { android: "Disponibile su Google Play", ios: "Scarica su App Store", windows: "Scarica dal Microsoft Store", macos: "Scarica dal Mac App Store", linux: "Scarica da GitHub", "": "Scegli la tua piattaforma" }
+			},
+			pt: {
+				song: "Música compartilhada",
+				setlist: "Repertório compartilhado",
+				untitled: "Compartilhado pelo Campfire",
+				untitledSong: "Música sem título",
+				untitledSetlist: "Repertório sem título",
+				ledeSong: "Abra no Campfire para adicioná-la às suas músicas.",
+				ledeSetlist: "Abra no Campfire para adicionar o repertório e as músicas dele à sua biblioteca.",
+				newer: "Este link foi criado por uma versão mais nova do Campfire. O app web está sempre atualizado, e o app instalado precisa de uma atualização para abri-lo.",
+				incomplete: "Este link está incompleto.",
+				askAgain: "Peça o link de novo a quem o enviou.",
+				openApp: "Abrir no app",
+				getApp: "Baixar o app",
+				openWeb: "Abrir no app web",
+				openWebPlain: "Abrir o app web",
+				web: "Funciona neste navegador, sem instalar nada",
+				notInstalled: "Não está instalado?",
+				outdated: "Precisa atualizar?",
+				afterInstall: "O Campfire abre o link depois de instalado.",
+				copied: "Copiamos o link para que o Campfire possa abri-lo depois de instalado.",
+				download: "Baixar o arquivo",
+				downloadHint: "Você também pode importá-lo manualmente depois de abrir o app.",
+				inAppBrowser: "Se os botões não funcionarem, abra esta página no seu navegador.",
+				about: "O Campfire é um app de cancioneiro gratuito para letras e cifras, em todas as plataformas e no navegador.",
+				aboutLink: "Visite campfire-songbook.com",
+				platform: { android: "Campfire para Android", ios: "Campfire para iOS", ipados: "Campfire para iPadOS", windows: "Campfire para Windows", macos: "Campfire para macOS", linux: "Campfire para Linux", "": "Se ele estiver instalado neste dispositivo" },
+				store: { android: "Disponível no Google Play", ios: "Baixar na App Store", windows: "Baixar na Microsoft Store", macos: "Baixar na Mac App Store", linux: "Baixar no GitHub", "": "Escolha a sua plataforma" }
 			},
 			ro: {
 				song: "Cântec partajat",
