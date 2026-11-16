@@ -280,7 +280,7 @@ html:not([data-os]) .all-platforms { display: none; }
 
 /* Sections */
 section { padding-top: 104px; scroll-margin-top: -64px; }
-section h2 { font-size: clamp(30px, 3.8vw, 42px); letter-spacing: -0.03em; margin: 0 0 18px; max-width: 18em; }
+section h2 { font-size: clamp(28px, 3.2vw, 36px); letter-spacing: -0.025em; margin: 0 0 16px; max-width: 18em; }
 .lead { font-size: 18px; color: var(--muted); max-width: 36em; margin: 0 0 20px; }
 section > .lead { margin-bottom: 40px; }
 section > .lead:has(+ .lead) { margin-bottom: 20px; }
