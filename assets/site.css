@@ -325,6 +325,12 @@ section > .lead { max-width: none; text-wrap: wrap; }
 .chordpro { display: grid; grid-template-columns: minmax(0, 1fr) 48px minmax(0, 1fr); }
 .chordpro > div { padding: 16px 24px 20px; min-width: 0; border: 1px solid var(--outline-variant); border-radius: 20px; }
 .chordpro .source { background: var(--container-low); }
+/* The example is the one part of the page to try out, so it stands on a band of its own that runs across the whole
+   window, drawn by a shadow beyond the section's sides that is cut to its height. On the band, the file lies on a
+   darker card and the result on one of the page's color. */
+.band { margin-top: 96px; padding-block: 88px; background: var(--container-low); box-shadow: 0 0 0 100vmax var(--container-low); clip-path: inset(0 -100vmax); }
+.band .chordpro .source { background: var(--container); }
+.band .chordpro .rendered { background: var(--background); }
 .conversion-arrow { display: grid; place-items: center; color: var(--primary); }
 .conversion-arrow svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
 [dir="rtl"] .conversion-arrow svg { transform: scaleX(-1); }
@@ -425,6 +431,7 @@ section > .lead { max-width: none; text-wrap: wrap; }
 	.hero > .cue { margin-bottom: -26px; }
 	.stage { width: 100%; max-width: 520px; margin: 0 auto; }
 	section { padding-top: 88px; scroll-margin-top: -48px; }
+	.band { margin-top: 80px; padding-block: 64px; }
 	.highlights { grid-template-columns: 1fr 1fr; }
 	.features { grid-template-columns: 1fr 1fr; gap: 28px 32px; }
 	.chordpro { grid-template-columns: 1fr; }
