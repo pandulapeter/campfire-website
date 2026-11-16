@@ -172,9 +172,9 @@ html:not([data-mobile]) .for-mobile, html[data-mobile] .for-desktop { display: n
 html:not([data-os]) .all-platforms { display: none; }
 
 /* The screenshots sit in device frames drawn in CSS. Every measurement of a frame is a share of its width (cqw), so
-   that a frame keeps its proportions at any size. The bezels are gray in the light scheme, where dark ones would contrast too much with the paper, and dark in the dark one. A
+   that a frame keeps its proportions at any size. The bezels are an almost white gray in the light scheme, where dark ones would contrast too much with the paper, and dark in the dark one. A
    screen holds its device's proportions by itself, so that a screenshot that is not there yet still takes its place. */
-.tablet, .phone, .laptop { container-type: inline-size; --bezel: #9C9AA3; --rim: #858389; --shadow: rgb(29 26 35 / 0.2); --shadow-far: rgb(29 26 35 / 0.28); --sheen: rgb(255 255 255 / 0.22); --camera: #7E7C84; --groove: #85838B; --base: linear-gradient(#B8B6BE, #9E9CA5 45%, #86848C); }
+.tablet, .phone, .laptop { container-type: inline-size; --bezel: #ECEBEF; --rim: #D3D1D8; --shadow: rgb(29 26 35 / 0.2); --shadow-far: rgb(29 26 35 / 0.28); --sheen: rgb(255 255 255 / 0.6); --camera: #C2C0C8; --groove: #D3D1D8; --base: linear-gradient(#F4F3F6, #E4E3E8 45%, #CFCDD4); }
 @media (prefers-color-scheme: dark) {
 	.tablet, .phone, .laptop { --bezel: #1D1B20; --rim: #3A3740; --shadow: rgb(0 0 0 / 0.45); --shadow-far: rgb(0 0 0 / 0.6); --sheen: rgb(255 255 255 / 0.1); --camera: #34323A; --groove: #1D1B20; --base: linear-gradient(#4A474F, #2A282E 45%, #18171B); }
 }
