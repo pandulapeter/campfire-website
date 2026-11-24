@@ -242,8 +242,7 @@ html:not([data-os]) .all-platforms { display: none; }
 /* Its screenshots swap at once, as a slider's steps would in the app, rather than crossfading. */
 .slides.demo > * { box-shadow: none; transition: none; }
 .slider { display: flex; flex-direction: column; align-items: center; margin-top: 24px; }
-.slider-label { font-size: 13px; font-weight: 700; }
-/* The slider is drawn like the app's Material 3 one: a track filled up to a round thumb. The script fills the track by
+.slider-label { font-size: 13px; font-weight: 700; }/* The slider is drawn like the app's Material 3 one: a track filled up to a round thumb. The script fills the track by
    setting --fill, as the browsers draw the part behind the thumb in the track's own color. In a page written from the
    right, the slider starts from the right, and its fill with it. */
 .slider input { -webkit-appearance: none; appearance: none; width: min(320px, 100%); height: 40px; margin: 0; background: none; cursor: pointer; --fill: 0%; --toward: right; }
@@ -280,6 +279,9 @@ html:not([data-os]) .all-platforms { display: none; }
 
 /* Sections */
 section { padding-top: 104px; scroll-margin-top: -64px; }
+/* The text size demo ends in its slider, whose label and track already leave room below its laptop, so the section after
+   it starts closer. */
+section:has(.slider) + section { padding-top: 56px; }
 section h2 { font-size: clamp(28px, 3.2vw, 36px); letter-spacing: -0.025em; margin: 0 0 16px; max-width: 18em; }
 .lead { font-size: 18px; color: var(--muted); max-width: 36em; margin: 0 0 20px; }
 section > .lead { margin-bottom: 40px; }
@@ -431,6 +433,7 @@ section > .lead { max-width: none; text-wrap: wrap; }
 	.hero > .cue { margin-bottom: -26px; }
 	.stage { width: 100%; max-width: 520px; margin: 0 auto; }
 	section { padding-top: 88px; scroll-margin-top: -48px; }
+	section:has(.slider) + section { padding-top: 48px; }
 	.band { margin-top: 80px; padding-block: 64px; }
 	.highlights { grid-template-columns: 1fr 1fr; }
 	.features { grid-template-columns: 1fr 1fr; gap: 28px 32px; }
