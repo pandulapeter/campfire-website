@@ -293,6 +293,7 @@ section > .lead { max-width: none; text-wrap: wrap; }
 .points li { position: relative; padding-inline-start: 22px; }
 .points li + li { margin-top: 8px; }
 .points li::before { content: ""; position: absolute; inset-inline-start: 1px; top: 0.72em; width: 7px; height: 7px; border-radius: 50%; background: var(--primary); }
+.points strong { color: var(--on-background); }
 
 /* Text next to a picture. The sections take turns, while the text always comes first for screen readers and phones. */
 .split { display: grid; grid-template-columns: 6fr 5fr; gap: 56px; align-items: center; }
