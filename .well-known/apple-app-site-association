@@ -2,7 +2,7 @@
 	"applinks": {
 		"details": [
 			{
-				"appIDs": ["N45A6ZHDGY.com.pandulapeter.campfire"],
+				"appIDs": ["N45A6ZHDGY.com.pandulapeter.campfire", "N45A6ZHDGY.com.pandulapeter.campfire.debug"],
 				"components": [{ "/": "/s/*" }]
 			}
 		]
